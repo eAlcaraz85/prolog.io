@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{ }\PYG{k+kt}{int}\PYG{+w}{ }\PYG{n}{cuenta}\PYG{p}{;}\PYG{+w}{ }\PYG{k}{for}\PYG{p}{(}\PYG{n}{cuenta}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{n}{cuenta}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{10}\PYG{p}{;}\PYG{n}{cuenta}\PYG{o}{++}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}\PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZpc{}d\PYGZdq{}}\PYG{p}{,}\PYG{n}{cuenta}\PYG{o}{*}\PYG{n}{cuenta}\PYG{o}{+}\PYG{n}{cuenta}\PYG{p}{);\PYGZcb{}}
+\end{Verbatim}

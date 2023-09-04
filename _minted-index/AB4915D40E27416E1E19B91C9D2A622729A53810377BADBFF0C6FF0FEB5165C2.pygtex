@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{listp} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{a} \PYG{n+nv}{b} \PYG{n+nv}{c}\PYG{p}{))}
+\PYG{n+no}{T}
+\PYG{p}{(}\PYG{n+nb}{listp} \PYG{l+m+mi}{34}\PYG{p}{)}
+\PYG{n+no}{Nil}
+\end{Verbatim}

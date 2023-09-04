@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{mylength} \PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{if} \PYG{n+nb}{list}
+	\PYG{p}{(}\PYG{n+nb}{1+} \PYG{p}{(}\PYG{n+nv}{mylength} \PYG{p}{(}\PYG{n+nb}{cdr} \PYG{n+nb}{list}\PYG{p}{)))}
+	\PYG{l+m+mi}{0}\PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{rec}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{print} \PYG{p}{(}\PYG{n+nb}{car} \PYG{n+nb}{list}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{if} \PYG{n+nb}{list}
+\PYG{p}{(}\PYG{n+nv}{rec} \PYG{p}{(} \PYG{n+nb}{cdr} \PYG{n+nb}{list}\PYG{p}{))}
+\PYG{p}{)}
+\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{defvar} \PYG{n+nv}{a} \PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{format} \PYG{n+no}{T} \PYG{l+s}{\PYGZdq{}Hola mundo \PYGZti{} d\PYGZdq{}} \PYG{n+nv}{a}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{rec} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3} \PYG{l+m+mi}{4} \PYG{l+m+mi}{4}\PYG{p}{)))}
+\PYG{c+c1}{;(mylength \PYGZsq{}(1 2 3 4))}
+
+\end{Verbatim}

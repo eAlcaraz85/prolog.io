@@ -1,0 +1,1950 @@
+
+#+TITLE: Apuntes Programación Lógica Funcional  
+#+LaTeX_HEADER: \usepackage[spanish]{inputenc}
+#+SETUPFILE: /home/likcos/Materias/Prolog/public/theme-readtheorg-local.setup
+#+EXPORT_FILE_NAME: index.html
+#+OPTIONS: num:nil
+
+* Estilos de Programación 
+  
+(también llamados estándares de código o convención de código) es un
+término que describe convenciones para escribir código fuente en
+ciertos lenguajes de programación. El estilo de programación es
+frecuentemente dependiente del lenguaje de programación que se haya
+elegido para escribir. Por ejemplo el estilo del lenguaje de
+Programación C variará con respecto al del lenguaje BASIC.
+
+
+** Características del Estilo
+
+Una pieza clave para un buen estilo es la elección apropiada de
+nombres de variable. Variables pobremente nombradas dificultan la
+lectura del código fuente y su comprensión.
+
+Como ejemplo, considérese el siguiente extracto de pseudocódigo:
+
+#+BEGIN_SRC C
+get a b c 
+if a < 24 and b < 60 and c < 60
+  return true
+else
+  return false
+#+END_SRC
+ 
+Debido a la elección de nombres de variable, es difícil darse cuenta
+de la función del código. Compárese ahora con la siguiente versión:
+
+
+ #+BEGIN_SRC C
+ get horas minutos segundos 
+ if horas < 24 and minutos < 60 and segundos < 60
+   return true
+ else
+   return false
+ #+END_SRC
+
+ La intención el código es ahora más sencilla de discernir, "dado una
+ hora en 24 horas, se devolverá true si es válida y false si no".
+
+
+** Nombres de Variable Apropiadas.
+Una piedra clave para un buen estilo es la elección apropiada de
+nombres de variable. Variables pobremente nombradas dificultan la
+lectura del código fuente y su comprensión.  y Como ejemplo,
+considérese el siguiente extracto de pseudocódigo:
+
+ #+BEGIN_SRC C
+get a b c
+if a < 24 and b < 60 and c < 60
+  return true
+else
+  return false
+ #+END_SRC
+
+Debido a la elección de nombres de variable, es difícil darse cuenta
+de la función del código. Compárese ahora con la siguiente versión:
+
+ #+BEGIN_SRC C
+ get horas minutos segundos 
+ if horas < 24 and minutos < 60 and segundos < 60
+   return true
+ else
+   return false
+ #+END_SRC
+
+La intención el código es ahora más sencilla de discernir, "dado una
+hora en 24 horas, se devolverá true si es válida y false si no".
+
+** Estilo de indentación
+
+Estilo de indentación, en lenguajes de programación que usan llaves
+para indentar o delimitar bloques lógicos de código, como por
+ejemplo C, es también un punto clave el buen estilo. Usando un
+estilo lógico y consistente hace el código de uno más
+legible. Compárese:
+
+
+ #+BEGIN_SRC C
+ if(horas < 24 && minutos < 60 && segundos < 60){
+    return true;
+ }else{
+    return false;
+ }
+ #+END_SRC
+ o bien:
+ #+BEGIN_SRC C
+ if(horas < 24 && minutos < 60 && segundos < 60)
+ {
+    return true;
+ }
+ else
+ {
+    return false;
+ }
+ #+END_SRC
+
+con algo como:
+
+ #+BEGIN_SRC C
+
+ if(horas<24&&minutos<60&&segundos<60){return true;}
+ else{return false;}
+ #+END_SRC
+
+Los primeros dos ejemplos son mucho más fáciles de leer porque están
+bien indentados, y los bloques lógicos de código se agrupan y se
+representan juntos de forma más clara.
+
+Valores booleanos en estructuras de decisión Algunos programadores
+piensan que las estructuras de decisión como las anteriores, donde el
+resultado de la decisión es meramente una computación de un valor
+booleano, son demasiado prolijos e incluso propensos al
+error. Prefieren hacer la decisión en la computación por sí mismo,
+como esto:
+
+ #+BEGIN_SRC C
+ return horas < 12 && minutos < 60 && segundos < 60;
+ #+END_SRC
+
+La diferencia es, con frecuencia, puramente estilística y sintáctica,
+ya que los compiladores modernos producirán código objeto idéntico en
+las dos formas.
+
+** Bucles y estructuras de control
+
+ El uso de estructuras de control lógicas para bucles también es parte
+  de un buen estilo de programación. Ayuda a alguien que esté leyendo
+  el código a entender la secuencia de ejecución (en programación
+  imperativa). Por ejemplo, el siguiente pseudocódigo:
+   #+BEGIN_SRC C
+
+   cuenta = 0
+   while cuenta < 5
+     print cuenta * 2
+     cuenta = cuenta + 1
+   endwhile
+   #+END_SRC
+
+El extracto anterior cumple con las dos recomendaciones de estilo
+anteriores, pero el siguiente uso de la construcción for hace el
+código mucho más fácil de leer:
+
+#+BEGIN_SRC C
+
+ for cuenta = 0, cuenta < 5, cuenta=cuenta+1
+   print cuenta * 2
+#+END_SRC
+
+En muchos lenguajes, el patrón frecuentemente usado "por cada elemento
+en un rango" puede ser acortado a:
+
+#+BEGIN_SRC C
+
+ for cuenta = 0 to 5
+   print cuenta * 2
+#+END_SRC
+
+** Espaciado
+
+Los lenguajes de formato libre ignoran frecuentemente los espacios
+en blanco. El buen uso del espaciado en la disposición del código
+de uno es, por tanto, considerado un buen estilo de programación.
+
+Compárese el siguiente extracto de código C:
+
+ #+BEGIN_SRC C
+ int cuenta; for(cuenta=0;cuenta<10;cuenta++)
+{printf("%d",cuenta*cuenta+cuenta);}
+ #+END_SRC
+ con:
+ #+BEGIN_SRC C
+ int cuenta;
+ for (cuenta = 0; cuenta < 10; cuenta++)
+ {
+    printf("%d", cuenta * cuenta + cuenta);
+ }
+ #+END_SRC
+
+En los lenguajes de programación de la familia C se recomienda también
+evitar el uso de caracteres tabulador en medio de una línea, ya que
+diferentes editores de textos muestran su anchura de forma diferente.
+
+El lenguaje de programación Python usa indentación para indicar
+estructuras de control, por tanto se requiere obligatoriamente una
+buena indentación. Haciendo esto, la necesidad de marcar con llaves ({
+y }) es eliminada, y la legibilidad es mejorada sin interferir con los
+estilos de codificación comunes.
+
+ 
+Con todo, esto lleva frecuentemente a problemas donde el código es
+copiado y pegado dentro de un programa Python, requiriendo un
+tedioso reformateado. Adicionalmente, el código Python se vuelve
+inusable cuando es publicado en un foro o página web que elimine el
+espacio en blanco.
+
+** Evaluación de expresiones
+  
+En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
+flujo, las palabras-clave señalan al compilador aspectos complementarios que no
+alteran el orden de ejecución dentro de la propia sentencia. Este orden viene 
+determinado por cuatro condicionantes:
+
+1. Presencia de paréntesis que obligan a un orden de evaluación
+   específico.
+2. Naturaleza de los operadores involucrados en la expresión
+   (asociatividad).
+3. Orden en que están colocados (precedencia).
+4. Providencias (impredecibles) del compilador relativas a la
+   optimización del código.
+
+
+
+* Paradigma de Programación 
+
+Un paradigma de programación es una propuesta tecnológica adoptada por
+una comunidad de programadores y desarrolladores cuyo núcleo central
+es incuestionable en cuanto que únicamente trata de resolver uno o
+varios problemas claramente delimitados; la resolución de estos
+problemas debe suponer consecuentemente un avance significativo en al
+menos un parámetro que afecte a la ingeniería de software.
+
+
+** Tipos más comunes de paradigmas de programación 
+
+*** Programación imperativa o por procedimientos: 
+	Es el más usado en general, se basa en dar instrucciones al ordenador
+   de como hacer las cosas en forma de algoritmos. La programación
+   imperativa es la más usada y la más antigua, el ejemplo principal
+   es el lenguaje de máquina. Ejemplos de lenguajes puros de este
+   paradigma serían el C, BASIC o Pascal.
+
+*** Programación orientada a objetos: 
+  Está basada en el imperativo, pero encapsula elementos denominados
+  objetos que incluyen tanto variables como funciones. Está
+  representado por C++, C#, Java o Python entre otros, pero el más
+  representativo sería el Smalltalk que está completamente orientado a
+  objetos.
+
+
+*** Programación dinámica: 
+   está definida como el proceso de romper
+  problemas en partes pequeñas para analizarlos y resolverlos de forma
+  lo más cercana al óptimo, busca resolver problemas en O(n) sin usar
+  por tanto métodos recursivos. Este paradigma está más basado en el
+  modo de realizar los algoritmos, por lo que se puede usar con
+  cualquier lenguaje imperativo.
+
+*** Programación dirigida por eventos: 
+  la programación dirigida por
+  eventos es un paradigma de programación en el que tanto la estructura
+  como la ejecución de los programas van determinados por los sucesos
+  que ocurran en el sistema, definidos por el usuario o que ellos
+  mismos provoquen.
+
+
+*** Programación declarativa:
+   está basado en describir el problema
+  declarando propiedades y reglas que deben cumplirse, en lugar de
+  instrucciones. Hay lenguajes para la programación funcional, la
+  programación lógica, o la combinación lógico-funcional. Unos de los
+  primeros lenguajes funcionales fueron Lisp y Prolog.
+
+*** Programación funcional:
+
+La programación funcional es un paradigma de programación declarativa
+basado en el uso de verdaderas funciones matemáticas. En este estilo
+de programación las funciones son ciudadanas de primera clase, porque
+sus expresiones pueden ser asignadas a variables como se haría con
+cualquier otro valor; además de que pueden crearse funciones de orden
+superior.​
+
+La programación funcional tiene sus raíces en el cálculo lambda, un
+sistema formal desarrollado en los años 1930 para investigar la
+naturaleza de las funciones, la naturaleza de la computabilidad y su
+relación con la recursión. Los lenguajes funcionales priorizan el uso
+de recursividad y aplicación de funciones de orden superior para
+resolver problemas que en otros lenguajes se resolverían mediante
+estructuras de control (por ejemplo, ciclos). Algunos lenguajes
+funcionales también buscan eliminar la mutabilidad o efectos
+secundarios; en contraste con la programación imperativa, que se basa
+en los cambios de estado mediante la mutación de variables. Esto
+significa que, en programación funcional pura, dos o más expresiones
+sintácticas idénticas (por ejemplo, dos llamadas a rutinas o dos
+evaluaciones) siempre devolverán el mismo resultado. Es decir, se
+tiene transparencia referencial. Lo anterior también puede ser
+aprovechado para diseñar estrategias de evaluación que eviten repetir
+el cómputo de expresiones antes vistas, ahorrando tiempo de ejecución.
+
+Los lenguajes de programación funcional, especialmente los puramente
+funcionales, han sido enfatizados en el ambiente académico y no tanto
+en el desarrollo comercial o industrial. Sin embargo, lenguajes de
+programación funcional como Lisp (Scheme, Common Lisp, etc.), Erlang,
+Rust, Objective Caml, Scala, F# y Haskell, han sido utilizados en
+aplicaciones comerciales e industriales por muchas
+organizaciones. También es utilizada en la industria a través de
+lenguajes de dominio específico como R (estadística), Mathematica
+(cómputo simbólico), J y K (análisis financiero). Los lenguajes de uso
+específico usados comúnmente como SQL y Lex/Yacc, utilizan algunos
+elementos de programación funcional, especialmente al procesar valores
+mutables. Las hojas de cálculo también pueden ser consideradas
+lenguajes de programación funcional.
+
+*** Programación lógica:
+  basado en la definición de relaciones lógicas,
+   está representado por Prolog.
+
+
+*** Programación con restricciones:
+  similar a la lógica usando
+   ecuaciones. Casi todos los lenguajes son variantes del Prolog.
+
+*** Programación multiparadigma:
+ es el uso de dos o más paradigmas dentro
+   de un programa. El lenguaje Lisp se considera multiparadigma. Al
+   igual que Python, que es orientado a objetos, reflexivo, imperativo y
+   funcional.1
+  
+*** Lenguaje específico del dominio o DSL:
+ se denomina así a los
+   lenguajes desarrollados para resolver un problema específico,
+   pudiendo entrar dentro de cualquier grupo anterior. El más
+   representativo sería SQL para el manejo de las bases de datos, de
+   tipo declarativo, pero los hay imperativos, como el Logo.
+
+
+
+
+* Programación Funcional
+
+La programación funcional, o mejor dicho, los lenguajes de
+programación funcionales, son aquellos lenguajes donde las variables
+no tienen estado — no hay cambios en éstas a lo largo del tiempo — y
+son inmutables — no pueden cambiarse los valores a lo largo de la
+ejecución. Además los programas se estructuran componiendo expresiones
+que se evalúan como funciones. Dentro de los lenguajes funcionales
+tenemos Lisp, Scheme, Clojure, Haskell, OCaml y Standard ML, entre
+otros.  Estos lenguajes están diversidad de tipificación, donde se
+encuentran lenguajes dinámicos, estáticos y estáticos fuertes.
+
+
+En los lenguajes funcionales las instrucciones cíclicas como for,
+while y do-while no existen. Todo se procesa usando recursividad y
+funciones de alto orden.
+
+Esto se debe a los fundamentos matemáticos de la mayoría de los
+lenguajes funcionales, principalmente con bases en el sistema formal
+diseñado por Alonzo Church para definir cómputos y estudiar las
+aplicaciones de las funciones llamado Cálculo Lambda. En este sistema
+formal se puede expresar recursividad en las funciones, y entre otras
+cosas interesantes, se pueden expresar combinadores — funciones sin
+variables libres — como el Combinador de Punto Fijo o Y-Combinator,
+que expresa recursividad sin hacer llamadas recursivas.
+
+En el Cálculo Lambda existen tres transformaciones esenciales, la
+conversión $α$, la reducción $β$ y la conversión $η$. En la conversión
+α se sustituyen los nombres de las variables para dar mas claridad a
+la aplicación de las funciones, por ejemplo evitando duplicados en sus
+nombres. En la reducción $β$ se traza el llamado de las funciones
+sustituyendo las funciones por sus expresiones resultantes.
+
+Finalmente en las conversiones η se busca las equivalencias de trazado
+de funciones sustituyéndolas por sus equivalentes. Estas
+transformaciones también pueden ser aplicadas en los lenguajes
+funcionales — o en su mayoría — dando lugar lenguajes que cuentan con
+una gran expresividad y consistencia.
+
+
+Les pondré el clásico ejemplo del chiste geek del castigo “Debo poner
+atención en clases”. La respuesta geek expresada en PHP esta escrita a
+continuación.  Donde PHP es un lenguaje dinámico, no necesita declarar
+variables y es un lenguaje orientado a objetos con raíces imperativas.
+Sus instrucciones son paso a paso, y no constituyen una única
+expresión reducible.
+
+#+BEGIN_SRC C
+<?php
+    /* codigo PHP */
+    for ($i = 0; $i < 500; $i++) {
+        echo "Debo poner atención en clase";
+    }
+ ?>
+#+END_SRC
+
+Si usamos Haskell como ejemplo, que es un lenguaje funcional con
+tipificación estática fuerte, requiere que las variables sean
+declaradas con un tipo — la mayoría de las veces — y es muy expresivo,
+donde el siguiente ejemplo dice repetir la cadena, tomar 500 elementos
+y con esa lista ejecutar la función monádica putStrLn, que esta hecha
+para el Monad IO e imprime  el mensaje las 500 veces solicitada.
+
+
+#+BEGIN_SRC C
+ module Main (main) where
+
+ -- codigo Haskell
+
+ main :: IO ()
+ main = mapM_ putStrLn $ take 500 $ repeat "Debo poner atención"
+ #+END_SRC
+ 
+
+En Lisp sería similar, pero Lisp es de tipificación dinámica y no
+necesita declarar variables, dando lugar a un programa muy simple de
+una sola linea.  Donde también tenemos lenguajes como Clojure, que es
+un dialecto de Lisp y soporta construcciones muy similares a las del
+ejemplo en Lisp, dando lugar a programas expresivos y simples, pero
+que corren sobre la máquina virtual de Java o JVM.
+
+
+ #+BEGIN_SRC lisp
+ ;;; codigo Lisp
+
+ (loop repeat 500 do (format t "Debo poner atencion en clases~%"))
+ #+END_SRC
+
+
+Un ejemplo clásico para la conversión η en Haskell, es reducir las
+llamadas a funciones en su combinador de identidad. Por ejemplo se
+tiene la función $f(g(x))$, que en Cálculo Lambda se expresa como
+$λx.(λy.y)x$, se puede reducir a $g(x)$, que se expresa como $λy.y$ en
+Cálculo Lambda. Esto expresado en Haskell, se vería como el siguiente
+ejemplo, donde absN y absN’ son funciones equivalentes y absN’ es la
+reducción $η$ de absN.
+
+ 
+
+ #+BEGIN_SRC haskell
+ absN :: Num a => a -> a
+ absN n = abs n
+
+ absN' :: Num a => a -> a
+ absN' = abs
+ #+END_SRC
+
+
+Actualmente los lenguajes orientados a objetos más comunes están
+integrando características funcionales, como Java, que acaba de
+incluir funciones anonimas.  Pero también están los lenguajes que a lo
+largo de su historia han sido multi-paradigma, como Python, e
+implementa características funcionales, procedurales y orientadas a
+objetos. El bien conocido algoritmo para verificar si un RUT es válido
+o no, se puede expresar funcionalmente en Python como esta escrito en
+el siguiente ejemplo.
+
+
+ #+BEGIN_SRC python
+ def val_rut(rut):
+     """
+     Valida un string con un RUT con el guion incluido, retornando
+     cero si es valido.
+
+     Ejemplo: print(val_rut("22222222-2"))
+     """
+     return cmp(rut[-1],
+		str((range(10) + ['K'])[
+                    (11 - sum(map(lambda x: (int(x[0]) * x[1]),
+                                  zip(reversed(rut[:-2]),
+                                      (2 * range(2, 8))))) % 11)]))
+
+ #+END_SRC
+
+
+Como se aprecia en el ejemplo, la validación se realiza utilizando
+ expresiones o llamadas a funciones, sin uso de variables con estado y
+ mutabilidad, donde cada llamada a una función se puede reducir a un
+ valor determinado, y como resultado final se tiene un valor cero o
+ distinto de cero que indica si el RUT es válido.  Este mismo
+ algoritmo funcional, se puede expresar en Haskell con llamadas muy
+ similares, debido a que los nombres de las funciones y funciones de
+ alto orden son bastante comunes entre los lenguajes funcionales.
+
+
+#+BEGIN_SRC haskell
+valRut :: String -> Bool
+valRut s = (((['0'..'9'] ++ ['K'])
+             !! (11 - sum(zipWith (*)
+                          (fmap digitToInt $ drop 2 $ reverse s)
+                          (take 10 $ cycle [2..7])) `mod` 11)) == (last s))
+#+END_SRC
+
+
+De estos dos ejemplos, se puede decir que son funciones puras,
+principalmente debido a que no tienen variables libres y son una única
+expresión sin estado y no mutable a lo largo de la ejecución. El
+problema de la pureza es conceptualmente algo que se idealiza en la
+programación funcional, siendo abordado de diferentes formas por
+diferentes lenguajes. El objetivo es mantener las funciones y rutinas
+puras. En Haskell, con su abstracción más clásica conocida con el
+nombre de Mónada, permite entregar pureza a expresiones que parecen no
+ser puras, y en términos muy sencillos el Mónada reúne una identidad y
+una composición de funciones del tipo $f(g(x))$, todo a través de un
+tipo de dato que permite componer funciones sin abandonar ese tipo de
+dato y darle un aspecto procedural.
+
+
+* Lisp 
+
+Lisp (históricamente LISP) es una familia de lenguajes de programación
+de computadora de tipo multiparadigma con larga historia y una
+inconfundible y útil sintaxis homoicónica basada en la notación
+polaca.
+
+Desarrollado originalmente en 1959 por John McCarthy y sus
+colaboradores en el Instituto Tecnológico de Massachusetts, Lisp es el
+segundo lenguaje de programación de alto nivel de mayor antigüedad;
+apareció un año después de FORTRAN y uno antes que COBOL.
+
+Al igual que COBOL y FORTRAN, Lisp ha cambiado mucho desde sus
+comienzos, y han existido un gran número de dialectos en su
+historia. Hoy, los dialectos de Lisp más ampliamente usados son Scheme
+(1975), Common Lisp (1984), Emacs Lisp (1985) y Clojure (2007).
+
+Lisp fue creado originalmente como una notación matemática práctica
+para los programas de computadora, basada en el cálculo lambda de
+Alonzo Church. Se convirtió rápidamente en el lenguaje de programación
+favorito en la investigación de la inteligencia artificial (AI). Como
+lenguajes de programación precursor, Lisp fue pionero en muchas ideas
+en ciencias de la computación, incluyendo las estructuras de datos de
+árbol, el manejo de almacenamiento automático, tipos dinámicos, y el
+compilador auto contenido.
+
+El acrónimo LISP significa "LISt Processor" ('Procesamiento de
+listas'). Las listas encadenadas son una de las estructuras de datos
+importantes de Lisp, y el código fuente de Lisp en sí mismo está
+compuesto de listas. Como resultado, los programas de Lisp pueden
+manipular código fuente de Lisp como si fueran simples datos, dando
+lugar a sistemas de macros que permiten a los programadores crear
+lenguajes de dominio específico embebidos en Lisp.
+
+La intercambiabilidad del código y los datos también da a Lisp su
+instantáneamente reconocible sintaxis. Todo el código del programa es
+escrito como expresiones S, o listas entre paréntesis. Una llamada de
+función o una forma sintáctica es escrita como una lista, con la
+función o el nombre del operador en primer lugar, y los argumentos a
+continuación; por ejemplo, una función f que toma tres argumentos
+puede ser llamada usando (f x y z).
+
+** Historia 
+
+El proyecto se inició en 1987, cuando los autores originales, Bruno
+Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
+original sólo era para Atari ST y estaba escrito en lenguaje
+ensamblador del Motorola 68000 y Lisp. En 1992 se anunció la versión
+2.0 para Linux en comp.os.linux, aunque sólo en formato binario.
+
+Inicialmente Bruno Haible no tenía la intención de distribuir CLISP
+bajo la licencia GPL, pero tras un debate público en octubre de 1992
+en la lista de correo del proyecto4​ con Richard Stallman, cambió de
+opinión. El inicio de este debate fue la reclamación por parte de
+Richard Stallman para que cambiase la licencia CLISP a la GPL al
+considerar que era un trabajo derivado de la biblioteca GNU readline
+que se había empezado a usar en el proyecto poco sobre aquellas
+fechas.
+
+En 1993 apareció la primera versión portable, en la que se incluía el
+código fuente bajo licencia GNU GPL. Esta versión estaba disponible
+para Atari ST, Amiga 500-2000, MS-DOS (emx, djgpp), OS/2 (emx), Unix
+(Linux, Sun4, Sun386, HP9000/800). A finales de 1993 apareció la
+versión 2.6 que incluía soporte para CLOS. Para finales de ese año
+apareció la versión 2.8 que sumó el paquete COMMON-LISP, que es el
+contiene las primitivas del sistema Common Lisp tal y como se definen
+en la especificación del lenguaje. En la versión 2.14 de 1995 se
+incorporó la interfaz FFI (Foreign Function Interface) que permite
+llamar a funciones C desde CLISP y hacer disponibles funciones CLISP
+desde C.
+
+Desde el año 2000, el proyecto se aloja en sourceforge.net5​ que le
+proporciona los recursos necesarios para poder continuar con su
+desarrollo.
+
+
+[[https://es.wikipedia.org/wiki/Lisp][Fuente]]
+
+
+clisp
+
+4 + 5 / 34 + 67 * 2 
+4 + (/ 5 34) + (* 67 2)
+A= (/ 5 34)
+B= (* 67 2)
+4 + A + B
+(+ 4 A) + B
+C = (+ 4 A)
+C + B
++ C B
++ 4 5
+
+
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+
+Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
+
+;#+BEGIN_SRC lisp
+;(load "path")
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+;#+END_SRC
+
+#+BEGIN_SRC lisp 
+(defun hola()
+(print "Hola mundo Prolog" )
+)
+(hola ')
+#+END_SRC
+
+
+
+
+#+BEGIN_SRC lisp
+(defun suma(a b)
+  (+ a b)
+)
+(suma 3 4)
+
+#+END_SRC
+
+#+RESULTS:
+: 7
+
+Resolver 
+
+1. 8, 3, -2,-7,-12,
+2. 3,6,12,24,48,
+3. 4,9,16,25,36,49,
+4. 5,10,17,26,37,50,
+5. 6,11,18,27,38,51,
+6. 3,8,15,24,35,48,
+7. -4,9,-16,25,-36,49,
+8. 4,-9,16,-25,36,-49,
+9. $\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}$
+10. $-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}$
+
+
+#+BEGIN_SRC lisp
+(defparameter *pi* 3.1415)
+
+(defun areaCirculo(r)
+(* *pi* (* r r)  )
+)
+
+'(+ 5 6 )
+eval
+#+END_SRC
+
+
+** Expresiones
+
+Es particularmente cierto que la mejor forma de aprender Lisp es
+usándolo, porque se trata de un lenguaje interactivo. Cualquier
+sistema Lisp, incluye una interfaz interactiva llamada top-level. Uno
+escribe expresiones Lisp en el top-level, y el sistema despliega sus
+valores. El sistema normalmente despliega un indicador llamado prompt
+(>) señalando que está esperando que una expresión sea escrita. Por
+ejemplo, si escribímos el entero 1 después del prompt y tecleamos
+enter, tenemos:
+
+#+BEGIN_SRC lisp
+> 1
+1
+#+END_SRC
+
+el sistema despliega el valor de la expresión, seguida de un nuevo prompt,
+indicando que está listo para evaluar una nueva expresión. En este caso, el
+sistema desplegó lo mismo que tecleamos porque los números, como otras
+constantes, evalúan a si mismos. Las cosas son más interesantes cuando una
+expresión
+
+#+BEGIN_SRC lisp
+> (+ 2 3)
+5
+#+END_SRC
+
+En la expresión (+ 2 3) el símbolo + es llamado el operador y los números 3 y 4 son sus argumentos (o parámetros actuales, siguendo la notación
+introducida en el capítulo anterior). Como el operador viene al principio de
+la expresión, esta notación se conoce como prefija y aunque parezca extraña,
+veremos que es muy práctica. Por ejemplo, si queremos sumar tres números
+en notación infija, necesitaríamos usar dos veces el operador +: 2+3+4. En
+Lisp, las siguientes sumas son válidas:
+
+#+BEGIN_SRC lisp
+(+)
+0
+(+ 2)
+2
+(+ 2 3)
+5
+(+ 2 3 5)
+10
+#+END_SRC
+
+Como los operadores pueden tomar un número variable de argumentos,
+es necesario utilizar los paréntesis para indicar donde inicia y donde termina
+una expresión. Las expresiones pueden anidarse, esto es, el argumento de
+una expresión puede ser otra expresión compleja. Ej.
+
+#+BEGIN_SRC lisp
+(/ (- 7 1)(- 4 2))
+3
+#+END_SRC
+
+En español esto corresponde a siete menos uno, dividido por cuatro
+menos dos.  Estética minimalista, esto es todo lo que hay que decir
+sobre la notación en Lisp. Toda expresión Lisp es un átomo, como 1, o
+bien es una lista que consiste de cero o más expresiones delimitadas
+por paréntesis. Como veremos, código y datos usan la misma notación en
+Lisp.
+
+** Evaluación
+
+Veamos más en detalle como las expresiones son evaluadas para
+desplegar su valor en el top-level. En Lisp, + es una función y (+
+2 3) es una llamada a la función. Cuando Lisp evalúa una llamada a
+alguna función, lo hace en dos pasos:
+
+- Los argumentos de la llamada son evaluados de izquierda a derecha.
+  En este caso, los valores de los argumentos son 2 y 3,
+  respectivamente.
+
+- Los valores de los argumentos son pasados a la función nombrada por
+  el operador. En este caso la función + que regresa 5.
+
+Si alguno de los argumentos es a su vez una llamada de función, será
+evaluado con las mismas reglas. Ej. Al evaluar la expresión (/ (- 7 1) (- 4 2))
+pasa lo siguiente.
+
+1. Lisp evalúa el primer argumento de izquierda a derecha (- 7 1). 7 es
+   evaluado como 7 y 1 como 1. Estos valores son pasados a la función -
+   que regresa 6.
+2. El siguiente argumento (- 4 2) es evaluado. 4 es evaluado como 4 y 2
+   como 2. Estos valores son pasados a la función - que regresa 2.
+3. Los valores 6 y 2 son pasados a la función / que regresa 3.
+
+
+No todos los operadores en Lisp son funciones, pero la mayoría lo son.
+Todas las llamadas a función son evaluadas de esta forma, que se conoce
+como regla de evaluación de Lisp. Los operadores que no siguen la regla de
+evaluación se conocen como operadores especiales. Uno de estos operadores
+especiales es quote (’). La regla de evaluación de quote es –No evalues nada,
+despliega lo que el usuario tecleo, verbatim. 
+
+#+BEGIN_SRC lisp
+(quote (+ 2 3))
+(+ 2 3)
+'( + 2 3)
+(+ 2 3)
+#+END_SRC
+
+Lisp provee el operador quote como una forma de evitar que una
+expresión sea evaluada. En la siguiente sección veremos porque esta
+protección puede ser útil.
+
+** Datos
+
+Lisp ofrece los tipos de datos que podemos encontrar en otros
+lenguajes de programación, y otros que no. Ya hemos usado enteros en
+los ejemplos precedentes. Lascadenas de caracteres se delimita por
+comillas, por ejemplo, “Hola mundo”. Enteros y cadenas evalúan a ellos
+mismos, como las constantes.  Dos tipos de datos propios de Lisp son
+los símbolos y las listas. Los símbolos son palabras. Normalmente se
+evaluan como si estuvieran escritos en mayúsculas, independientemente
+de como fueron tecleados:
+
+#+BEGIN_SRC lisp
+'uno
+uno
+#+END_SRC
+
+Los símbolos por lo general no evaluan a si mismos, así que si es
+necesario referirse a ellos, se debe usar quote, como en ejemplo
+anterior, de lo contrario, se producirá un error ya que el símbolo uno
+no está acotado (no tiene ligado ningún valor en este momento).
+
+Las listas se representan como cero o más elementos entre paréntesis. Los
+elementos pueden ser de cualquier tipo, incluidas las listas. Se debe usar
+quote con las listas, ya que de otra forma Lisp las tomaría como una llamada
+a función. Veamos algunos ejemplos:
+
+#+BEGIN_SRC lisp
+’(Mis 2 "ciudades")
+(MIS 2 "CIUDADES")
+’(La lista (a b c) tiene 3 elementos)
+(LA LISTA (A B C) TIENE 3 ELEMENTOS)
+#+END_SRC
+
+Observen que quote protege a toda la expresión, incluidas las
+sub-expresiones en ella. La lista (a b c), tampoco fue
+evaluada. También es posible construir listas usando la función list:
+
+#+BEGIN_SRC lisp
+(list ’mis (+ 4 2) "colegas")
+(MIS 6 COLEGAS)
+#+END_SRC
+
+Estética minimalista y pragmática, observen que los programas Lisp se
+representan como listas. Si el argumento estético no bastará para defender la
+notación de Lisp, esto debe bastar –Un programa Lisp puede generar código
+Lisp! Por eso es necesario quote. Si una lista es precedida por el operador
+quote, la evaluación regresa la misma lista, en otro caso, la lista es evaluada
+como si fuese código. Por ejemplo:
+
+#+BEGIN_SRC lisp
+(list ’(+ 2 3) (+ 2 3))
+((+ 2 3) 5)
+#+END_SRC
+
+
+** Funciones en Lisp
+Es posible definir nuevas funciones con defun que toma normalmente tres
+argumentos: un nombre, una lista de parámetros y una o más expresiones
+que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
+
+#+BEGIN_SRC lisp
+(defun tercero(lst)
+  (caddr lst)
+)
+#+END_SRC
+
+El primer argumento de defun indica que el nombre de nuestra función
+definida será tercero. El segundo argumento (lst) indica que la
+función tiene un sólo argumento, lst. Un símbolo usado de esta forma
+se conoce como variable. Cuando la variable representa el argumento de
+una función, se conoce como parámetro. El resto de la definición
+indica lo que se debe hacer para calcular el valor de la función, en
+este caso, para cualquier lst, se calculará el primer elemento, del
+resto, del resto del parámetro (caddr lst).
+
+#+BEGIN_SRC lisp
+(tercero '(a b c d e))
+C
+#+END_SRC
+
+Ahora que hemos introducido el concepto de variable, es más sencillo
+entender lo que es un símbolo. Los símbolos son nombres de variables, que
+existen con derechos propios en el lenguaje Lisp. Por ello símbolos y listas
+deben protegerse con quote para ser accesados. Una lista debe protegerse
+porque de otra forma es procesada como si fuese código; un símbolo debe
+protegerse porque de otra forma es procesado como si fuese una variable.
+Podríamos decir que la definición de una función corresponde a la versión
+generalizada de una expresión Lisp. Ej. La siguiente expresión verifica si la
+suma de 1 y 4 es mayor que 3:
+
+#+BEGIN_SRC lisp
+( >(+ 1 4) 3)
+#+END_SRC
+
+Substituyendo los números partículares por variables, podemos definir
+una función que verifica si la suma de sus dos primeros argumentos es
+mayor que el tercero:
+
+#+BEGIN_SRC lisp
+(defun suma-mayor-que (x  y z)
+  (> (+ x y) z)
+)
+
+(suma-mayor-que 1 4 3)
+#+END_SRC
+
+Lisp no distigue entre programa, procedimiento y función; todos cuentan
+como funciones y de hecho, casi todo el lenguaje está compuesto de funciones. Si se desea considerar una función en partícular como main, es posible
+hacerlo, pero cualquier función puede ser llamada desde el top-level. Entre
+otras cosas, esto significa que posible probar nuestros programas, pieza por
+pieza, conforme los vamos escribiendo, lo que se conoce como programación
+incremental (bottom-up).
+
+** Funciones CAR y CDR
+
+
+ CAR admite un único argumento que debe ser una lista o una expresión
+ cuyo valor sea una lista y devuelve el primer elemento de dicha
+ lista. Como LISP siempre interpreta una lista como una llamada a una
+ función, necesitamos una manera de pasar una lista a CAR sin que LISP
+ trate de procesarla como llamada a función.
+
+ CDR recibe también una lista y devuelve el resto de la lista después
+ de eliminar el primer elemento (CAR lista). Por lo tanto puede
+ contemplarse como la función complementaria de CAR. Una manera de
+ interpretar una lista en LISP es como la conjunción de un CAR y un
+ CDR. Se podrá acceder a cualquier término de una lista mediante los
+ anidamientos apropiados de CAR y CDR.  
+
+ - (CAR lista) ;primer término
+ - (CAR (CDR lista)) ;segundo término 
+ - (CAR (CDR (CDR lista))) ; tercer término 
+
+ Para simplificar las expresiones se permite crear 
+ nombres compuestos
+ para anidamientos de CAR y CDR de la siguiente manera:
+ - comenzando por una primera letra C 
+ - una letra A por cada CAR o una D por cada CDR 
+ - terminando con una letra R 
+ - así (CAR (CDR (CDR lista))) sería lo mismo que (CADDR lista).
+
+ De esta manera podemos construir hasta 28 funciones distintas para acceso a
+ listas. Según Johnson estas 28 concatenaciones se pueden dividir en
+ cuatro grupos, tomando como base la profundidad a que pueden acceder
+ en listas anidadas en varios niveles.
+
+
+ #+BEGIN_SRC lisp
+;(eval (car '((+ 1 2) 2 3 4 5)))
+(cadr '(1 2 3 4 5))
+;(cddd  '((1 2 3 4 5) (6 7 8 9 10) (11 12 13 14 15)))
+
+ #+END_SRC
+
+ #+RESULTS:
+ : 2
+
+
+ #+BEGIN_SRC lisp
+(defun)
+
+
+ #+END_SRC
+
+
+ #+BEGIN_SRC lisp :results output
+(defun mylength (list)
+(if list 
+	(1+ (mylength (cdr list)))
+	0))
+
+(defun rec(list)
+(print (car list))
+(if list 
+(rec ( cdr list))
+)
+)
+(defvar a 4)
+(format T "Hola mundo ~ d" a)
+(rec '((1 2 3 4 4)))
+;(mylength '(1 2 3 4))
+
+ #+END_SRC
+
+ #+RESULTS:
+ : Hola mundo 4
+ : (1 2 3 4 4) 
+ : NIL 
+
+
+** Valores de Verdad IF 
+
+ En Lisp, el símbolo t es la representación por default para
+ verdadero. La representación por default de falso es nil . Ambos
+ evaluan a si mismos. Ej.  La función listp regresa verdadero si su
+ argumento es una lista:
+
+ #+BEGIN_SRC lisp :results output
+(listp '(a b c))
+T
+(listp 34)
+Nil
+ #+END_SRC
+
+ Una función cuyo valor de regreseo se intérpreta como un valor de ver-
+ dad (verdadero o falso) se conoce como predicado. En lisp es común que
+ el símbolo de un predicado termine en p .  Como nil juega dos roles en
+ *Lisp*, las funciones *null* (lista vacía) y not (negación) hacen
+ exactamente lo mismo:
+
+
+ #+BEGIN_SRC lisp :results output
+(null nil)
+T
+(not nil)
+T
+ #+END_SRC
+
+ El condicional (estructura de control) más simple en *Lisp* es *if*
+ . Normalmente toma tres argumentos: una expresión test, una expresión
+ then y una expresión *else*. La expresión test es evaluada, si su
+ valor es verdadero, la expresión *then* es evaluada; si su valor es
+ falso, la expresión *else* es evaluada.
+
+ #+BEGIN_SRC lisp
+(if (listp '(a b c d ))
+	(+ 1 2)
+	(+ 3 4)
+)
+ #+END_SRC
+
+ #+RESULTS:
+ : 3
+
+ #+BEGIN_SRC lisp
+(if (listp 23)
+	(+ 1 2)
+	(+ 3 4)
+)
+ #+END_SRC
+
+ #+RESULTS:
+ : 7
+
+ Como *quote*, *if** es un operador especial. No puede implementarse como
+ una función, porque los argumentos de una función siempre se evaluan,
+ y la idea al usar if es que sólo uno de sus argumentos sea evaluado.
+ Si bien el default para representar verdadero es *t* , todo excepto nil
+ cuenta como verdadero en un contexto lógico. Ej.
+
+ #+BEGIN_SRC lisp
+(if 27 1 2)
+ #+END_SRC
+
+ #+RESULTS:
+ : 1
+
+ #+BEGIN_SRC lisp
+(if nil 1 2)
+ #+END_SRC
+
+ #+RESULTS:
+ : 2
+
+ Dado que solo se evalúa una expresión dentro de un *if*, es imposible
+ hacer dos o más cosas separadas dentro de una opción. Sin embargo,
+ para los casos en los que realmente se desea hacer más de una cosa, se
+ puede utilizar un comando especial como el *progn* para insertar
+ comandos adicionales en una sola expresión. Con *progn*, solo se
+ devuelve la última evaluación como el valor de la expresión completa.
+
+
+
+ #+BEGIN_SRC lisp
+(defvar *number-was-odd* nil)
+(if (oddp 5)
+	(progn (setf *number-was-odd* t)
+	   'odd-number)
+	'even-number)
+ #+END_SRC
+
+** When unless 
+
+De igual forma *Lisp* tiene otros comandos que tienen un *progn*
+implícito los más básicos son *when* y *unless*  
+
+#+BEGIN_SRC lisp
+(defvar *number-is-odd* nil)
+
+(when (oddp 5)
+  (setf *number-is-odd* t)
+  'odd-number)
+
+ODD-NUMBER
+
+,*number-is-odd*
+T
+
+(unless (oddp 4)
+  (setf *number-is-odd* nil)
+  'even-number)
+
+EVEN-NUMBER
+
+*number-is-odd*
+NIL
+#+END_SRC
+
+Con *when*, todas las expresiones encerradas se evalúan cuando la
+condición es verdad, con *unless* todas las expresiones encerradas se
+evalúan cuando la condición es falsa. La compensación es que estos
+comandos no pueden hacer nada cuando la condición se evalúa de manera
+opuesta; simplemente devuelven cero y no hacen nada.
+
+
+** Operadores Lógicos and or  
+
+ Los operadores lógicos *and* y *or* parecen condicionales. Ambos toman
+ cualquier número de argumentos, pero solo evaluan los necesarios
+ para decidir que valor regresar. Si todos los argumentos son
+ verdaderos (diferentes de nil ), entonces and regresa el valor del
+ último argumento. Ej.
+
+
+#+BEGIN_SRC lisp
+(defun ejemplosif(x)
+(unless (<= 2 x 24)
+	(print "Hola")
+	(print "hola2")
+)
+)
+
+(ejemplosif 21 )
+
+#+END_SRC
+
+#+RESULTS:
+: NIL
+
+
+(setq var (getreal "\nEnter var: "))
+(cond
+  ((and (>= var 2) (<= var 24 ))(princ "\nvar is between 2 & 24"))
+  ((and (>= var 26) (<= var 48))(princ "\nvar is between 26 & 48"))
+  ((and (>= var 50) (<= var 96))(princ "\nvar is between 50 & 96"))
+  (T nil)
+  )
+ 
+also like this
+
+(cond
+  ((<= 2 var 24)(DO THIS))
+  ((<= 26 var 48)(DO THIS))
+  ((<= 50 var 96)(DO THIS))
+  (T nil)
+  )
+
+
+#+BEGIN_SRC lisp
+(defvar *arch-enemy* nil)
+
+(defun pudding-eater (person)
+  (cond 
+	((eq person 'henry) 
+	 '(curse you lisp alien – you ate my pudding))
+	((eq person 'johnny) 
+	 '(i hope you choked on my pudding johnny))
+	(t
+	 '(why you eat my pudding stranger ?))
+	)
+)
+
+(pudding-eater 'lalo)
+
+#+END_SRC
+
+#+RESULTS:
+: (WHY YOU EAT MY PUDDING STRANGER ?)
+
+(espada pistol  )
+(espada) (pistola) 
+#+BEGIN_SRC lisp
+
+(defparameter *nodo* '((Zerg
+						(Terreste
+						 (Larva
+						  (Unidad que se crea automáticamente en la colmenta))
+						 (Zergling
+						  (Unidad de ataque cuerpo a cuerpo básica))
+						 (Zángano
+						  (Unidad no ofensiva cuya tarea consiste en la recolección de mineral y Gas Vespeno)) 
+						 (Corruptor
+						  (Unidad de ataque bacteriológicos))
+						 (Plaga Terran
+							(Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg))
+						 (Merodeador
+						  (Es una mutación del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo))
+						 (Ultralisco
+						  (El ultralisco es la unidad más poderosa de la raza Zerg.)))
+						(Aereo
+						 (Superamo
+						  (Unidad de transporte Zerg))
+						 (Mutalisco
+						  (Unidad rápida pero de corto rango de ataque y bajo daño))
+						 (Atormentador
+						  (Unidad pequeña y de rápida producción)))
+						)
+					   (Terran
+						(Terrestres
+						 (Soldado Terran
+							(Los soldados terran son la primera linea de defensa de los planetas terran))
+						 (Tanque de Asedio
+							(Unidad de asalto y defensa mecanizada de ataque terrestre))
+						 (Goliat
+						  (Unidad de apoyo ligera y versatil))
+						 (Buitre
+						  (Unidad ligera y con la habilidad de poner tres minas arañas)))
+						)
+					   (protoss)))
+
+(car *nodo*)
+
+#+END_SRC
+
+
+#+BEGIN_SRC lisp
+(defparameter *edges* '((living-room (garden west door)
+						 (attic upstairs ladder))
+						(garden (living-room east door))
+						(attic (living-room downstairs ladder))))
+
+(car edges)
+
+#+END_SRC
+
+#+RESULTS:
+| LIVING-ROOM | (GARDEN WEST DOOR) | (ATTIC UPSTAIRS LADDER) |
+
+
+#+BEGIN_SRC lisp 
+(defparameter *nodos* '((zerg
+						 (Terrestres
+						  ()
+						  )
+						 (Aereos)
+						 )
+						(protos)
+						(terran)
+
+
+						))
+
+
+(defparameter *nodo* '((Zerg
+						(Terreste
+						 (Larva
+						  (Unidad que se crea automáticamente en la colmenta))
+						 (Zergling
+						  (Unidad de ataque cuerpo a cuerpo básica))
+						 (Zángano
+						  (Unidad no ofensiva cuya tarea consiste en la recolección de mineral y Gas Vespeno)) 
+						 (Corruptor
+						  (Unidad de ataque bacteriológicos))
+						 (Plaga Terran
+							(Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg))
+						 (Merodeador
+						  (Es una mutación del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo))
+						 (Ultralisco
+						  (El ultralisco es la unidad más poderosa de la raza Zerg.)))
+						(Aereo
+						 (Superamo
+						  (Unidad de transporte Zerg))
+						 (Mutalisco
+						  (Unidad rápida pero de corto rango de ataque y bajo daño))
+						 (Atormentador
+						  (Unidad pequeña y de rápida producción)))
+						)
+					   (Terran
+						(Terrestre
+						  (Soldado Terran
+							(Los soldados terran son la primera linea de defensa de los planetas terran))
+						 (Murcielago de Fuego
+							(Unidad equipada con el traje de combate pesado CMC660))
+						 (Medico
+						  (No posse ningun tipo de ataque físico))
+						 (Fantasma
+						  (Inteligencia y espionaje))
+						 )
+						(Aereo
+						 (Espectro
+						  (Unidad Aérea básica))
+						 (Crucero de batalla
+						  (Poderosa unidad de combante))
+						 (Nave de la ciencia
+						  (Unidad aérea de apoyo y especialista con la facultad de detectar unidades enemigas enterradas o invisible))
+						 )
+						)
+					   (protoss
+						(Terrestres
+						 (Sonda
+						  (Recolectan el gas vespeno y el mineral))
+						 (Fanático
+						  (Son la columna vertebral del ejército Protoss))
+						 (Dragoon
+						  (Son parecidos a arañas mecánicas))
+						 )
+						(Aereo
+						 (Observador
+						  (No tiene armamento))
+						 (Lanzadera
+						  (Sirve para transportar unidades))))
+					   ))
+
+;(caar *nodo*)
+(format t "Estas pensando en los   ~a" (car (assoc 'protoss *nodo*)))
+;(setq aux (car (assoc 'protoss *nodo*)))
+;(print aux)
+(assoc 'Aereo (cdr (assoc 'Terran *nodo*)))
+;(assoc 'Terrestres (cdr (assoc 'protoss *nodo*)))
+#+END_SRC
+
+#+RESULTS:
+| AEREO | (ESPECTRO (UNIDAD AÉREA BÁSICA)) | (CRUCERO DE BATALLA (PODEROSA UNIDAD DE COMBANTE)) | (NAVE DE LA CIENCIA (UNIDAD AÉREA DE APOYO Y ESPECIALISTA CON LA FACULTAD DE DETECTAR UNIDADES ENEMIGAS ENTERRADAS O INVISIBLE)) |
+Hola  PROTOSS
+Hola  PROTOSS
+
+
+#+BEGIN_SRC lisp :results output 
+(defparameter *lista*  '(Terran Zerg Protoss ))
+
+(defun recorre(lista)
+(format t "Tu personaje es ~a ~%" (car lista ))
+(setq aux (read))
+(terpri)
+(if (= aux 1 )
+
+(if lista
+(recorre (cdr lista))))
+
+(recorre *lista*)
+;(print (car *lista*))
+;(print (cdr *lista*))
+#+END_SRC
+
+#+RESULTS:
+: Tu personaje es TERRAN 
+: 
+: Tu personaje es ZERG 
+: 
+: Tu personaje es PROTOSS 
+: 
+: Tu personaje es NIL 
+: 
+NIL
+(ZERG PROTOSS)
+TERRAN
+(TERRAN ZERG PROTOSS)
+
+** Funciones lambda en Lisp 
+
+En el ámbito de la programación, una expresión lambda, también
+denominada función lambda, función literal o función anónima, es una
+subrutina definida que no está enlazada a un identificador. Las
+expresiones lambda a menudo son argumentos que se pasan a funciones de
+orden superior, o se usan para construir el resultado de una función
+de orden superior que necesita devolver una función.​ Si la función
+solo se usa una vez o un número limitado de veces, una expresión
+lambda puede ser sintácticamente más simple que usar una función con
+nombre. Las funciones lambda son muy comunes en los lenguajes de
+programación funcional y en otros lenguajes con funciones de primera
+clase, en los que cumplen el mismo papel para el tipo de función que
+los literales para otros tipos de datos.
+
+
+*** Funciones como valores de primera clase
+
+**** Sintaxis
+ - (nombre de la función) ; recupera la función objeto de ese nombre
+ - #'nombre ; azúcar sintáctica para (nombre de la función)
+ - (símbolo de función de símbolo); devuelve la función vinculada al símbolo
+ - (función funcs args ...); llamar a la función con args
+ - (aplicar la función arglista); Función de llamada con argumentos dados en una lista.
+ - (aplicar la función arg1 arg2 ... argn arglist); Función de llamada con argumentos dados por arg1, arg2, ..., argn y el resto en la lista arglist
+
+
+**** Parámetros 
+
+| Parámetro        | Detalles                                                   |
+|------------------+------------------------------------------------------------|
+| Nombres          | Algún símbolo (no evaluado que nombra una función)         |
+|------------------+------------------------------------------------------------|
+| Símbolo          | Un símbolo                                                 |
+|------------------+------------------------------------------------------------|
+| Función          | Una función que se va llamar                               |
+|------------------+------------------------------------------------------------|
+| arg              | cero o más argumentos (no una lista de argumentos)         |
+|------------------+------------------------------------------------------------|
+| arglista         | Una lista que contiene argumentos para pasar a una función |
+|------------------+------------------------------------------------------------|
+| arg1,arg2,..argn |                                                            |
+|------------------+------------------------------------------------------------|
+
+
+**** Observaciones
+
+Cuando se habla de lenguajes similares a Lisp, existe una distinción
+común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
+símbolos solo tienen un valor y si un símbolo se refiere a una
+función, entonces el valor de ese símbolo será esa función. En un
+Lisp-2, los símbolos pueden tener valores y funciones asociadas por
+separado, por lo que se requiere una forma especial para referirse a
+la función almacenada en un símbolo en lugar del valor.
+
+Common Lisp es básicamente un Lisp-2, sin embargo, en realidad hay más
+de 2 espacios de nombres (cosas a las que los símbolos pueden
+referirse): los símbolos pueden referirse a valores, funciones, tipos
+y etiquetas, por ejemplo.
+
+
+***** Definiendo funciones anónimas.
+Las funciones en Common Lisp son valores de primera clase . Se puede
+crear una función anónima usando lambda . Por ejemplo, aquí hay una
+función de 3 argumentos que luego llamamos usando funcall
+
+#+BEGIN_SRC lisp
+(lambda (a b c) (+ a (* b c)))
+(LAMBDA (A B C)) {10034F484B}>
+(defvar *foo* (lambda (a b c) (+ a (* b c))))
+*FOO*
+(funcall *foo* 1 2 3)
+7
+#+END_SRC
+
+*Funcall*: La función funcall llama a la función proporcionada con argumentos específicos 
+
+Las funciones anónimas también se pueden utilizar directamente. Common
+Lisp proporciona una sintaxis para ello.
+
+#+BEGIN_SRC lisp
+((lambda (a b c) (+ a (* b c)))    ; Funcion lambda 
+                                   ; 
+  1 2 3)                           ; Argumentos
+
+#+END_SRC
+
+
+Las funciones anónimas también se pueden almacenar como funciones globales:
+#+BEGIN_SRC lisp
+(let ((a-function (lambda (a b c) (+ a (* b c)))))      ; funcion anonima 
+  (setf (symbol-function 'some-function) a-function))   ; se asigna a 'some-function
+
+(some-function 1 2 3)                                   ; se llama con el mismo nombre some-funtion
+
+#+END_SRC
+
+
+Las expresiones lambda citadas no son funciones. Tenga en cuenta que
+las expresiones lambda citadas no son funciones en Common Lisp. Esto
+no funciona:
+
+#+BEGIN_SRC lisp
+(funcall '(lambda (x) x)
+         42)
+
+#+END_SRC
+
+Para convertir una expresión lambda entrecomillada a una función, use
+coerce , eval o funcall :
+
+#+BEGIN_SRC lisp
+(coerce '(lambda (x) x) 'function)
+#<anonymous interpreted function 4060000A7C>
+
+(eval '(lambda (x) x))
+#<anonymous interpreted function 4060000B9C>
+
+(compile nil '(lambda (x) x))
+#<Function 17 4060000CCC>
+
+#+END_SRC
+
+Haciendo referencia a las funciones existentes Cualquier símbolo en
+Common Lisp tiene una ranura para una variable a vincular y una ranura
+separada para una función a vincular.
+
+Se tiene que tener  en cuenta que la denominación en este ejemplo es solo para
+ilustración. Las variables globales no deberían llamarse foo , sino
+*foo* . La última notación es una convención para dejar en claro que
+la variable es una variable especial que utiliza el enlace dinámico .
+#+BEGIN_SRC lisp
+(boundp 'foo) ;is FOO defined as a variable?
+NIL
+(defvar foo 7)
+FOO
+(boundp 'foo)
+T
+foo
+7
+(symbol-value 'foo)
+7
+(fboundp 'foo) ;is FOO defined as a function?
+NIL
+ (defun foo (x y) (+ (* x x) (* y y)))
+FOO
+ (fboundp 'foo)
+T
+ foo
+7
+(symbol-function 'foo)
+#<FUNCTION FOO>
+(function foo)
+#<FUNCTION FOO>
+(equalp (quote #'foo) (quote (function foo)))
+T
+(eq (symbol-function 'foo) #'foo)
+T
+(foo 4 3)
+25
+(funcall foo 4 3)
+;get an error: 7 is not a function
+(funcall #'foo 4 3)
+25
+(defvar bar #'foo)
+BAR
+bar
+#<FUNCTION FOO>
+(funcall bar 4 3)
+25
+#'+
+#<FUNCTION +>
+(funcall #'+ 2 3)
+5
+#+END_SRC
+
+
+**** Funciones de orden superior
+Common Lisp contiene muchas funciones de orden superior que son
+funciones pasadas para los argumentos y las llaman. Tal vez los más
+fundamentales sean funcall y de apply :
+
+#+BEGIN_SRC lisp
+(list 1 2 3)
+(1 2 3)
+(funcall #'list 1 2 3)
+(1 2 3)
+(funcall #'list 1 2 3 4 5)
+(1 2 3 4 5)
+(apply #'list '(1 2 3))
+(1 2 3)
+(apply #'list 1 2 '(4 5))
+(1 2 3 4 5)
+(apply #'+ 1 (list 2 3))
+6
+(defun my-funcall (function &rest args)
+           (apply function args))
+MY-FUNCALL
+(my-funcall #'list 1 2 3)
+(1 2 3)
+#+END_SRC
+
+Hay muchas otras funciones de orden superior que, por ejemplo, aplican
+una función muchas veces a los elementos de una lista.
+
+#+BEGIN_SRC lisp
+(map 'list #'/ '(1 2 3 4))
+(1 1/2 1/3 1/4)
+(map 'vector #'+ '(1 2 3 4 5) #(5 4 3 2 10))
+#(6 6 6 6 15)
+(reduce #'+ '(1 2 3 4 5))
+15
+(remove-if #'evenp '(1 2 3 4 5))
+(1 3 5)
+
+#+END_SRC
+
+Sumando una lista 
+
+La función de reducción se puede utilizar para sumar
+los elementos de una lista.
+
+#+BEGIN_SRC lisp
+(reduce '+ '(1 2 3 4))
+;;=> 10
+#+END_SRC
+
+Por defecto, reducir realiza una reducción asociativa a la izquierda ,
+lo que significa que la suma 10 se calcula como
+
+#+BEGIN_SRC lisp
+(+ (+ (+ 1 2) 3) 4)
+#+END_SRC
+
+Los primeros dos elementos se suman primero, y luego ese resultado (3)
+se agrega al siguiente elemento (3) para producir 6, que a su vez se
+agrega a 4, para producir el resultado final.
+
+Esto es más seguro que usar aplicar (por ejemplo, en (aplicar '+' (1 2
+3 4)) porque la longitud de la lista de argumentos que se puede pasar
+a aplicar es limitada (consulte el límite de argumentos de llamadas ),
+y la reducción funcionará Con funciones que solo toman dos argumentos.
+
+Al especificar el argumento de la palabra clave desde el final ,
+reducir procesará la lista en la otra dirección, lo que significa que
+la suma se computa en el orden inverso. Es decir
+
+
+#+BEGIN_SRC lisp
+(reduce '+ (1 2 3 4) :from-end t)
+;;=> 10
+#+END_SRC
+
+está computando
+
+#+BEGIN_SRC lisp
+(+ 1 (+ 2 (+ 3 4)))
+#+END_SRC
+
+
+Implementación de reversa y reventa.  Common Lisp ya tiene una función
+inversa , pero si no lo tenía, entonces podría implementarse
+fácilmente usando reducir . Dada una lista como
+
+#+BEGIN_SRC lisp
+(1 2 3) === (cons 1 (cons 2 (cons 3 '())))
+#+END_SRC
+
+la lista invertida es
+
+#+BEGIN_SRC lisp
+(cons 3 (cons 2 (cons 1 '()))) === (3 2 1)
+#+END_SRC
+
+Puede que no sea un uso obvio de reducir , pero si tenemos una función
+de "contras invertida", digamos xcons , de modo que
+
+#+BEGIN_SRC lisp
+(xcons 1 2) === (2 . 1)
+#+END_SRC
+
+Entonces
+
+#+BEGIN_SRC lisp
+(xcons (xcons (xcons () 1) 2) 3)
+#+END_SRC
+
+Que es una reducción.
+
+#+BEGIN_SRC lisp
+(reduce (lambda (x y)
+          (cons y x))
+        '(1 2 3 4)
+        :initial-value '())
+;=> (4 3 2 1)
+#+END_SRC
+
+
+Common Lisp tiene otra función útil, revappend , que es una
+combinación de reversa y anexa . Conceptualmente, invierte una lista y
+la agrega a alguna cola:
+
+#+BEGIN_SRC lisp
+(revappend '(3 2 1) '(4 5 6))
+;;=> (1 2 3 4 5 6)
+
+#+END_SRC
+
+Esto también se puede implementar con reducir . De hecho, es lo mismo
+que la implementación del reverso anterior, excepto que el valor
+inicial debería ser (4 5 6) en lugar de la lista vacía.
+
+#+BEGIN_SRC lisp
+(reduce (lambda (x y)
+          (cons y x))
+        '(3 2 1)
+        :initial-value '(4 5 6))
+;=> (1 2 3 4 5 6)
+#+END_SRC
+
+Cierres
+
+Las funciones recuerdan el ámbito léxico en el que se
+definieron. Debido a esto, podemos incluir un lambda en un let para
+definir los cierres.
+
+#+BEGIN_SRC lisp
+(defvar *counter* (let ((count 0))
+                    (lambda () (incf count))))
+
+(funcall *counter*) ;; => 1
+(funcall *counter*) ;; = 2
+
+#+END_SRC
+
+En el ejemplo anterior, la variable de contador solo es accesible a la
+función anónima. Esto se ve más claramente en el siguiente ejemplo.
+
+#+BEGIN_SRC lisp
+(defvar *counter-1* (make-counter))
+(defvar *counter-2* (make-counter))
+
+(funcall *counter-1*) ;; => 1
+(funcall *counter-1*) ;; => 2
+(funcall *counter-2*) ;; => 1
+(funcall *counter-1*) ;; => 3
+
+#+END_SRC
+Definiendo funciones que toman funciones y devuelven funciones.
+Un ejemplo simple:
+
+#+BEGIN_SRC lisp
+(defun make-apply-twice (fun)
+           "return a new function that applies twice the function`fun' to its argument"
+           (lambda (x)
+             (funcall fun (funcall fun x))))
+
+(funcall (make-apply-twice #'1+) 3)
+
+;(let ((pow4 (make-apply-twice (lambda (x) (* x x)))))
+;           (funcall pow4 3))
+
+#+END_SRC
+
+#+RESULTS:
+: 5
+
+El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) = f ( g ( h ( x )):
+
+#+BEGIN_SRC lisp
+(defun compose (&rest funs)
+           "return a new function obtained by the functional compositions of the parameters"
+           (if (null funs) 
+               #'identity
+               (let ((rest-funs (apply #'compose (rest funs))))
+                 (lambda (x) (funcall (first funs) (funcall rest-funs x))))))
+
+(defun square (x) (* x x))
+
+(funcall (compose #'square #'1+ #'square) 3)
+100  ;; => equivalent to (square (1+ (square 3)))
+
+#+END_SRC
+
+
+#+BEGIN_SRC lisp
+( lambda (n)
+  ((lambda (fact) (fact fact 1 n))
+   (lambda (f P n) (if (<= n 1) P (f f (* n P) (- n 1))))))
+
+
+#+END_SRC
+
+#+RESULTS:
+: #<FUNCTION (LAMBDA (N)) {52B8D55B}>
+
+#+BEGIN_SRC lisp
+((lambda (x) (* x x)) 3)
+#+END_SRC
+
+#+RESULTS:
+: 9
+
+
+** Ejercicios 
+
+(defpackage "EJERCICIOS")
+
+;;1.1 Definir una función que calcule el valor de:
+;; F = 1/ sqrt (a*2 + b*2 + c)
+
+
+;;1.2 Definir una función que devuelva la longitud de una
+;;circunferencia, dando como parámetro el radio R de la misma
+
+
+;;1.3 Definir una función que pase de grados centígrados a grados
+;;Fahrenheit, sabiendo que: F = (C + 40) x 1.8 - 40
+
+;;1.4 Definir una función que, dados tres argumentos numéricos,
+;;devuelva cuál es el mediano, utilizando MAX y MIN.
+
+;;1.5 Definir un predicado que dados A, B y C como argumentos devuelva
+;;    T si B2 - 4AC es menor que cero.
+
+;;
+
+
+* Prolog
+
+Una regla sirve para representar conocimiento que en lenguaje natural
+ se expresa mediante una sentencia condicional. Por ejemplo, si en
+ lenguaje natural decimos «si X es padre de Y entonces Y es hijo de X»
+ , en Prolog escribiremos: hijo(Y,X) :- padre(X,Y).  El símbolo «:-»
+ significa «si» , y la traducción directa al lenguaje natural de la
+ regla es: «Y es hijo de X si X es padre de Y» .  Las reglas resultan
+ muy útiles para definir nuevos predicados a partir de otros
+ previamente definidos. Por ejemplo, podríamos tener un conjunto de
+ hechos de la forma «padre(juan, luis)» , «padre(luis,jaime)» , etc.,
+ que definen el predicado (o relación) «padre» por extensión. La regla
+ anterior define intensionalmente la relación «hijo» .  Muchas
+ expresiones que en lenguaje natural no tienen explícitamente la forma
+ condicional pueden representarse de este modo manteniendo su
+ significado: «todos los hombres son mortales» es equivalente a decir
+ «si X es un hombre entonces X es mortal» ; en Prolog:
+
+#+BEGIN_SRC prolog
+mortal(X) :- hombre(X).
+#+END_SRC
+ 
+En general, una regla tiene una «cabeza» y un «cuerpo» . La cabeza es
+un predicado, y el cuerpo una conjunción de literales; para indicar la
+conjunción se utiliza una coma separando a los predicados del cuerpo:
+una definición de «abuelo» es:
+#+BEGIN_SRC prolog
+ abuelo(X,Y) :- padre(X,Z),padre(Z,Y).
+#+END_SRC
+
+(X es abuelo de Y si X es padre de algún individuo Z que, a su vez, es
+padre de Y).  Pero esta definición estaría incompleta: sólo cubre los
+abuelos paternos. Podemos completarla añadiendo otra regla:
+
+#+BEGIN_SRC prolog
+abuelo(X,Y) :- padre(X,Z),madre(Z,Y).
+#+END_SRC
+ 
+Escribir dos o más reglas para definir un predicado es la manera
+normal de expresar en Prolog lo que en lógica sería una disyunción. En
+este caso, «X es abuelo de Y si... o bien si...» . También puede
+expresarse explícitamente la disyunción mediante «;» :
+
+#+BEGIN_SRC prolog
+abuelo(X,Y) :- padre(X,Z),(padre(Z,Y);madre(Z,Y)).
+#+END_SRC
+ 
+pero normalmente se prefiere la versión en dos reglas por su mayor
+claridad.  También se puede definir introduciendo un concepto
+intermedio, «progenitor» (padre o madre):
+
+#+BEGIN_SRC prolog
+ progenitor(X,Y) :- padre(X,Y).  
+ progenitor(X,Y) :- madre(X,Y).  
+ abuelo(X,Y) :- padre(X,Z),progenitor(Z,Y).
+#+END_SRC
+
+El cuerpo de la regla puede contener literales negativos. Por ejemplo:
+
+#+BEGIN_SRC prolog
+hermano(X,Y) :- progenitor(Z,X),  
+                 progenitor(Z,Y), not (X=Y).
+#+END_SRC
+ 
+
+importante: no debe confundirse «reglas de inferencia» con «reglas»
+(de Prolog) (y tampoco con «reglas gramaticales»). Las «reglas» de
+Prolog son sentencias condicionales que se satisfacen para unas
+interpretaciones pero no para otras. Una regla de inferencia es un
+esquema general de razonamiento que, formalizado, se representa por
+una sentencia válida (Apartado . Por ejemplo, la regla de Prolog
+«men(x) :- pol(x)» corresponde a la sentencia condicional ( A
+x)(pol(x) ==>men(x)) se satisface para unas interpretaciones pero no
+para otras. Una particularización de la regla de inferencia modus
+ponens es: P1: ( A x)(pol(x) ==>men(x)) P2: pol(x) C: men(x) a la que
+corresponde la sentencia ( A x)((pol(x) ==>men(x)) /\ pol(x)
+==>men(x)), que es una sentencia válida (se satisface con cualquier
+interpretación de los predicados y cualquier asignación de x).
+
+** Corte 
+
+El corte es un predicado predefinido que no recibe argumentos. Se
+representa mediante un signo de admiración (!). Sin duda, es el
+predicado más difícil de entender. El corte tiene la espantosa
+propiedad de eliminar los puntos de elección del predicado que lo
+contiene.
+
+Es decir, cuando se ejecuta el corte, el resultado del objetivo (no
+sólo la cláusula en cuestión) queda comprometido al éxito o fallo de
+los objetivos que aparecen a continuación. Es como si a Prolog "se le
+olvidase" que dicho objetivo puede tener varias soluciones.
+
+Otra forma de ver el efecto del corte es pensar que solamente tiene la
+propiedad de detener el backtracking cuando éste se produce. Es decir,
+en la ejecución normal el corte no hace nada. Pero cuando el programa
+entra en backtracking y los objetivos se recorren marcha atrás, al
+llegar al corte el backtracking se detiene repentinamente forzando el
+fallo del objetivo.
+
+
+
+Para entender de manera simple el uso del corte vamos a comparar dos
+predicados que solamente se diferencian en un corte:
+
+
+#+BEGIN_SRC prolog
+ % Sin corte. 
+ p(X,Y) :- X > 15, Y > 50. 
+ 
+ p(X,Y) :- X > Y, 
+
+ % Con corte.
+ q(X,Y) :- X > 15, !, Y > 50. 
+ 
+ q(X,Y) :- X > Y, 
+
+#+END_SRC
+
+
+Veamos que ocurre si ejecutamos el objetivo p(25,12):
+
+- Obsérve que ambas cláusulas unifican con la cabeza, luego existen
+  dos puntos de elección que se anotan.
+- Prolog entra por el primer punto de elección (primera cláusula)
+  eliminandolo.
+- Prolog ejecuta el primer objetivo del cuerpo (X>15), que tiene
+  éxito.
+- Prolog ejecuta el segundo objetivo del cuerpo (X>50), que falla.
+- Empieza el backtracking.
+- Se recorren ambos objetivos hacia atrás pero no hay variables que se
+  hayan ligado en ellos.
+- Encontramos el segundo punto de elección (segunda cláusula) que
+  detiene el backtracking eliminandolo en el proceso. La ejecución
+  continúa hacia delante.
+- Prolog ejecuta el cuerpo de la segunda cláusula que consiste en
+  X>Y. Este objetivo tiene éxito.
+- El objetivo p(25,12) tiene éxito.
+
+Ahora comprobamos lo que ocurre cuando éxiste el corte, ejecutamos q(25,12):
+
+- Ambas cláusulas unifican con la cabeza, luego existen dos puntos de
+  elección que se anotan.
+- Prolog entra por el primer punto de elección (primera cláusula)
+  eliminandolo.
+- Prolog ejecuta el primer objetivo del cuerpo (X>15), que tiene
+  éxito.
+- Se ejecuta el segundo objetivo del cuerpo que es el corte. Por
+  tanto, se eliminan todos los puntos de elección anotados que son
+  debidos al objetivo q(25,12). Solamente teníamos uno, que se
+  elimina.
+- Prolog ejecuta el tercer objetivo del cuerpo (X>50), que falla.
+- Empieza el backtracking.
+- Se recorren ambos objetivos hacia atrás pero no hay variables que se
+  hayan ligado en ellos.
+- No encontramos ningún punto de elección porque fueron eliminados por
+  el corte.
+- El objetivo p(25,12) falla.
+
+Como puede comprobar, los resultados son sustacialmente diferentes. La
+segunda cláusula del predicado q/2 ni siquiera ha llegado a ejecutarse
+porque el corte ha comprometido el resultado del objetivo al resultado
+de Y>15 en la primera cláusula.
+
+
+** Usos del corte
+
+El corte se utiliza muy frecuentemente, cuanto más diestro es el
+programador más lo suele usar. Los motivos por los que se usa el corte
+son, por orden de importancia, los siguientes:
+
+- Para optimizar la ejecución. El corte sirve para evitar que por
+  culpa del backtracking se exploren puntos de elección que, con toda
+  seguridad, no llevan a otra solución (fallan). Para los entendidos,
+  esto es podar el árbol de búsqueda de posibles soluciones.
+- Para facilitar la legibilidad y comprensión del algoritmo que está
+  siendo programado. A veces se situan cortes en puntos donde, con
+  toda seguridad, no van a existir puntos de elección para eliminar,
+  pero ayuda a entender que la ejecución sólo depende de la cláusula
+  en cuestión.
+- Para implementar algoritmos diferentes según la combinación de
+  argumentos de entrada. Algo similar al comportamiento de las
+  sentencias case en los lenguajes imperativos.
+- Para conseguir que un predicado solamente tenga una solución. Esto
+  nos puede interesar en algún momento. Una vez que el programa
+  encuentra una solución ejecutamos un corte. Así evitamos que Prolog
+  busque otras soluciones aunque sabemos que éstas existen.
+
+** Corte y fallo
+Es muy habitual encontrar la secuencia de objetivos corte-fallo:
+!,fail. El predicado fail/0 es un predicado predefinido que siempre
+falla. Se utiliza para detectar prematuramente combinaciones de los
+argumentos que no llevan a solución, evitando la ejecución de un
+montón de código que al final va a fallar de todas formas.
+
+#+BEGIN_SRC prolog
+fib(0, 1) :- !.
+fib(1, 1) :- !.
+fib(N, F) :-
+        N > 1,
+        N1 is N-1,
+        N2 is N-2,
+        fib(N1, F1),
+        fib(N2, F2),
+        F is F1+F2.
+#+END_SRC

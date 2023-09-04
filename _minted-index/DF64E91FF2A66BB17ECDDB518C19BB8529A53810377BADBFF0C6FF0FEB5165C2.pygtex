@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defvar} \PYG{n+nv+vg}{*arch\PYGZhy{}enemy*} \PYG{n+no}{nil}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{pudding\PYGZhy{}eater} \PYG{p}{(}\PYG{n+nv}{person}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{cond}
+	\PYG{p}{((}\PYG{n+nb}{eq} \PYG{n+nv}{person} \PYG{l+s+ss}{\PYGZsq{}henry}\PYG{p}{)}
+	 \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{curse} \PYG{n+nv}{you} \PYG{n+nv}{lisp} \PYG{n+nv}{alien} \PYG{err}{–} \PYG{n+nv}{you} \PYG{n+nv}{ate} \PYG{n+nv}{my} \PYG{n+nv}{pudding}\PYG{p}{))}
+	\PYG{p}{((}\PYG{n+nb}{eq} \PYG{n+nv}{person} \PYG{l+s+ss}{\PYGZsq{}johnny}\PYG{p}{)}
+	 \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{i} \PYG{n+nv}{hope} \PYG{n+nv}{you} \PYG{n+nv}{choked} \PYG{n+nv}{on} \PYG{n+nv}{my} \PYG{n+nv}{pudding} \PYG{n+nv}{johnny}\PYG{p}{))}
+	\PYG{p}{(}\PYG{n+no}{t}
+	 \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{why} \PYG{n+nv}{you} \PYG{n+nv}{eat} \PYG{n+nv}{my} \PYG{n+nv}{pudding} \PYG{n+nv}{stranger} \PYG{n+nv}{?}\PYG{p}{))}
+	\PYG{p}{)}
+\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nv}{pudding\PYGZhy{}eater} \PYG{l+s+ss}{\PYGZsq{}lalo}\PYG{p}{)}
+
+\end{Verbatim}

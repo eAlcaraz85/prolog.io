@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defvar} \PYG{n+nv+vg}{*number\PYGZhy{}is\PYGZhy{}odd*} \PYG{n+no}{nil}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{when} \PYG{p}{(}\PYG{n+nb}{oddp} \PYG{l+m+mi}{5}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{setf} \PYG{n+nv+vg}{*number\PYGZhy{}is\PYGZhy{}odd*} \PYG{n+no}{t}\PYG{p}{)}
+  \PYG{l+s+ss}{\PYGZsq{}odd\PYGZhy{}number}\PYG{p}{)}
+
+\PYG{n+nv}{ODD\PYGZhy{}NUMBER}
+
+\PYG{n+nv+vg}{*number\PYGZhy{}is\PYGZhy{}odd*}
+\PYG{n+no}{T}
+
+\PYG{p}{(}\PYG{n+nb}{unless} \PYG{p}{(}\PYG{n+nb}{oddp} \PYG{l+m+mi}{4}\PYG{p}{)}
+  \PYG{p}{(}\PYG{n+nb}{setf} \PYG{n+nv+vg}{*number\PYGZhy{}is\PYGZhy{}odd*} \PYG{n+no}{nil}\PYG{p}{)}
+  \PYG{l+s+ss}{\PYGZsq{}even\PYGZhy{}number}\PYG{p}{)}
+
+\PYG{n+nv}{EVEN\PYGZhy{}NUMBER}
+
+\PYG{n+nv+vg}{*number\PYGZhy{}is\PYGZhy{}odd*}
+\PYG{n+no}{NIL}
+\end{Verbatim}

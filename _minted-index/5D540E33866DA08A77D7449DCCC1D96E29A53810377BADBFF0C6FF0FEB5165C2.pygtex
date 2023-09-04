@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defparameter} \PYG{n+nv+vg}{*edges*} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{living\PYGZhy{}room} \PYG{p}{(}\PYG{n+nv}{garden} \PYG{n+nv}{west} \PYG{n+nv}{door}\PYG{p}{)}
+						 \PYG{p}{(}\PYG{n+nv}{attic} \PYG{n+nv}{upstairs} \PYG{n+nv}{ladder}\PYG{p}{))}
+						\PYG{p}{(}\PYG{n+nv}{garden} \PYG{p}{(}\PYG{n+nv}{living\PYGZhy{}room} \PYG{n+nv}{east} \PYG{n+nv}{door}\PYG{p}{))}
+						\PYG{p}{(}\PYG{n+nv}{attic} \PYG{p}{(}\PYG{n+nv}{living\PYGZhy{}room} \PYG{n+nv}{downstairs} \PYG{n+nv}{ladder}\PYG{p}{))))}
+
+\PYG{p}{(}\PYG{n+nb}{car} \PYG{n+nv}{edges}\PYG{p}{)}
+
+\end{Verbatim}

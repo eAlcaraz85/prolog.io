@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{ }\PYG{k}{if}\PYG{p}{(}\PYG{n}{horas}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{24}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{n}{minutos}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{60}\PYG{o}{\PYGZam{}\PYGZam{}}\PYG{n}{segundos}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{60}\PYG{p}{)\PYGZob{}}\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{true}\PYG{p}{;\PYGZcb{}}
+\PYG{+w}{ }\PYG{k}{else}\PYG{p}{\PYGZob{}}\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{false}\PYG{p}{;\PYGZcb{}}
+\end{Verbatim}

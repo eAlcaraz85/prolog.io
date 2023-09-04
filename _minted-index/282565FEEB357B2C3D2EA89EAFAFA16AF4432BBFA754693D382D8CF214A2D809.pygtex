@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{ }\PYG{n}{module}\PYG{+w}{ }\PYG{n}{Main}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{main}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{where}
+
+\PYG{+w}{ }\PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{+w}{ }\PYG{n}{codigo}\PYG{+w}{ }\PYG{n}{Haskell}
+
+\PYG{+w}{ }\PYG{n}{main}\PYG{+w}{ }\PYG{o}{::}\PYG{+w}{ }\PYG{n}{IO}\PYG{+w}{ }\PYG{p}{()}
+\PYG{+w}{ }\PYG{n}{main}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mapM\PYGZus{}}\PYG{+w}{ }\PYG{n}{putStrLn}\PYG{+w}{ }\PYG{n}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{take}\PYG{+w}{ }\PYG{l+m+mi}{500}\PYG{+w}{ }\PYG{n}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{repeat}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Debo poner atención\PYGZdq{}}
+\end{Verbatim}

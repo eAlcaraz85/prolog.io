@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defvar} \PYG{n+nv+vg}{*counter\PYGZhy{}1*} \PYG{p}{(}\PYG{n+nv}{make\PYGZhy{}counter}\PYG{p}{))}
+\PYG{p}{(}\PYG{n+nb}{defvar} \PYG{n+nv+vg}{*counter\PYGZhy{}2*} \PYG{p}{(}\PYG{n+nv}{make\PYGZhy{}counter}\PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nb}{funcall} \PYG{n+nv+vg}{*counter\PYGZhy{}1*}\PYG{p}{)} \PYG{c+c1}{;; =\PYGZgt{} 1}
+\PYG{p}{(}\PYG{n+nb}{funcall} \PYG{n+nv+vg}{*counter\PYGZhy{}1*}\PYG{p}{)} \PYG{c+c1}{;; =\PYGZgt{} 2}
+\PYG{p}{(}\PYG{n+nb}{funcall} \PYG{n+nv+vg}{*counter\PYGZhy{}2*}\PYG{p}{)} \PYG{c+c1}{;; =\PYGZgt{} 1}
+\PYG{p}{(}\PYG{n+nb}{funcall} \PYG{n+nv+vg}{*counter\PYGZhy{}1*}\PYG{p}{)} \PYG{c+c1}{;; =\PYGZgt{} 3}
+
+\end{Verbatim}

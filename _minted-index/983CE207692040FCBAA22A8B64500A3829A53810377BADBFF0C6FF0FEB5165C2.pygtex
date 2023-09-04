@@ -1,0 +1,81 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defparameter} \PYG{n+nv+vg}{*nodos*} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{zerg}
+						 \PYG{p}{(}\PYG{n+nv}{Terrestres}
+						  \PYG{p}{()}
+						  \PYG{p}{)}
+						 \PYG{p}{(}\PYG{n+nv}{Aereos}\PYG{p}{)}
+						 \PYG{p}{)}
+						\PYG{p}{(}\PYG{n+nv}{protos}\PYG{p}{)}
+						\PYG{p}{(}\PYG{n+nv}{terran}\PYG{p}{)}
+
+
+						\PYG{p}{))}
+
+
+\PYG{p}{(}\PYG{n+nb}{defparameter} \PYG{n+nv+vg}{*nodo*} \PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{Zerg}
+						\PYG{p}{(}\PYG{n+nv}{Terreste}
+						 \PYG{p}{(}\PYG{n+nv}{Larva}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{que} \PYG{n+nv}{se} \PYG{n+nv}{crea} \PYG{n+nv}{automáticamente} \PYG{n+nv}{en} \PYG{n+nv}{la} \PYG{n+nv}{colmenta}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Zergling}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{de} \PYG{n+nv}{ataque} \PYG{n+nv}{cuerpo} \PYG{n+nv}{a} \PYG{n+nv}{cuerpo} \PYG{n+nv}{básica}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Zángano}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{no} \PYG{n+nv}{ofensiva} \PYG{n+nv}{cuya} \PYG{n+nv}{tarea} \PYG{n+nv}{consiste} \PYG{n+nv}{en} \PYG{n+nv}{la} \PYG{n+nv}{recolección} \PYG{n+nv}{de} \PYG{n+nv}{mineral} \PYG{n+nv}{y} \PYG{n+nv}{Gas} \PYG{n+nv}{Vespeno}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Corruptor}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{de} \PYG{n+nv}{ataque} \PYG{n+nv}{bacteriológicos}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Plaga} \PYG{n+nv}{Terran}
+							\PYG{p}{(}\PYG{n+nv}{Solo} \PYG{n+nv}{se} \PYG{n+nv}{crean} \PYG{n+nv}{en} \PYG{n+nv}{centros} \PYG{n+nv}{de} \PYG{n+nv}{mandos} \PYG{n+nv}{terran} \PYG{n+nv}{previamente} \PYG{n+nv}{infestados} \PYG{n+nv}{por} \PYG{n+nv}{una} \PYG{n+nv}{Reina} \PYG{n+nv}{Zerg}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Merodeador}
+						  \PYG{p}{(}\PYG{n+nv}{Es} \PYG{n+nv}{una} \PYG{n+nv}{mutación} \PYG{n+nv}{del} \PYG{n+nv}{Hidralisco} \PYG{n+nv}{que} \PYG{n+nv}{solo} \PYG{n+nv}{atacan} \PYG{n+nv}{unidades} \PYG{n+nv}{terrestres} \PYG{n+nv}{tras} \PYG{n+nv}{enterrarse} \PYG{n+nv}{en} \PYG{n+nv}{el} \PYG{n+nv}{suelo}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Ultralisco}
+						  \PYG{p}{(}\PYG{n+nv}{El} \PYG{n+nv}{ultralisco} \PYG{n+nv}{es} \PYG{n+nv}{la} \PYG{n+nv}{unidad} \PYG{n+nv}{más} \PYG{n+nv}{poderosa} \PYG{n+nv}{de} \PYG{n+nv}{la} \PYG{n+nv}{raza} \PYG{n+nv}{Zerg.}\PYG{p}{)))}
+						\PYG{p}{(}\PYG{n+nv}{Aereo}
+						 \PYG{p}{(}\PYG{n+nv}{Superamo}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{de} \PYG{n+nv}{transporte} \PYG{n+nv}{Zerg}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Mutalisco}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{rápida} \PYG{n+nv}{pero} \PYG{n+nv}{de} \PYG{n+nv}{corto} \PYG{n+nv}{rango} \PYG{n+nv}{de} \PYG{n+nv}{ataque} \PYG{n+nv}{y} \PYG{n+nv}{bajo} \PYG{n+nv}{daño}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Atormentador}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{pequeña} \PYG{n+nv}{y} \PYG{n+nv}{de} \PYG{n+nv}{rápida} \PYG{n+nv}{producción}\PYG{p}{)))}
+						\PYG{p}{)}
+					   \PYG{p}{(}\PYG{n+nv}{Terran}
+						\PYG{p}{(}\PYG{n+nv}{Terrestre}
+						  \PYG{p}{(}\PYG{n+nv}{Soldado} \PYG{n+nv}{Terran}
+							\PYG{p}{(}\PYG{n+nv}{Los} \PYG{n+nv}{soldados} \PYG{n+nv}{terran} \PYG{n+nv}{son} \PYG{n+nv}{la} \PYG{n+nv}{primera} \PYG{n+nv}{linea} \PYG{n+nv}{de} \PYG{n+nv}{defensa} \PYG{n+nv}{de} \PYG{n+nv}{los} \PYG{n+nv}{planetas} \PYG{n+nv}{terran}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Murcielago} \PYG{n+nv}{de} \PYG{n+nv}{Fuego}
+							\PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{equipada} \PYG{n+nv}{con} \PYG{n+nv}{el} \PYG{n+nv}{traje} \PYG{n+nv}{de} \PYG{n+nv}{combate} \PYG{n+nv}{pesado} \PYG{n+nv}{CMC660}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Medico}
+						  \PYG{p}{(}\PYG{n+nv}{No} \PYG{n+nv}{posse} \PYG{n+nv}{ningun} \PYG{n+nv}{tipo} \PYG{n+nv}{de} \PYG{n+nv}{ataque} \PYG{n+nv}{físico}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Fantasma}
+						  \PYG{p}{(}\PYG{n+nv}{Inteligencia} \PYG{n+nv}{y} \PYG{n+nv}{espionaje}\PYG{p}{))}
+						 \PYG{p}{)}
+						\PYG{p}{(}\PYG{n+nv}{Aereo}
+						 \PYG{p}{(}\PYG{n+nv}{Espectro}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{Aérea} \PYG{n+nv}{básica}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Crucero} \PYG{n+nv}{de} \PYG{n+nv}{batalla}
+						  \PYG{p}{(}\PYG{n+nv}{Poderosa} \PYG{n+nv}{unidad} \PYG{n+nv}{de} \PYG{n+nv}{combante}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Nave} \PYG{n+nv}{de} \PYG{n+nv}{la} \PYG{n+nv}{ciencia}
+						  \PYG{p}{(}\PYG{n+nv}{Unidad} \PYG{n+nv}{aérea} \PYG{n+nv}{de} \PYG{n+nv}{apoyo} \PYG{n+nv}{y} \PYG{n+nv}{especialista} \PYG{n+nv}{con} \PYG{n+nv}{la} \PYG{n+nv}{facultad} \PYG{n+nv}{de} \PYG{n+nv}{detectar} \PYG{n+nv}{unidades} \PYG{n+nv}{enemigas} \PYG{n+nv}{enterradas} \PYG{n+nv}{o} \PYG{n+nv}{invisible}\PYG{p}{))}
+						 \PYG{p}{)}
+						\PYG{p}{)}
+					   \PYG{p}{(}\PYG{n+nv}{protoss}
+						\PYG{p}{(}\PYG{n+nv}{Terrestres}
+						 \PYG{p}{(}\PYG{n+nv}{Sonda}
+						  \PYG{p}{(}\PYG{n+nv}{Recolectan} \PYG{n+nv}{el} \PYG{n+nv}{gas} \PYG{n+nv}{vespeno} \PYG{n+nv}{y} \PYG{n+nv}{el} \PYG{n+nv}{mineral}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Fanático}
+						  \PYG{p}{(}\PYG{n+nv}{Son} \PYG{n+nv}{la} \PYG{n+nv}{columna} \PYG{n+nv}{vertebral} \PYG{n+nv}{del} \PYG{n+nv}{ejército} \PYG{n+nv}{Protoss}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Dragoon}
+						  \PYG{p}{(}\PYG{n+nv}{Son} \PYG{n+nv}{parecidos} \PYG{n+nv}{a} \PYG{n+nv}{arañas} \PYG{n+nv}{mecánicas}\PYG{p}{))}
+						 \PYG{p}{)}
+						\PYG{p}{(}\PYG{n+nv}{Aereo}
+						 \PYG{p}{(}\PYG{n+nv}{Observador}
+						  \PYG{p}{(}\PYG{n+nv}{No} \PYG{n+nv}{tiene} \PYG{n+nv}{armamento}\PYG{p}{))}
+						 \PYG{p}{(}\PYG{n+nv}{Lanzadera}
+						  \PYG{p}{(}\PYG{n+nv}{Sirve} \PYG{n+nv}{para} \PYG{n+nv}{transportar} \PYG{n+nv}{unidades}\PYG{p}{))))}
+					   \PYG{p}{))}
+
+\PYG{c+c1}{;(caar *nodo*)}
+\PYG{p}{(}\PYG{n+nb}{format} \PYG{n+no}{t} \PYG{l+s}{\PYGZdq{}Estas pensando en los   \PYGZti{}a\PYGZdq{}} \PYG{p}{(}\PYG{n+nb}{car} \PYG{p}{(}\PYG{n+nb}{assoc} \PYG{l+s+ss}{\PYGZsq{}protoss} \PYG{n+nv+vg}{*nodo*}\PYG{p}{)))}
+\PYG{c+c1}{;(setq aux (car (assoc \PYGZsq{}protoss *nodo*)))}
+\PYG{c+c1}{;(print aux)}
+\PYG{p}{(}\PYG{n+nb}{assoc} \PYG{l+s+ss}{\PYGZsq{}Aereo} \PYG{p}{(}\PYG{n+nb}{cdr} \PYG{p}{(}\PYG{n+nb}{assoc} \PYG{l+s+ss}{\PYGZsq{}Terran} \PYG{n+nv+vg}{*nodo*}\PYG{p}{)))}
+\PYG{c+c1}{;(assoc \PYGZsq{}Terrestres (cdr (assoc \PYGZsq{}protoss *nodo*)))}
+\end{Verbatim}

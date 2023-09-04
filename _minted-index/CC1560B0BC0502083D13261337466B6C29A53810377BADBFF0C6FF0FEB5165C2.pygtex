@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ \PYG{c+c1}{;;; codigo Lisp}
+
+ \PYG{p}{(}\PYG{n+nb}{loop} \PYG{n+nv}{repeat} \PYG{l+m+mi}{500} \PYG{n+nb}{do} \PYG{p}{(}\PYG{n+nb}{format} \PYG{n+no}{t} \PYG{l+s}{\PYGZdq{}Debo poner atencion en clases\PYGZti{}\PYGZpc{}\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

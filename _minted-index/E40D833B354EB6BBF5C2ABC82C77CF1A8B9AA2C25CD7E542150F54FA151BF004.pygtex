@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+ \PYG{k}{def} \PYG{n+nf}{val\PYGZus{}rut}\PYG{p}{(}\PYG{n}{rut}\PYG{p}{):}
+     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{     Valida un string con un RUT con el guion incluido, retornando}
+\PYG{l+s+sd}{     cero si es valido.}
+
+\PYG{l+s+sd}{     Ejemplo: print(val\PYGZus{}rut(\PYGZdq{}22222222\PYGZhy{}2\PYGZdq{}))}
+\PYG{l+s+sd}{     \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+     \PYG{k}{return} \PYG{n}{cmp}\PYG{p}{(}\PYG{n}{rut}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{],}
+		\PYG{n+nb}{str}\PYG{p}{((}\PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{)} \PYG{o}{+} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}K\PYGZsq{}}\PYG{p}{])[}
+                    \PYG{p}{(}\PYG{l+m+mi}{11} \PYG{o}{\PYGZhy{}} \PYG{n+nb}{sum}\PYG{p}{(}\PYG{n+nb}{map}\PYG{p}{(}\PYG{k}{lambda} \PYG{n}{x}\PYG{p}{:} \PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])} \PYG{o}{*} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]),}
+                                  \PYG{n+nb}{zip}\PYG{p}{(}\PYG{n+nb}{reversed}\PYG{p}{(}\PYG{n}{rut}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{2}\PYG{p}{]),}
+                                      \PYG{p}{(}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{)))))} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{11}\PYG{p}{)]))}
+
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{((}\PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{x}\PYG{p}{)} \PYG{p}{(}\PYG{n+nb}{*} \PYG{n+nv}{x} \PYG{n+nv}{x}\PYG{p}{))} \PYG{l+m+mi}{3}\PYG{p}{)}
+\end{Verbatim}

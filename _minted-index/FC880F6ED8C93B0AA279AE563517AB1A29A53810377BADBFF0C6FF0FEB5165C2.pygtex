@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{hola}\PYG{p}{()}
+\PYG{p}{(}\PYG{n+nb}{print} \PYG{l+s}{\PYGZdq{}Hola mundo Prolog\PYGZdq{}} \PYG{p}{)}
+\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{hola} \PYG{o}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

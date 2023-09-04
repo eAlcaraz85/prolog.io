@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defparameter} \PYG{n+nv+vg}{*lista*}  \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{Terran} \PYG{n+nv}{Zerg} \PYG{n+nv}{Protoss} \PYG{p}{))}
+
+\PYG{p}{(}\PYG{n+nb}{defun} \PYG{n+nv}{recorre}\PYG{p}{(}\PYG{n+nv}{lista}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{format} \PYG{n+no}{t} \PYG{l+s}{\PYGZdq{}Tu personaje es \PYGZti{}a \PYGZti{}\PYGZpc{}\PYGZdq{}} \PYG{p}{(}\PYG{n+nb}{car} \PYG{n+nv}{lista} \PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq} \PYG{n+nv}{aux} \PYG{p}{(}\PYG{n+nb}{read}\PYG{p}{))}
+\PYG{p}{(}\PYG{n+nb}{terpri}\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nb}{=} \PYG{n+nv}{aux} \PYG{l+m+mi}{1} \PYG{p}{)}
+
+\PYG{p}{(}\PYG{k}{if} \PYG{n+nv}{lista}
+\PYG{p}{(}\PYG{n+nv}{recorre} \PYG{p}{(}\PYG{n+nb}{cdr} \PYG{n+nv}{lista}\PYG{p}{))))}
+
+\PYG{p}{(}\PYG{n+nv}{recorre} \PYG{n+nv+vg}{*lista*}\PYG{p}{)}
+\PYG{c+c1}{;(print (car *lista*))}
+\PYG{c+c1}{;(print (cdr *lista*))}
+\end{Verbatim}

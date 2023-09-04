@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{ }\PYG{n}{get}\PYG{+w}{ }\PYG{n}{horas}\PYG{+w}{ }\PYG{n}{minutos}\PYG{+w}{ }\PYG{n}{segundos}
+\PYG{+w}{ }\PYG{k}{if}\PYG{+w}{ }\PYG{n}{horas}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{24}\PYG{+w}{ }\PYG{n}{and}\PYG{+w}{ }\PYG{n}{minutos}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{60}\PYG{+w}{ }\PYG{n}{and}\PYG{+w}{ }\PYG{n}{segundos}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{60}
+\PYG{+w}{   }\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{true}
+\PYG{+w}{ }\PYG{k}{else}
+\PYG{+w}{   }\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{false}
+\end{Verbatim}

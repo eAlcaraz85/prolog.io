@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nb}{listp} \PYG{l+m+mi}{23}\PYG{p}{)}
+	\PYG{p}{(}\PYG{n+nb}{+} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2}\PYG{p}{)}
+	\PYG{p}{(}\PYG{n+nb}{+} \PYG{l+m+mi}{3} \PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{p}{)}
+\end{Verbatim}
