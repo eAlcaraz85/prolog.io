@@ -39,7 +39,7 @@ html, body {
 }
 
 #banner {
-    text-align: left;
+    text-align: center;
 }
 
 #tabs {

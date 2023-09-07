@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n}{get}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{n}{c}
-\PYG{k}{if}\PYG{+w}{ }\PYG{n}{a}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{24}\PYG{+w}{ }\PYG{n}{and}\PYG{+w}{ }\PYG{n}{b}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{60}\PYG{+w}{ }\PYG{n}{and}\PYG{+w}{ }\PYG{n}{c}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{60}
-\PYG{+w}{  }\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{true}
-\PYG{k}{else}
-\PYG{+w}{  }\PYG{k}{return}\PYG{+w}{ }\PYG{n+nb}{false}
-\end{Verbatim}

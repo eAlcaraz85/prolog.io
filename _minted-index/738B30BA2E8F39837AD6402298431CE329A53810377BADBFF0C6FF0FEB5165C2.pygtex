@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{;(eval (car \PYGZsq{}((+ 1 2) 2 3 4 5)))}
-\PYG{p}{(}\PYG{n+nb}{cadr} \PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3} \PYG{l+m+mi}{4} \PYG{l+m+mi}{5}\PYG{p}{))}
-\PYG{c+c1}{;(cddd  \PYGZsq{}((1 2 3 4 5) (6 7 8 9 10) (11 12 13 14 15)))}
-
-\end{Verbatim}

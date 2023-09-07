@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{;(load \PYGZdq{}path\PYGZdq{})}
-\PYG{p}{(}\PYG{n+nb}{load} \PYG{l+s}{\PYGZdq{}/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp\PYGZdq{}}\PYG{p}{)}
-\end{Verbatim}

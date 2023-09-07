@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(}\PYG{k}{let} \PYG{p}{((}\PYG{n+nv}{a\PYGZhy{}function} \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{a} \PYG{n+nv}{b} \PYG{n+nv}{c}\PYG{p}{)} \PYG{p}{(}\PYG{n+nb}{+} \PYG{n+nv}{a} \PYG{p}{(}\PYG{n+nb}{*} \PYG{n+nv}{b} \PYG{n+nv}{c}\PYG{p}{)))))}      \PYG{c+c1}{; funcion anonima}
-  \PYG{p}{(}\PYG{n+nb}{setf} \PYG{p}{(}\PYG{n+nb}{symbol\PYGZhy{}function} \PYG{l+s+ss}{\PYGZsq{}some\PYGZhy{}function}\PYG{p}{)} \PYG{n+nv}{a\PYGZhy{}function}\PYG{p}{))}   \PYG{c+c1}{; se asigna a \PYGZsq{}some\PYGZhy{}function}
-
-\PYG{p}{(}\PYG{n+nv}{some\PYGZhy{}function} \PYG{l+m+mi}{1} \PYG{l+m+mi}{2} \PYG{l+m+mi}{3}\PYG{p}{)}                                   \PYG{c+c1}{; se llama con el mismo nombre some\PYGZhy{}funtion}
-
-\end{Verbatim}

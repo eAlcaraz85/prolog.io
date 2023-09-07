@@ -1,9 +1,11 @@
 
 #+TITLE: Apuntes Programación Lógica Funcional  
 #+LaTeX_HEADER: \usepackage[spanish]{inputenc}
-#+SETUPFILE: /home/likcos/Materias/Prolog/public/theme-readtheorg-local.setup
+#+SETUPFILE: /home/likcos/Materias/Prolog/theme-readtheorg-local.setup
 #+EXPORT_FILE_NAME: index.html
 #+OPTIONS: num:nil
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+#+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 
 * Estilos de Programación 
   
@@ -599,10 +601,10 @@ C + B
 
 Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
 
-;#+BEGIN_SRC lisp
-;(load "path")
+#+BEGIN_SRC lisp
+(load "path")
 (load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
-;#+END_SRC
+#+END_SRC
 
 #+BEGIN_SRC lisp 
 (defun hola()
@@ -946,6 +948,172 @@ incremental (bottom-up).
  : (1 2 3 4 4) 
  : NIL 
 
+
+** Entradas y salidas 
+
+Lisp proporciona un amplio conjunto de facilidades para realizar
+entrada/salida. Todas las operaciones de entrada/salida se realizan en
+flujos de varios tipos. Aunque es posible leer y escribir datos
+binarios, la mayoría de los métodos de entrada/salida de Common Lisp
+leen o escriben caracteres. Para leer y escribir caracteres
+individuales o líneas de datos, existen primitivas directas. Sin
+embargo, la operación de entrada/salida más útil es leer y escribir
+representaciones escritas de objetos Lisp arbitrarios.
+
+**Objetos Lisp:**
+
+Los objetos Lisp suelen ser estructuras de datos complejas en lugar de
+cadenas de texto. Difieren de las cadenas de texto en términos de
+atributos debido a cómo se representan internamente. Sin embargo, Lisp
+ofrece una representación de la mayoría de los objetos en forma de
+texto escrito, conocida como la representación impresa, que se utiliza
+en las facilidades de entrada/salida. Esto hace posible acceder y
+discutir objetos Lisp.
+
+Los caracteres de la representación impresa de un objeto Lisp se
+transmiten a un flujo mediante funciones como "print". El (Lisp)
+impresor es un conjunto de funciones que realiza esto. El (Lisp)
+lector es un conjunto de rutinas que realiza la función de lectura,
+que acepta caracteres de un flujo, los interpreta como una
+representación impresa de un objeto Lisp, crea ese objeto y lo
+devuelve.
+
+*** Funciones de Entrada: 
+
+Los caracteres de la representación impresa de un objeto Lisp se
+transmiten a un flujo mediante funciones como "print". El (Lisp)
+impresor es un conjunto de funciones que realiza esta tarea. El (Lisp)
+lector es un conjunto de rutinas que ejecutan la función de lectura,
+la cual acepta caracteres de un flujo, los interpreta como la
+representación impresa de un objeto Lisp, crea ese objeto y lo
+devuelve.
+
+**Funciones de Entrada**: Las funciones de entrada se dividen en dos
+categorías: aquellas que trabajan con flujos de caracteres y aquellas
+que trabajan con flujos binarios.
+
+**Entrada desde Flujos de Caracteres**: Existen muchos argumentos
+opcionales en las funciones de entrada de caracteres llamados
+"input-stream", "eof-error-p" y "eof-value". El argumento
+"input-stream" es el flujo desde el cual recoger la entrada; si no se
+especifica o es "nil", se toma por defecto el valor de la variable
+especial 'standard-input'. El parámetro "eof-error-p" controla lo que
+sucede si la entrada proviene de un archivo y se alcanza el final del
+archivo. Si "eof-error-p" es verdadero, que es el valor
+predeterminado, se señalará un error al final del archivo. Si es
+falso, entonces no se encuentra ningún error, y en su lugar, la
+función devuelve "eof-value".
+
+Las funciones read, read-line y read-char son funciones de entrada en
+Lisp que se utilizan para leer datos desde un flujo. Aquí se describen
+sus parámetros:
+
+ - **read &optional input-stream eof-error-p eof-value recursive-p**:
+   Esta función lee datos desde el flujo de entrada especificado en
+   input-stream. Si no se especifica input-stream, se utiliza el valor
+   predeterminado que es el flujo de entrada estándar. eof-error-p
+   controla si se produce un error cuando se alcanza el final del
+   archivo (true por defecto), y eof-value especifica el valor que se
+   devuelve en lugar de un error cuando se llega al final del
+   archivo. recursive-p es un parámetro opcional que controla si la
+   función debe leer de manera recursiva objetos anidados.
+
+ - **read-line &optional input-stream eof-error-p eof-value
+   recursive-p**: Esta función lee una línea de texto desde el flujo
+   de entrada especificado en input-stream. Devuelve la línea como una
+   cadena de caracteres (sin el carácter de nueva línea). El segundo
+   valor que se devuelve es un indicador booleano que es true si el
+   final del archivo terminó la línea (no está vacía) o false si la
+   línea se terminó correctamente.
+
+ - **read-char &optional input-stream eof-error-p eof-value
+   recursive-p**: Esta función lee un carácter desde el flujo de
+   entrada especificado en input-stream. Al igual que las otras
+   funciones, eof-error-p controla si se produce un error cuando se
+   alcanza el final del archivo (true por defecto), y eof-value
+   especifica el valor que se devuelve en lugar de un error cuando se
+   llega al final del archivo. recursive-p es un parámetro opcional
+   que controla si la función debe leer de manera recursiva objetos
+   anidados.
+
+Estas funciones son útiles para leer datos de diferentes maneras desde
+flujos de entrada en Lisp.
+
+
+Aquí se describen las funciones unread-char y
+read-preserving-whitespace en Lisp:
+
+ - **unread-char**: Esta función mueve un carácter al principio del
+   flujo de entrada. Es importante destacar que el carácter que se
+   pasa como argumento debe coincidir con el último carácter leído del
+   flujo de entrada. Después de usar unread-char, cuando se lea el
+   siguiente carácter del flujo de entrada, será el carácter
+   especificado seguido de los contenidos previos del flujo de
+   entrada, ya que el flujo de entrada "retrocede" sobre este
+   carácter. unread-char devuelve nil como resultado.
+
+ - **read-preserving-whitespace**: Esta función se utiliza cuando es
+   necesario saber con precisión qué carácter finalizó un token
+   extendido. Permite leer tokens mientras conserva información sobre
+   los caracteres de espacio en blanco. A diferencia de read, que
+   normalmente ignora los espacios en blanco,
+   read-preserving-whitespace conserva los caracteres de espacio en
+   blanco y proporciona información adicional sobre cómo se formó el
+   token.
+
+ Estas funciones son útiles en situaciones específicas donde se
+ necesita un mayor control sobre la lectura y manipulación de
+ caracteres en el flujo de entrada en Lisp.
+
+Aquí se describen varias funciones relacionadas con la manipulación de
+entrada de caracteres en Lisp:
+
+ - **peek-char &optional peek-type input-stream eof-error-p eof-value
+   recursive-p**: La función peek-char se utiliza para examinar el
+   siguiente carácter en el flujo de entrada sin eliminarlo del
+   flujo. El parámetro opcional peek-type determina el comportamiento
+   de peek-char. Si peek-type es nil (valor predeterminado), la
+   función devuelve el próximo carácter que se leerá en el flujo de
+   entrada sin eliminarlo. Esto es útil para ver qué carácter vendrá a
+   continuación sin avanzar en la secuencia de entrada.
+
+ - **listen &optional input-stream**: La función listen se utiliza
+   para verificar si un carácter está inmediatamente disponible en el
+   flujo de entrada. Si hay un carácter disponible para ser leído, la
+   función devuelve true; de lo contrario, devuelve false. Esto es
+   especialmente útil cuando se trabaja con flujos de entrada
+   interactivos como el teclado.
+
+ - **read-char-no-hang &optional input-stream eof-error-p eof-value
+   recursive-p**: Similar a read-char, esta función lee un carácter
+   del flujo de entrada. Sin embargo, si no hay un carácter disponible
+   de inmediato, en lugar de esperar, devuelve nil de inmediato. Esto
+   permite una lectura no bloqueante.
+
+ - **clear-input &optional input-stream**: La función clear-input se
+   utiliza para borrar la entrada bufferizada del flujo de entrada
+   relacionada con la entrada. Es útil, por ejemplo, para eliminar
+   entradas previas no leídas, especialmente en situaciones de errores
+   asincrónicos. Si el flujo de entrada no es aplicable para esta
+   operación, clear-input no tendrá ningún efecto.
+
+ - **read-from-string string &optional eof-error-p eof-value &key
+   :start :end :preserve-whitespace:** Esta función crea un objeto
+   Lisp a partir de los caracteres de una cadena, uno a la vez, y
+   devuelve el objeto resultante. Además, devuelve la longitud de la
+   cadena (o longitud + 1) o el índice del primer carácter en la
+   cadena que no se leyó.
+
+ - **parse-integer string &key :start :end :radix :junk-allowed:** La
+   función parse-integer se utiliza para analizar una cadena en busca
+   de un número entero. Puede especificar el rango de caracteres a
+   considerar mediante los parámetros :start y :end, y puede definir
+   la base numérica con :radix. Si se encuentra un carácter no válido
+   y :junk-allowed está configurado en nil, se generará un error.
+
+Estas funciones son útiles en la manipulación de flujos de entrada de
+caracteres y en la conversión de cadenas en objetos Lisp o números
+enteros.
 
 ** Valores de Verdad IF 
 

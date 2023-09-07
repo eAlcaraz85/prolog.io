@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-
-\PYG{+w}{ }\PYG{k}{for}\PYG{+w}{ }\PYG{n}{cuenta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cuenta}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{cuenta}\PYG{o}{=}\PYG{n}{cuenta}\PYG{o}{+}\PYG{l+m+mi}{1}
-\PYG{+w}{   }\PYG{n}{print}\PYG{+w}{ }\PYG{n}{cuenta}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{2}
-\end{Verbatim}

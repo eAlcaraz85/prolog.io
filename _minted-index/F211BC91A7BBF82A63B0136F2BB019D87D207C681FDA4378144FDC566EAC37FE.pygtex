@@ -1,3 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{abuelo}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,}\PYG{n+nv}{Y}\PYG{p}{)} \PYG{p}{:\PYGZhy{}} \PYG{n+nf}{padre}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,}\PYG{n+nv}{Z}\PYG{p}{),(}\PYG{n+nf}{padre}\PYG{p}{(}\PYG{n+nv}{Z}\PYG{p}{,}\PYG{n+nv}{Y}\PYG{p}{);}\PYG{n+nf}{madre}\PYG{p}{(}\PYG{n+nv}{Z}\PYG{p}{,}\PYG{n+nv}{Y}\PYG{p}{)).}
-\end{Verbatim}

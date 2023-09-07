@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{valRut}\PYG{+w}{ }\PYG{o+ow}{::}\PYG{+w}{ }\PYG{k+kt}{String}\PYG{+w}{ }\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{+w}{ }\PYG{k+kt}{Bool}
-\PYG{n+nf}{valRut}\PYG{+w}{ }\PYG{n}{s}\PYG{+w}{ }\PYG{o+ow}{=}\PYG{+w}{ }\PYG{p}{((([}\PYG{l+s+sc}{\PYGZsq{}0\PYGZsq{}}\PYG{o}{..}\PYG{l+s+sc}{\PYGZsq{}9\PYGZsq{}}\PYG{p}{]}\PYG{+w}{ }\PYG{o}{++}\PYG{+w}{ }\PYG{p}{[}\PYG{l+s+sc}{\PYGZsq{}K\PYGZsq{}}\PYG{p}{])}
-\PYG{+w}{             }\PYG{o}{!!}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{11}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{sum}\PYG{p}{(}\PYG{n}{zipWith}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{*}\PYG{p}{)}
-\PYG{+w}{                          }\PYG{p}{(}\PYG{n}{fmap}\PYG{+w}{ }\PYG{n}{digitToInt}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{drop}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{reverse}\PYG{+w}{ }\PYG{n}{s}\PYG{p}{)}
-\PYG{+w}{                          }\PYG{p}{(}\PYG{n}{take}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{o}{\PYGZdl{}}\PYG{+w}{ }\PYG{n}{cycle}\PYG{+w}{ }\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{o}{..}\PYG{l+m+mi}{7}\PYG{p}{]))}\PYG{+w}{ }\PYG{p}{`}\PYG{n}{mod}\PYG{p}{`}\PYG{+w}{ }\PYG{l+m+mi}{11}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{last}\PYG{+w}{ }\PYG{n}{s}\PYG{p}{))}
-\end{Verbatim}

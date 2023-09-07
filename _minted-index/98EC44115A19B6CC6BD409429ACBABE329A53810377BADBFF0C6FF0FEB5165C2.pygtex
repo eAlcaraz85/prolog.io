@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{p}{(} \PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{n}\PYG{p}{)}
-  \PYG{p}{((}\PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{fact}\PYG{p}{)} \PYG{p}{(}\PYG{n+nv}{fact} \PYG{n+nv}{fact} \PYG{l+m+mi}{1} \PYG{n+nv}{n}\PYG{p}{))}
-   \PYG{p}{(}\PYG{k}{lambda} \PYG{p}{(}\PYG{n+nv}{f} \PYG{n+nv}{P} \PYG{n+nv}{n}\PYG{p}{)} \PYG{p}{(}\PYG{k}{if} \PYG{p}{(}\PYG{n+nb}{\PYGZlt{}=} \PYG{n+nv}{n} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{n+nv}{P} \PYG{p}{(}\PYG{n+nv}{f} \PYG{n+nv}{f} \PYG{p}{(}\PYG{n+nb}{*} \PYG{n+nv}{n} \PYG{n+nv}{P}\PYG{p}{)} \PYG{p}{(}\PYG{n+nb}{\PYGZhy{}} \PYG{n+nv}{n} \PYG{l+m+mi}{1}\PYG{p}{))))))}
-
-
-\end{Verbatim}
