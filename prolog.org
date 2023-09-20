@@ -585,109 +585,43 @@ desarrollo.
 
 clisp
 
-4 + 5 / 34 + 67 * 2 
-4 + (/ 5 34) + (* 67 2)
-A= (/ 5 34)
-B= (* 67 2)
-4 + A + B
-(+ 4 A) + B
-C = (+ 4 A)
-C + B
-+ C B
-+ 4 5
 
+** Programación en Lisp
+*** Expresiones
 
-(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+ Es particularmente cierto que la mejor forma de aprender Lisp es
+ usándolo, porque se trata de un lenguaje interactivo. Cualquier
+ sistema Lisp, incluye una interfaz interactiva llamada top-level. Uno
+ escribe expresiones Lisp en el top-level, y el sistema despliega sus
+ valores. El sistema normalmente despliega un indicador llamado prompt
+ (>) señalando que está esperando que una expresión sea escrita. Por
+ ejemplo, si escribímos el entero 1 después del prompt y tecleamos
+ enter, tenemos:
 
-Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
-
-#+BEGIN_SRC lisp
-(load "path")
-(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
-#+END_SRC
-
-#+BEGIN_SRC lisp 
-(defun hola()
-(print "Hola mundo Prolog" )
-)
-(hola ')
-#+END_SRC
-
-
-
-
-#+BEGIN_SRC lisp
-(defun suma(a b)
-  (+ a b)
-)
-(suma 3 4)
-
-#+END_SRC
-
-#+RESULTS:
-: 7
-
-Resolver 
-
-1. 8, 3, -2,-7,-12,
-2. 3,6,12,24,48,
-3. 4,9,16,25,36,49,
-4. 5,10,17,26,37,50,
-5. 6,11,18,27,38,51,
-6. 3,8,15,24,35,48,
-7. -4,9,-16,25,-36,49,
-8. 4,-9,16,-25,36,-49,
-9. $\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}$
-10. $-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}$
-
-
-#+BEGIN_SRC lisp
-(defparameter *pi* 3.1415)
-
-(defun areaCirculo(r)
-(* *pi* (* r r)  )
-)
-
-'(+ 5 6 )
-eval
-#+END_SRC
-
-
-** Expresiones
-
-Es particularmente cierto que la mejor forma de aprender Lisp es
-usándolo, porque se trata de un lenguaje interactivo. Cualquier
-sistema Lisp, incluye una interfaz interactiva llamada top-level. Uno
-escribe expresiones Lisp en el top-level, y el sistema despliega sus
-valores. El sistema normalmente despliega un indicador llamado prompt
-(>) señalando que está esperando que una expresión sea escrita. Por
-ejemplo, si escribímos el entero 1 después del prompt y tecleamos
-enter, tenemos:
-
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 > 1
 1
-#+END_SRC
+ #+END_SRC
 
-el sistema despliega el valor de la expresión, seguida de un nuevo prompt,
-indicando que está listo para evaluar una nueva expresión. En este caso, el
-sistema desplegó lo mismo que tecleamos porque los números, como otras
-constantes, evalúan a si mismos. Las cosas son más interesantes cuando una
-expresión
+ el sistema despliega el valor de la expresión, seguida de un nuevo prompt,
+ indicando que está listo para evaluar una nueva expresión. En este caso, el
+ sistema desplegó lo mismo que tecleamos porque los números, como otras
+ constantes, evalúan a si mismos. Las cosas son más interesantes cuando una
+ expresión
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 > (+ 2 3)
 5
-#+END_SRC
+ #+END_SRC
 
-En la expresión (+ 2 3) el símbolo + es llamado el operador y los números 3 y 4 son sus argumentos (o parámetros actuales, siguendo la notación
-introducida en el capítulo anterior). Como el operador viene al principio de
-la expresión, esta notación se conoce como prefija y aunque parezca extraña,
-veremos que es muy práctica. Por ejemplo, si queremos sumar tres números
-en notación infija, necesitaríamos usar dos veces el operador +: 2+3+4. En
-Lisp, las siguientes sumas son válidas:
+ En la expresión (+ 2 3) el símbolo + es llamado el operador y los números 3 y 4 son sus argumentos (o parámetros actuales, siguendo la notación
+ introducida en el capítulo anterior). Como el operador viene al principio de
+ la expresión, esta notación se conoce como prefija y aunque parezca extraña,
+ veremos que es muy práctica. Por ejemplo, si queremos sumar tres números
+ en notación infija, necesitaríamos usar dos veces el operador +: 2+3+4. En
+ Lisp, las siguientes sumas son válidas:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (+)
 0
 (+ 2)
@@ -696,235 +630,476 @@ Lisp, las siguientes sumas son válidas:
 5
 (+ 2 3 5)
 10
-#+END_SRC
+ #+END_SRC
 
-Como los operadores pueden tomar un número variable de argumentos,
-es necesario utilizar los paréntesis para indicar donde inicia y donde termina
-una expresión. Las expresiones pueden anidarse, esto es, el argumento de
-una expresión puede ser otra expresión compleja. Ej.
+ Como los operadores pueden tomar un número variable de argumentos,
+ es necesario utilizar los paréntesis para indicar donde inicia y donde termina
+ una expresión. Las expresiones pueden anidarse, esto es, el argumento de
+ una expresión puede ser otra expresión compleja. Ej.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (/ (- 7 1)(- 4 2))
 3
-#+END_SRC
+ #+END_SRC
 
-En español esto corresponde a siete menos uno, dividido por cuatro
-menos dos.  Estética minimalista, esto es todo lo que hay que decir
-sobre la notación en Lisp. Toda expresión Lisp es un átomo, como 1, o
-bien es una lista que consiste de cero o más expresiones delimitadas
-por paréntesis. Como veremos, código y datos usan la misma notación en
-Lisp.
-
-** Evaluación
-
-Veamos más en detalle como las expresiones son evaluadas para
-desplegar su valor en el top-level. En Lisp, + es una función y (+
-2 3) es una llamada a la función. Cuando Lisp evalúa una llamada a
-alguna función, lo hace en dos pasos:
-
-- Los argumentos de la llamada son evaluados de izquierda a derecha.
-  En este caso, los valores de los argumentos son 2 y 3,
-  respectivamente.
-
-- Los valores de los argumentos son pasados a la función nombrada por
-  el operador. En este caso la función + que regresa 5.
-
-Si alguno de los argumentos es a su vez una llamada de función, será
-evaluado con las mismas reglas. Ej. Al evaluar la expresión (/ (- 7 1) (- 4 2))
-pasa lo siguiente.
-
-1. Lisp evalúa el primer argumento de izquierda a derecha (- 7 1). 7 es
-   evaluado como 7 y 1 como 1. Estos valores son pasados a la función -
-   que regresa 6.
-2. El siguiente argumento (- 4 2) es evaluado. 4 es evaluado como 4 y 2
-   como 2. Estos valores son pasados a la función - que regresa 2.
-3. Los valores 6 y 2 son pasados a la función / que regresa 3.
+ En español esto corresponde a siete menos uno, dividido por cuatro
+ menos dos.  Estética minimalista, esto es todo lo que hay que decir
+ sobre la notación en Lisp. Toda expresión Lisp es un átomo, como 1, o
+ bien es una lista que consiste de cero o más expresiones delimitadas
+ por paréntesis. Como veremos, código y datos usan la misma notación en
+ Lisp.
 
 
-No todos los operadores en Lisp son funciones, pero la mayoría lo son.
-Todas las llamadas a función son evaluadas de esta forma, que se conoce
-como regla de evaluación de Lisp. Los operadores que no siguen la regla de
-evaluación se conocen como operadores especiales. Uno de estos operadores
-especiales es quote (’). La regla de evaluación de quote es –No evalues nada,
-despliega lo que el usuario tecleo, verbatim. 
+ 4 + 5 / 34 + 67 * 2 
+ 4 + (/ 5 34) + (* 67 2)
+ A= (/ 5 34)
+ B= (* 67 2)
+ 4 + A + B
+ (+ 4 A) + B
+ C = (+ 4 A)
+ C + B
+ + C B
+ + 4 5
 
-#+BEGIN_SRC lisp
-(quote (+ 2 3))
-(+ 2 3)
-'( + 2 3)
-(+ 2 3)
-#+END_SRC
 
-Lisp provee el operador quote como una forma de evitar que una
-expresión sea evaluada. En la siguiente sección veremos porque esta
-protección puede ser útil.
+ (load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
 
-** Datos
+ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
 
-Lisp ofrece los tipos de datos que podemos encontrar en otros
-lenguajes de programación, y otros que no. Ya hemos usado enteros en
-los ejemplos precedentes. Lascadenas de caracteres se delimita por
-comillas, por ejemplo, “Hola mundo”. Enteros y cadenas evalúan a ellos
-mismos, como las constantes.  Dos tipos de datos propios de Lisp son
-los símbolos y las listas. Los símbolos son palabras. Normalmente se
-evaluan como si estuvieran escritos en mayúsculas, independientemente
-de como fueron tecleados:
+ #+BEGIN_SRC lisp
+(load "path")
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+ #+END_SRC
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp 
+(defun hola()
+(print "Hola mundo Prolog" )
+)
+(hola ')
+ #+END_SRC
+
+
+
+
+ #+BEGIN_SRC lisp
+(defun suma(a b)
+  (+ a b)
+)
+(suma 3 4)
+
+ #+END_SRC
+
+ #+RESULTS:
+ : 7
+
+ Resolver 
+
+ 1. 8, 3, -2,-7,-12,
+ 2. 3,6,12,24,48,
+ 3. 4,9,16,25,36,49,
+ 4. 5,10,17,26,37,50,
+ 5. 6,11,18,27,38,51,
+ 6. 3,8,15,24,35,48,
+ 7. -4,9,-16,25,-36,49,
+ 8. 4,-9,16,-25,36,-49,
+ 9. $\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}$
+ 10. $-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}$
+
+
+ #+BEGIN_SRC lisp
+(defparameter *pi* 3.1415)
+
+(defun areaCirculo(r)
+(* *pi* (* r r)  )
+)
+
+'(+ 5 6 )
+eval
+ #+END_SRC
+
+ 4 + 5 / 34 + 67 * 2 
+ 4 + (/ 5 34) + (* 67 2)
+ A= (/ 5 34)
+ B= (* 67 2)
+ 4 + A + B
+ (+ 4 A) + B
+ C = (+ 4 A)
+ C + B
+ + C B
+ + 4 5
+
+
+ (load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+
+ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
+
+ #+BEGIN_SRC lisp
+(load "path")
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+ #+END_SRC
+
+ #+BEGIN_SRC lisp 
+(defun hola()
+(print "Hola mundo Prolog" )
+)
+(hola ')
+ #+END_SRC
+
+
+
+
+ #+BEGIN_SRC lisp
+(defun suma(a b)
+  (+ a b)
+)
+(suma 3 4)
+
+ #+END_SRC
+
+ #+RESULTS:
+ : 7
+
+ Resolver 
+
+ 1. 8, 3, -2,-7,-12,
+ 2. 3,6,12,24,48,
+ 3. 4,9,16,25,36,49,
+ 4. 5,10,17,26,37,50,
+ 5. 6,11,18,27,38,51,
+ 6. 3,8,15,24,35,48,
+ 7. -4,9,-16,25,-36,49,
+ 8. 4,-9,16,-25,36,-49,
+ 9. $\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}$
+ 10. $-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}$
+
+
+ #+BEGIN_SRC lisp
+(defparameter *pi* 3.1415)
+
+(defun areaCirculo(r)
+(* *pi* (* r r)  )
+)
+
+'(+ 5 6 )
+eval
+ #+END_SRC
+
+*** Datos
+
+ Lisp ofrece los tipos de datos que podemos encontrar en otros
+ lenguajes de programación, y otros que no. Ya hemos usado enteros en
+ los ejemplos precedentes. Lascadenas de caracteres se delimita por
+ comillas, por ejemplo, “Hola mundo”. Enteros y cadenas evalúan a ellos
+ mismos, como las constantes.  Dos tipos de datos propios de Lisp son
+ los símbolos y las listas. Los símbolos son palabras. Normalmente se
+ evaluan como si estuvieran escritos en mayúsculas, independientemente
+ de como fueron tecleados:
+
+ #+BEGIN_SRC lisp
 'uno
 uno
-#+END_SRC
+ #+END_SRC
 
-Los símbolos por lo general no evaluan a si mismos, así que si es
-necesario referirse a ellos, se debe usar quote, como en ejemplo
-anterior, de lo contrario, se producirá un error ya que el símbolo uno
-no está acotado (no tiene ligado ningún valor en este momento).
+ Los símbolos por lo general no evaluan a si mismos, así que si es
+ necesario referirse a ellos, se debe usar quote, como en ejemplo
+ anterior, de lo contrario, se producirá un error ya que el símbolo uno
+ no está acotado (no tiene ligado ningún valor en este momento).
 
-Las listas se representan como cero o más elementos entre paréntesis. Los
-elementos pueden ser de cualquier tipo, incluidas las listas. Se debe usar
-quote con las listas, ya que de otra forma Lisp las tomaría como una llamada
-a función. Veamos algunos ejemplos:
+ Las listas se representan como cero o más elementos entre paréntesis. Los
+ elementos pueden ser de cualquier tipo, incluidas las listas. Se debe usar
+ quote con las listas, ya que de otra forma Lisp las tomaría como una llamada
+ a función. Veamos algunos ejemplos:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 ’(Mis 2 "ciudades")
 (MIS 2 "CIUDADES")
 ’(La lista (a b c) tiene 3 elementos)
 (LA LISTA (A B C) TIENE 3 ELEMENTOS)
-#+END_SRC
+ #+END_SRC
 
-Observen que quote protege a toda la expresión, incluidas las
-sub-expresiones en ella. La lista (a b c), tampoco fue
-evaluada. También es posible construir listas usando la función list:
+ Observen que quote protege a toda la expresión, incluidas las
+ sub-expresiones en ella. La lista (a b c), tampoco fue
+ evaluada. También es posible construir listas usando la función list:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (list ’mis (+ 4 2) "colegas")
 (MIS 6 COLEGAS)
-#+END_SRC
+ #+END_SRC
 
-Estética minimalista y pragmática, observen que los programas Lisp se
-representan como listas. Si el argumento estético no bastará para defender la
-notación de Lisp, esto debe bastar –Un programa Lisp puede generar código
-Lisp! Por eso es necesario quote. Si una lista es precedida por el operador
-quote, la evaluación regresa la misma lista, en otro caso, la lista es evaluada
-como si fuese código. Por ejemplo:
+ Estética minimalista y pragmática, observen que los programas Lisp se
+ representan como listas. Si el argumento estético no bastará para defender la
+ notación de Lisp, esto debe bastar –Un programa Lisp puede generar código
+ Lisp! Por eso es necesario quote. Si una lista es precedida por el operador
+ quote, la evaluación regresa la misma lista, en otro caso, la lista es evaluada
+ como si fuese código. Por ejemplo:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (list ’(+ 2 3) (+ 2 3))
 ((+ 2 3) 5)
-#+END_SRC
+ #+END_SRC
+
+*** Evaluación
+
+	 Veamos más en detalle como las expresiones son evaluadas para
+	 desplegar su valor en el top-level. En Lisp, + es una función y (+
+	 2 3) es una llamada a la función. Cuando Lisp evalúa una llamada a
+	 alguna función, lo hace en dos pasos:
+
+	 - Los argumentos de la llamada son evaluados de izquierda a derecha.
+	   En este caso, los valores de los argumentos son 2 y 3,
+	   respectivamente.
+
+	 - Los valores de los argumentos son pasados a la función nombrada por
+	   el operador. En este caso la función + que regresa 5.
+
+	 Si alguno de los argumentos es a su vez una llamada de función, será
+	 evaluado con las mismas reglas. Ej. Al evaluar la expresión (/ (- 7 1) (- 4 2))
+	 pasa lo siguiente.
+
+	 1. Lisp evalúa el primer argumento de izquierda a derecha (- 7 1). 7 es
+		evaluado como 7 y 1 como 1. Estos valores son pasados a la función -
+		que regresa 6.
+	 2. El siguiente argumento (- 4 2) es evaluado. 4 es evaluado como 4 y 2
+		como 2. Estos valores son pasados a la función - que regresa 2.
+	 3. Los valores 6 y 2 son pasados a la función / que regresa 3.
 
 
-** Funciones en Lisp
-Es posible definir nuevas funciones con defun que toma normalmente tres
-argumentos: un nombre, una lista de parámetros y una o más expresiones
-que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
+	 No todos los operadores en Lisp son funciones, pero la mayoría lo son.
+	 Todas las llamadas a función son evaluadas de esta forma, que se conoce
+	 como regla de evaluación de Lisp. Los operadores que no siguen la regla de
+	 evaluación se conocen como operadores especiales. Uno de estos operadores
+	 especiales es quote (’). La regla de evaluación de quote es –No evalues nada,
+	 despliega lo que el usuario tecleo, verbatim. 
 
-#+BEGIN_SRC lisp
+     #+BEGIN_SRC lisp
+(quote (+ 2 3))
+(+ 2 3)
+'( + 2 3)
+(+ 2 3)
+     #+END_SRC
+
+	 Lisp provee el operador quote como una forma de evitar que una
+	 expresión sea evaluada. En la siguiente sección veremos porque esta
+	 protección puede ser útil.
+
+*** Funciones en Lisp
+ Es posible definir nuevas funciones con defun que toma normalmente tres
+ argumentos: un nombre, una lista de parámetros y una o más expresiones
+ que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
+
+ #+BEGIN_SRC lisp
 (defun tercero(lst)
   (caddr lst)
 )
-#+END_SRC
+ #+END_SRC
 
-El primer argumento de defun indica que el nombre de nuestra función
-definida será tercero. El segundo argumento (lst) indica que la
-función tiene un sólo argumento, lst. Un símbolo usado de esta forma
-se conoce como variable. Cuando la variable representa el argumento de
-una función, se conoce como parámetro. El resto de la definición
-indica lo que se debe hacer para calcular el valor de la función, en
-este caso, para cualquier lst, se calculará el primer elemento, del
-resto, del resto del parámetro (caddr lst).
+ El primer argumento de defun indica que el nombre de nuestra función
+ definida será tercero. El segundo argumento (lst) indica que la
+ función tiene un sólo argumento, lst. Un símbolo usado de esta forma
+ se conoce como variable. Cuando la variable representa el argumento de
+ una función, se conoce como parámetro. El resto de la definición
+ indica lo que se debe hacer para calcular el valor de la función, en
+ este caso, para cualquier lst, se calculará el primer elemento, del
+ resto, del resto del parámetro (caddr lst).
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (tercero '(a b c d e))
 C
-#+END_SRC
+ #+END_SRC
 
-Ahora que hemos introducido el concepto de variable, es más sencillo
-entender lo que es un símbolo. Los símbolos son nombres de variables, que
-existen con derechos propios en el lenguaje Lisp. Por ello símbolos y listas
-deben protegerse con quote para ser accesados. Una lista debe protegerse
-porque de otra forma es procesada como si fuese código; un símbolo debe
-protegerse porque de otra forma es procesado como si fuese una variable.
-Podríamos decir que la definición de una función corresponde a la versión
-generalizada de una expresión Lisp. Ej. La siguiente expresión verifica si la
-suma de 1 y 4 es mayor que 3:
+ Ahora que hemos introducido el concepto de variable, es más sencillo
+ entender lo que es un símbolo. Los símbolos son nombres de variables, que
+ existen con derechos propios en el lenguaje Lisp. Por ello símbolos y listas
+ deben protegerse con quote para ser accesados. Una lista debe protegerse
+ porque de otra forma es procesada como si fuese código; un símbolo debe
+ protegerse porque de otra forma es procesado como si fuese una variable.
+ Podríamos decir que la definición de una función corresponde a la versión
+ generalizada de una expresión Lisp. Ej. La siguiente expresión verifica si la
+ suma de 1 y 4 es mayor que 3:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 ( >(+ 1 4) 3)
-#+END_SRC
+ #+END_SRC
 
-Substituyendo los números partículares por variables, podemos definir
-una función que verifica si la suma de sus dos primeros argumentos es
-mayor que el tercero:
+ Substituyendo los números partículares por variables, podemos definir
+ una función que verifica si la suma de sus dos primeros argumentos es
+ mayor que el tercero:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defun suma-mayor-que (x  y z)
   (> (+ x y) z)
 )
 
 (suma-mayor-que 1 4 3)
+ #+END_SRC
+
+ Lisp no distigue entre programa, procedimiento y función; todos cuentan
+ como funciones y de hecho, casi todo el lenguaje está compuesto de funciones. Si se desea considerar una función en partícular como main, es posible
+ hacerlo, pero cualquier función puede ser llamada desde el top-level. Entre
+ otras cosas, esto significa que posible probar nuestros programas, pieza por
+ pieza, conforme los vamos escribiendo, lo que se conoce como programación
+ incremental (bottom-up).
+
+*** Listas
+
+En Lisp, las listas son una estructura de datos fundamental y
+versátil. Se utilizan para almacenar una secuencia de elementos, que
+pueden ser datos simples como números o cadenas de texto, así como
+otras listas, lo que permite crear estructuras de datos
+jerárquicas. Las listas en Lisp se representan mediante paréntesis y
+los elementos se separan mediante espacios. Aquí tienes una
+descripción básica de las listas en Lisp:
+
+1. Sintaxis: Las listas en Lisp se representan mediante paréntesis. La
+   lista comienza con un paréntesis abierto "(" y termina con un
+   paréntesis cerrado ")". Los elementos de la lista se separan
+   mediante espacios.
+
+Ejemplo de una lista simple en Lisp:
+
+#+BEGIN_SRC lisp
+(1 2 3 4 5)
 #+END_SRC
 
-Lisp no distigue entre programa, procedimiento y función; todos cuentan
-como funciones y de hecho, casi todo el lenguaje está compuesto de funciones. Si se desea considerar una función en partícular como main, es posible
-hacerlo, pero cualquier función puede ser llamada desde el top-level. Entre
-otras cosas, esto significa que posible probar nuestros programas, pieza por
-pieza, conforme los vamos escribiendo, lo que se conoce como programación
-incremental (bottom-up).
 
-** Funciones CAR y CDR
+2. Listas anidadas: Puedes anidar listas dentro de otras listas para
+   crear estructuras de datos más complejas. Esto permite representar
+   datos jerárquicos.
 
+Ejemplo de una lista anidada en Lisp:
 
- CAR admite un único argumento que debe ser una lista o una expresión
- cuyo valor sea una lista y devuelve el primer elemento de dicha
- lista. Como LISP siempre interpreta una lista como una llamada a una
- función, necesitamos una manera de pasar una lista a CAR sin que LISP
- trate de procesarla como llamada a función.
-
- CDR recibe también una lista y devuelve el resto de la lista después
- de eliminar el primer elemento (CAR lista). Por lo tanto puede
- contemplarse como la función complementaria de CAR. Una manera de
- interpretar una lista en LISP es como la conjunción de un CAR y un
- CDR. Se podrá acceder a cualquier término de una lista mediante los
- anidamientos apropiados de CAR y CDR.  
-
- - (CAR lista) ;primer término
- - (CAR (CDR lista)) ;segundo término 
- - (CAR (CDR (CDR lista))) ; tercer término 
-
- Para simplificar las expresiones se permite crear 
- nombres compuestos
- para anidamientos de CAR y CDR de la siguiente manera:
- - comenzando por una primera letra C 
- - una letra A por cada CAR o una D por cada CDR 
- - terminando con una letra R 
- - así (CAR (CDR (CDR lista))) sería lo mismo que (CADDR lista).
-
- De esta manera podemos construir hasta 28 funciones distintas para acceso a
- listas. Según Johnson estas 28 concatenaciones se pueden dividir en
- cuatro grupos, tomando como base la profundidad a que pueden acceder
- en listas anidadas en varios niveles.
+#+BEGIN_SRC lisp
+(1 (2 3) 4 (5 (6 7)))
+#+END_SRC
 
 
- #+BEGIN_SRC lisp
+3. Listas vacías: Una lista vacía se representa simplemente como un
+   par de paréntesis sin ningún elemento en su interior.
+
+Ejemplo de una lista vacía en Lisp:
+
+#+BEGIN_SRC lisp
+()
+#+END_SRC
+
+
+4. Funciones y listas: En Lisp, las listas se utilizan comúnmente para
+   representar programas y datos. Las funciones se llaman aplicando
+   una lista, donde el primer elemento de la lista es el nombre de la
+   función y los elementos subsiguientes son los argumentos.
+
+Ejemplo de una llamada a función en Lisp:
+
+#+BEGIN_SRC lisp
+(+ 1 2)
+; En este caso, "+" es la función que suma los números 1 y 2.
+#+END_SRC
+
+5. Manipulación de listas: Lisp proporciona una variedad de funciones
+   para trabajar con listas, como **car** (para obtener el primer
+   elemento de una lista), **cdr** (para obtener todos los elementos
+   excepto el primero), **cons** (para construir nuevas listas),
+   `append` (para concatenar listas), entre otras.
+
+En resumen, las listas en Lisp son una parte fundamental de la
+programación y se utilizan para representar datos y programas. Su
+flexibilidad y capacidad para anidarse las hacen muy poderosas en la
+programación en Lisp.
+
+***  Cons
+
+
+La función `cons` se utiliza para crear nuevas listas al agregar un
+elemento al principio de una lista existente. Su sintaxis es la
+siguiente:
+
+#+BEGIN_SRC lisp
+(cons elemento lista)
+#+END_SRC
+
+- **elemento** es el elemento que deseas agregar al principio de la lista.
+- **lista** es la lista existente a la cual deseas agregar el elemento.
+
+La función **cons** toma el elemento especificado y lo coloca al
+principio de la lista proporcionada, devolviendo una nueva lista que
+contiene el elemento recién añadido al principio. La lista original no
+se modifica; en su lugar, se crea una nueva lista con el nuevo
+elemento.
+
+Un ejemplo de cómo se utiliza la función **cons***:
+
+#+BEGIN_SRC lisp
+(setq lista-original '(2 3 4))
+(setq nueva-lista (cons 1 lista-original))
+#+END_SRC
+
+En este ejemplo, **lista-original** contiene **(2 3 4)**. Luego, usamos
+`cons` para agregar el número **1** al principio de **lista-original**,
+creando una nueva lista llamada **nueva-lista**. Después de esta
+operación, **nueva-lista** será **(1 2 3 4)** y **lista-original** seguirá
+siendo **(2 3 4)**.
+
+La función **cons** es útil para construir y modificar listas en Lisp y
+se utiliza con frecuencia en la programación en este lenguaje para
+crear estructuras de datos y manipular listas de manera eficiente.
+
+
+
+
+
+*** Funciones CAR y CDR
+
+
+  CAR admite un único argumento que debe ser una lista o una expresión
+  cuyo valor sea una lista y devuelve el primer elemento de dicha
+  lista. Como LISP siempre interpreta una lista como una llamada a una
+  función, necesitamos una manera de pasar una lista a CAR sin que LISP
+  trate de procesarla como llamada a función.
+
+  CDR recibe también una lista y devuelve el resto de la lista después
+  de eliminar el primer elemento (CAR lista). Por lo tanto puede
+  contemplarse como la función complementaria de CAR. Una manera de
+  interpretar una lista en LISP es como la conjunción de un CAR y un
+  CDR. Se podrá acceder a cualquier término de una lista mediante los
+  anidamientos apropiados de CAR y CDR.  
+
+  - (CAR lista) ;primer término
+  - (CAR (CDR lista)) ;segundo término 
+  - (CAR (CDR (CDR lista))) ; tercer término 
+
+  Para simplificar las expresiones se permite crear 
+  nombres compuestos
+  para anidamientos de CAR y CDR de la siguiente manera:
+  - comenzando por una primera letra C 
+  - una letra A por cada CAR o una D por cada CDR 
+  - terminando con una letra R 
+  - así (CAR (CDR (CDR lista))) sería lo mismo que (CADDR lista).
+
+  De esta manera podemos construir hasta 28 funciones distintas para acceso a
+  listas. Según Johnson estas 28 concatenaciones se pueden dividir en
+  cuatro grupos, tomando como base la profundidad a que pueden acceder
+  en listas anidadas en varios niveles.
+
+
+  #+BEGIN_SRC lisp
 ;(eval (car '((+ 1 2) 2 3 4 5)))
 (cadr '(1 2 3 4 5))
 ;(cddd  '((1 2 3 4 5) (6 7 8 9 10) (11 12 13 14 15)))
 
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : 2
+  #+RESULTS:
+  : 2
 
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (defun)
 
 
- #+END_SRC
+  #+END_SRC
 
 
- #+BEGIN_SRC lisp :results output
+  #+BEGIN_SRC lisp :results output
 (defun mylength (list)
 (if list 
 	(1+ (mylength (cdr list)))
@@ -941,277 +1116,277 @@ incremental (bottom-up).
 (rec '((1 2 3 4 4)))
 ;(mylength '(1 2 3 4))
 
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : Hola mundo 4
- : (1 2 3 4 4) 
- : NIL 
+  #+RESULTS:
+  : Hola mundo 4
+  : (1 2 3 4 4) 
+  : NIL 
+
+*** Entradas y salidas 
+
+ Lisp proporciona un amplio conjunto de facilidades para realizar
+ entrada/salida. Todas las operaciones de entrada/salida se realizan en
+ flujos de varios tipos. Aunque es posible leer y escribir datos
+ binarios, la mayoría de los métodos de entrada/salida de Common Lisp
+ leen o escriben caracteres. Para leer y escribir caracteres
+ individuales o líneas de datos, existen primitivas directas. Sin
+ embargo, la operación de entrada/salida más útil es leer y escribir
+ representaciones escritas de objetos Lisp arbitrarios.
+
+ **Objetos Lisp:**
+
+ Los objetos Lisp suelen ser estructuras de datos complejas en lugar de
+ cadenas de texto. Difieren de las cadenas de texto en términos de
+ atributos debido a cómo se representan internamente. Sin embargo, Lisp
+ ofrece una representación de la mayoría de los objetos en forma de
+ texto escrito, conocida como la representación impresa, que se utiliza
+ en las facilidades de entrada/salida. Esto hace posible acceder y
+ discutir objetos Lisp.
+
+ Los caracteres de la representación impresa de un objeto Lisp se
+ transmiten a un flujo mediante funciones como "print". El (Lisp)
+ impresor es un conjunto de funciones que realiza esto. El (Lisp)
+ lector es un conjunto de rutinas que realiza la función de lectura,
+ que acepta caracteres de un flujo, los interpreta como una
+ representación impresa de un objeto Lisp, crea ese objeto y lo
+ devuelve.
+
+**** Funciones de Entrada: 
+
+ Los caracteres de la representación impresa de un objeto Lisp se
+ transmiten a un flujo mediante funciones como "print". El (Lisp)
+ impresor es un conjunto de funciones que realiza esta tarea. El (Lisp)
+ lector es un conjunto de rutinas que ejecutan la función de lectura,
+ la cual acepta caracteres de un flujo, los interpreta como la
+ representación impresa de un objeto Lisp, crea ese objeto y lo
+ devuelve.
+
+ **Funciones de Entrada**: Las funciones de entrada se dividen en dos
+ categorías: aquellas que trabajan con flujos de caracteres y aquellas
+ que trabajan con flujos binarios.
+
+ **Entrada desde Flujos de Caracteres**: Existen muchos argumentos
+ opcionales en las funciones de entrada de caracteres llamados
+ "input-stream", "eof-error-p" y "eof-value". El argumento
+ "input-stream" es el flujo desde el cual recoger la entrada; si no se
+ especifica o es "nil", se toma por defecto el valor de la variable
+ especial 'standard-input'. El parámetro "eof-error-p" controla lo que
+ sucede si la entrada proviene de un archivo y se alcanza el final del
+ archivo. Si "eof-error-p" es verdadero, que es el valor
+ predeterminado, se señalará un error al final del archivo. Si es
+ falso, entonces no se encuentra ningún error, y en su lugar, la
+ función devuelve "eof-value".
+
+ Las funciones read, read-line y read-char son funciones de entrada en
+ Lisp que se utilizan para leer datos desde un flujo. Aquí se describen
+ sus parámetros:
+
+  - **read &optional input-stream eof-error-p eof-value recursive-p**:
+	Esta función lee datos desde el flujo de entrada especificado en
+	input-stream. Si no se especifica input-stream, se utiliza el valor
+	predeterminado que es el flujo de entrada estándar. eof-error-p
+	controla si se produce un error cuando se alcanza el final del
+	archivo (true por defecto), y eof-value especifica el valor que se
+	devuelve en lugar de un error cuando se llega al final del
+	archivo. recursive-p es un parámetro opcional que controla si la
+	función debe leer de manera recursiva objetos anidados.
+
+  - **read-line &optional input-stream eof-error-p eof-value
+	recursive-p**: Esta función lee una línea de texto desde el flujo
+	de entrada especificado en input-stream. Devuelve la línea como una
+	cadena de caracteres (sin el carácter de nueva línea). El segundo
+	valor que se devuelve es un indicador booleano que es true si el
+	final del archivo terminó la línea (no está vacía) o false si la
+	línea se terminó correctamente.
+
+  - **read-char &optional input-stream eof-error-p eof-value
+	recursive-p**: Esta función lee un carácter desde el flujo de
+	entrada especificado en input-stream. Al igual que las otras
+	funciones, eof-error-p controla si se produce un error cuando se
+	alcanza el final del archivo (true por defecto), y eof-value
+	especifica el valor que se devuelve en lugar de un error cuando se
+	llega al final del archivo. recursive-p es un parámetro opcional
+	que controla si la función debe leer de manera recursiva objetos
+	anidados.
+
+ Estas funciones son útiles para leer datos de diferentes maneras desde
+ flujos de entrada en Lisp.
 
 
-** Entradas y salidas 
+ Aquí se describen las funciones unread-char y
+ read-preserving-whitespace en Lisp:
 
-Lisp proporciona un amplio conjunto de facilidades para realizar
-entrada/salida. Todas las operaciones de entrada/salida se realizan en
-flujos de varios tipos. Aunque es posible leer y escribir datos
-binarios, la mayoría de los métodos de entrada/salida de Common Lisp
-leen o escriben caracteres. Para leer y escribir caracteres
-individuales o líneas de datos, existen primitivas directas. Sin
-embargo, la operación de entrada/salida más útil es leer y escribir
-representaciones escritas de objetos Lisp arbitrarios.
+  - **unread-char**: Esta función mueve un carácter al principio del
+	flujo de entrada. Es importante destacar que el carácter que se
+	pasa como argumento debe coincidir con el último carácter leído del
+	flujo de entrada. Después de usar unread-char, cuando se lea el
+	siguiente carácter del flujo de entrada, será el carácter
+	especificado seguido de los contenidos previos del flujo de
+	entrada, ya que el flujo de entrada "retrocede" sobre este
+	carácter. unread-char devuelve nil como resultado.
 
-**Objetos Lisp:**
+  - **read-preserving-whitespace**: Esta función se utiliza cuando es
+	necesario saber con precisión qué carácter finalizó un token
+	extendido. Permite leer tokens mientras conserva información sobre
+	los caracteres de espacio en blanco. A diferencia de read, que
+	normalmente ignora los espacios en blanco,
+	read-preserving-whitespace conserva los caracteres de espacio en
+	blanco y proporciona información adicional sobre cómo se formó el
+	token.
 
-Los objetos Lisp suelen ser estructuras de datos complejas en lugar de
-cadenas de texto. Difieren de las cadenas de texto en términos de
-atributos debido a cómo se representan internamente. Sin embargo, Lisp
-ofrece una representación de la mayoría de los objetos en forma de
-texto escrito, conocida como la representación impresa, que se utiliza
-en las facilidades de entrada/salida. Esto hace posible acceder y
-discutir objetos Lisp.
+  Estas funciones son útiles en situaciones específicas donde se
+  necesita un mayor control sobre la lectura y manipulación de
+  caracteres en el flujo de entrada en Lisp.
 
-Los caracteres de la representación impresa de un objeto Lisp se
-transmiten a un flujo mediante funciones como "print". El (Lisp)
-impresor es un conjunto de funciones que realiza esto. El (Lisp)
-lector es un conjunto de rutinas que realiza la función de lectura,
-que acepta caracteres de un flujo, los interpreta como una
-representación impresa de un objeto Lisp, crea ese objeto y lo
-devuelve.
+ Aquí se describen varias funciones relacionadas con la manipulación de
+ entrada de caracteres en Lisp:
 
-*** Funciones de Entrada: 
+  - **peek-char &optional peek-type input-stream eof-error-p eof-value
+	recursive-p**: La función peek-char se utiliza para examinar el
+	siguiente carácter en el flujo de entrada sin eliminarlo del
+	flujo. El parámetro opcional peek-type determina el comportamiento
+	de peek-char. Si peek-type es nil (valor predeterminado), la
+	función devuelve el próximo carácter que se leerá en el flujo de
+	entrada sin eliminarlo. Esto es útil para ver qué carácter vendrá a
+	continuación sin avanzar en la secuencia de entrada.
 
-Los caracteres de la representación impresa de un objeto Lisp se
-transmiten a un flujo mediante funciones como "print". El (Lisp)
-impresor es un conjunto de funciones que realiza esta tarea. El (Lisp)
-lector es un conjunto de rutinas que ejecutan la función de lectura,
-la cual acepta caracteres de un flujo, los interpreta como la
-representación impresa de un objeto Lisp, crea ese objeto y lo
-devuelve.
+  - **listen &optional input-stream**: La función listen se utiliza
+	para verificar si un carácter está inmediatamente disponible en el
+	flujo de entrada. Si hay un carácter disponible para ser leído, la
+	función devuelve true; de lo contrario, devuelve false. Esto es
+	especialmente útil cuando se trabaja con flujos de entrada
+	interactivos como el teclado.
 
-**Funciones de Entrada**: Las funciones de entrada se dividen en dos
-categorías: aquellas que trabajan con flujos de caracteres y aquellas
-que trabajan con flujos binarios.
+  - **read-char-no-hang &optional input-stream eof-error-p eof-value
+	recursive-p**: Similar a read-char, esta función lee un carácter
+	del flujo de entrada. Sin embargo, si no hay un carácter disponible
+	de inmediato, en lugar de esperar, devuelve nil de inmediato. Esto
+	permite una lectura no bloqueante.
 
-**Entrada desde Flujos de Caracteres**: Existen muchos argumentos
-opcionales en las funciones de entrada de caracteres llamados
-"input-stream", "eof-error-p" y "eof-value". El argumento
-"input-stream" es el flujo desde el cual recoger la entrada; si no se
-especifica o es "nil", se toma por defecto el valor de la variable
-especial 'standard-input'. El parámetro "eof-error-p" controla lo que
-sucede si la entrada proviene de un archivo y se alcanza el final del
-archivo. Si "eof-error-p" es verdadero, que es el valor
-predeterminado, se señalará un error al final del archivo. Si es
-falso, entonces no se encuentra ningún error, y en su lugar, la
-función devuelve "eof-value".
+  - **clear-input &optional input-stream**: La función clear-input se
+	utiliza para borrar la entrada bufferizada del flujo de entrada
+	relacionada con la entrada. Es útil, por ejemplo, para eliminar
+	entradas previas no leídas, especialmente en situaciones de errores
+	asincrónicos. Si el flujo de entrada no es aplicable para esta
+	operación, clear-input no tendrá ningún efecto.
 
-Las funciones read, read-line y read-char son funciones de entrada en
-Lisp que se utilizan para leer datos desde un flujo. Aquí se describen
-sus parámetros:
+  - **read-from-string string &optional eof-error-p eof-value &key
+	:start :end :preserve-whitespace:** Esta función crea un objeto
+	Lisp a partir de los caracteres de una cadena, uno a la vez, y
+	devuelve el objeto resultante. Además, devuelve la longitud de la
+	cadena (o longitud + 1) o el índice del primer carácter en la
+	cadena que no se leyó.
 
- - **read &optional input-stream eof-error-p eof-value recursive-p**:
-   Esta función lee datos desde el flujo de entrada especificado en
-   input-stream. Si no se especifica input-stream, se utiliza el valor
-   predeterminado que es el flujo de entrada estándar. eof-error-p
-   controla si se produce un error cuando se alcanza el final del
-   archivo (true por defecto), y eof-value especifica el valor que se
-   devuelve en lugar de un error cuando se llega al final del
-   archivo. recursive-p es un parámetro opcional que controla si la
-   función debe leer de manera recursiva objetos anidados.
+  - **parse-integer string &key :start :end :radix :junk-allowed:** La
+	función parse-integer se utiliza para analizar una cadena en busca
+	de un número entero. Puede especificar el rango de caracteres a
+	considerar mediante los parámetros :start y :end, y puede definir
+	la base numérica con :radix. Si se encuentra un carácter no válido
+	y :junk-allowed está configurado en nil, se generará un error.
 
- - **read-line &optional input-stream eof-error-p eof-value
-   recursive-p**: Esta función lee una línea de texto desde el flujo
-   de entrada especificado en input-stream. Devuelve la línea como una
-   cadena de caracteres (sin el carácter de nueva línea). El segundo
-   valor que se devuelve es un indicador booleano que es true si el
-   final del archivo terminó la línea (no está vacía) o false si la
-   línea se terminó correctamente.
+ Estas funciones son útiles en la manipulación de flujos de entrada de
+ caracteres y en la conversión de cadenas en objetos Lisp o números
+ enteros.
 
- - **read-char &optional input-stream eof-error-p eof-value
-   recursive-p**: Esta función lee un carácter desde el flujo de
-   entrada especificado en input-stream. Al igual que las otras
-   funciones, eof-error-p controla si se produce un error cuando se
-   alcanza el final del archivo (true por defecto), y eof-value
-   especifica el valor que se devuelve en lugar de un error cuando se
-   llega al final del archivo. recursive-p es un parámetro opcional
-   que controla si la función debe leer de manera recursiva objetos
-   anidados.
+*** Valores de Verdad IF 
 
-Estas funciones son útiles para leer datos de diferentes maneras desde
-flujos de entrada en Lisp.
+  En Lisp, el símbolo t es la representación por default para
+  verdadero. La representación por default de falso es nil . Ambos
+  evaluan a si mismos. Ej.  La función listp regresa verdadero si su
+  argumento es una lista:
 
-
-Aquí se describen las funciones unread-char y
-read-preserving-whitespace en Lisp:
-
- - **unread-char**: Esta función mueve un carácter al principio del
-   flujo de entrada. Es importante destacar que el carácter que se
-   pasa como argumento debe coincidir con el último carácter leído del
-   flujo de entrada. Después de usar unread-char, cuando se lea el
-   siguiente carácter del flujo de entrada, será el carácter
-   especificado seguido de los contenidos previos del flujo de
-   entrada, ya que el flujo de entrada "retrocede" sobre este
-   carácter. unread-char devuelve nil como resultado.
-
- - **read-preserving-whitespace**: Esta función se utiliza cuando es
-   necesario saber con precisión qué carácter finalizó un token
-   extendido. Permite leer tokens mientras conserva información sobre
-   los caracteres de espacio en blanco. A diferencia de read, que
-   normalmente ignora los espacios en blanco,
-   read-preserving-whitespace conserva los caracteres de espacio en
-   blanco y proporciona información adicional sobre cómo se formó el
-   token.
-
- Estas funciones son útiles en situaciones específicas donde se
- necesita un mayor control sobre la lectura y manipulación de
- caracteres en el flujo de entrada en Lisp.
-
-Aquí se describen varias funciones relacionadas con la manipulación de
-entrada de caracteres en Lisp:
-
- - **peek-char &optional peek-type input-stream eof-error-p eof-value
-   recursive-p**: La función peek-char se utiliza para examinar el
-   siguiente carácter en el flujo de entrada sin eliminarlo del
-   flujo. El parámetro opcional peek-type determina el comportamiento
-   de peek-char. Si peek-type es nil (valor predeterminado), la
-   función devuelve el próximo carácter que se leerá en el flujo de
-   entrada sin eliminarlo. Esto es útil para ver qué carácter vendrá a
-   continuación sin avanzar en la secuencia de entrada.
-
- - **listen &optional input-stream**: La función listen se utiliza
-   para verificar si un carácter está inmediatamente disponible en el
-   flujo de entrada. Si hay un carácter disponible para ser leído, la
-   función devuelve true; de lo contrario, devuelve false. Esto es
-   especialmente útil cuando se trabaja con flujos de entrada
-   interactivos como el teclado.
-
- - **read-char-no-hang &optional input-stream eof-error-p eof-value
-   recursive-p**: Similar a read-char, esta función lee un carácter
-   del flujo de entrada. Sin embargo, si no hay un carácter disponible
-   de inmediato, en lugar de esperar, devuelve nil de inmediato. Esto
-   permite una lectura no bloqueante.
-
- - **clear-input &optional input-stream**: La función clear-input se
-   utiliza para borrar la entrada bufferizada del flujo de entrada
-   relacionada con la entrada. Es útil, por ejemplo, para eliminar
-   entradas previas no leídas, especialmente en situaciones de errores
-   asincrónicos. Si el flujo de entrada no es aplicable para esta
-   operación, clear-input no tendrá ningún efecto.
-
- - **read-from-string string &optional eof-error-p eof-value &key
-   :start :end :preserve-whitespace:** Esta función crea un objeto
-   Lisp a partir de los caracteres de una cadena, uno a la vez, y
-   devuelve el objeto resultante. Además, devuelve la longitud de la
-   cadena (o longitud + 1) o el índice del primer carácter en la
-   cadena que no se leyó.
-
- - **parse-integer string &key :start :end :radix :junk-allowed:** La
-   función parse-integer se utiliza para analizar una cadena en busca
-   de un número entero. Puede especificar el rango de caracteres a
-   considerar mediante los parámetros :start y :end, y puede definir
-   la base numérica con :radix. Si se encuentra un carácter no válido
-   y :junk-allowed está configurado en nil, se generará un error.
-
-Estas funciones son útiles en la manipulación de flujos de entrada de
-caracteres y en la conversión de cadenas en objetos Lisp o números
-enteros.
-
-** Valores de Verdad IF 
-
- En Lisp, el símbolo t es la representación por default para
- verdadero. La representación por default de falso es nil . Ambos
- evaluan a si mismos. Ej.  La función listp regresa verdadero si su
- argumento es una lista:
-
- #+BEGIN_SRC lisp :results output
+  #+BEGIN_SRC lisp :results output
 (listp '(a b c))
 T
 (listp 34)
 Nil
- #+END_SRC
+  #+END_SRC
 
- Una función cuyo valor de regreseo se intérpreta como un valor de ver-
- dad (verdadero o falso) se conoce como predicado. En lisp es común que
- el símbolo de un predicado termine en p .  Como nil juega dos roles en
- *Lisp*, las funciones *null* (lista vacía) y not (negación) hacen
- exactamente lo mismo:
+  Una función cuyo valor de regreseo se intérpreta como un valor de ver-
+  dad (verdadero o falso) se conoce como predicado. En lisp es común que
+  el símbolo de un predicado termine en p .  Como nil juega dos roles en
+  *Lisp*, las funciones *null* (lista vacía) y not (negación) hacen
+  exactamente lo mismo:
 
 
- #+BEGIN_SRC lisp :results output
+  #+BEGIN_SRC lisp :results output
 (null nil)
 T
 (not nil)
 T
- #+END_SRC
+  #+END_SRC
 
- El condicional (estructura de control) más simple en *Lisp* es *if*
- . Normalmente toma tres argumentos: una expresión test, una expresión
- then y una expresión *else*. La expresión test es evaluada, si su
- valor es verdadero, la expresión *then* es evaluada; si su valor es
- falso, la expresión *else* es evaluada.
+  El condicional (estructura de control) más simple en *Lisp* es *if*
+  . Normalmente toma tres argumentos: una expresión test, una expresión
+  then y una expresión *else*. La expresión test es evaluada, si su
+  valor es verdadero, la expresión *then* es evaluada; si su valor es
+  falso, la expresión *else* es evaluada.
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (if (listp '(a b c d ))
 	(+ 1 2)
 	(+ 3 4)
 )
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : 3
+  #+RESULTS:
+  : 3
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (if (listp 23)
 	(+ 1 2)
 	(+ 3 4)
 )
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : 7
+  #+RESULTS:
+  : 7
 
- Como *quote*, *if** es un operador especial. No puede implementarse como
- una función, porque los argumentos de una función siempre se evaluan,
- y la idea al usar if es que sólo uno de sus argumentos sea evaluado.
- Si bien el default para representar verdadero es *t* , todo excepto nil
- cuenta como verdadero en un contexto lógico. Ej.
+  Como *quote*, *if** es un operador especial. No puede implementarse como
+  una función, porque los argumentos de una función siempre se evaluan,
+  y la idea al usar if es que sólo uno de sus argumentos sea evaluado.
+  Si bien el default para representar verdadero es *t* , todo excepto nil
+  cuenta como verdadero en un contexto lógico. Ej.
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (if 27 1 2)
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : 1
+  #+RESULTS:
+  : 1
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (if nil 1 2)
- #+END_SRC
+  #+END_SRC
 
- #+RESULTS:
- : 2
+  #+RESULTS:
+  : 2
 
- Dado que solo se evalúa una expresión dentro de un *if*, es imposible
- hacer dos o más cosas separadas dentro de una opción. Sin embargo,
- para los casos en los que realmente se desea hacer más de una cosa, se
- puede utilizar un comando especial como el *progn* para insertar
- comandos adicionales en una sola expresión. Con *progn*, solo se
- devuelve la última evaluación como el valor de la expresión completa.
+  Dado que solo se evalúa una expresión dentro de un *if*, es imposible
+  hacer dos o más cosas separadas dentro de una opción. Sin embargo,
+  para los casos en los que realmente se desea hacer más de una cosa, se
+  puede utilizar un comando especial como el *progn* para insertar
+  comandos adicionales en una sola expresión. Con *progn*, solo se
+  devuelve la última evaluación como el valor de la expresión completa.
 
 
 
- #+BEGIN_SRC lisp
+  #+BEGIN_SRC lisp
 (defvar *number-was-odd* nil)
 (if (oddp 5)
 	(progn (setf *number-was-odd* t)
 	   'odd-number)
 	'even-number)
- #+END_SRC
+  #+END_SRC
 
-** When unless 
+*** When Unless 
 
-De igual forma *Lisp* tiene otros comandos que tienen un *progn*
-implícito los más básicos son *when* y *unless*  
+ De igual forma *Lisp* tiene otros comandos que tienen un *progn*
+ implícito los más básicos son *when* y *unless*  en el siguiente ejemplo se puede ver la función oddp 
+ que evalúa si el numero es par o impar. 
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defvar *number-is-odd* nil)
 
 (when (oddp 5)
@@ -1231,25 +1406,133 @@ EVEN-NUMBER
 
 *number-is-odd*
 NIL
-#+END_SRC
+ #+END_SRC
 
-Con *when*, todas las expresiones encerradas se evalúan cuando la
-condición es verdad, con *unless* todas las expresiones encerradas se
-evalúan cuando la condición es falsa. La compensación es que estos
-comandos no pueden hacer nada cuando la condición se evalúa de manera
-opuesta; simplemente devuelven cero y no hacen nada.
+ Con *when*, todas las expresiones encerradas se evalúan cuando la
+ condición es verdad, con *unless* todas las expresiones encerradas se
+ evalúan cuando la condición es falsa. La compensación es que estos
+ comandos no pueden hacer nada cuando la condición se evalúa de manera
+ opuesta; simplemente devuelven cero y no hacen nada.
+
+*** Cond
+
+ La función **cond** en Lisp es un formulario especial utilizado para
+ crear estructuras condicionales. No es realmente una función en el
+ sentido tradicional, sino más bien una construcción que permite
+ evaluar una serie de condiciones y ejecutar una acción asociada a la
+ primera condición verdadera. Aquí tienes una descripción detallada de
+ cómo funciona **cond**:
+
+  - **cond** comienza con la palabra clave "cond" seguida de una lista
+	de cláusulas.
+  - Cada cláusula consta de dos partes: una expresión de prueba
+	(condición) y una expresión de resultado (acción).
+  - El Lisp evalúa secuencialmente las condiciones en orden, comenzando
+	por la primera cláusula.
+  - Tan pronto como una condición se evalúa como verdadera, se ejecuta
+	la acción asociada a esa cláusula y el `cond` se completa. No se
+	evalúan ni ejecutan las cláusulas restantes.
+  - Si ninguna de las condiciones es verdadera y no hay una cláusula
+	"else" (también conocida como "t" en Lisp), entonces no se realiza
+	ninguna acción.
+
+ Un ejemplo simple de **cond** en Lisp sería el siguiente:
 
 
-** Operadores Lógicos and or  
+ #+BEGIN_SRC lisp
+(cond
+  ((= x 0) (print "x es igual a 0"))
+  ((> x 0) (print "x es mayor que 0"))
+  ((< x 0) (print "x es menor que 0"))
+  (t (print "Esta es la acción predeterminada")))
+ #+END_SRC
 
- Los operadores lógicos *and* y *or* parecen condicionales. Ambos toman
- cualquier número de argumentos, pero solo evaluan los necesarios
- para decidir que valor regresar. Si todos los argumentos son
- verdaderos (diferentes de nil ), entonces and regresa el valor del
- último argumento. Ej.
 
 
-#+BEGIN_SRC lisp
+ En este ejemplo, se evalúan las condiciones en orden y se ejecuta la
+ acción asociada a la primera condición verdadera. Si ninguna condición
+ es verdadera, se ejecuta la acción en la cláusula "t" (que actúa como
+ una acción predeterminada o de último recurso).
+
+ **cond** es una herramienta poderosa para controlar el flujo de
+ programas en Lisp y se utiliza para implementar estructuras
+ condicionales más complejas.
+
+*** Case 
+
+ El formulario `case` en Lisp se utiliza para realizar una selección
+ múltiple basada en el valor de una expresión. Funciona de manera
+ similar a una declaración `switch` en otros lenguajes de
+ programación. Aquí tienes una descripción más detallada de cómo
+ funciona `case` en Lisp:
+
+ La estructura básica de `case` es la siguiente:
+
+ 1. **Sintaxis básica** 
+ #+BEGIN_SRC lisp
+ (case expresión
+     (etiqueta-1 expresión-1)
+     (etiqueta-2 expresión-2)
+     ...
+     (etiqueta-n expresión-n))
+ #+END_SRC
+
+	- **expresión** es la expresión cuyo valor se evalúa para determinar
+      qué etiqueta coincide.
+	- Cada *(etiqueta expresión)* es un par que especifica una etiqueta
+      y una expresión asociada. Si la `expresión` coincide con una de
+      las etiquetas, se evaluará y ejecutará la `expresión` asociada.
+
+ 2. **Evaluación**:
+	- `case` evalúa la `expresión` una vez y luego compara su valor con
+      las etiquetas en orden.
+	- Cuando una etiqueta coincide con el valor de la `expresión`, se
+      ejecuta la `expresión` asociada y `case` finaliza. Esto significa
+      que solo se ejecutará una de las expresiones asociadas, la
+      correspondiente a la primera etiqueta que coincida.
+
+ 3. **Etiquetas y expresiones**:
+	- Cada etiqueta es un valor constante que se compara con el valor
+      de la `expresión` para determinar si hay coincidencia.
+	- Las expresiones asociadas son evaluadas y ejecutadas si su
+      etiqueta coincide con la `expresión`.
+
+ 4. **Default**:
+	- Puedes incluir una etiqueta especial llamada `t` o `otherwise`
+      como última opción en `case`. Esto se ejecutará si ninguna de las
+      etiquetas anteriores coincide con la `expresión`. Es similar a un
+      caso "predeterminado" en una declaración `switch`.
+
+ 5. **Ejemplo**:
+  
+ #+BEGIN_SRC lisp
+(setq dia-de-la-semana 'martes)
+
+   (case dia-de-la-semana
+     (lunes (print "Hoy es lunes."))
+     (martes (print "Hoy es martes."))
+     (miércoles (print "Hoy es miércoles."))
+     (otherwise (print "Día desconocido.")))
+  
+ #+END_SRC
+
+   
+	En este ejemplo, se evalúa la variable `dia-de-la-semana`, y se
+	ejecutará la acción correspondiente al valor de la variable (en
+	este caso, imprimirá "Hoy es martes." porque `dia-de-la-semana` es
+	igual a 'martes'). Si no se encuentra una coincidencia, se
+	ejecutará la acción en la cláusula "otherwise".
+
+*** Operadores Lógicos and or  
+
+  Los operadores lógicos *and* y *or* parecen condicionales. Ambos toman
+  cualquier número de argumentos, pero solo evaluan los necesarios
+  para decidir que valor regresar. Si todos los argumentos son
+  verdaderos (diferentes de nil ), entonces and regresa el valor del
+  último argumento. Ej.
+
+
+ #+BEGIN_SRC lisp
 (defun ejemplosif(x)
 (unless (<= 2 x 24)
 	(print "Hola")
@@ -1259,12 +1542,12 @@ opuesta; simplemente devuelven cero y no hacen nada.
 
 (ejemplosif 21 )
 
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: NIL
+ #+RESULTS:
+ : NIL
 
-
+ #+BEGIN_SRC lisp
 (setq var (getreal "\nEnter var: "))
 (cond
   ((and (>= var 2) (<= var 24 ))(princ "\nvar is between 2 & 24"))
@@ -1272,18 +1555,21 @@ opuesta; simplemente devuelven cero y no hacen nada.
   ((and (>= var 50) (<= var 96))(princ "\nvar is between 50 & 96"))
   (T nil)
   )
+
+ #+END_SRC
+
+
  
-also like this
 
-(cond
-  ((<= 2 var 24)(DO THIS))
-  ((<= 26 var 48)(DO THIS))
-  ((<= 50 var 96)(DO THIS))
-  (T nil)
-  )
+ (cond
+   ((<= 2 var 24)(DO THIS))
+   ((<= 26 var 48)(DO THIS))
+   ((<= 50 var 96)(DO THIS))
+   (T nil)
+   )
 
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defvar *arch-enemy* nil)
 
 (defun pudding-eater (person)
@@ -1299,14 +1585,14 @@ also like this
 
 (pudding-eater 'lalo)
 
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: (WHY YOU EAT MY PUDDING STRANGER ?)
+ #+RESULTS:
+ : (WHY YOU EAT MY PUDDING STRANGER ?)
 
-(espada pistol  )
-(espada) (pistola) 
-#+BEGIN_SRC lisp
+ (espada pistol  )
+ (espada) (pistola) 
+ #+BEGIN_SRC lisp
 
 (defparameter *nodo* '((Zerg
 						(Terreste
@@ -1343,14 +1629,16 @@ also like this
 						 (Buitre
 						  (Unidad ligera y con la habilidad de poner tres minas arañas)))
 						)
-					   (protoss)))
+					   (protoss)
+					   )
+)
 
 (car *nodo*)
 
-#+END_SRC
+ #+END_SRC
 
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defparameter *edges* '((living-room (garden west door)
 						 (attic upstairs ladder))
 						(garden (living-room east door))
@@ -1358,13 +1646,13 @@ also like this
 
 (car edges)
 
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-| LIVING-ROOM | (GARDEN WEST DOOR) | (ATTIC UPSTAIRS LADDER) |
+ #+RESULTS:
+ | LIVING-ROOM | (GARDEN WEST DOOR) | (ATTIC UPSTAIRS LADDER) |
 
 
-#+BEGIN_SRC lisp 
+ #+BEGIN_SRC lisp 
 (defparameter *nodos* '((zerg
 						 (Terrestres
 						  ()
@@ -1444,15 +1732,15 @@ also like this
 ;(print aux)
 (assoc 'Aereo (cdr (assoc 'Terran *nodo*)))
 ;(assoc 'Terrestres (cdr (assoc 'protoss *nodo*)))
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-| AEREO | (ESPECTRO (UNIDAD AÉREA BÁSICA)) | (CRUCERO DE BATALLA (PODEROSA UNIDAD DE COMBANTE)) | (NAVE DE LA CIENCIA (UNIDAD AÉREA DE APOYO Y ESPECIALISTA CON LA FACULTAD DE DETECTAR UNIDADES ENEMIGAS ENTERRADAS O INVISIBLE)) |
-Hola  PROTOSS
-Hola  PROTOSS
+ #+RESULTS:
+ | AEREO | (ESPECTRO (UNIDAD AÉREA BÁSICA)) | (CRUCERO DE BATALLA (PODEROSA UNIDAD DE COMBANTE)) | (NAVE DE LA CIENCIA (UNIDAD AÉREA DE APOYO Y ESPECIALISTA CON LA FACULTAD DE DETECTAR UNIDADES ENEMIGAS ENTERRADAS O INVISIBLE)) |
+ Hola  PROTOSS
+ Hola  PROTOSS
 
 
-#+BEGIN_SRC lisp :results output 
+ #+BEGIN_SRC lisp :results output 
 (defparameter *lista*  '(Terran Zerg Protoss ))
 
 (defun recorre(lista)
@@ -1467,81 +1755,81 @@ Hola  PROTOSS
 (recorre *lista*)
 ;(print (car *lista*))
 ;(print (cdr *lista*))
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: Tu personaje es TERRAN 
-: 
-: Tu personaje es ZERG 
-: 
-: Tu personaje es PROTOSS 
-: 
-: Tu personaje es NIL 
-: 
-NIL
-(ZERG PROTOSS)
-TERRAN
-(TERRAN ZERG PROTOSS)
+ #+RESULTS:
+ : Tu personaje es TERRAN 
+ : 
+ : Tu personaje es ZERG 
+ : 
+ : Tu personaje es PROTOSS 
+ : 
+ : Tu personaje es NIL 
+ : 
+ NIL
+ (ZERG PROTOSS)
+ TERRAN
+ (TERRAN ZERG PROTOSS)
 
-** Funciones lambda en Lisp 
+*** Funciones lambda en Lisp 
 
-En el ámbito de la programación, una expresión lambda, también
-denominada función lambda, función literal o función anónima, es una
-subrutina definida que no está enlazada a un identificador. Las
-expresiones lambda a menudo son argumentos que se pasan a funciones de
-orden superior, o se usan para construir el resultado de una función
-de orden superior que necesita devolver una función.​ Si la función
-solo se usa una vez o un número limitado de veces, una expresión
-lambda puede ser sintácticamente más simple que usar una función con
-nombre. Las funciones lambda son muy comunes en los lenguajes de
-programación funcional y en otros lenguajes con funciones de primera
-clase, en los que cumplen el mismo papel para el tipo de función que
-los literales para otros tipos de datos.
-
-
-*** Funciones como valores de primera clase
-
-**** Sintaxis
- - (nombre de la función) ; recupera la función objeto de ese nombre
- - #'nombre ; azúcar sintáctica para (nombre de la función)
- - (símbolo de función de símbolo); devuelve la función vinculada al símbolo
- - (función funcs args ...); llamar a la función con args
- - (aplicar la función arglista); Función de llamada con argumentos dados en una lista.
- - (aplicar la función arg1 arg2 ... argn arglist); Función de llamada con argumentos dados por arg1, arg2, ..., argn y el resto en la lista arglist
+ En el ámbito de la programación, una expresión lambda, también
+ denominada función lambda, función literal o función anónima, es una
+ subrutina definida que no está enlazada a un identificador. Las
+ expresiones lambda a menudo son argumentos que se pasan a funciones de
+ orden superior, o se usan para construir el resultado de una función
+ de orden superior que necesita devolver una función.​ Si la función
+ solo se usa una vez o un número limitado de veces, una expresión
+ lambda puede ser sintácticamente más simple que usar una función con
+ nombre. Las funciones lambda son muy comunes en los lenguajes de
+ programación funcional y en otros lenguajes con funciones de primera
+ clase, en los que cumplen el mismo papel para el tipo de función que
+ los literales para otros tipos de datos.
 
 
-**** Parámetros 
+**** Funciones como valores de primera clase
 
-| Parámetro        | Detalles                                                   |
-|------------------+------------------------------------------------------------|
-| Nombres          | Algún símbolo (no evaluado que nombra una función)         |
-|------------------+------------------------------------------------------------|
-| Símbolo          | Un símbolo                                                 |
-|------------------+------------------------------------------------------------|
-| Función          | Una función que se va llamar                               |
-|------------------+------------------------------------------------------------|
-| arg              | cero o más argumentos (no una lista de argumentos)         |
-|------------------+------------------------------------------------------------|
-| arglista         | Una lista que contiene argumentos para pasar a una función |
-|------------------+------------------------------------------------------------|
-| arg1,arg2,..argn |                                                            |
-|------------------+------------------------------------------------------------|
+***** Sintaxis
+  - (nombre de la función) ; recupera la función objeto de ese nombre
+  - #'nombre ; azúcar sintáctica para (nombre de la función)
+  - (símbolo de función de símbolo); devuelve la función vinculada al símbolo
+  - (función funcs args ...); llamar a la función con args
+  - (aplicar la función arglista); Función de llamada con argumentos dados en una lista.
+  - (aplicar la función arg1 arg2 ... argn arglist); Función de llamada con argumentos dados por arg1, arg2, ..., argn y el resto en la lista arglist
 
 
-**** Observaciones
+***** Parámetros 
 
-Cuando se habla de lenguajes similares a Lisp, existe una distinción
-común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
-símbolos solo tienen un valor y si un símbolo se refiere a una
-función, entonces el valor de ese símbolo será esa función. En un
-Lisp-2, los símbolos pueden tener valores y funciones asociadas por
-separado, por lo que se requiere una forma especial para referirse a
-la función almacenada en un símbolo en lugar del valor.
+ | Parámetro        | Detalles                                                   |
+ |------------------+------------------------------------------------------------|
+ | Nombres          | Algún símbolo (no evaluado que nombra una función)         |
+ |------------------+------------------------------------------------------------|
+ | Símbolo          | Un símbolo                                                 |
+ |------------------+------------------------------------------------------------|
+ | Función          | Una función que se va llamar                               |
+ |------------------+------------------------------------------------------------|
+ | arg              | cero o más argumentos (no una lista de argumentos)         |
+ |------------------+------------------------------------------------------------|
+ | arglista         | Una lista que contiene argumentos para pasar a una función |
+ |------------------+------------------------------------------------------------|
+ | arg1,arg2,..argn |                                                            |
+ |------------------+------------------------------------------------------------|
 
-Common Lisp es básicamente un Lisp-2, sin embargo, en realidad hay más
-de 2 espacios de nombres (cosas a las que los símbolos pueden
-referirse): los símbolos pueden referirse a valores, funciones, tipos
-y etiquetas, por ejemplo.
+
+***** Observaciones
+
+ Cuando se habla de lenguajes similares a Lisp, existe una distinción
+ común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
+ símbolos solo tienen un valor y si un símbolo se refiere a una
+ función, entonces el valor de ese símbolo será esa función. En un
+ Lisp-2, los símbolos pueden tener valores y funciones asociadas por
+ separado, por lo que se requiere una forma especial para referirse a
+ la función almacenada en un símbolo en lugar del valor.
+
+ Common Lisp es básicamente un Lisp-2, sin embargo, en realidad hay más
+ de 2 espacios de nombres (cosas a las que los símbolos pueden
+ referirse): los símbolos pueden referirse a valores, funciones, tipos
+ y etiquetas, por ejemplo.
 
 
 ***** Definiendo funciones anónimas.
@@ -1660,12 +1948,12 @@ bar
 #+END_SRC
 
 
-**** Funciones de orden superior
-Common Lisp contiene muchas funciones de orden superior que son
-funciones pasadas para los argumentos y las llaman. Tal vez los más
-fundamentales sean funcall y de apply :
+***** Funciones de orden superior
+ Common Lisp contiene muchas funciones de orden superior que son
+ funciones pasadas para los argumentos y las llaman. Tal vez los más
+ fundamentales sean funcall y de apply :
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (list 1 2 3)
 (1 2 3)
 (funcall #'list 1 2 3)
@@ -1683,12 +1971,12 @@ fundamentales sean funcall y de apply :
 MY-FUNCALL
 (my-funcall #'list 1 2 3)
 (1 2 3)
-#+END_SRC
+ #+END_SRC
 
-Hay muchas otras funciones de orden superior que, por ejemplo, aplican
-una función muchas veces a los elementos de una lista.
+ Hay muchas otras funciones de orden superior que, por ejemplo, aplican
+ una función muchas veces a los elementos de una lista.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (map 'list #'/ '(1 2 3 4))
 (1 1/2 1/3 1/4)
 (map 'vector #'+ '(1 2 3 4 5) #(5 4 3 2 10))
@@ -1698,130 +1986,130 @@ una función muchas veces a los elementos de una lista.
 (remove-if #'evenp '(1 2 3 4 5))
 (1 3 5)
 
-#+END_SRC
+ #+END_SRC
 
-Sumando una lista 
+ Sumando una lista 
 
-La función de reducción se puede utilizar para sumar
-los elementos de una lista.
+ La función de reducción se puede utilizar para sumar
+ los elementos de una lista.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (reduce '+ '(1 2 3 4))
 ;;=> 10
-#+END_SRC
+ #+END_SRC
 
-Por defecto, reducir realiza una reducción asociativa a la izquierda ,
-lo que significa que la suma 10 se calcula como
+ Por defecto, reducir realiza una reducción asociativa a la izquierda ,
+ lo que significa que la suma 10 se calcula como
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (+ (+ (+ 1 2) 3) 4)
-#+END_SRC
+ #+END_SRC
 
-Los primeros dos elementos se suman primero, y luego ese resultado (3)
-se agrega al siguiente elemento (3) para producir 6, que a su vez se
-agrega a 4, para producir el resultado final.
+ Los primeros dos elementos se suman primero, y luego ese resultado (3)
+ se agrega al siguiente elemento (3) para producir 6, que a su vez se
+ agrega a 4, para producir el resultado final.
 
-Esto es más seguro que usar aplicar (por ejemplo, en (aplicar '+' (1 2
-3 4)) porque la longitud de la lista de argumentos que se puede pasar
-a aplicar es limitada (consulte el límite de argumentos de llamadas ),
-y la reducción funcionará Con funciones que solo toman dos argumentos.
+ Esto es más seguro que usar aplicar (por ejemplo, en (aplicar '+' (1 2
+ 3 4)) porque la longitud de la lista de argumentos que se puede pasar
+ a aplicar es limitada (consulte el límite de argumentos de llamadas ),
+ y la reducción funcionará Con funciones que solo toman dos argumentos.
 
-Al especificar el argumento de la palabra clave desde el final ,
-reducir procesará la lista en la otra dirección, lo que significa que
-la suma se computa en el orden inverso. Es decir
+ Al especificar el argumento de la palabra clave desde el final ,
+ reducir procesará la lista en la otra dirección, lo que significa que
+ la suma se computa en el orden inverso. Es decir
 
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (reduce '+ (1 2 3 4) :from-end t)
 ;;=> 10
-#+END_SRC
+ #+END_SRC
 
-está computando
+ está computando
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (+ 1 (+ 2 (+ 3 4)))
-#+END_SRC
+ #+END_SRC
 
 
-Implementación de reversa y reventa.  Common Lisp ya tiene una función
-inversa , pero si no lo tenía, entonces podría implementarse
-fácilmente usando reducir . Dada una lista como
+ Implementación de reversa y reventa.  Common Lisp ya tiene una función
+ inversa , pero si no lo tenía, entonces podría implementarse
+ fácilmente usando reducir . Dada una lista como
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (1 2 3) === (cons 1 (cons 2 (cons 3 '())))
-#+END_SRC
+ #+END_SRC
 
-la lista invertida es
+ la lista invertida es
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (cons 3 (cons 2 (cons 1 '()))) === (3 2 1)
-#+END_SRC
+ #+END_SRC
 
-Puede que no sea un uso obvio de reducir , pero si tenemos una función
-de "contras invertida", digamos xcons , de modo que
+ Puede que no sea un uso obvio de reducir , pero si tenemos una función
+ de "contras invertida", digamos xcons , de modo que
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (xcons 1 2) === (2 . 1)
-#+END_SRC
+ #+END_SRC
 
-Entonces
+ Entonces
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (xcons (xcons (xcons () 1) 2) 3)
-#+END_SRC
+ #+END_SRC
 
-Que es una reducción.
+ Que es una reducción.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (reduce (lambda (x y)
           (cons y x))
         '(1 2 3 4)
         :initial-value '())
 ;=> (4 3 2 1)
-#+END_SRC
+ #+END_SRC
 
 
-Common Lisp tiene otra función útil, revappend , que es una
-combinación de reversa y anexa . Conceptualmente, invierte una lista y
-la agrega a alguna cola:
+ Common Lisp tiene otra función útil, revappend , que es una
+ combinación de reversa y anexa . Conceptualmente, invierte una lista y
+ la agrega a alguna cola:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (revappend '(3 2 1) '(4 5 6))
 ;;=> (1 2 3 4 5 6)
 
-#+END_SRC
+ #+END_SRC
 
-Esto también se puede implementar con reducir . De hecho, es lo mismo
-que la implementación del reverso anterior, excepto que el valor
-inicial debería ser (4 5 6) en lugar de la lista vacía.
+ Esto también se puede implementar con reducir . De hecho, es lo mismo
+ que la implementación del reverso anterior, excepto que el valor
+ inicial debería ser (4 5 6) en lugar de la lista vacía.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (reduce (lambda (x y)
           (cons y x))
         '(3 2 1)
         :initial-value '(4 5 6))
 ;=> (1 2 3 4 5 6)
-#+END_SRC
+ #+END_SRC
 
-Cierres
+ Cierres
 
-Las funciones recuerdan el ámbito léxico en el que se
-definieron. Debido a esto, podemos incluir un lambda en un let para
-definir los cierres.
+ Las funciones recuerdan el ámbito léxico en el que se
+ definieron. Debido a esto, podemos incluir un lambda en un let para
+ definir los cierres.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defvar *counter* (let ((count 0))
                     (lambda () (incf count))))
 
 (funcall *counter*) ;; => 1
 (funcall *counter*) ;; = 2
 
-#+END_SRC
+ #+END_SRC
 
-En el ejemplo anterior, la variable de contador solo es accesible a la
-función anónima. Esto se ve más claramente en el siguiente ejemplo.
+ En el ejemplo anterior, la variable de contador solo es accesible a la
+ función anónima. Esto se ve más claramente en el siguiente ejemplo.
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defvar *counter-1* (make-counter))
 (defvar *counter-2* (make-counter))
 
@@ -1830,11 +2118,11 @@ función anónima. Esto se ve más claramente en el siguiente ejemplo.
 (funcall *counter-2*) ;; => 1
 (funcall *counter-1*) ;; => 3
 
-#+END_SRC
-Definiendo funciones que toman funciones y devuelven funciones.
-Un ejemplo simple:
+ #+END_SRC
+ Definiendo funciones que toman funciones y devuelven funciones.
+ Un ejemplo simple:
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defun make-apply-twice (fun)
            "return a new function that applies twice the function`fun' to its argument"
            (lambda (x)
@@ -1845,14 +2133,14 @@ Un ejemplo simple:
 ;(let ((pow4 (make-apply-twice (lambda (x) (* x x)))))
 ;           (funcall pow4 3))
 
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: 5
+ #+RESULTS:
+ : 5
 
-El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) = f ( g ( h ( x )):
+ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) = f ( g ( h ( x )):
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 (defun compose (&rest funs)
            "return a new function obtained by the functional compositions of the parameters"
            (if (null funs) 
@@ -1865,50 +2153,49 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 (funcall (compose #'square #'1+ #'square) 3)
 100  ;; => equivalent to (square (1+ (square 3)))
 
-#+END_SRC
+ #+END_SRC
 
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 ( lambda (n)
   ((lambda (fact) (fact fact 1 n))
    (lambda (f P n) (if (<= n 1) P (f f (* n P) (- n 1))))))
 
 
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: #<FUNCTION (LAMBDA (N)) {52B8D55B}>
+ #+RESULTS:
+ : #<FUNCTION (LAMBDA (N)) {52B8D55B}>
 
-#+BEGIN_SRC lisp
+ #+BEGIN_SRC lisp
 ((lambda (x) (* x x)) 3)
-#+END_SRC
+ #+END_SRC
 
-#+RESULTS:
-: 9
+ #+RESULTS:
+ : 9
 
+*** Ejercicios 
 
-** Ejercicios 
+ (defpackage "EJERCICIOS")
 
-(defpackage "EJERCICIOS")
-
-;;1.1 Definir una función que calcule el valor de:
-;; F = 1/ sqrt (a*2 + b*2 + c)
-
-
-;;1.2 Definir una función que devuelva la longitud de una
-;;circunferencia, dando como parámetro el radio R de la misma
+ ;;1.1 Definir una función que calcule el valor de:
+ ;; F = 1/ sqrt (a*2 + b*2 + c)
 
 
-;;1.3 Definir una función que pase de grados centígrados a grados
-;;Fahrenheit, sabiendo que: F = (C + 40) x 1.8 - 40
+ ;;1.2 Definir una función que devuelva la longitud de una
+ ;;circunferencia, dando como parámetro el radio R de la misma
 
-;;1.4 Definir una función que, dados tres argumentos numéricos,
-;;devuelva cuál es el mediano, utilizando MAX y MIN.
 
-;;1.5 Definir un predicado que dados A, B y C como argumentos devuelva
-;;    T si B2 - 4AC es menor que cero.
+ ;;1.3 Definir una función que pase de grados centígrados a grados
+ ;;Fahrenheit, sabiendo que: F = (C + 40) x 1.8 - 40
 
-;;
+ ;;1.4 Definir una función que, dados tres argumentos numéricos,
+ ;;devuelva cuál es el mediano, utilizando MAX y MIN.
+
+ ;;1.5 Definir un predicado que dados A, B y C como argumentos devuelva
+ ;;    T si B2 - 4AC es menor que cero.
+
+ ;;
 
 
 * Prolog

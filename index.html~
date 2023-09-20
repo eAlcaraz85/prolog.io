@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-09-03 dom 21:21 -->
+<!-- 2023-09-20 mié 09:52 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Programación Lógica Funcional</title>
@@ -200,6 +200,7 @@
 <script type="text/javascript" src="src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="src/readtheorg_theme/js/readtheorg.js"></script>
 <style> #content{max-width:1800px;}</style>
+<style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -276,67 +277,71 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org60b73dd">Estilos de Programación</a>
+<li><a href="#org02e63e6">Estilos de Programación</a>
 <ul>
-<li><a href="#org76fbe46">Características del Estilo</a></li>
-<li><a href="#orgcf609d8">Nombres de Variable Apropiadas.</a></li>
-<li><a href="#org9a90b9a">Estilo de indentación</a></li>
-<li><a href="#org49ba4c5">Bucles y estructuras de control</a></li>
-<li><a href="#org744ddd0">Espaciado</a></li>
-<li><a href="#orgd636e5f">Evaluación de expresiones</a></li>
+<li><a href="#orgd2a4cb6">Características del Estilo</a></li>
+<li><a href="#orgad7976d">Nombres de Variable Apropiadas.</a></li>
+<li><a href="#orga9c4314">Estilo de indentación</a></li>
+<li><a href="#orgc49fff5">Bucles y estructuras de control</a></li>
+<li><a href="#orgefcc390">Espaciado</a></li>
+<li><a href="#orge536d47">Evaluación de expresiones</a></li>
 </ul>
 </li>
-<li><a href="#orgd60e582">Paradigma de Programación</a>
+<li><a href="#org4a73411">Paradigma de Programación</a>
 <ul>
-<li><a href="#org0d6743c">Tipos más comunes de paradigmas de programación</a>
+<li><a href="#orgc39352a">Tipos más comunes de paradigmas de programación</a>
 <ul>
-<li><a href="#org5a23644">Programación imperativa o por procedimientos:</a></li>
-<li><a href="#orga6f2685">Programación orientada a objetos:</a></li>
-<li><a href="#org0163148">Programación dinámica:</a></li>
-<li><a href="#org1ebe458">Programación dirigida por eventos:</a></li>
-<li><a href="#org67d7256">Programación declarativa:</a></li>
-<li><a href="#orge1ea9b8">Programación funcional:</a></li>
-<li><a href="#org67a28f2">Programación lógica:</a></li>
-<li><a href="#org68d93f2">Programación con restricciones:</a></li>
-<li><a href="#orgd009aa4">Programación multiparadigma:</a></li>
-<li><a href="#org7ea9653">Lenguaje específico del dominio o DSL:</a></li>
+<li><a href="#orgd0d25db">Programación imperativa o por procedimientos:</a></li>
+<li><a href="#org84e0f37">Programación orientada a objetos:</a></li>
+<li><a href="#org10b167d">Programación dinámica:</a></li>
+<li><a href="#org5ef48a6">Programación dirigida por eventos:</a></li>
+<li><a href="#org7a251ae">Programación declarativa:</a></li>
+<li><a href="#org765af97">Programación funcional:</a></li>
+<li><a href="#orgcae211a">Programación lógica:</a></li>
+<li><a href="#orgdd9ac1d">Programación con restricciones:</a></li>
+<li><a href="#orgfef32aa">Programación multiparadigma:</a></li>
+<li><a href="#org914d80a">Lenguaje específico del dominio o DSL:</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgcb9b9da">Programación Funcional</a></li>
-<li><a href="#orgcbd4465">Lisp</a>
+<li><a href="#org7aab1bb">Programación Funcional</a></li>
+<li><a href="#org9ace80b">Lisp</a>
 <ul>
-<li><a href="#orgcb5038e">Historia</a></li>
-<li><a href="#org3aef7ab">Expresiones</a></li>
-<li><a href="#org75fdeb5">Evaluación</a></li>
-<li><a href="#org860726d">Datos</a></li>
-<li><a href="#orgc5437d4">Funciones en Lisp</a></li>
-<li><a href="#org369951c">Funciones CAR y CDR</a></li>
-<li><a href="#orgb8f1e7e">Valores de Verdad IF</a></li>
-<li><a href="#orgc3d6585">When unless</a></li>
-<li><a href="#org06361ba">Operadores Lógicos and or</a></li>
-<li><a href="#orgc18f621">Funciones lambda en Lisp</a>
+<li><a href="#org4db573a">Historia</a></li>
+<li><a href="#org54f6c94">Programación en Lisp</a>
 <ul>
-<li><a href="#orgb1705ff">Funciones como valores de primera clase</a></li>
+<li><a href="#org702c93f">Expresiones</a></li>
+<li><a href="#org102e52a">Datos</a></li>
+<li><a href="#org6bc0194">Evaluación</a></li>
+<li><a href="#orgddcf4a9">Funciones en Lisp</a></li>
+<li><a href="#org8ec7530">Listas</a></li>
+<li><a href="#orge856ba8">Entradas y salidas</a></li>
+<li><a href="#orgf96b41b">Valores de Verdad IF</a></li>
+<li><a href="#org3c46d6b">When Unless</a></li>
+<li><a href="#org9d49669">Cond</a></li>
+<li><a href="#orgfbe2761">Case</a></li>
+<li><a href="#org9a74a30">Operadores Lógicos and or</a></li>
+<li><a href="#org0779763">Funciones lambda en Lisp</a></li>
+<li><a href="#org1f75605">Ejercicios</a></li>
 </ul>
 </li>
-<li><a href="#org2f9f782">Ejercicios</a></li>
 </ul>
 </li>
-<li><a href="#org4e4080c">Prolog</a>
+<li><a href="#orge51fe69">Prolog</a>
 <ul>
-<li><a href="#org73714c9">Corte</a></li>
-<li><a href="#org3f1df73">Usos del corte</a></li>
-<li><a href="#org1fe5765">Corte y fallo</a></li>
+<li><a href="#org3cde6db">Corte</a></li>
+<li><a href="#org33a63d2">Usos del corte</a></li>
+<li><a href="#orge951772">Corte y fallo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org60b73dd" class="outline-2">
-<h2 id="org60b73dd">Estilos de Programación</h2>
-<div class="outline-text-2" id="text-org60b73dd">
+
+<div id="outline-container-org02e63e6" class="outline-2">
+<h2 id="org02e63e6">Estilos de Programación</h2>
+<div class="outline-text-2" id="text-org02e63e6">
 <p>
 (también llamados estándares de código o convención de código) es un
 término que describe convenciones para escribir código fuente en
@@ -348,9 +353,9 @@ Programación C variará con respecto al del lenguaje BASIC.
 </div>
 
 
-<div id="outline-container-org76fbe46" class="outline-3">
-<h3 id="org76fbe46">Características del Estilo</h3>
-<div class="outline-text-3" id="text-org76fbe46">
+<div id="outline-container-orgd2a4cb6" class="outline-3">
+<h3 id="orgd2a4cb6">Características del Estilo</h3>
+<div class="outline-text-3" id="text-orgd2a4cb6">
 <p>
 Una pieza clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -393,9 +398,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 
 
-<div id="outline-container-orgcf609d8" class="outline-3">
-<h3 id="orgcf609d8">Nombres de Variable Apropiadas.</h3>
-<div class="outline-text-3" id="text-orgcf609d8">
+<div id="outline-container-orgad7976d" class="outline-3">
+<h3 id="orgad7976d">Nombres de Variable Apropiadas.</h3>
+<div class="outline-text-3" id="text-orgad7976d">
 <p>
 Una piedra clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -433,9 +438,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 </div>
 
-<div id="outline-container-org9a90b9a" class="outline-3">
-<h3 id="org9a90b9a">Estilo de indentación</h3>
-<div class="outline-text-3" id="text-org9a90b9a">
+<div id="outline-container-orga9c4314" class="outline-3">
+<h3 id="orga9c4314">Estilo de indentación</h3>
+<div class="outline-text-3" id="text-orga9c4314">
 <p>
 Estilo de indentación, en lenguajes de programación que usan llaves
 para indentar o delimitar bloques lógicos de código, como por
@@ -507,9 +512,9 @@ las dos formas.
 </div>
 </div>
 
-<div id="outline-container-org49ba4c5" class="outline-3">
-<h3 id="org49ba4c5">Bucles y estructuras de control</h3>
-<div class="outline-text-3" id="text-org49ba4c5">
+<div id="outline-container-orgc49fff5" class="outline-3">
+<h3 id="orgc49fff5">Bucles y estructuras de control</h3>
+<div class="outline-text-3" id="text-orgc49fff5">
 <p>
 El uso de estructuras de control lógicas para bucles también es parte
  de un buen estilo de programación. Ayuda a alguien que esté leyendo
@@ -553,9 +558,9 @@ en un rango" puede ser acortado a:
 </div>
 </div>
 
-<div id="outline-container-org744ddd0" class="outline-3">
-<h3 id="org744ddd0">Espaciado</h3>
-<div class="outline-text-3" id="text-org744ddd0">
+<div id="outline-container-orgefcc390" class="outline-3">
+<h3 id="orgefcc390">Espaciado</h3>
+<div class="outline-text-3" id="text-orgefcc390">
 <p>
 Los lenguajes de formato libre ignoran frecuentemente los espacios
 en blanco. El buen uso del espaciado en la disposición del código
@@ -608,9 +613,9 @@ espacio en blanco.
 </div>
 </div>
 
-<div id="outline-container-orgd636e5f" class="outline-3">
-<h3 id="orgd636e5f">Evaluación de expresiones</h3>
-<div class="outline-text-3" id="text-orgd636e5f">
+<div id="outline-container-orge536d47" class="outline-3">
+<h3 id="orge536d47">Evaluación de expresiones</h3>
+<div class="outline-text-3" id="text-orge536d47">
 <p>
 En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
 flujo, las palabras-clave señalan al compilador aspectos complementarios que no
@@ -633,9 +638,9 @@ optimización del código.</li>
 
 
 
-<div id="outline-container-orgd60e582" class="outline-2">
-<h2 id="orgd60e582">Paradigma de Programación</h2>
-<div class="outline-text-2" id="text-orgd60e582">
+<div id="outline-container-org4a73411" class="outline-2">
+<h2 id="org4a73411">Paradigma de Programación</h2>
+<div class="outline-text-2" id="text-org4a73411">
 <p>
 Un paradigma de programación es una propuesta tecnológica adoptada por
 una comunidad de programadores y desarrolladores cuyo núcleo central
@@ -647,13 +652,13 @@ menos un parámetro que afecte a la ingeniería de software.
 </div>
 
 
-<div id="outline-container-org0d6743c" class="outline-3">
-<h3 id="org0d6743c">Tipos más comunes de paradigmas de programación</h3>
-<div class="outline-text-3" id="text-org0d6743c">
+<div id="outline-container-orgc39352a" class="outline-3">
+<h3 id="orgc39352a">Tipos más comunes de paradigmas de programación</h3>
+<div class="outline-text-3" id="text-orgc39352a">
 </div>
-<div id="outline-container-org5a23644" class="outline-4">
-<h4 id="org5a23644">Programación imperativa o por procedimientos:</h4>
-<div class="outline-text-4" id="text-org5a23644">
+<div id="outline-container-orgd0d25db" class="outline-4">
+<h4 id="orgd0d25db">Programación imperativa o por procedimientos:</h4>
+<div class="outline-text-4" id="text-orgd0d25db">
 <p>
  Es el más usado en general, se basa en dar instrucciones al ordenador
 de como hacer las cosas en forma de algoritmos. La programación
@@ -664,9 +669,9 @@ paradigma serían el C, BASIC o Pascal.
 </div>
 </div>
 
-<div id="outline-container-orga6f2685" class="outline-4">
-<h4 id="orga6f2685">Programación orientada a objetos:</h4>
-<div class="outline-text-4" id="text-orga6f2685">
+<div id="outline-container-org84e0f37" class="outline-4">
+<h4 id="org84e0f37">Programación orientada a objetos:</h4>
+<div class="outline-text-4" id="text-org84e0f37">
 <p>
 Está basada en el imperativo, pero encapsula elementos denominados
 objetos que incluyen tanto variables como funciones. Está
@@ -678,9 +683,9 @@ objetos.
 </div>
 
 
-<div id="outline-container-org0163148" class="outline-4">
-<h4 id="org0163148">Programación dinámica:</h4>
-<div class="outline-text-4" id="text-org0163148">
+<div id="outline-container-org10b167d" class="outline-4">
+<h4 id="org10b167d">Programación dinámica:</h4>
+<div class="outline-text-4" id="text-org10b167d">
 <p>
  está definida como el proceso de romper
 problemas en partes pequeñas para analizarlos y resolverlos de forma
@@ -692,9 +697,9 @@ cualquier lenguaje imperativo.
 </div>
 </div>
 
-<div id="outline-container-org1ebe458" class="outline-4">
-<h4 id="org1ebe458">Programación dirigida por eventos:</h4>
-<div class="outline-text-4" id="text-org1ebe458">
+<div id="outline-container-org5ef48a6" class="outline-4">
+<h4 id="org5ef48a6">Programación dirigida por eventos:</h4>
+<div class="outline-text-4" id="text-org5ef48a6">
 <p>
 la programación dirigida por
 eventos es un paradigma de programación en el que tanto la estructura
@@ -706,9 +711,9 @@ mismos provoquen.
 </div>
 
 
-<div id="outline-container-org67d7256" class="outline-4">
-<h4 id="org67d7256">Programación declarativa:</h4>
-<div class="outline-text-4" id="text-org67d7256">
+<div id="outline-container-org7a251ae" class="outline-4">
+<h4 id="org7a251ae">Programación declarativa:</h4>
+<div class="outline-text-4" id="text-org7a251ae">
 <p>
  está basado en describir el problema
 declarando propiedades y reglas que deben cumplirse, en lugar de
@@ -719,9 +724,9 @@ primeros lenguajes funcionales fueron Lisp y Prolog.
 </div>
 </div>
 
-<div id="outline-container-orge1ea9b8" class="outline-4">
-<h4 id="orge1ea9b8">Programación funcional:</h4>
-<div class="outline-text-4" id="text-orge1ea9b8">
+<div id="outline-container-org765af97" class="outline-4">
+<h4 id="org765af97">Programación funcional:</h4>
+<div class="outline-text-4" id="text-org765af97">
 <p>
 La programación funcional es un paradigma de programación declarativa
 basado en el uso de verdaderas funciones matemáticas. En este estilo
@@ -768,9 +773,9 @@ lenguajes de programación funcional.
 </div>
 </div>
 
-<div id="outline-container-org67a28f2" class="outline-4">
-<h4 id="org67a28f2">Programación lógica:</h4>
-<div class="outline-text-4" id="text-org67a28f2">
+<div id="outline-container-orgcae211a" class="outline-4">
+<h4 id="orgcae211a">Programación lógica:</h4>
+<div class="outline-text-4" id="text-orgcae211a">
 <p>
 basado en la definición de relaciones lógicas,
  está representado por Prolog.
@@ -779,9 +784,9 @@ basado en la definición de relaciones lógicas,
 </div>
 
 
-<div id="outline-container-org68d93f2" class="outline-4">
-<h4 id="org68d93f2">Programación con restricciones:</h4>
-<div class="outline-text-4" id="text-org68d93f2">
+<div id="outline-container-orgdd9ac1d" class="outline-4">
+<h4 id="orgdd9ac1d">Programación con restricciones:</h4>
+<div class="outline-text-4" id="text-orgdd9ac1d">
 <p>
 similar a la lógica usando
  ecuaciones. Casi todos los lenguajes son variantes del Prolog.
@@ -789,9 +794,9 @@ similar a la lógica usando
 </div>
 </div>
 
-<div id="outline-container-orgd009aa4" class="outline-4">
-<h4 id="orgd009aa4">Programación multiparadigma:</h4>
-<div class="outline-text-4" id="text-orgd009aa4">
+<div id="outline-container-orgfef32aa" class="outline-4">
+<h4 id="orgfef32aa">Programación multiparadigma:</h4>
+<div class="outline-text-4" id="text-orgfef32aa">
 <p>
 es el uso de dos o más paradigmas dentro
   de un programa. El lenguaje Lisp se considera multiparadigma. Al
@@ -801,9 +806,9 @@ es el uso de dos o más paradigmas dentro
 </div>
 </div>
 
-<div id="outline-container-org7ea9653" class="outline-4">
-<h4 id="org7ea9653">Lenguaje específico del dominio o DSL:</h4>
-<div class="outline-text-4" id="text-org7ea9653">
+<div id="outline-container-org914d80a" class="outline-4">
+<h4 id="org914d80a">Lenguaje específico del dominio o DSL:</h4>
+<div class="outline-text-4" id="text-org914d80a">
 <p>
 se denomina así a los
   lenguajes desarrollados para resolver un problema específico,
@@ -819,9 +824,9 @@ se denomina así a los
 
 
 
-<div id="outline-container-orgcb9b9da" class="outline-2">
-<h2 id="orgcb9b9da">Programación Funcional</h2>
-<div class="outline-text-2" id="text-orgcb9b9da">
+<div id="outline-container-org7aab1bb" class="outline-2">
+<h2 id="org7aab1bb">Programación Funcional</h2>
+<div class="outline-text-2" id="text-org7aab1bb">
 <p>
 La programación funcional, o mejor dicho, los lenguajes de
 programación funcionales, son aquellos lenguajes donde las variables
@@ -1020,9 +1025,9 @@ dato y darle un aspecto procedural.
 </div>
 
 
-<div id="outline-container-orgcbd4465" class="outline-2">
-<h2 id="orgcbd4465">Lisp</h2>
-<div class="outline-text-2" id="text-orgcbd4465">
+<div id="outline-container-org9ace80b" class="outline-2">
+<h2 id="org9ace80b">Lisp</h2>
+<div class="outline-text-2" id="text-org9ace80b">
 <p>
 Lisp (históricamente LISP) es una familia de lenguajes de programación
 de computadora de tipo multiparadigma con larga historia y una
@@ -1076,9 +1081,9 @@ puede ser llamada usando (f x y z).
 </p>
 </div>
 
-<div id="outline-container-orgcb5038e" class="outline-3">
-<h3 id="orgcb5038e">Historia</h3>
-<div class="outline-text-3" id="text-orgcb5038e">
+<div id="outline-container-org4db573a" class="outline-3">
+<h3 id="org4db573a">Historia</h3>
+<div class="outline-text-3" id="text-org4db573a">
 <p>
 El proyecto se inició en 1987, cuando los autores originales, Bruno
 Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
@@ -1127,94 +1132,17 @@ desarrollo.
 <p>
 clisp
 </p>
-
-<p>
-4 + 5 / 34 + 67 * 2 
-4 + (/ 5 34) + (* 67 2)
-A= (/ 5 34)
-B= (* 67 2)
-4 + A + B
-(+ 4 A) + B
-C = (+ 4 A)
-C + B
-</p>
-<ul class="org-ul">
-<li>C B</li>
-<li>4 5</li>
-</ul>
-
-
-<p>
-(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
-</p>
-
-<p>
-Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
-</p>
-
-<p>
-;#+BEGIN<sub>SRC</sub> lisp
-;(load "path")
-(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
-;#+END<sub>SRC</sub>
-</p>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">hola</span><span style="color: #C57BDB;">()</span>
-<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">"Hola mundo Prolog"</span> <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>hola '<span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma</span><span style="color: #C57BDB;">(</span>a b<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>+ a b<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>suma 3 4<span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-<p>
-Resolver 
-</p>
-
-<ol class="org-ol">
-<li>8, 3, -2,-7,-12,</li>
-<li>3,6,12,24,48,</li>
-<li>4,9,16,25,36,49,</li>
-<li>5,10,17,26,37,50,</li>
-<li>6,11,18,27,38,51,</li>
-<li>3,8,15,24,35,48,</li>
-<li>-4,9,-16,25,-36,49,</li>
-<li>4,-9,16,-25,36,-49,</li>
-<li>\(\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}\)</li>
-<li>\(-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}\)</li>
-</ol>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*pi*</span> 3.1415<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">areaCirculo</span><span style="color: #C57BDB;">(</span>r<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>* *pi* <span style="color: #7bc275;">(</span>* r r<span style="color: #7bc275;">)</span>  <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-
-'<span style="color: #51afef;">(</span>+ 5 6 <span style="color: #51afef;">)</span>
-eval
-</pre>
-</div>
 </div>
 </div>
 
 
-<div id="outline-container-org3aef7ab" class="outline-3">
-<h3 id="org3aef7ab">Expresiones</h3>
-<div class="outline-text-3" id="text-org3aef7ab">
+<div id="outline-container-org54f6c94" class="outline-3">
+<h3 id="org54f6c94">Programación en Lisp</h3>
+<div class="outline-text-3" id="text-org54f6c94">
+</div>
+<div id="outline-container-org702c93f" class="outline-4">
+<h4 id="org702c93f">Expresiones</h4>
+<div class="outline-text-4" id="text-org702c93f">
 <p>
 Es particularmente cierto que la mejor forma de aprender Lisp es
 usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -1288,72 +1216,173 @@ bien es una lista que consiste de cero o más expresiones delimitadas
 por paréntesis. Como veremos, código y datos usan la misma notación en
 Lisp.
 </p>
-</div>
-</div>
 
-<div id="outline-container-org75fdeb5" class="outline-3">
-<h3 id="org75fdeb5">Evaluación</h3>
-<div class="outline-text-3" id="text-org75fdeb5">
+
 <p>
-Veamos más en detalle como las expresiones son evaluadas para
-desplegar su valor en el top-level. En Lisp, + es una función y (+
-2 3) es una llamada a la función. Cuando Lisp evalúa una llamada a
-alguna función, lo hace en dos pasos:
+4 + 5 / 34 + 67 * 2 
+4 + (/ 5 34) + (* 67 2)
+A= (/ 5 34)
+B= (* 67 2)
+4 + A + B
+(+ 4 A) + B
+C = (+ 4 A)
+C + B
 </p>
-
 <ul class="org-ul">
-<li>Los argumentos de la llamada son evaluados de izquierda a derecha.
-En este caso, los valores de los argumentos son 2 y 3,
-respectivamente.</li>
-
-<li>Los valores de los argumentos son pasados a la función nombrada por
-el operador. En este caso la función + que regresa 5.</li>
+<li>C B</li>
+<li>4 5</li>
 </ul>
 
+
 <p>
-Si alguno de los argumentos es a su vez una llamada de función, será
-evaluado con las mismas reglas. Ej. Al evaluar la expresión (/ (- 7 1) (- 4 2))
-pasa lo siguiente.
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
 </p>
 
-<ol class="org-ol">
-<li>Lisp evalúa el primer argumento de izquierda a derecha (- 7 1). 7 es
-evaluado como 7 y 1 como 1. Estos valores son pasados a la función -
-que regresa 6.</li>
-<li>El siguiente argumento (- 4 2) es evaluado. 4 es evaluado como 4 y 2
-como 2. Estos valores son pasados a la función - que regresa 2.</li>
-<li>Los valores 6 y 2 son pasados a la función / que regresa 3.</li>
-</ol>
-
-
 <p>
-No todos los operadores en Lisp son funciones, pero la mayoría lo son.
-Todas las llamadas a función son evaluadas de esta forma, que se conoce
-como regla de evaluación de Lisp. Los operadores que no siguen la regla de
-evaluación se conocen como operadores especiales. Uno de estos operadores
-especiales es quote (’). La regla de evaluación de quote es –No evalues nada,
-despliega lo que el usuario tecleo, verbatim. 
+Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>quote <span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
-'<span style="color: #51afef;">(</span> + 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"path"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">hola</span><span style="color: #C57BDB;">()</span>
+<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">"Hola mundo Prolog"</span> <span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>hola '<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+
+
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma</span><span style="color: #C57BDB;">(</span>a b<span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span>+ a b<span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>suma 3 4<span style="color: #51afef;">)</span>
+
 </pre>
 </div>
 
 <p>
-Lisp provee el operador quote como una forma de evitar que una
-expresión sea evaluada. En la siguiente sección veremos porque esta
-protección puede ser útil.
+Resolver 
 </p>
+
+<ol class="org-ol">
+<li>8, 3, -2,-7,-12,</li>
+<li>3,6,12,24,48,</li>
+<li>4,9,16,25,36,49,</li>
+<li>5,10,17,26,37,50,</li>
+<li>6,11,18,27,38,51,</li>
+<li>3,8,15,24,35,48,</li>
+<li>-4,9,-16,25,-36,49,</li>
+<li>4,-9,16,-25,36,-49,</li>
+<li>\(\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}\)</li>
+<li>\(-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}\)</li>
+</ol>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*pi*</span> 3.1415<span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">areaCirculo</span><span style="color: #C57BDB;">(</span>r<span style="color: #C57BDB;">)</span>
+<span style="color: #C57BDB;">(</span>* *pi* <span style="color: #7bc275;">(</span>* r r<span style="color: #7bc275;">)</span>  <span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+
+'<span style="color: #51afef;">(</span>+ 5 6 <span style="color: #51afef;">)</span>
+eval
+</pre>
+</div>
+
+<p>
+4 + 5 / 34 + 67 * 2 
+4 + (/ 5 34) + (* 67 2)
+A= (/ 5 34)
+B= (* 67 2)
+4 + A + B
+(+ 4 A) + B
+C = (+ 4 A)
+C + B
+</p>
+<ul class="org-ul">
+<li>C B</li>
+<li>4 5</li>
+</ul>
+
+
+<p>
+(load "/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp")
+</p>
+
+<p>
+Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"path"</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">hola</span><span style="color: #C57BDB;">()</span>
+<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">"Hola mundo Prolog"</span> <span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>hola '<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+
+
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma</span><span style="color: #C57BDB;">(</span>a b<span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span>+ a b<span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>suma 3 4<span style="color: #51afef;">)</span>
+
+</pre>
+</div>
+
+<p>
+Resolver 
+</p>
+
+<ol class="org-ol">
+<li>8, 3, -2,-7,-12,</li>
+<li>3,6,12,24,48,</li>
+<li>4,9,16,25,36,49,</li>
+<li>5,10,17,26,37,50,</li>
+<li>6,11,18,27,38,51,</li>
+<li>3,8,15,24,35,48,</li>
+<li>-4,9,-16,25,-36,49,</li>
+<li>4,-9,16,-25,36,-49,</li>
+<li>\(\cfrac{2}{4},\cfrac{5}{9},\cfrac{8}{16},\cfrac{11}{25},\cfrac{14}{36}\)</li>
+<li>\(-5,\cfrac{7}{2},-\cfrac{9}{3},\cfrac{11}{4},-\cfrac{13}{5}\)</li>
+</ol>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*pi*</span> 3.1415<span style="color: #51afef;">)</span>
+
+<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">areaCirculo</span><span style="color: #C57BDB;">(</span>r<span style="color: #C57BDB;">)</span>
+<span style="color: #C57BDB;">(</span>* *pi* <span style="color: #7bc275;">(</span>* r r<span style="color: #7bc275;">)</span>  <span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
+
+'<span style="color: #51afef;">(</span>+ 5 6 <span style="color: #51afef;">)</span>
+eval
+</pre>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org860726d" class="outline-3">
-<h3 id="org860726d">Datos</h3>
-<div class="outline-text-3" id="text-org860726d">
+<div id="outline-container-org102e52a" class="outline-4">
+<h4 id="org102e52a">Datos</h4>
+<div class="outline-text-4" id="text-org102e52a">
 <p>
 Lisp ofrece los tipos de datos que podemos encontrar en otros
 lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -1422,10 +1451,69 @@ como si fuese código. Por ejemplo:
 </div>
 </div>
 
+<div id="outline-container-org6bc0194" class="outline-4">
+<h4 id="org6bc0194">Evaluación</h4>
+<div class="outline-text-4" id="text-org6bc0194">
+<p>
+Veamos más en detalle como las expresiones son evaluadas para
+desplegar su valor en el top-level. En Lisp, + es una función y (+
+2 3) es una llamada a la función. Cuando Lisp evalúa una llamada a
+alguna función, lo hace en dos pasos:
+</p>
 
-<div id="outline-container-orgc5437d4" class="outline-3">
-<h3 id="orgc5437d4">Funciones en Lisp</h3>
-<div class="outline-text-3" id="text-orgc5437d4">
+<ul class="org-ul">
+<li>Los argumentos de la llamada son evaluados de izquierda a derecha.
+En este caso, los valores de los argumentos son 2 y 3,
+respectivamente.</li>
+
+<li>Los valores de los argumentos son pasados a la función nombrada por
+el operador. En este caso la función + que regresa 5.</li>
+</ul>
+
+<p>
+Si alguno de los argumentos es a su vez una llamada de función, será
+evaluado con las mismas reglas. Ej. Al evaluar la expresión (/ (- 7 1) (- 4 2))
+pasa lo siguiente.
+</p>
+
+<ol class="org-ol">
+<li>Lisp evalúa el primer argumento de izquierda a derecha (- 7 1). 7 es
+evaluado como 7 y 1 como 1. Estos valores son pasados a la función -
+que regresa 6.</li>
+<li>El siguiente argumento (- 4 2) es evaluado. 4 es evaluado como 4 y 2
+como 2. Estos valores son pasados a la función - que regresa 2.</li>
+<li>Los valores 6 y 2 son pasados a la función / que regresa 3.</li>
+</ol>
+
+
+<p>
+No todos los operadores en Lisp son funciones, pero la mayoría lo son.
+Todas las llamadas a función son evaluadas de esta forma, que se conoce
+como regla de evaluación de Lisp. Los operadores que no siguen la regla de
+evaluación se conocen como operadores especiales. Uno de estos operadores
+especiales es quote (’). La regla de evaluación de quote es –No evalues nada,
+despliega lo que el usuario tecleo, verbatim. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>quote <span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+'<span style="color: #51afef;">(</span> + 2 3<span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+Lisp provee el operador quote como una forma de evitar que una
+expresión sea evaluada. En la siguiente sección veremos porque esta
+protección puede ser útil.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgddcf4a9" class="outline-4">
+<h4 id="orgddcf4a9">Funciones en Lisp</h4>
+<div class="outline-text-4" id="text-orgddcf4a9">
 <p>
 Es posible definir nuevas funciones con defun que toma normalmente tres
 argumentos: un nombre, una lista de parámetros y una o más expresiones
@@ -1499,9 +1587,159 @@ incremental (bottom-up).
 </div>
 </div>
 
-<div id="outline-container-org369951c" class="outline-3">
-<h3 id="org369951c">Funciones CAR y CDR</h3>
-<div class="outline-text-3" id="text-org369951c">
+<div id="outline-container-org8ec7530" class="outline-4">
+<h4 id="org8ec7530">Listas</h4>
+<div class="outline-text-4" id="text-org8ec7530">
+<p>
+En Lisp, las listas son una estructura de datos fundamental y
+versátil. Se utilizan para almacenar una secuencia de elementos, que
+pueden ser datos simples como números o cadenas de texto, así como
+otras listas, lo que permite crear estructuras de datos
+jerárquicas. Las listas en Lisp se representan mediante paréntesis y
+los elementos se separan mediante espacios. Aquí tienes una
+descripción básica de las listas en Lisp:
+</p>
+
+<ol class="org-ol">
+<li>Sintaxis: Las listas en Lisp se representan mediante paréntesis. La
+lista comienza con un paréntesis abierto "(" y termina con un
+paréntesis cerrado ")". Los elementos de la lista se separan
+mediante espacios.</li>
+</ol>
+
+<p>
+Ejemplo de una lista simple en Lisp:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>1 2 3 4 5<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Listas anidadas: Puedes anidar listas dentro de otras listas para
+crear estructuras de datos más complejas. Esto permite representar
+datos jerárquicos.</li>
+</ol>
+
+<p>
+Ejemplo de una lista anidada en Lisp:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>1 <span style="color: #C57BDB;">(</span>2 3<span style="color: #C57BDB;">)</span> 4 <span style="color: #C57BDB;">(</span>5 <span style="color: #7bc275;">(</span>6 7<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Listas vacías: Una lista vacía se representa simplemente como un
+par de paréntesis sin ningún elemento en su interior.</li>
+</ol>
+
+<p>
+Ejemplo de una lista vacía en Lisp:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">()</span>
+</pre>
+</div>
+
+
+<ol class="org-ol">
+<li>Funciones y listas: En Lisp, las listas se utilizan comúnmente para
+representar programas y datos. Las funciones se llaman aplicando
+una lista, donde el primer elemento de la lista es el nombre de la
+función y los elementos subsiguientes son los argumentos.</li>
+</ol>
+
+<p>
+Ejemplo de una llamada a función en Lisp:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span>
+<span style="color: #62686E;">; </span><span style="color: #62686E;">En este caso, "+" es la funci&#243;n que suma los n&#250;meros 1 y 2.</span>
+</pre>
+</div>
+
+<ol class="org-ol">
+<li>Manipulación de listas: Lisp proporciona una variedad de funciones
+para trabajar con listas, como <b><b>car</b></b> (para obtener el primer
+elemento de una lista), <b><b>cdr</b></b> (para obtener todos los elementos
+excepto el primero), <b><b>cons</b></b> (para construir nuevas listas),
+`append` (para concatenar listas), entre otras.</li>
+</ol>
+
+<p>
+En resumen, las listas en Lisp son una parte fundamental de la
+programación y se utilizan para representar datos y programas. Su
+flexibilidad y capacidad para anidarse las hacen muy poderosas en la
+programación en Lisp.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgde5c645"></a>Cons<br />
+<div class="outline-text-5" id="text-orgde5c645">
+<p>
+La función `cons` se utiliza para crear nuevas listas al agregar un
+elemento al principio de una lista existente. Su sintaxis es la
+siguiente:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>cons elemento lista<span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>elemento</b></b> es el elemento que deseas agregar al principio de la lista.</li>
+<li><b><b>lista</b></b> es la lista existente a la cual deseas agregar el elemento.</li>
+</ul>
+
+<p>
+La función <b><b>cons</b></b> toma el elemento especificado y lo coloca al
+principio de la lista proporcionada, devolviendo una nueva lista que
+contiene el elemento recién añadido al principio. La lista original no
+se modifica; en su lugar, se crea una nueva lista con el nuevo
+elemento.
+</p>
+
+<p>
+Un ejemplo de cómo se utiliza la función <b><b>cons*</b></b>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq lista-original '<span style="color: #C57BDB;">(</span>2 3 4<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span>setq nueva-lista <span style="color: #C57BDB;">(</span>cons 1 lista-original<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<p>
+En este ejemplo, <b><b>lista-original</b></b> contiene <b><b>(2 3 4)</b></b>. Luego, usamos
+`cons` para agregar el número <b><b>1</b></b> al principio de <b><b>lista-original</b></b>,
+creando una nueva lista llamada <b><b>nueva-lista</b></b>. Después de esta
+operación, <b><b>nueva-lista</b></b> será <b><b>(1 2 3 4)</b></b> y <b><b>lista-original</b></b> seguirá
+siendo <b><b>(2 3 4)</b></b>.
+</p>
+
+<p>
+La función <b><b>cons</b></b> es útil para construir y modificar listas en Lisp y
+se utiliza con frecuencia en la programación en este lenguaje para
+crear estructuras de datos y manipular listas de manera eficiente.
+</p>
+</div>
+</li>
+
+
+
+
+
+<li><a id="orgfed41eb"></a>Funciones CAR y CDR<br />
+<div class="outline-text-5" id="text-orgfed41eb">
 <p>
 CAR admite un único argumento que debe ser una lista o una expresión
 cuyo valor sea una lista y devuelve el primer elemento de dicha
@@ -1582,12 +1820,218 @@ en listas anidadas en varios niveles.
 </pre>
 </div>
 </div>
+</li>
+</ul>
 </div>
 
+<div id="outline-container-orge856ba8" class="outline-4">
+<h4 id="orge856ba8">Entradas y salidas</h4>
+<div class="outline-text-4" id="text-orge856ba8">
+<p>
+Lisp proporciona un amplio conjunto de facilidades para realizar
+entrada/salida. Todas las operaciones de entrada/salida se realizan en
+flujos de varios tipos. Aunque es posible leer y escribir datos
+binarios, la mayoría de los métodos de entrada/salida de Common Lisp
+leen o escriben caracteres. Para leer y escribir caracteres
+individuales o líneas de datos, existen primitivas directas. Sin
+embargo, la operación de entrada/salida más útil es leer y escribir
+representaciones escritas de objetos Lisp arbitrarios.
+</p>
 
-<div id="outline-container-orgb8f1e7e" class="outline-3">
-<h3 id="orgb8f1e7e">Valores de Verdad IF</h3>
-<div class="outline-text-3" id="text-orgb8f1e7e">
+<p>
+<b><b>Objetos Lisp:</b></b>
+</p>
+
+<p>
+Los objetos Lisp suelen ser estructuras de datos complejas en lugar de
+cadenas de texto. Difieren de las cadenas de texto en términos de
+atributos debido a cómo se representan internamente. Sin embargo, Lisp
+ofrece una representación de la mayoría de los objetos en forma de
+texto escrito, conocida como la representación impresa, que se utiliza
+en las facilidades de entrada/salida. Esto hace posible acceder y
+discutir objetos Lisp.
+</p>
+
+<p>
+Los caracteres de la representación impresa de un objeto Lisp se
+transmiten a un flujo mediante funciones como "print". El (Lisp)
+impresor es un conjunto de funciones que realiza esto. El (Lisp)
+lector es un conjunto de rutinas que realiza la función de lectura,
+que acepta caracteres de un flujo, los interpreta como una
+representación impresa de un objeto Lisp, crea ese objeto y lo
+devuelve.
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org3ccd244"></a>Funciones de Entrada:<br />
+<div class="outline-text-5" id="text-org3ccd244">
+<p>
+Los caracteres de la representación impresa de un objeto Lisp se
+transmiten a un flujo mediante funciones como "print". El (Lisp)
+impresor es un conjunto de funciones que realiza esta tarea. El (Lisp)
+lector es un conjunto de rutinas que ejecutan la función de lectura,
+la cual acepta caracteres de un flujo, los interpreta como la
+representación impresa de un objeto Lisp, crea ese objeto y lo
+devuelve.
+</p>
+
+<p>
+<b><b>Funciones de Entrada</b></b>: Las funciones de entrada se dividen en dos
+categorías: aquellas que trabajan con flujos de caracteres y aquellas
+que trabajan con flujos binarios.
+</p>
+
+<p>
+<b><b>Entrada desde Flujos de Caracteres</b></b>: Existen muchos argumentos
+opcionales en las funciones de entrada de caracteres llamados
+"input-stream", "eof-error-p" y "eof-value". El argumento
+"input-stream" es el flujo desde el cual recoger la entrada; si no se
+especifica o es "nil", se toma por defecto el valor de la variable
+especial 'standard-input'. El parámetro "eof-error-p" controla lo que
+sucede si la entrada proviene de un archivo y se alcanza el final del
+archivo. Si "eof-error-p" es verdadero, que es el valor
+predeterminado, se señalará un error al final del archivo. Si es
+falso, entonces no se encuentra ningún error, y en su lugar, la
+función devuelve "eof-value".
+</p>
+
+<p>
+Las funciones read, read-line y read-char son funciones de entrada en
+Lisp que se utilizan para leer datos desde un flujo. Aquí se describen
+sus parámetros:
+</p>
+
+<ul class="org-ul">
+<li><b><b>read &amp;optional input-stream eof-error-p eof-value recursive-p</b></b>:
+Esta función lee datos desde el flujo de entrada especificado en
+input-stream. Si no se especifica input-stream, se utiliza el valor
+predeterminado que es el flujo de entrada estándar. eof-error-p
+controla si se produce un error cuando se alcanza el final del
+archivo (true por defecto), y eof-value especifica el valor que se
+devuelve en lugar de un error cuando se llega al final del
+archivo. recursive-p es un parámetro opcional que controla si la
+función debe leer de manera recursiva objetos anidados.</li>
+
+<li><b><b>read-line &amp;optional input-stream eof-error-p eof-value
+recursive-p</b></b>: Esta función lee una línea de texto desde el flujo
+de entrada especificado en input-stream. Devuelve la línea como una
+cadena de caracteres (sin el carácter de nueva línea). El segundo
+valor que se devuelve es un indicador booleano que es true si el
+final del archivo terminó la línea (no está vacía) o false si la
+línea se terminó correctamente.</li>
+
+<li><b><b>read-char &amp;optional input-stream eof-error-p eof-value
+recursive-p</b></b>: Esta función lee un carácter desde el flujo de
+entrada especificado en input-stream. Al igual que las otras
+funciones, eof-error-p controla si se produce un error cuando se
+alcanza el final del archivo (true por defecto), y eof-value
+especifica el valor que se devuelve en lugar de un error cuando se
+llega al final del archivo. recursive-p es un parámetro opcional
+que controla si la función debe leer de manera recursiva objetos
+anidados.</li>
+</ul>
+
+<p>
+Estas funciones son útiles para leer datos de diferentes maneras desde
+flujos de entrada en Lisp.
+</p>
+
+
+<p>
+Aquí se describen las funciones unread-char y
+read-preserving-whitespace en Lisp:
+</p>
+
+<ul class="org-ul">
+<li><b><b>unread-char</b></b>: Esta función mueve un carácter al principio del
+flujo de entrada. Es importante destacar que el carácter que se
+pasa como argumento debe coincidir con el último carácter leído del
+flujo de entrada. Después de usar unread-char, cuando se lea el
+siguiente carácter del flujo de entrada, será el carácter
+especificado seguido de los contenidos previos del flujo de
+entrada, ya que el flujo de entrada "retrocede" sobre este
+carácter. unread-char devuelve nil como resultado.</li>
+
+<li><b><b>read-preserving-whitespace</b></b>: Esta función se utiliza cuando es
+necesario saber con precisión qué carácter finalizó un token
+extendido. Permite leer tokens mientras conserva información sobre
+los caracteres de espacio en blanco. A diferencia de read, que
+normalmente ignora los espacios en blanco,
+read-preserving-whitespace conserva los caracteres de espacio en
+blanco y proporciona información adicional sobre cómo se formó el
+token.</li>
+</ul>
+
+<p>
+Estas funciones son útiles en situaciones específicas donde se
+necesita un mayor control sobre la lectura y manipulación de
+caracteres en el flujo de entrada en Lisp.
+</p>
+
+<p>
+Aquí se describen varias funciones relacionadas con la manipulación de
+entrada de caracteres en Lisp:
+</p>
+
+<ul class="org-ul">
+<li><b><b>peek-char &amp;optional peek-type input-stream eof-error-p eof-value
+recursive-p</b></b>: La función peek-char se utiliza para examinar el
+siguiente carácter en el flujo de entrada sin eliminarlo del
+flujo. El parámetro opcional peek-type determina el comportamiento
+de peek-char. Si peek-type es nil (valor predeterminado), la
+función devuelve el próximo carácter que se leerá en el flujo de
+entrada sin eliminarlo. Esto es útil para ver qué carácter vendrá a
+continuación sin avanzar en la secuencia de entrada.</li>
+
+<li><b><b>listen &amp;optional input-stream</b></b>: La función listen se utiliza
+para verificar si un carácter está inmediatamente disponible en el
+flujo de entrada. Si hay un carácter disponible para ser leído, la
+función devuelve true; de lo contrario, devuelve false. Esto es
+especialmente útil cuando se trabaja con flujos de entrada
+interactivos como el teclado.</li>
+
+<li><b><b>read-char-no-hang &amp;optional input-stream eof-error-p eof-value
+recursive-p</b></b>: Similar a read-char, esta función lee un carácter
+del flujo de entrada. Sin embargo, si no hay un carácter disponible
+de inmediato, en lugar de esperar, devuelve nil de inmediato. Esto
+permite una lectura no bloqueante.</li>
+
+<li><b><b>clear-input &amp;optional input-stream</b></b>: La función clear-input se
+utiliza para borrar la entrada bufferizada del flujo de entrada
+relacionada con la entrada. Es útil, por ejemplo, para eliminar
+entradas previas no leídas, especialmente en situaciones de errores
+asincrónicos. Si el flujo de entrada no es aplicable para esta
+operación, clear-input no tendrá ningún efecto.</li>
+
+<li><b><b>read-from-string string &amp;optional eof-error-p eof-value &amp;key
+:start :end :preserve-whitespace:</b></b> Esta función crea un objeto
+Lisp a partir de los caracteres de una cadena, uno a la vez, y
+devuelve el objeto resultante. Además, devuelve la longitud de la
+cadena (o longitud + 1) o el índice del primer carácter en la
+cadena que no se leyó.</li>
+
+<li><b><b>parse-integer string &amp;key :start :end :radix :junk-allowed:</b></b> La
+función parse-integer se utiliza para analizar una cadena en busca
+de un número entero. Puede especificar el rango de caracteres a
+considerar mediante los parámetros :start y :end, y puede definir
+la base numérica con :radix. Si se encuentra un carácter no válido
+y :junk-allowed está configurado en nil, se generará un error.</li>
+</ul>
+
+<p>
+Estas funciones son útiles en la manipulación de flujos de entrada de
+caracteres y en la conversión de cadenas en objetos Lisp o números
+enteros.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgf96b41b" class="outline-4">
+<h4 id="orgf96b41b">Valores de Verdad IF</h4>
+<div class="outline-text-4" id="text-orgf96b41b">
 <p>
 En Lisp, el símbolo t es la representación por default para
 verdadero. La representación por default de falso es nil . Ambos
@@ -1684,12 +2128,13 @@ devuelve la última evaluación como el valor de la expresión completa.
 </div>
 </div>
 
-<div id="outline-container-orgc3d6585" class="outline-3">
-<h3 id="orgc3d6585">When unless</h3>
-<div class="outline-text-3" id="text-orgc3d6585">
+<div id="outline-container-org3c46d6b" class="outline-4">
+<h4 id="org3c46d6b">When Unless</h4>
+<div class="outline-text-4" id="text-org3c46d6b">
 <p>
 De igual forma <b>Lisp</b> tiene otros comandos que tienen un <b>progn</b>
-implícito los más básicos son <b>when</b> y <b>unless</b>  
+implícito los más básicos son <b>when</b> y <b>unless</b>  en el siguiente ejemplo se puede ver la función oddp 
+que evalúa si el numero es par o impar. 
 </p>
 
 <div class="org-src-container">
@@ -1725,10 +2170,154 @@ opuesta; simplemente devuelven cero y no hacen nada.
 </div>
 </div>
 
+<div id="outline-container-org9d49669" class="outline-4">
+<h4 id="org9d49669">Cond</h4>
+<div class="outline-text-4" id="text-org9d49669">
+<p>
+La función <b><b>cond</b></b> en Lisp es un formulario especial utilizado para
+crear estructuras condicionales. No es realmente una función en el
+sentido tradicional, sino más bien una construcción que permite
+evaluar una serie de condiciones y ejecutar una acción asociada a la
+primera condición verdadera. Aquí tienes una descripción detallada de
+cómo funciona <b><b>cond</b></b>:
+</p>
 
-<div id="outline-container-org06361ba" class="outline-3">
-<h3 id="org06361ba">Operadores Lógicos and or</h3>
-<div class="outline-text-3" id="text-org06361ba">
+<ul class="org-ul">
+<li><b><b>cond</b></b> comienza con la palabra clave "cond" seguida de una lista
+de cláusulas.</li>
+<li>Cada cláusula consta de dos partes: una expresión de prueba
+(condición) y una expresión de resultado (acción).</li>
+<li>El Lisp evalúa secuencialmente las condiciones en orden, comenzando
+por la primera cláusula.</li>
+<li>Tan pronto como una condición se evalúa como verdadera, se ejecuta
+la acción asociada a esa cláusula y el `cond` se completa. No se
+evalúan ni ejecutan las cláusulas restantes.</li>
+<li>Si ninguna de las condiciones es verdadera y no hay una cláusula
+"else" (también conocida como "t" en Lisp), entonces no se realiza
+ninguna acción.</li>
+</ul>
+
+<p>
+Un ejemplo simple de <b><b>cond</b></b> en Lisp sería el siguiente:
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>= x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es igual a 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>&gt; x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es mayor que 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>&lt; x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es menor que 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span>t <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Esta es la acci&#243;n predeterminada"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+
+
+<p>
+En este ejemplo, se evalúan las condiciones en orden y se ejecuta la
+acción asociada a la primera condición verdadera. Si ninguna condición
+es verdadera, se ejecuta la acción en la cláusula "t" (que actúa como
+una acción predeterminada o de último recurso).
+</p>
+
+<p>
+<b><b>cond</b></b> es una herramienta poderosa para controlar el flujo de
+programas en Lisp y se utiliza para implementar estructuras
+condicionales más complejas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfbe2761" class="outline-4">
+<h4 id="orgfbe2761">Case</h4>
+<div class="outline-text-4" id="text-orgfbe2761">
+<p>
+El formulario `case` en Lisp se utiliza para realizar una selección
+múltiple basada en el valor de una expresión. Funciona de manera
+similar a una declaración `switch` en otros lenguajes de
+programación. Aquí tienes una descripción más detallada de cómo
+funciona `case` en Lisp:
+</p>
+
+<p>
+La estructura básica de `case` es la siguiente:
+</p>
+
+<ol class="org-ol">
+<li><b><b>Sintaxis básica</b></b></li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-lisp"> <span style="color: #51afef;">(</span><span style="color: #51afef;">case</span> expresi&#243;n
+     <span style="color: #C57BDB;">(</span>etiqueta-1 expresi&#243;n-1<span style="color: #C57BDB;">)</span>
+     <span style="color: #C57BDB;">(</span>etiqueta-2 expresi&#243;n-2<span style="color: #C57BDB;">)</span>
+     ...
+     <span style="color: #C57BDB;">(</span>etiqueta-n expresi&#243;n-n<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><b><b>expresión</b></b> es la expresión cuyo valor se evalúa para determinar
+qué etiqueta coincide.</li>
+<li>Cada <b>(etiqueta expresión)</b> es un par que especifica una etiqueta
+y una expresión asociada. Si la `expresión` coincide con una de
+las etiquetas, se evaluará y ejecutará la `expresión` asociada.</li>
+</ul>
+<ol class="org-ol">
+<li><b><b>Evaluación</b></b>:
+<ul class="org-ul">
+<li>`case` evalúa la `expresión` una vez y luego compara su valor con
+las etiquetas en orden.</li>
+<li>Cuando una etiqueta coincide con el valor de la `expresión`, se
+ejecuta la `expresión` asociada y `case` finaliza. Esto significa
+que solo se ejecutará una de las expresiones asociadas, la
+correspondiente a la primera etiqueta que coincida.</li>
+</ul></li>
+
+<li><b><b>Etiquetas y expresiones</b></b>:
+<ul class="org-ul">
+<li>Cada etiqueta es un valor constante que se compara con el valor
+de la `expresión` para determinar si hay coincidencia.</li>
+<li>Las expresiones asociadas son evaluadas y ejecutadas si su
+etiqueta coincide con la `expresión`.</li>
+</ul></li>
+
+<li><b><b>Default</b></b>:
+<ul class="org-ul">
+<li>Puedes incluir una etiqueta especial llamada `t` o `otherwise`
+como última opción en `case`. Esto se ejecutará si ninguna de las
+etiquetas anteriores coincide con la `expresión`. Es similar a un
+caso "predeterminado" en una declaración `switch`.</li>
+</ul></li>
+
+<li><b><b>Ejemplo</b></b>:</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq dia-de-la-semana 'martes<span style="color: #51afef;">)</span>
+
+   <span style="color: #51afef;">(</span><span style="color: #51afef;">case</span> dia-de-la-semana
+     <span style="color: #C57BDB;">(</span>lunes <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es lunes."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+     <span style="color: #C57BDB;">(</span>martes <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es martes."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+     <span style="color: #C57BDB;">(</span>mi&#233;rcoles <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es mi&#233;rcoles."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+     <span style="color: #C57BDB;">(</span>otherwise <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"D&#237;a desconocido."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+  
+</pre>
+</div>
+
+
+<p>
+En este ejemplo, se evalúa la variable `dia-de-la-semana`, y se
+ejecutará la acción correspondiente al valor de la variable (en
+este caso, imprimirá "Hoy es martes." porque `dia-de-la-semana` es
+igual a 'martes'). Si no se encuentra una coincidencia, se
+ejecutará la acción en la cláusula "otherwise".
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9a74a30" class="outline-4">
+<h4 id="org9a74a30">Operadores Lógicos and or</h4>
+<div class="outline-text-4" id="text-org9a74a30">
 <p>
 Los operadores lógicos <b>and</b> y <b>or</b> parecen condicionales. Ambos toman
 cualquier número de argumentos, pero solo evaluan los necesarios
@@ -1751,20 +2340,20 @@ verdaderos (diferentes de nil ), entonces and regresa el valor del
 </pre>
 </div>
 
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq var <span style="color: #C57BDB;">(</span>getreal <span style="color: #7bc275;">"\nEnter var: "</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 2<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 24 <span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 2 &amp; 24"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 26<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 48<span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 26 &amp; 48"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 50<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 96<span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 50 &amp; 96"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
+  <span style="color: #C57BDB;">(</span>T nil<span style="color: #C57BDB;">)</span>
+  <span style="color: #51afef;">)</span>
 
-<p>
-(setq var (getreal "\nEnter var: "))
-(cond
-  ((and (&gt;= var 2) (&lt;= var 24 ))(princ "\nvar is between 2 &amp; 24"))
-  ((and (&gt;= var 26) (&lt;= var 48))(princ "\nvar is between 26 &amp; 48"))
-  ((and (&gt;= var 50) (&lt;= var 96))(princ "\nvar is between 50 &amp; 96"))
-  (T nil)
-  )
-</p>
+</pre>
+</div>
 
-<p>
-also like this
-</p>
+
+
 
 <p>
 (cond
@@ -1836,7 +2425,9 @@ also like this
                          <span style="color: #a991f1;">(</span>Buitre
                           <span style="color: #FCCE7B;">(</span>Unidad ligera y con la habilidad de poner tres minas ara&#241;as<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
                         <span style="color: #7bc275;">)</span>
-                       <span style="color: #7bc275;">(</span>protoss<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+                       <span style="color: #7bc275;">(</span>protoss<span style="color: #7bc275;">)</span>
+                       <span style="color: #C57BDB;">)</span>
+<span style="color: #51afef;">)</span>
 
 <span style="color: #51afef;">(</span>car *nodo*<span style="color: #51afef;">)</span>
 
@@ -1970,9 +2561,9 @@ TERRAN
 </div>
 </div>
 
-<div id="outline-container-orgc18f621" class="outline-3">
-<h3 id="orgc18f621">Funciones lambda en Lisp</h3>
-<div class="outline-text-3" id="text-orgc18f621">
+<div id="outline-container-org0779763" class="outline-4">
+<h4 id="org0779763">Funciones lambda en Lisp</h4>
+<div class="outline-text-4" id="text-org0779763">
 <p>
 En el ámbito de la programación, una expresión lambda, también
 denominada función lambda, función literal o función anónima, es una
@@ -1990,13 +2581,11 @@ los literales para otros tipos de datos.
 </div>
 
 
-<div id="outline-container-orgb1705ff" class="outline-4">
-<h4 id="orgb1705ff">Funciones como valores de primera clase</h4>
-<div class="outline-text-4" id="text-orgb1705ff">
-</div>
 <ul class="org-ul">
-<li><a id="org95981b4"></a>Sintaxis<br />
-<div class="outline-text-5" id="text-org95981b4">
+<li><a id="orgf472851"></a>Funciones como valores de primera clase<br />
+<ul class="org-ul">
+<li><a id="orgcf65961"></a>Sintaxis<br />
+<div class="outline-text-6" id="text-orgcf65961">
 <ul class="org-ul">
 <li>(nombre de la función) ; recupera la función objeto de ese nombre</li>
 <li>#'nombre ; azúcar sintáctica para (nombre de la función)</li>
@@ -2009,8 +2598,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="orgbd2f338"></a>Parámetros<br />
-<div class="outline-text-5" id="text-orgbd2f338">
+<li><a id="orgebeebe3"></a>Parámetros<br />
+<div class="outline-text-6" id="text-orgebeebe3">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2066,8 +2655,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="org881e6ea"></a>Observaciones<br />
-<div class="outline-text-5" id="text-org881e6ea">
+<li><a id="orgd38722f"></a>Observaciones<br />
+<div class="outline-text-6" id="text-orgd38722f">
 <p>
 Cuando se habla de lenguajes similares a Lisp, existe una distinción
 común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
@@ -2085,11 +2674,11 @@ referirse): los símbolos pueden referirse a valores, funciones, tipos
 y etiquetas, por ejemplo.
 </p>
 </div>
+</li>
 
 
-<ul class="org-ul">
-<li><a id="org04e22c2"></a>Definiendo funciones anónimas.<br />
-<div class="outline-text-6" id="text-org04e22c2">
+<li><a id="org42aeb0c"></a>Definiendo funciones anónimas.<br />
+<div class="outline-text-6" id="text-org42aeb0c">
 <p>
 Las funciones en Common Lisp son valores de primera clase . Se puede
 crear una función anónima usando lambda . Por ejemplo, aquí hay una
@@ -2227,12 +2816,10 @@ bar
 </div>
 </div>
 </li>
-</ul>
-</li>
 
 
-<li><a id="orgbf45f79"></a>Funciones de orden superior<br />
-<div class="outline-text-5" id="text-orgbf45f79">
+<li><a id="orgf262813"></a>Funciones de orden superior<br />
+<div class="outline-text-6" id="text-orgf262813">
 <p>
 Common Lisp contiene muchas funciones de orden superior que son
 funciones pasadas para los argumentos y las llaman. Tal vez los más
@@ -2512,13 +3099,13 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </div>
 </li>
 </ul>
-</div>
+</li>
+</ul>
 </div>
 
-
-<div id="outline-container-org2f9f782" class="outline-3">
-<h3 id="org2f9f782">Ejercicios</h3>
-<div class="outline-text-3" id="text-org2f9f782">
+<div id="outline-container-org1f75605" class="outline-4">
+<h4 id="org1f75605">Ejercicios</h4>
+<div class="outline-text-4" id="text-org1f75605">
 <p>
 (defpackage "EJERCICIOS")
 </p>
@@ -2556,11 +3143,12 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </div>
 </div>
 </div>
+</div>
 
 
-<div id="outline-container-org4e4080c" class="outline-2">
-<h2 id="org4e4080c">Prolog</h2>
-<div class="outline-text-2" id="text-org4e4080c">
+<div id="outline-container-orge51fe69" class="outline-2">
+<h2 id="orge51fe69">Prolog</h2>
+<div class="outline-text-2" id="text-orge51fe69">
 <p>
 Una regla sirve para representar conocimiento que en lenguaje natural
  se expresa mediante una sentencia condicional. Por ejemplo, si en
@@ -2659,9 +3247,9 @@ interpretación de los predicados y cualquier asignación de x).
 </p>
 </div>
 
-<div id="outline-container-org73714c9" class="outline-3">
-<h3 id="org73714c9">Corte</h3>
-<div class="outline-text-3" id="text-org73714c9">
+<div id="outline-container-org3cde6db" class="outline-3">
+<h3 id="org3cde6db">Corte</h3>
+<div class="outline-text-3" id="text-org3cde6db">
 <p>
 El corte es un predicado predefinido que no recibe argumentos. Se
 representa mediante un signo de admiración (!). Sin duda, es el
@@ -2766,9 +3354,9 @@ de Y&gt;15 en la primera cláusula.
 </div>
 
 
-<div id="outline-container-org3f1df73" class="outline-3">
-<h3 id="org3f1df73">Usos del corte</h3>
-<div class="outline-text-3" id="text-org3f1df73">
+<div id="outline-container-org33a63d2" class="outline-3">
+<h3 id="org33a63d2">Usos del corte</h3>
+<div class="outline-text-3" id="text-org33a63d2">
 <p>
 El corte se utiliza muy frecuentemente, cuanto más diestro es el
 programador más lo suele usar. Los motivos por los que se usa el corte
@@ -2796,9 +3384,9 @@ busque otras soluciones aunque sabemos que éstas existen.</li>
 </div>
 </div>
 
-<div id="outline-container-org1fe5765" class="outline-3">
-<h3 id="org1fe5765">Corte y fallo</h3>
-<div class="outline-text-3" id="text-org1fe5765">
+<div id="outline-container-orge951772" class="outline-3">
+<h3 id="orge951772">Corte y fallo</h3>
+<div class="outline-text-3" id="text-orge951772">
 <p>
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
@@ -2825,7 +3413,7 @@ montón de código que al final va a fallar de todas formas.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Eduardo Alcaraz</p>
-<p class="date">Created: 2023-09-03 dom 21:21</p>
+<p class="date">Created: 2023-09-20 mié 09:52</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
