@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-09-20 mié 09:52 -->
+<!-- 2023-09-20 mié 09:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Programación Lógica Funcional</title>
@@ -277,71 +277,73 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org02e63e6">Estilos de Programación</a>
+<li><a href="#org2394764">Estilos de Programación</a>
 <ul>
-<li><a href="#orgd2a4cb6">Características del Estilo</a></li>
-<li><a href="#orgad7976d">Nombres de Variable Apropiadas.</a></li>
-<li><a href="#orga9c4314">Estilo de indentación</a></li>
-<li><a href="#orgc49fff5">Bucles y estructuras de control</a></li>
-<li><a href="#orgefcc390">Espaciado</a></li>
-<li><a href="#orge536d47">Evaluación de expresiones</a></li>
+<li><a href="#org1cf9f38">Características del Estilo</a></li>
+<li><a href="#org8013748">Nombres de Variable Apropiadas.</a></li>
+<li><a href="#org29804f4">Estilo de indentación</a></li>
+<li><a href="#org8122dcd">Bucles y estructuras de control</a></li>
+<li><a href="#org80ee309">Espaciado</a></li>
+<li><a href="#org45640bf">Evaluación de expresiones</a></li>
 </ul>
 </li>
-<li><a href="#org4a73411">Paradigma de Programación</a>
+<li><a href="#org67bb5a5">Paradigma de Programación</a>
 <ul>
-<li><a href="#orgc39352a">Tipos más comunes de paradigmas de programación</a>
+<li><a href="#org6f7a104">Tipos más comunes de paradigmas de programación</a>
 <ul>
-<li><a href="#orgd0d25db">Programación imperativa o por procedimientos:</a></li>
-<li><a href="#org84e0f37">Programación orientada a objetos:</a></li>
-<li><a href="#org10b167d">Programación dinámica:</a></li>
-<li><a href="#org5ef48a6">Programación dirigida por eventos:</a></li>
-<li><a href="#org7a251ae">Programación declarativa:</a></li>
-<li><a href="#org765af97">Programación funcional:</a></li>
-<li><a href="#orgcae211a">Programación lógica:</a></li>
-<li><a href="#orgdd9ac1d">Programación con restricciones:</a></li>
-<li><a href="#orgfef32aa">Programación multiparadigma:</a></li>
-<li><a href="#org914d80a">Lenguaje específico del dominio o DSL:</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org7aab1bb">Programación Funcional</a></li>
-<li><a href="#org9ace80b">Lisp</a>
-<ul>
-<li><a href="#org4db573a">Historia</a></li>
-<li><a href="#org54f6c94">Programación en Lisp</a>
-<ul>
-<li><a href="#org702c93f">Expresiones</a></li>
-<li><a href="#org102e52a">Datos</a></li>
-<li><a href="#org6bc0194">Evaluación</a></li>
-<li><a href="#orgddcf4a9">Funciones en Lisp</a></li>
-<li><a href="#org8ec7530">Listas</a></li>
-<li><a href="#orge856ba8">Entradas y salidas</a></li>
-<li><a href="#orgf96b41b">Valores de Verdad IF</a></li>
-<li><a href="#org3c46d6b">When Unless</a></li>
-<li><a href="#org9d49669">Cond</a></li>
-<li><a href="#orgfbe2761">Case</a></li>
-<li><a href="#org9a74a30">Operadores Lógicos and or</a></li>
-<li><a href="#org0779763">Funciones lambda en Lisp</a></li>
-<li><a href="#org1f75605">Ejercicios</a></li>
+<li><a href="#org23ab2c5">Programación imperativa o por procedimientos:</a></li>
+<li><a href="#orgad042b8">Programación orientada a objetos:</a></li>
+<li><a href="#org8be4615">Programación dinámica:</a></li>
+<li><a href="#orgec3c034">Programación dirigida por eventos:</a></li>
+<li><a href="#orgbaee0b4">Programación declarativa:</a></li>
+<li><a href="#org67b1f70">Programación funcional:</a></li>
+<li><a href="#orgb8c2655">Programación lógica:</a></li>
+<li><a href="#orge570ae0">Programación con restricciones:</a></li>
+<li><a href="#org4320c51">Programación multiparadigma:</a></li>
+<li><a href="#orgc4250bf">Lenguaje específico del dominio o DSL:</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orge51fe69">Prolog</a>
+<li><a href="#org4a00da1">Programación Funcional</a></li>
+<li><a href="#org94ad8f8">Lisp</a>
 <ul>
-<li><a href="#org3cde6db">Corte</a></li>
-<li><a href="#org33a63d2">Usos del corte</a></li>
-<li><a href="#orge951772">Corte y fallo</a></li>
+<li><a href="#orge8802ac">Historia</a></li>
+<li><a href="#org7748421">Programación en Lisp</a>
+<ul>
+<li><a href="#org9b5a28b">Expresiones</a></li>
+<li><a href="#orgd4a8188">Datos</a></li>
+<li><a href="#orgf6e0438">Evaluación</a></li>
+<li><a href="#org26c89c0">Funciones en Lisp</a></li>
+<li><a href="#orgffb101a">Listas</a></li>
+<li><a href="#org68944a5">Cons</a></li>
+<li><a href="#org387f444">Funciones CAR y CDR</a></li>
+<li><a href="#org5cdc0e1">Entradas y salidas</a></li>
+<li><a href="#org64eca77">Valores de Verdad IF</a></li>
+<li><a href="#org1b6ebf2">When Unless</a></li>
+<li><a href="#org18d9a31">Cond</a></li>
+<li><a href="#org1b4d437">Case</a></li>
+<li><a href="#org8337244">Operadores Lógicos and or</a></li>
+<li><a href="#orgc6294b7">Funciones lambda en Lisp</a></li>
+<li><a href="#org7266187">Ejercicios</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org3d6680b">Prolog</a>
+<ul>
+<li><a href="#orgd8626d9">Corte</a></li>
+<li><a href="#org1cd790f">Usos del corte</a></li>
+<li><a href="#orgba785dd">Corte y fallo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org02e63e6" class="outline-2">
-<h2 id="org02e63e6">Estilos de Programación</h2>
-<div class="outline-text-2" id="text-org02e63e6">
+<div id="outline-container-org2394764" class="outline-2">
+<h2 id="org2394764">Estilos de Programación</h2>
+<div class="outline-text-2" id="text-org2394764">
 <p>
 (también llamados estándares de código o convención de código) es un
 término que describe convenciones para escribir código fuente en
@@ -353,9 +355,9 @@ Programación C variará con respecto al del lenguaje BASIC.
 </div>
 
 
-<div id="outline-container-orgd2a4cb6" class="outline-3">
-<h3 id="orgd2a4cb6">Características del Estilo</h3>
-<div class="outline-text-3" id="text-orgd2a4cb6">
+<div id="outline-container-org1cf9f38" class="outline-3">
+<h3 id="org1cf9f38">Características del Estilo</h3>
+<div class="outline-text-3" id="text-org1cf9f38">
 <p>
 Una pieza clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -398,9 +400,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 
 
-<div id="outline-container-orgad7976d" class="outline-3">
-<h3 id="orgad7976d">Nombres de Variable Apropiadas.</h3>
-<div class="outline-text-3" id="text-orgad7976d">
+<div id="outline-container-org8013748" class="outline-3">
+<h3 id="org8013748">Nombres de Variable Apropiadas.</h3>
+<div class="outline-text-3" id="text-org8013748">
 <p>
 Una piedra clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -438,9 +440,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 </div>
 
-<div id="outline-container-orga9c4314" class="outline-3">
-<h3 id="orga9c4314">Estilo de indentación</h3>
-<div class="outline-text-3" id="text-orga9c4314">
+<div id="outline-container-org29804f4" class="outline-3">
+<h3 id="org29804f4">Estilo de indentación</h3>
+<div class="outline-text-3" id="text-org29804f4">
 <p>
 Estilo de indentación, en lenguajes de programación que usan llaves
 para indentar o delimitar bloques lógicos de código, como por
@@ -512,9 +514,9 @@ las dos formas.
 </div>
 </div>
 
-<div id="outline-container-orgc49fff5" class="outline-3">
-<h3 id="orgc49fff5">Bucles y estructuras de control</h3>
-<div class="outline-text-3" id="text-orgc49fff5">
+<div id="outline-container-org8122dcd" class="outline-3">
+<h3 id="org8122dcd">Bucles y estructuras de control</h3>
+<div class="outline-text-3" id="text-org8122dcd">
 <p>
 El uso de estructuras de control lógicas para bucles también es parte
  de un buen estilo de programación. Ayuda a alguien que esté leyendo
@@ -558,9 +560,9 @@ en un rango" puede ser acortado a:
 </div>
 </div>
 
-<div id="outline-container-orgefcc390" class="outline-3">
-<h3 id="orgefcc390">Espaciado</h3>
-<div class="outline-text-3" id="text-orgefcc390">
+<div id="outline-container-org80ee309" class="outline-3">
+<h3 id="org80ee309">Espaciado</h3>
+<div class="outline-text-3" id="text-org80ee309">
 <p>
 Los lenguajes de formato libre ignoran frecuentemente los espacios
 en blanco. El buen uso del espaciado en la disposición del código
@@ -613,9 +615,9 @@ espacio en blanco.
 </div>
 </div>
 
-<div id="outline-container-orge536d47" class="outline-3">
-<h3 id="orge536d47">Evaluación de expresiones</h3>
-<div class="outline-text-3" id="text-orge536d47">
+<div id="outline-container-org45640bf" class="outline-3">
+<h3 id="org45640bf">Evaluación de expresiones</h3>
+<div class="outline-text-3" id="text-org45640bf">
 <p>
 En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
 flujo, las palabras-clave señalan al compilador aspectos complementarios que no
@@ -638,9 +640,9 @@ optimización del código.</li>
 
 
 
-<div id="outline-container-org4a73411" class="outline-2">
-<h2 id="org4a73411">Paradigma de Programación</h2>
-<div class="outline-text-2" id="text-org4a73411">
+<div id="outline-container-org67bb5a5" class="outline-2">
+<h2 id="org67bb5a5">Paradigma de Programación</h2>
+<div class="outline-text-2" id="text-org67bb5a5">
 <p>
 Un paradigma de programación es una propuesta tecnológica adoptada por
 una comunidad de programadores y desarrolladores cuyo núcleo central
@@ -652,13 +654,13 @@ menos un parámetro que afecte a la ingeniería de software.
 </div>
 
 
-<div id="outline-container-orgc39352a" class="outline-3">
-<h3 id="orgc39352a">Tipos más comunes de paradigmas de programación</h3>
-<div class="outline-text-3" id="text-orgc39352a">
+<div id="outline-container-org6f7a104" class="outline-3">
+<h3 id="org6f7a104">Tipos más comunes de paradigmas de programación</h3>
+<div class="outline-text-3" id="text-org6f7a104">
 </div>
-<div id="outline-container-orgd0d25db" class="outline-4">
-<h4 id="orgd0d25db">Programación imperativa o por procedimientos:</h4>
-<div class="outline-text-4" id="text-orgd0d25db">
+<div id="outline-container-org23ab2c5" class="outline-4">
+<h4 id="org23ab2c5">Programación imperativa o por procedimientos:</h4>
+<div class="outline-text-4" id="text-org23ab2c5">
 <p>
  Es el más usado en general, se basa en dar instrucciones al ordenador
 de como hacer las cosas en forma de algoritmos. La programación
@@ -669,9 +671,9 @@ paradigma serían el C, BASIC o Pascal.
 </div>
 </div>
 
-<div id="outline-container-org84e0f37" class="outline-4">
-<h4 id="org84e0f37">Programación orientada a objetos:</h4>
-<div class="outline-text-4" id="text-org84e0f37">
+<div id="outline-container-orgad042b8" class="outline-4">
+<h4 id="orgad042b8">Programación orientada a objetos:</h4>
+<div class="outline-text-4" id="text-orgad042b8">
 <p>
 Está basada en el imperativo, pero encapsula elementos denominados
 objetos que incluyen tanto variables como funciones. Está
@@ -683,9 +685,9 @@ objetos.
 </div>
 
 
-<div id="outline-container-org10b167d" class="outline-4">
-<h4 id="org10b167d">Programación dinámica:</h4>
-<div class="outline-text-4" id="text-org10b167d">
+<div id="outline-container-org8be4615" class="outline-4">
+<h4 id="org8be4615">Programación dinámica:</h4>
+<div class="outline-text-4" id="text-org8be4615">
 <p>
  está definida como el proceso de romper
 problemas en partes pequeñas para analizarlos y resolverlos de forma
@@ -697,9 +699,9 @@ cualquier lenguaje imperativo.
 </div>
 </div>
 
-<div id="outline-container-org5ef48a6" class="outline-4">
-<h4 id="org5ef48a6">Programación dirigida por eventos:</h4>
-<div class="outline-text-4" id="text-org5ef48a6">
+<div id="outline-container-orgec3c034" class="outline-4">
+<h4 id="orgec3c034">Programación dirigida por eventos:</h4>
+<div class="outline-text-4" id="text-orgec3c034">
 <p>
 la programación dirigida por
 eventos es un paradigma de programación en el que tanto la estructura
@@ -711,9 +713,9 @@ mismos provoquen.
 </div>
 
 
-<div id="outline-container-org7a251ae" class="outline-4">
-<h4 id="org7a251ae">Programación declarativa:</h4>
-<div class="outline-text-4" id="text-org7a251ae">
+<div id="outline-container-orgbaee0b4" class="outline-4">
+<h4 id="orgbaee0b4">Programación declarativa:</h4>
+<div class="outline-text-4" id="text-orgbaee0b4">
 <p>
  está basado en describir el problema
 declarando propiedades y reglas que deben cumplirse, en lugar de
@@ -724,9 +726,9 @@ primeros lenguajes funcionales fueron Lisp y Prolog.
 </div>
 </div>
 
-<div id="outline-container-org765af97" class="outline-4">
-<h4 id="org765af97">Programación funcional:</h4>
-<div class="outline-text-4" id="text-org765af97">
+<div id="outline-container-org67b1f70" class="outline-4">
+<h4 id="org67b1f70">Programación funcional:</h4>
+<div class="outline-text-4" id="text-org67b1f70">
 <p>
 La programación funcional es un paradigma de programación declarativa
 basado en el uso de verdaderas funciones matemáticas. En este estilo
@@ -773,9 +775,9 @@ lenguajes de programación funcional.
 </div>
 </div>
 
-<div id="outline-container-orgcae211a" class="outline-4">
-<h4 id="orgcae211a">Programación lógica:</h4>
-<div class="outline-text-4" id="text-orgcae211a">
+<div id="outline-container-orgb8c2655" class="outline-4">
+<h4 id="orgb8c2655">Programación lógica:</h4>
+<div class="outline-text-4" id="text-orgb8c2655">
 <p>
 basado en la definición de relaciones lógicas,
  está representado por Prolog.
@@ -784,9 +786,9 @@ basado en la definición de relaciones lógicas,
 </div>
 
 
-<div id="outline-container-orgdd9ac1d" class="outline-4">
-<h4 id="orgdd9ac1d">Programación con restricciones:</h4>
-<div class="outline-text-4" id="text-orgdd9ac1d">
+<div id="outline-container-orge570ae0" class="outline-4">
+<h4 id="orge570ae0">Programación con restricciones:</h4>
+<div class="outline-text-4" id="text-orge570ae0">
 <p>
 similar a la lógica usando
  ecuaciones. Casi todos los lenguajes son variantes del Prolog.
@@ -794,9 +796,9 @@ similar a la lógica usando
 </div>
 </div>
 
-<div id="outline-container-orgfef32aa" class="outline-4">
-<h4 id="orgfef32aa">Programación multiparadigma:</h4>
-<div class="outline-text-4" id="text-orgfef32aa">
+<div id="outline-container-org4320c51" class="outline-4">
+<h4 id="org4320c51">Programación multiparadigma:</h4>
+<div class="outline-text-4" id="text-org4320c51">
 <p>
 es el uso de dos o más paradigmas dentro
   de un programa. El lenguaje Lisp se considera multiparadigma. Al
@@ -806,9 +808,9 @@ es el uso de dos o más paradigmas dentro
 </div>
 </div>
 
-<div id="outline-container-org914d80a" class="outline-4">
-<h4 id="org914d80a">Lenguaje específico del dominio o DSL:</h4>
-<div class="outline-text-4" id="text-org914d80a">
+<div id="outline-container-orgc4250bf" class="outline-4">
+<h4 id="orgc4250bf">Lenguaje específico del dominio o DSL:</h4>
+<div class="outline-text-4" id="text-orgc4250bf">
 <p>
 se denomina así a los
   lenguajes desarrollados para resolver un problema específico,
@@ -824,9 +826,9 @@ se denomina así a los
 
 
 
-<div id="outline-container-org7aab1bb" class="outline-2">
-<h2 id="org7aab1bb">Programación Funcional</h2>
-<div class="outline-text-2" id="text-org7aab1bb">
+<div id="outline-container-org4a00da1" class="outline-2">
+<h2 id="org4a00da1">Programación Funcional</h2>
+<div class="outline-text-2" id="text-org4a00da1">
 <p>
 La programación funcional, o mejor dicho, los lenguajes de
 programación funcionales, son aquellos lenguajes donde las variables
@@ -1025,9 +1027,9 @@ dato y darle un aspecto procedural.
 </div>
 
 
-<div id="outline-container-org9ace80b" class="outline-2">
-<h2 id="org9ace80b">Lisp</h2>
-<div class="outline-text-2" id="text-org9ace80b">
+<div id="outline-container-org94ad8f8" class="outline-2">
+<h2 id="org94ad8f8">Lisp</h2>
+<div class="outline-text-2" id="text-org94ad8f8">
 <p>
 Lisp (históricamente LISP) es una familia de lenguajes de programación
 de computadora de tipo multiparadigma con larga historia y una
@@ -1081,9 +1083,9 @@ puede ser llamada usando (f x y z).
 </p>
 </div>
 
-<div id="outline-container-org4db573a" class="outline-3">
-<h3 id="org4db573a">Historia</h3>
-<div class="outline-text-3" id="text-org4db573a">
+<div id="outline-container-orge8802ac" class="outline-3">
+<h3 id="orge8802ac">Historia</h3>
+<div class="outline-text-3" id="text-orge8802ac">
 <p>
 El proyecto se inició en 1987, cuando los autores originales, Bruno
 Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
@@ -1136,13 +1138,13 @@ clisp
 </div>
 
 
-<div id="outline-container-org54f6c94" class="outline-3">
-<h3 id="org54f6c94">Programación en Lisp</h3>
-<div class="outline-text-3" id="text-org54f6c94">
+<div id="outline-container-org7748421" class="outline-3">
+<h3 id="org7748421">Programación en Lisp</h3>
+<div class="outline-text-3" id="text-org7748421">
 </div>
-<div id="outline-container-org702c93f" class="outline-4">
-<h4 id="org702c93f">Expresiones</h4>
-<div class="outline-text-4" id="text-org702c93f">
+<div id="outline-container-org9b5a28b" class="outline-4">
+<h4 id="org9b5a28b">Expresiones</h4>
+<div class="outline-text-4" id="text-org9b5a28b">
 <p>
 Es particularmente cierto que la mejor forma de aprender Lisp es
 usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -1380,9 +1382,9 @@ eval
 </div>
 </div>
 
-<div id="outline-container-org102e52a" class="outline-4">
-<h4 id="org102e52a">Datos</h4>
-<div class="outline-text-4" id="text-org102e52a">
+<div id="outline-container-orgd4a8188" class="outline-4">
+<h4 id="orgd4a8188">Datos</h4>
+<div class="outline-text-4" id="text-orgd4a8188">
 <p>
 Lisp ofrece los tipos de datos que podemos encontrar en otros
 lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -1451,9 +1453,9 @@ como si fuese código. Por ejemplo:
 </div>
 </div>
 
-<div id="outline-container-org6bc0194" class="outline-4">
-<h4 id="org6bc0194">Evaluación</h4>
-<div class="outline-text-4" id="text-org6bc0194">
+<div id="outline-container-orgf6e0438" class="outline-4">
+<h4 id="orgf6e0438">Evaluación</h4>
+<div class="outline-text-4" id="text-orgf6e0438">
 <p>
 Veamos más en detalle como las expresiones son evaluadas para
 desplegar su valor en el top-level. En Lisp, + es una función y (+
@@ -1511,9 +1513,9 @@ protección puede ser útil.
 </div>
 </div>
 
-<div id="outline-container-orgddcf4a9" class="outline-4">
-<h4 id="orgddcf4a9">Funciones en Lisp</h4>
-<div class="outline-text-4" id="text-orgddcf4a9">
+<div id="outline-container-org26c89c0" class="outline-4">
+<h4 id="org26c89c0">Funciones en Lisp</h4>
+<div class="outline-text-4" id="text-org26c89c0">
 <p>
 Es posible definir nuevas funciones con defun que toma normalmente tres
 argumentos: un nombre, una lista de parámetros y una o más expresiones
@@ -1587,9 +1589,9 @@ incremental (bottom-up).
 </div>
 </div>
 
-<div id="outline-container-org8ec7530" class="outline-4">
-<h4 id="org8ec7530">Listas</h4>
-<div class="outline-text-4" id="text-org8ec7530">
+<div id="outline-container-orgffb101a" class="outline-4">
+<h4 id="orgffb101a">Listas</h4>
+<div class="outline-text-4" id="text-orgffb101a">
 <p>
 En Lisp, las listas son una estructura de datos fundamental y
 versátil. Se utilizan para almacenar una secuencia de elementos, que
@@ -1680,10 +1682,11 @@ flexibilidad y capacidad para anidarse las hacen muy poderosas en la
 programación en Lisp.
 </p>
 </div>
+</div>
 
-<ul class="org-ul">
-<li><a id="orgde5c645"></a>Cons<br />
-<div class="outline-text-5" id="text-orgde5c645">
+<div id="outline-container-org68944a5" class="outline-4">
+<h4 id="org68944a5">Cons</h4>
+<div class="outline-text-4" id="text-org68944a5">
 <p>
 La función `cons` se utiliza para crear nuevas listas al agregar un
 elemento al principio de una lista existente. Su sintaxis es la
@@ -1732,14 +1735,15 @@ se utiliza con frecuencia en la programación en este lenguaje para
 crear estructuras de datos y manipular listas de manera eficiente.
 </p>
 </div>
-</li>
+</div>
 
 
 
 
 
-<li><a id="orgfed41eb"></a>Funciones CAR y CDR<br />
-<div class="outline-text-5" id="text-orgfed41eb">
+<div id="outline-container-org387f444" class="outline-4">
+<h4 id="org387f444">Funciones CAR y CDR</h4>
+<div class="outline-text-4" id="text-org387f444">
 <p>
 CAR admite un único argumento que debe ser una lista o una expresión
 cuyo valor sea una lista y devuelve el primer elemento de dicha
@@ -1820,13 +1824,11 @@ en listas anidadas en varios niveles.
 </pre>
 </div>
 </div>
-</li>
-</ul>
 </div>
 
-<div id="outline-container-orge856ba8" class="outline-4">
-<h4 id="orge856ba8">Entradas y salidas</h4>
-<div class="outline-text-4" id="text-orge856ba8">
+<div id="outline-container-org5cdc0e1" class="outline-4">
+<h4 id="org5cdc0e1">Entradas y salidas</h4>
+<div class="outline-text-4" id="text-org5cdc0e1">
 <p>
 Lisp proporciona un amplio conjunto de facilidades para realizar
 entrada/salida. Todas las operaciones de entrada/salida se realizan en
@@ -1864,8 +1866,8 @@ devuelve.
 </div>
 
 <ul class="org-ul">
-<li><a id="org3ccd244"></a>Funciones de Entrada:<br />
-<div class="outline-text-5" id="text-org3ccd244">
+<li><a id="org800573d"></a>Funciones de Entrada:<br />
+<div class="outline-text-5" id="text-org800573d">
 <p>
 Los caracteres de la representación impresa de un objeto Lisp se
 transmiten a un flujo mediante funciones como "print". El (Lisp)
@@ -2029,9 +2031,9 @@ enteros.
 </ul>
 </div>
 
-<div id="outline-container-orgf96b41b" class="outline-4">
-<h4 id="orgf96b41b">Valores de Verdad IF</h4>
-<div class="outline-text-4" id="text-orgf96b41b">
+<div id="outline-container-org64eca77" class="outline-4">
+<h4 id="org64eca77">Valores de Verdad IF</h4>
+<div class="outline-text-4" id="text-org64eca77">
 <p>
 En Lisp, el símbolo t es la representación por default para
 verdadero. La representación por default de falso es nil . Ambos
@@ -2128,9 +2130,9 @@ devuelve la última evaluación como el valor de la expresión completa.
 </div>
 </div>
 
-<div id="outline-container-org3c46d6b" class="outline-4">
-<h4 id="org3c46d6b">When Unless</h4>
-<div class="outline-text-4" id="text-org3c46d6b">
+<div id="outline-container-org1b6ebf2" class="outline-4">
+<h4 id="org1b6ebf2">When Unless</h4>
+<div class="outline-text-4" id="text-org1b6ebf2">
 <p>
 De igual forma <b>Lisp</b> tiene otros comandos que tienen un <b>progn</b>
 implícito los más básicos son <b>when</b> y <b>unless</b>  en el siguiente ejemplo se puede ver la función oddp 
@@ -2170,9 +2172,9 @@ opuesta; simplemente devuelven cero y no hacen nada.
 </div>
 </div>
 
-<div id="outline-container-org9d49669" class="outline-4">
-<h4 id="org9d49669">Cond</h4>
-<div class="outline-text-4" id="text-org9d49669">
+<div id="outline-container-org18d9a31" class="outline-4">
+<h4 id="org18d9a31">Cond</h4>
+<div class="outline-text-4" id="text-org18d9a31">
 <p>
 La función <b><b>cond</b></b> en Lisp es un formulario especial utilizado para
 crear estructuras condicionales. No es realmente una función en el
@@ -2228,9 +2230,9 @@ condicionales más complejas.
 </div>
 </div>
 
-<div id="outline-container-orgfbe2761" class="outline-4">
-<h4 id="orgfbe2761">Case</h4>
-<div class="outline-text-4" id="text-orgfbe2761">
+<div id="outline-container-org1b4d437" class="outline-4">
+<h4 id="org1b4d437">Case</h4>
+<div class="outline-text-4" id="text-org1b4d437">
 <p>
 El formulario `case` en Lisp se utiliza para realizar una selección
 múltiple basada en el valor de una expresión. Funciona de manera
@@ -2315,9 +2317,9 @@ ejecutará la acción en la cláusula "otherwise".
 </div>
 </div>
 
-<div id="outline-container-org9a74a30" class="outline-4">
-<h4 id="org9a74a30">Operadores Lógicos and or</h4>
-<div class="outline-text-4" id="text-org9a74a30">
+<div id="outline-container-org8337244" class="outline-4">
+<h4 id="org8337244">Operadores Lógicos and or</h4>
+<div class="outline-text-4" id="text-org8337244">
 <p>
 Los operadores lógicos <b>and</b> y <b>or</b> parecen condicionales. Ambos toman
 cualquier número de argumentos, pero solo evaluan los necesarios
@@ -2561,9 +2563,9 @@ TERRAN
 </div>
 </div>
 
-<div id="outline-container-org0779763" class="outline-4">
-<h4 id="org0779763">Funciones lambda en Lisp</h4>
-<div class="outline-text-4" id="text-org0779763">
+<div id="outline-container-orgc6294b7" class="outline-4">
+<h4 id="orgc6294b7">Funciones lambda en Lisp</h4>
+<div class="outline-text-4" id="text-orgc6294b7">
 <p>
 En el ámbito de la programación, una expresión lambda, también
 denominada función lambda, función literal o función anónima, es una
@@ -2582,10 +2584,10 @@ los literales para otros tipos de datos.
 
 
 <ul class="org-ul">
-<li><a id="orgf472851"></a>Funciones como valores de primera clase<br />
+<li><a id="orgb7c3c03"></a>Funciones como valores de primera clase<br />
 <ul class="org-ul">
-<li><a id="orgcf65961"></a>Sintaxis<br />
-<div class="outline-text-6" id="text-orgcf65961">
+<li><a id="org26f0a81"></a>Sintaxis<br />
+<div class="outline-text-6" id="text-org26f0a81">
 <ul class="org-ul">
 <li>(nombre de la función) ; recupera la función objeto de ese nombre</li>
 <li>#'nombre ; azúcar sintáctica para (nombre de la función)</li>
@@ -2598,8 +2600,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="orgebeebe3"></a>Parámetros<br />
-<div class="outline-text-6" id="text-orgebeebe3">
+<li><a id="orgf0b0f9f"></a>Parámetros<br />
+<div class="outline-text-6" id="text-orgf0b0f9f">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2655,8 +2657,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="orgd38722f"></a>Observaciones<br />
-<div class="outline-text-6" id="text-orgd38722f">
+<li><a id="orge1dee15"></a>Observaciones<br />
+<div class="outline-text-6" id="text-orge1dee15">
 <p>
 Cuando se habla de lenguajes similares a Lisp, existe una distinción
 común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
@@ -2677,8 +2679,8 @@ y etiquetas, por ejemplo.
 </li>
 
 
-<li><a id="org42aeb0c"></a>Definiendo funciones anónimas.<br />
-<div class="outline-text-6" id="text-org42aeb0c">
+<li><a id="orgad621c8"></a>Definiendo funciones anónimas.<br />
+<div class="outline-text-6" id="text-orgad621c8">
 <p>
 Las funciones en Common Lisp son valores de primera clase . Se puede
 crear una función anónima usando lambda . Por ejemplo, aquí hay una
@@ -2818,8 +2820,8 @@ bar
 </li>
 
 
-<li><a id="orgf262813"></a>Funciones de orden superior<br />
-<div class="outline-text-6" id="text-orgf262813">
+<li><a id="org5b2f470"></a>Funciones de orden superior<br />
+<div class="outline-text-6" id="text-org5b2f470">
 <p>
 Common Lisp contiene muchas funciones de orden superior que son
 funciones pasadas para los argumentos y las llaman. Tal vez los más
@@ -3103,9 +3105,9 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </ul>
 </div>
 
-<div id="outline-container-org1f75605" class="outline-4">
-<h4 id="org1f75605">Ejercicios</h4>
-<div class="outline-text-4" id="text-org1f75605">
+<div id="outline-container-org7266187" class="outline-4">
+<h4 id="org7266187">Ejercicios</h4>
+<div class="outline-text-4" id="text-org7266187">
 <p>
 (defpackage "EJERCICIOS")
 </p>
@@ -3146,9 +3148,9 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </div>
 
 
-<div id="outline-container-orge51fe69" class="outline-2">
-<h2 id="orge51fe69">Prolog</h2>
-<div class="outline-text-2" id="text-orge51fe69">
+<div id="outline-container-org3d6680b" class="outline-2">
+<h2 id="org3d6680b">Prolog</h2>
+<div class="outline-text-2" id="text-org3d6680b">
 <p>
 Una regla sirve para representar conocimiento que en lenguaje natural
  se expresa mediante una sentencia condicional. Por ejemplo, si en
@@ -3247,9 +3249,9 @@ interpretación de los predicados y cualquier asignación de x).
 </p>
 </div>
 
-<div id="outline-container-org3cde6db" class="outline-3">
-<h3 id="org3cde6db">Corte</h3>
-<div class="outline-text-3" id="text-org3cde6db">
+<div id="outline-container-orgd8626d9" class="outline-3">
+<h3 id="orgd8626d9">Corte</h3>
+<div class="outline-text-3" id="text-orgd8626d9">
 <p>
 El corte es un predicado predefinido que no recibe argumentos. Se
 representa mediante un signo de admiración (!). Sin duda, es el
@@ -3354,9 +3356,9 @@ de Y&gt;15 en la primera cláusula.
 </div>
 
 
-<div id="outline-container-org33a63d2" class="outline-3">
-<h3 id="org33a63d2">Usos del corte</h3>
-<div class="outline-text-3" id="text-org33a63d2">
+<div id="outline-container-org1cd790f" class="outline-3">
+<h3 id="org1cd790f">Usos del corte</h3>
+<div class="outline-text-3" id="text-org1cd790f">
 <p>
 El corte se utiliza muy frecuentemente, cuanto más diestro es el
 programador más lo suele usar. Los motivos por los que se usa el corte
@@ -3384,9 +3386,9 @@ busque otras soluciones aunque sabemos que éstas existen.</li>
 </div>
 </div>
 
-<div id="outline-container-orge951772" class="outline-3">
-<h3 id="orge951772">Corte y fallo</h3>
-<div class="outline-text-3" id="text-orge951772">
+<div id="outline-container-orgba785dd" class="outline-3">
+<h3 id="orgba785dd">Corte y fallo</h3>
+<div class="outline-text-3" id="text-orgba785dd">
 <p>
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
@@ -3413,7 +3415,7 @@ montón de código que al final va a fallar de todas formas.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Eduardo Alcaraz</p>
-<p class="date">Created: 2023-09-20 mié 09:52</p>
+<p class="date">Created: 2023-09-20 mié 09:55</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -1,5 +1,7 @@
 
-#+TITLE: Apuntes Programación Lógica Funcional  
+#+TITLE: Apuntes Programación Lógica Funcional
+#+AUTHOR: Eduardo Alcaraz
+#+email: eduardo.ac@morelia.tecnm.mx  
 #+LaTeX_HEADER: \usepackage[spanish]{inputenc}
 #+SETUPFILE: /home/likcos/Materias/Prolog/theme-readtheorg-local.setup
 #+EXPORT_FILE_NAME: index.html
@@ -7,94 +9,102 @@
 #+HTML_HEAD: <style> #content{max-width:1800px;}</style>
 #+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 
-* Estilos de Programación 
+* Conceptos Fundamentales
+
+
+** Diferentes Estilos de Programación 
+
+
+*** Estilos de Programación 
   
-(también llamados estándares de código o convención de código) es un
-término que describe convenciones para escribir código fuente en
-ciertos lenguajes de programación. El estilo de programación es
-frecuentemente dependiente del lenguaje de programación que se haya
-elegido para escribir. Por ejemplo el estilo del lenguaje de
-Programación C variará con respecto al del lenguaje BASIC.
+  (también llamados estándares de código o convención de código) es un
+  término que describe convenciones para escribir código fuente en
+  ciertos lenguajes de programación. El estilo de programación es
+  frecuentemente dependiente del lenguaje de programación que se haya
+  elegido para escribir. Por ejemplo el estilo del lenguaje de
+  Programación C variará con respecto al del lenguaje BASIC. [fn:1]
+
+[fn:1] La salida del libro es tacataca
 
 
-** Características del Estilo
+*** Características del Estilo
 
-Una pieza clave para un buen estilo es la elección apropiada de
-nombres de variable. Variables pobremente nombradas dificultan la
-lectura del código fuente y su comprensión.
+ Una pieza clave para un buen estilo es la elección apropiada de
+ nombres de variable. Variables pobremente nombradas dificultan la
+ lectura del código fuente y su comprensión.
 
-Como ejemplo, considérese el siguiente extracto de pseudocódigo:
+ Como ejemplo, considérese el siguiente extracto de pseudocódigo:
 
-#+BEGIN_SRC C
+ #+BEGIN_SRC C
 get a b c 
 if a < 24 and b < 60 and c < 60
   return true
 else
   return false
-#+END_SRC
+ #+END_SRC
  
-Debido a la elección de nombres de variable, es difícil darse cuenta
-de la función del código. Compárese ahora con la siguiente versión:
+ Debido a la elección de nombres de variable, es difícil darse cuenta
+ de la función del código. Compárese ahora con la siguiente versión:
 
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
  get horas minutos segundos 
  if horas < 24 and minutos < 60 and segundos < 60
    return true
  else
    return false
- #+END_SRC
+  #+END_SRC
 
- La intención el código es ahora más sencilla de discernir, "dado una
- hora en 24 horas, se devolverá true si es válida y false si no".
+  La intención el código es ahora más sencilla de discernir, "dado una
+  hora en 24 horas, se devolverá true si es válida y false si no".
 
 
-** Nombres de Variable Apropiadas.
-Una piedra clave para un buen estilo es la elección apropiada de
-nombres de variable. Variables pobremente nombradas dificultan la
-lectura del código fuente y su comprensión.  y Como ejemplo,
-considérese el siguiente extracto de pseudocódigo:
+*** Nombres de Variable Apropiadas.
+ Una piedra clave para un buen estilo es la elección apropiada de
+ nombres de variable. Variables pobremente nombradas dificultan la
+ lectura del código fuente y su comprensión.  y Como ejemplo,
+ considérese el siguiente extracto de pseudocódigo:
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
 get a b c
 if a < 24 and b < 60 and c < 60
   return true
 else
   return false
- #+END_SRC
+  #+END_SRC
 
-Debido a la elección de nombres de variable, es difícil darse cuenta
-de la función del código. Compárese ahora con la siguiente versión:
+ Debido a la elección de nombres de variable, es difícil darse cuenta
+ de la función del código. Compárese ahora con la siguiente versión:
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
  get horas minutos segundos 
  if horas < 24 and minutos < 60 and segundos < 60
    return true
  else
    return false
- #+END_SRC
+  #+END_SRC
 
-La intención el código es ahora más sencilla de discernir, "dado una
-hora en 24 horas, se devolverá true si es válida y false si no".
+ La intención el código es ahora más sencilla de discernir, "dado una
+ hora en 24 horas, se devolverá true si es válida y false si no".
 
-** Estilo de indentación
+*** Estilo de indentación
 
-Estilo de indentación, en lenguajes de programación que usan llaves
-para indentar o delimitar bloques lógicos de código, como por
-ejemplo C, es también un punto clave el buen estilo. Usando un
-estilo lógico y consistente hace el código de uno más
-legible. Compárese:
+ Estilo de indentación, en lenguajes de programación que usan llaves
+ para indentar o delimitar bloques lógicos de código, como por
+ ejemplo C, es también un punto clave el buen estilo. Usando un
+ estilo lógico y consistente hace el código de uno más
+ legible. Compárese:
 
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
  if(horas < 24 && minutos < 60 && segundos < 60){
     return true;
  }else{
     return false;
  }
- #+END_SRC
- o bien:
- #+BEGIN_SRC C
+  #+END_SRC
+  o bien:
+  #+BEGIN_SRC C
  if(horas < 24 && minutos < 60 && segundos < 60)
  {
     return true;
@@ -103,237 +113,246 @@ legible. Compárese:
  {
     return false;
  }
- #+END_SRC
+  #+END_SRC
 
-con algo como:
+ con algo como:
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
 
  if(horas<24&&minutos<60&&segundos<60){return true;}
  else{return false;}
- #+END_SRC
+  #+END_SRC
 
-Los primeros dos ejemplos son mucho más fáciles de leer porque están
-bien indentados, y los bloques lógicos de código se agrupan y se
-representan juntos de forma más clara.
+ Los primeros dos ejemplos son mucho más fáciles de leer porque están
+ bien indentados, y los bloques lógicos de código se agrupan y se
+ representan juntos de forma más clara.
 
-Valores booleanos en estructuras de decisión Algunos programadores
-piensan que las estructuras de decisión como las anteriores, donde el
-resultado de la decisión es meramente una computación de un valor
-booleano, son demasiado prolijos e incluso propensos al
-error. Prefieren hacer la decisión en la computación por sí mismo,
-como esto:
+ Valores booleanos en estructuras de decisión Algunos programadores
+ piensan que las estructuras de decisión como las anteriores, donde el
+ resultado de la decisión es meramente una computación de un valor
+ booleano, son demasiado prolijos e incluso propensos al
+ error. Prefieren hacer la decisión en la computación por sí mismo,
+ como esto:
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
  return horas < 12 && minutos < 60 && segundos < 60;
- #+END_SRC
+  #+END_SRC
 
-La diferencia es, con frecuencia, puramente estilística y sintáctica,
-ya que los compiladores modernos producirán código objeto idéntico en
-las dos formas.
+ La diferencia es, con frecuencia, puramente estilística y sintáctica,
+ ya que los compiladores modernos producirán código objeto idéntico en
+ las dos formas.
 
-** Bucles y estructuras de control
+*** Bucles y estructuras de control
 
- El uso de estructuras de control lógicas para bucles también es parte
-  de un buen estilo de programación. Ayuda a alguien que esté leyendo
-  el código a entender la secuencia de ejecución (en programación
-  imperativa). Por ejemplo, el siguiente pseudocódigo:
-   #+BEGIN_SRC C
+  El uso de estructuras de control lógicas para bucles también es parte
+   de un buen estilo de programación. Ayuda a alguien que esté leyendo
+   el código a entender la secuencia de ejecución (en programación
+   imperativa). Por ejemplo, el siguiente pseudocódigo:
+	#+BEGIN_SRC C
 
    cuenta = 0
    while cuenta < 5
      print cuenta * 2
      cuenta = cuenta + 1
    endwhile
-   #+END_SRC
+	#+END_SRC
 
-El extracto anterior cumple con las dos recomendaciones de estilo
-anteriores, pero el siguiente uso de la construcción for hace el
-código mucho más fácil de leer:
+ El extracto anterior cumple con las dos recomendaciones de estilo
+ anteriores, pero el siguiente uso de la construcción for hace el
+ código mucho más fácil de leer:
 
-#+BEGIN_SRC C
+ #+BEGIN_SRC C
 
  for cuenta = 0, cuenta < 5, cuenta=cuenta+1
    print cuenta * 2
-#+END_SRC
+ #+END_SRC
 
-En muchos lenguajes, el patrón frecuentemente usado "por cada elemento
-en un rango" puede ser acortado a:
+ En muchos lenguajes, el patrón frecuentemente usado "por cada elemento
+ en un rango" puede ser acortado a:
 
-#+BEGIN_SRC C
+ #+BEGIN_SRC C
 
  for cuenta = 0 to 5
    print cuenta * 2
-#+END_SRC
+ #+END_SRC
 
-** Espaciado
+*** Espaciado
 
-Los lenguajes de formato libre ignoran frecuentemente los espacios
-en blanco. El buen uso del espaciado en la disposición del código
-de uno es, por tanto, considerado un buen estilo de programación.
+ Los lenguajes de formato libre ignoran frecuentemente los espacios
+ en blanco. El buen uso del espaciado en la disposición del código
+ de uno es, por tanto, considerado un buen estilo de programación.
 
-Compárese el siguiente extracto de código C:
+ Compárese el siguiente extracto de código C:
 
- #+BEGIN_SRC C
+  #+BEGIN_SRC C
  int cuenta; for(cuenta=0;cuenta<10;cuenta++)
 {printf("%d",cuenta*cuenta+cuenta);}
- #+END_SRC
- con:
- #+BEGIN_SRC C
+  #+END_SRC
+  con:
+  #+BEGIN_SRC C
  int cuenta;
  for (cuenta = 0; cuenta < 10; cuenta++)
  {
     printf("%d", cuenta * cuenta + cuenta);
  }
- #+END_SRC
+  #+END_SRC
 
-En los lenguajes de programación de la familia C se recomienda también
-evitar el uso de caracteres tabulador en medio de una línea, ya que
-diferentes editores de textos muestran su anchura de forma diferente.
+ En los lenguajes de programación de la familia C se recomienda también
+ evitar el uso de caracteres tabulador en medio de una línea, ya que
+ diferentes editores de textos muestran su anchura de forma diferente.
 
-El lenguaje de programación Python usa indentación para indicar
-estructuras de control, por tanto se requiere obligatoriamente una
-buena indentación. Haciendo esto, la necesidad de marcar con llaves ({
-y }) es eliminada, y la legibilidad es mejorada sin interferir con los
-estilos de codificación comunes.
+ El lenguaje de programación Python usa indentación para indicar
+ estructuras de control, por tanto se requiere obligatoriamente una
+ buena indentación. Haciendo esto, la necesidad de marcar con llaves ({
+ y }) es eliminada, y la legibilidad es mejorada sin interferir con los
+ estilos de codificación comunes.
 
  
-Con todo, esto lleva frecuentemente a problemas donde el código es
-copiado y pegado dentro de un programa Python, requiriendo un
-tedioso reformateado. Adicionalmente, el código Python se vuelve
-inusable cuando es publicado en un foro o página web que elimine el
-espacio en blanco.
+ Con todo, esto lleva frecuentemente a problemas donde el código es
+ copiado y pegado dentro de un programa Python, requiriendo un
+ tedioso reformateado. Adicionalmente, el código Python se vuelve
+ inusable cuando es publicado en un foro o página web que elimine el
+ espacio en blanco.
+
+*** Evaluación de expresiones
+  
+ En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
+ flujo, las palabras-clave señalan al compilador aspectos complementarios que no
+ alteran el orden de ejecución dentro de la propia sentencia. Este orden viene 
+ determinado por cuatro condicionantes:
+
+ 1. Presencia de paréntesis que obligan a un orden de evaluación
+	específico.
+ 2. Naturaleza de los operadores involucrados en la expresión
+	(asociatividad).
+ 3. Orden en que están colocados (precedencia).
+ 4. Providencias (impredecibles) del compilador relativas a la
+	optimización del código.
+
+
+
+** Analizando diferentes estilos de Programación
+
+
+** Paradigma de Programación 
+
+ Un paradigma de programación es una propuesta tecnológica adoptada por
+ una comunidad de programadores y desarrolladores cuyo núcleo central
+ es incuestionable en cuanto que únicamente trata de resolver uno o
+ varios problemas claramente delimitados; la resolución de estos
+ problemas debe suponer consecuentemente un avance significativo en al
+ menos un parámetro que afecte a la ingeniería de software.
+
+
+*** Tipos más comunes de paradigmas de programación 
+
+**** Programación imperativa o por procedimientos: 
+	 Es el más usado en general, se basa en dar instrucciones al ordenador
+	de como hacer las cosas en forma de algoritmos. La programación
+	imperativa es la más usada y la más antigua, el ejemplo principal
+	es el lenguaje de máquina. Ejemplos de lenguajes puros de este
+	paradigma serían el C, BASIC o Pascal.
+
+**** Programación orientada a objetos: 
+   Está basada en el imperativo, pero encapsula elementos denominados
+   objetos que incluyen tanto variables como funciones. Está
+   representado por C++, C#, Java o Python entre otros, pero el más
+   representativo sería el Smalltalk que está completamente orientado a
+   objetos.
+
+
+**** Programación dinámica: 
+	está definida como el proceso de romper
+   problemas en partes pequeñas para analizarlos y resolverlos de forma
+   lo más cercana al óptimo, busca resolver problemas en O(n) sin usar
+   por tanto métodos recursivos. Este paradigma está más basado en el
+   modo de realizar los algoritmos, por lo que se puede usar con
+   cualquier lenguaje imperativo.
+
+**** Programación dirigida por eventos: 
+   la programación dirigida por
+   eventos es un paradigma de programación en el que tanto la estructura
+   como la ejecución de los programas van determinados por los sucesos
+   que ocurran en el sistema, definidos por el usuario o que ellos
+   mismos provoquen.
+
+
+**** Programación declarativa:
+	está basado en describir el problema
+   declarando propiedades y reglas que deben cumplirse, en lugar de
+   instrucciones. Hay lenguajes para la programación funcional, la
+   programación lógica, o la combinación lógico-funcional. Unos de los
+   primeros lenguajes funcionales fueron Lisp y Prolog.
+
+**** Programación funcional:
+
+ La programación funcional es un paradigma de programación declarativa
+ basado en el uso de verdaderas funciones matemáticas. En este estilo
+ de programación las funciones son ciudadanas de primera clase, porque
+ sus expresiones pueden ser asignadas a variables como se haría con
+ cualquier otro valor; además de que pueden crearse funciones de orden
+ superior.​
+
+ La programación funcional tiene sus raíces en el cálculo lambda, un
+ sistema formal desarrollado en los años 1930 para investigar la
+ naturaleza de las funciones, la naturaleza de la computabilidad y su
+ relación con la recursión. Los lenguajes funcionales priorizan el uso
+ de recursividad y aplicación de funciones de orden superior para
+ resolver problemas que en otros lenguajes se resolverían mediante
+ estructuras de control (por ejemplo, ciclos). Algunos lenguajes
+ funcionales también buscan eliminar la mutabilidad o efectos
+ secundarios; en contraste con la programación imperativa, que se basa
+ en los cambios de estado mediante la mutación de variables. Esto
+ significa que, en programación funcional pura, dos o más expresiones
+ sintácticas idénticas (por ejemplo, dos llamadas a rutinas o dos
+ evaluaciones) siempre devolverán el mismo resultado. Es decir, se
+ tiene transparencia referencial. Lo anterior también puede ser
+ aprovechado para diseñar estrategias de evaluación que eviten repetir
+ el cómputo de expresiones antes vistas, ahorrando tiempo de ejecución.
+
+ Los lenguajes de programación funcional, especialmente los puramente
+ funcionales, han sido enfatizados en el ambiente académico y no tanto
+ en el desarrollo comercial o industrial. Sin embargo, lenguajes de
+ programación funcional como Lisp (Scheme, Common Lisp, etc.), Erlang,
+ Rust, Objective Caml, Scala, F# y Haskell, han sido utilizados en
+ aplicaciones comerciales e industriales por muchas
+ organizaciones. También es utilizada en la industria a través de
+ lenguajes de dominio específico como R (estadística), Mathematica
+ (cómputo simbólico), J y K (análisis financiero). Los lenguajes de uso
+ específico usados comúnmente como SQL y Lex/Yacc, utilizan algunos
+ elementos de programación funcional, especialmente al procesar valores
+ mutables. Las hojas de cálculo también pueden ser consideradas
+ lenguajes de programación funcional.
+
+**** Programación lógica:
+   basado en la definición de relaciones lógicas,
+	está representado por Prolog.
+
+
+**** Programación con restricciones:
+   similar a la lógica usando
+	ecuaciones. Casi todos los lenguajes son variantes del Prolog.
+
+**** Programación multiparadigma:
+  es el uso de dos o más paradigmas dentro
+	de un programa. El lenguaje Lisp se considera multiparadigma. Al
+	igual que Python, que es orientado a objetos, reflexivo, imperativo y
+	funcional.1
+  
+**** Lenguaje específico del dominio o DSL:
+  se denomina así a los
+	lenguajes desarrollados para resolver un problema específico,
+	pudiendo entrar dentro de cualquier grupo anterior. El más
+	representativo sería SQL para el manejo de las bases de datos, de
+	tipo declarativo, pero los hay imperativos, como el Logo.
 
 ** Evaluación de expresiones
-  
-En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
-flujo, las palabras-clave señalan al compilador aspectos complementarios que no
-alteran el orden de ejecución dentro de la propia sentencia. Este orden viene 
-determinado por cuatro condicionantes:
 
-1. Presencia de paréntesis que obligan a un orden de evaluación
-   específico.
-2. Naturaleza de los operadores involucrados en la expresión
-   (asociatividad).
-3. Orden en que están colocados (precedencia).
-4. Providencias (impredecibles) del compilador relativas a la
-   optimización del código.
+** Tipos de datos 
 
+**  Disciplina de tipos
 
-
-* Paradigma de Programación 
-
-Un paradigma de programación es una propuesta tecnológica adoptada por
-una comunidad de programadores y desarrolladores cuyo núcleo central
-es incuestionable en cuanto que únicamente trata de resolver uno o
-varios problemas claramente delimitados; la resolución de estos
-problemas debe suponer consecuentemente un avance significativo en al
-menos un parámetro que afecte a la ingeniería de software.
-
-
-** Tipos más comunes de paradigmas de programación 
-
-*** Programación imperativa o por procedimientos: 
-	Es el más usado en general, se basa en dar instrucciones al ordenador
-   de como hacer las cosas en forma de algoritmos. La programación
-   imperativa es la más usada y la más antigua, el ejemplo principal
-   es el lenguaje de máquina. Ejemplos de lenguajes puros de este
-   paradigma serían el C, BASIC o Pascal.
-
-*** Programación orientada a objetos: 
-  Está basada en el imperativo, pero encapsula elementos denominados
-  objetos que incluyen tanto variables como funciones. Está
-  representado por C++, C#, Java o Python entre otros, pero el más
-  representativo sería el Smalltalk que está completamente orientado a
-  objetos.
-
-
-*** Programación dinámica: 
-   está definida como el proceso de romper
-  problemas en partes pequeñas para analizarlos y resolverlos de forma
-  lo más cercana al óptimo, busca resolver problemas en O(n) sin usar
-  por tanto métodos recursivos. Este paradigma está más basado en el
-  modo de realizar los algoritmos, por lo que se puede usar con
-  cualquier lenguaje imperativo.
-
-*** Programación dirigida por eventos: 
-  la programación dirigida por
-  eventos es un paradigma de programación en el que tanto la estructura
-  como la ejecución de los programas van determinados por los sucesos
-  que ocurran en el sistema, definidos por el usuario o que ellos
-  mismos provoquen.
-
-
-*** Programación declarativa:
-   está basado en describir el problema
-  declarando propiedades y reglas que deben cumplirse, en lugar de
-  instrucciones. Hay lenguajes para la programación funcional, la
-  programación lógica, o la combinación lógico-funcional. Unos de los
-  primeros lenguajes funcionales fueron Lisp y Prolog.
-
-*** Programación funcional:
-
-La programación funcional es un paradigma de programación declarativa
-basado en el uso de verdaderas funciones matemáticas. En este estilo
-de programación las funciones son ciudadanas de primera clase, porque
-sus expresiones pueden ser asignadas a variables como se haría con
-cualquier otro valor; además de que pueden crearse funciones de orden
-superior.​
-
-La programación funcional tiene sus raíces en el cálculo lambda, un
-sistema formal desarrollado en los años 1930 para investigar la
-naturaleza de las funciones, la naturaleza de la computabilidad y su
-relación con la recursión. Los lenguajes funcionales priorizan el uso
-de recursividad y aplicación de funciones de orden superior para
-resolver problemas que en otros lenguajes se resolverían mediante
-estructuras de control (por ejemplo, ciclos). Algunos lenguajes
-funcionales también buscan eliminar la mutabilidad o efectos
-secundarios; en contraste con la programación imperativa, que se basa
-en los cambios de estado mediante la mutación de variables. Esto
-significa que, en programación funcional pura, dos o más expresiones
-sintácticas idénticas (por ejemplo, dos llamadas a rutinas o dos
-evaluaciones) siempre devolverán el mismo resultado. Es decir, se
-tiene transparencia referencial. Lo anterior también puede ser
-aprovechado para diseñar estrategias de evaluación que eviten repetir
-el cómputo de expresiones antes vistas, ahorrando tiempo de ejecución.
-
-Los lenguajes de programación funcional, especialmente los puramente
-funcionales, han sido enfatizados en el ambiente académico y no tanto
-en el desarrollo comercial o industrial. Sin embargo, lenguajes de
-programación funcional como Lisp (Scheme, Common Lisp, etc.), Erlang,
-Rust, Objective Caml, Scala, F# y Haskell, han sido utilizados en
-aplicaciones comerciales e industriales por muchas
-organizaciones. También es utilizada en la industria a través de
-lenguajes de dominio específico como R (estadística), Mathematica
-(cómputo simbólico), J y K (análisis financiero). Los lenguajes de uso
-específico usados comúnmente como SQL y Lex/Yacc, utilizan algunos
-elementos de programación funcional, especialmente al procesar valores
-mutables. Las hojas de cálculo también pueden ser consideradas
-lenguajes de programación funcional.
-
-*** Programación lógica:
-  basado en la definición de relaciones lógicas,
-   está representado por Prolog.
-
-
-*** Programación con restricciones:
-  similar a la lógica usando
-   ecuaciones. Casi todos los lenguajes son variantes del Prolog.
-
-*** Programación multiparadigma:
- es el uso de dos o más paradigmas dentro
-   de un programa. El lenguaje Lisp se considera multiparadigma. Al
-   igual que Python, que es orientado a objetos, reflexivo, imperativo y
-   funcional.1
-  
-*** Lenguaje específico del dominio o DSL:
- se denomina así a los
-   lenguajes desarrollados para resolver un problema específico,
-   pudiendo entrar dentro de cualquier grupo anterior. El más
-   representativo sería SQL para el manejo de las bases de datos, de
-   tipo declarativo, pero los hay imperativos, como el Logo.
-
-
+** Funciones
 
 
 * Programación Funcional
@@ -929,7 +948,6 @@ C
 (defun suma-mayor-que (x  y z)
   (> (+ x y) z)
 )
-
 (suma-mayor-que 1 4 3)
  #+END_SRC
 
@@ -1833,11 +1851,13 @@ NIL
 
 
 ***** Definiendo funciones anónimas.
+
 Las funciones en Common Lisp son valores de primera clase . Se puede
 crear una función anónima usando lambda . Por ejemplo, aquí hay una
 función de 3 argumentos que luego llamamos usando funcall
 
 #+BEGIN_SRC lisp
+;(defun nombrefuncion(a b c )  ())
 (lambda (a b c) (+ a (* b c)))
 (LAMBDA (A B C)) {10034F484B}>
 (defvar *foo* (lambda (a b c) (+ a (* b c))))
@@ -1859,7 +1879,10 @@ Lisp proporciona una sintaxis para ello.
 #+END_SRC
 
 
-Las funciones anónimas también se pueden almacenar como funciones globales:
+Las funciones anónimas también se pueden almacenar como funciones
+globales:
+\**variable**
+
 #+BEGIN_SRC lisp
 (let ((a-function (lambda (a b c) (+ a (* b c)))))      ; funcion anonima 
   (setf (symbol-function 'some-function) a-function))   ; se asigna a 'some-function
@@ -2174,6 +2197,8 @@ MY-FUNCALL
  #+RESULTS:
  : 9
 
+
+
 *** Ejercicios 
 
  (defpackage "EJERCICIOS")
@@ -2386,6 +2411,7 @@ son, por orden de importancia, los siguientes:
   busque otras soluciones aunque sabemos que éstas existen.
 
 ** Corte y fallo
+
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
 falla. Se utiliza para detectar prematuramente combinaciones de los
