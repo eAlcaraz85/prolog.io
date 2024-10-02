@@ -3,14 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-09-20 mié 09:55 -->
+<!-- 2024-10-02 mié 08:55 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Programación Lógica Funcional</title>
-<meta name="generator" content="Org mode" />
 <meta name="author" content="Eduardo Alcaraz" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
   .title  { text-align: center;
              margin-bottom: .2em; }
   .subtitle { text-align: center;
@@ -31,8 +31,9 @@
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
   pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
     padding: 8pt;
     font-family: monospace;
     overflow: auto;
@@ -40,22 +41,22 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
+    overflow: auto;
   }
   pre.src:before {
     display: none;
     position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
+    top: -8px;
+    right: 12px;
     padding: 3px;
-    border: 1px solid black;
+    color: #555;
+    background-color: #f2f2f299;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
   pre.src-C:before { content: 'C'; }
   /* pre.src-C++ doesn't work in CSS */
   pre.src-clojure:before { content: 'Clojure'; }
@@ -190,8 +191,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
+  .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/readtheorg.css"/>
@@ -201,52 +201,6 @@
 <script type="text/javascript" src="src/readtheorg_theme/js/readtheorg.js"></script>
 <style> #content{max-width:1800px;}</style>
 <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
-<script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
-<!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
-</script>
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         displayAlign: "center",
@@ -267,97 +221,115 @@ for the JavaScript code in this tag.
              }
 });
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
-<div id="content">
+<div id="content" class="content">
 <h1 class="title">Apuntes Programación Lógica Funcional</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2394764">Estilos de Programación</a>
+<li><a href="#orgea86b30">Conceptos Fundamentales</a>
 <ul>
-<li><a href="#org1cf9f38">Características del Estilo</a></li>
-<li><a href="#org8013748">Nombres de Variable Apropiadas.</a></li>
-<li><a href="#org29804f4">Estilo de indentación</a></li>
-<li><a href="#org8122dcd">Bucles y estructuras de control</a></li>
-<li><a href="#org80ee309">Espaciado</a></li>
-<li><a href="#org45640bf">Evaluación de expresiones</a></li>
+<li><a href="#orgb96363b">Diferentes Estilos de Programación</a>
+<ul>
+<li><a href="#org2ca8c0e">Estilos de Programación</a></li>
+<li><a href="#orgddb7983">Características del Estilo</a></li>
+<li><a href="#orge6c43fb">Nombres de Variable Apropiadas.</a></li>
+<li><a href="#org637def3">Estilo de indentación</a></li>
+<li><a href="#orgae9029d">Bucles y estructuras de control</a></li>
+<li><a href="#org30c99f2">Espaciado</a></li>
+<li><a href="#org0cab7ed">Evaluación de expresiones</a></li>
 </ul>
 </li>
-<li><a href="#org67bb5a5">Paradigma de Programación</a>
+<li><a href="#org1ecef56">Analizando diferentes estilos de Programación</a></li>
+<li><a href="#org55f5f33">Paradigma de Programación</a>
 <ul>
-<li><a href="#org6f7a104">Tipos más comunes de paradigmas de programación</a>
-<ul>
-<li><a href="#org23ab2c5">Programación imperativa o por procedimientos:</a></li>
-<li><a href="#orgad042b8">Programación orientada a objetos:</a></li>
-<li><a href="#org8be4615">Programación dinámica:</a></li>
-<li><a href="#orgec3c034">Programación dirigida por eventos:</a></li>
-<li><a href="#orgbaee0b4">Programación declarativa:</a></li>
-<li><a href="#org67b1f70">Programación funcional:</a></li>
-<li><a href="#orgb8c2655">Programación lógica:</a></li>
-<li><a href="#orge570ae0">Programación con restricciones:</a></li>
-<li><a href="#org4320c51">Programación multiparadigma:</a></li>
-<li><a href="#orgc4250bf">Lenguaje específico del dominio o DSL:</a></li>
+<li><a href="#org5449567">Tipos más comunes de paradigmas de programación</a></li>
 </ul>
 </li>
+<li><a href="#org9756486">Evaluación de expresiones</a></li>
+<li><a href="#org85632e9">Tipos de datos</a></li>
+<li><a href="#orgbd833d6">Disciplina de tipos</a></li>
+<li><a href="#orgcbbdd39">Funciones</a></li>
 </ul>
 </li>
-<li><a href="#org4a00da1">Programación Funcional</a></li>
-<li><a href="#org94ad8f8">Lisp</a>
+<li><a href="#org2e29062">Programación Funcional</a></li>
+<li><a href="#org7639693">Lisp</a>
 <ul>
-<li><a href="#orge8802ac">Historia</a></li>
-<li><a href="#org7748421">Programación en Lisp</a>
+<li><a href="#orgba79a95">Historia</a></li>
+<li><a href="#org68ba660">Programación en Lisp</a>
 <ul>
-<li><a href="#org9b5a28b">Expresiones</a></li>
-<li><a href="#orgd4a8188">Datos</a></li>
-<li><a href="#orgf6e0438">Evaluación</a></li>
-<li><a href="#org26c89c0">Funciones en Lisp</a></li>
-<li><a href="#orgffb101a">Listas</a></li>
-<li><a href="#org68944a5">Cons</a></li>
-<li><a href="#org387f444">Funciones CAR y CDR</a></li>
-<li><a href="#org5cdc0e1">Entradas y salidas</a></li>
-<li><a href="#org64eca77">Valores de Verdad IF</a></li>
-<li><a href="#org1b6ebf2">When Unless</a></li>
-<li><a href="#org18d9a31">Cond</a></li>
-<li><a href="#org1b4d437">Case</a></li>
-<li><a href="#org8337244">Operadores Lógicos and or</a></li>
-<li><a href="#orgc6294b7">Funciones lambda en Lisp</a></li>
-<li><a href="#org7266187">Ejercicios</a></li>
+<li><a href="#org7466dd8">Expresiones</a></li>
+<li><a href="#org23f9ec2">Datos</a></li>
+<li><a href="#org01d89bc">Evaluación</a></li>
+<li><a href="#org801156e">Funciones en Lisp</a></li>
+<li><a href="#org0f493d3">Listas</a></li>
+<li><a href="#org37bd219">Cons</a></li>
+<li><a href="#orgd74f298">Funciones CAR y CDR</a></li>
+<li><a href="#org6d7daa1">Entradas y salidas</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org3d6680b">Prolog</a>
+<li><a href="#orgc28d9e4">Condicionales en Lisp</a>
 <ul>
-<li><a href="#orgd8626d9">Corte</a></li>
-<li><a href="#org1cd790f">Usos del corte</a></li>
-<li><a href="#orgba785dd">Corte y fallo</a></li>
+<li><a href="#org5f02b1d">Condicionales Básicas</a>
+<ul>
+<li><a href="#org0382446">if</a></li>
+<li><a href="#org4b8a3ca">when</a></li>
+<li><a href="#org488a2a0">unless</a></li>
+</ul>
+</li>
+<li><a href="#org132e9f6">Condicionales Anidadas</a></li>
+<li><a href="#org6cc3bb0">Condicionales Complejas</a>
+<ul>
+<li><a href="#org26d7976">cond</a></li>
+<li><a href="#org360089e">case</a></li>
+</ul>
+</li>
+<li><a href="#org32232ba">Resumen</a></li>
+<li><a href="#org7745667">Referencias</a></li>
+</ul>
+</li>
+<li><a href="#orgcb1c18c">Prolog</a>
+<ul>
+<li><a href="#org3076a82">Corte</a></li>
+<li><a href="#org8fc5b27">Usos del corte</a></li>
+<li><a href="#org7375ef2">Corte y fallo</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2394764" class="outline-2">
-<h2 id="org2394764">Estilos de Programación</h2>
-<div class="outline-text-2" id="text-org2394764">
+<div id="outline-container-orgea86b30" class="outline-2">
+<h2 id="orgea86b30">Conceptos Fundamentales</h2>
+<div class="outline-text-2" id="text-orgea86b30">
+</div>
+<div id="outline-container-orgb96363b" class="outline-3">
+<h3 id="orgb96363b">Diferentes Estilos de Programación</h3>
+<div class="outline-text-3" id="text-orgb96363b">
+</div>
+<div id="outline-container-org2ca8c0e" class="outline-4">
+<h4 id="org2ca8c0e">Estilos de Programación</h4>
+<div class="outline-text-4" id="text-org2ca8c0e">
 <p>
 (también llamados estándares de código o convención de código) es un
 término que describe convenciones para escribir código fuente en
 ciertos lenguajes de programación. El estilo de programación es
 frecuentemente dependiente del lenguaje de programación que se haya
 elegido para escribir. Por ejemplo el estilo del lenguaje de
-Programación C variará con respecto al del lenguaje BASIC.
+Programación C variará con respecto al del lenguaje BASIC. <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
 </p>
+</div>
 </div>
 
 
-<div id="outline-container-org1cf9f38" class="outline-3">
-<h3 id="org1cf9f38">Características del Estilo</h3>
-<div class="outline-text-3" id="text-org1cf9f38">
+<div id="outline-container-orgddb7983" class="outline-4">
+<h4 id="orgddb7983">Características del Estilo</h4>
+<div class="outline-text-4" id="text-orgddb7983">
 <p>
 Una pieza clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -369,11 +341,11 @@ Como ejemplo, considérese el siguiente extracto de pseudocódigo:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C">get a <span style="color: #FCCE7B;">b</span> <span style="color: #DFDFDF;">c</span> 
-<span style="color: #51afef;">if</span> a &lt; 24 and b &lt; 60 and c &lt; 60
-  <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>
-<span style="color: #51afef;">else</span>
-  <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>
+<pre class="src src-C">get a <span style="color: #ffc777;">b</span> <span style="color: #ff98a4;">c</span> 
+<span style="color: #c099ff;">if</span> a &lt; 24 and b &lt; 60 and c &lt; 60
+  <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>
+<span style="color: #c099ff;">else</span>
+  <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>
 </pre>
 </div>
 
@@ -384,11 +356,11 @@ de la función del código. Compárese ahora con la siguiente versión:
 
 
 <div class="org-src-container">
-<pre class="src src-C"> get horas <span style="color: #FCCE7B;">minutos</span> <span style="color: #DFDFDF;">segundos</span> 
- <span style="color: #51afef;">if</span> horas &lt; 24 and minutos &lt; 60 and segundos &lt; 60
-   <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>
- <span style="color: #51afef;">else</span>
-   <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>
+<pre class="src src-C"> get horas <span style="color: #ffc777;">minutos</span> <span style="color: #ff98a4;">segundos</span> 
+ <span style="color: #c099ff;">if</span> horas &lt; 24 and minutos &lt; 60 and segundos &lt; 60
+   <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>
+ <span style="color: #c099ff;">else</span>
+   <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>
 </pre>
 </div>
 
@@ -400,9 +372,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 
 
-<div id="outline-container-org8013748" class="outline-3">
-<h3 id="org8013748">Nombres de Variable Apropiadas.</h3>
-<div class="outline-text-3" id="text-org8013748">
+<div id="outline-container-orge6c43fb" class="outline-4">
+<h4 id="orge6c43fb">Nombres de Variable Apropiadas.</h4>
+<div class="outline-text-4" id="text-orge6c43fb">
 <p>
 Una piedra clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -411,11 +383,11 @@ considérese el siguiente extracto de pseudocódigo:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C">get a <span style="color: #FCCE7B;">b</span> <span style="color: #DFDFDF;">c</span>
-<span style="color: #51afef;">if</span> a &lt; 24 and b &lt; 60 and c &lt; 60
-  <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>
-<span style="color: #51afef;">else</span>
-  <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>
+<pre class="src src-C">get a <span style="color: #ffc777;">b</span> <span style="color: #ff98a4;">c</span>
+<span style="color: #c099ff;">if</span> a &lt; 24 and b &lt; 60 and c &lt; 60
+  <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>
+<span style="color: #c099ff;">else</span>
+  <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>
 </pre>
 </div>
 
@@ -425,11 +397,11 @@ de la función del código. Compárese ahora con la siguiente versión:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"> get horas <span style="color: #FCCE7B;">minutos</span> <span style="color: #DFDFDF;">segundos</span> 
- <span style="color: #51afef;">if</span> horas &lt; 24 and minutos &lt; 60 and segundos &lt; 60
-   <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>
- <span style="color: #51afef;">else</span>
-   <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>
+<pre class="src src-C"> get horas <span style="color: #ffc777;">minutos</span> <span style="color: #ff98a4;">segundos</span> 
+ <span style="color: #c099ff;">if</span> horas &lt; 24 and minutos &lt; 60 and segundos &lt; 60
+   <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>
+ <span style="color: #c099ff;">else</span>
+   <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>
 </pre>
 </div>
 
@@ -440,9 +412,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 </div>
 
-<div id="outline-container-org29804f4" class="outline-3">
-<h3 id="org29804f4">Estilo de indentación</h3>
-<div class="outline-text-3" id="text-org29804f4">
+<div id="outline-container-org637def3" class="outline-4">
+<h4 id="org637def3">Estilo de indentación</h4>
+<div class="outline-text-4" id="text-org637def3">
 <p>
 Estilo de indentación, en lenguajes de programación que usan llaves
 para indentar o delimitar bloques lógicos de código, como por
@@ -453,25 +425,25 @@ legible. Compárese:
 
 
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #51afef;">if</span><span style="color: #51afef;">(</span>horas &lt; 24 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60<span style="color: #51afef;">){</span>
-    <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>;
- <span style="color: #51afef;">}</span><span style="color: #51afef;">else</span><span style="color: #51afef;">{</span>
-    <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>;
- <span style="color: #51afef;">}</span>
+<pre class="src src-C"> <span style="color: #c099ff;">if</span><span style="color: #c099ff;">(</span>horas &lt; 24 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60<span style="color: #c099ff;">){</span>
+    <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>;
+ <span style="color: #c099ff;">}</span><span style="color: #c099ff;">else</span><span style="color: #c099ff;">{</span>
+    <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>;
+ <span style="color: #c099ff;">}</span>
 </pre>
 </div>
 <p>
 o bien:
 </p>
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #51afef;">if</span><span style="color: #51afef;">(</span>horas &lt; 24 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60<span style="color: #51afef;">)</span>
- <span style="color: #51afef;">{</span>
-    <span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>;
- <span style="color: #51afef;">}</span>
- <span style="color: #51afef;">else</span>
- <span style="color: #51afef;">{</span>
-    <span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>;
- <span style="color: #51afef;">}</span>
+<pre class="src src-C"> <span style="color: #c099ff;">if</span><span style="color: #c099ff;">(</span>horas &lt; 24 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60<span style="color: #c099ff;">)</span>
+ <span style="color: #c099ff;">{</span>
+    <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>;
+ <span style="color: #c099ff;">}</span>
+ <span style="color: #c099ff;">else</span>
+ <span style="color: #c099ff;">{</span>
+    <span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>;
+ <span style="color: #c099ff;">}</span>
 </pre>
 </div>
 
@@ -481,8 +453,8 @@ con algo como:
 
 <div class="org-src-container">
 <pre class="src src-C">
- <span style="color: #51afef;">if</span><span style="color: #51afef;">(</span>horas&lt;24&amp;&amp;minutos&lt;60&amp;&amp;segundos&lt;60<span style="color: #51afef;">){</span><span style="color: #51afef;">return</span> <span style="color: #a991f1;">true</span>;<span style="color: #51afef;">}</span>
- <span style="color: #51afef;">else</span><span style="color: #51afef;">{</span><span style="color: #51afef;">return</span> <span style="color: #a991f1;">false</span>;<span style="color: #51afef;">}</span>
+ <span style="color: #c099ff;">if</span><span style="color: #c099ff;">(</span>horas&lt;24&amp;&amp;minutos&lt;60&amp;&amp;segundos&lt;60<span style="color: #c099ff;">){</span><span style="color: #c099ff;">return</span> <span style="color: #ff995e;">true</span>;<span style="color: #c099ff;">}</span>
+ <span style="color: #c099ff;">else</span><span style="color: #c099ff;">{</span><span style="color: #c099ff;">return</span> <span style="color: #ff995e;">false</span>;<span style="color: #c099ff;">}</span>
 </pre>
 </div>
 
@@ -502,7 +474,7 @@ como esto:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #51afef;">return</span> horas &lt; 12 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60;
+<pre class="src src-C"> <span style="color: #c099ff;">return</span> horas &lt; 12 &amp;&amp; minutos &lt; 60 &amp;&amp; segundos &lt; 60;
 </pre>
 </div>
 
@@ -514,9 +486,9 @@ las dos formas.
 </div>
 </div>
 
-<div id="outline-container-org8122dcd" class="outline-3">
-<h3 id="org8122dcd">Bucles y estructuras de control</h3>
-<div class="outline-text-3" id="text-org8122dcd">
+<div id="outline-container-orgae9029d" class="outline-4">
+<h4 id="orgae9029d">Bucles y estructuras de control</h4>
+<div class="outline-text-4" id="text-orgae9029d">
 <p>
 El uso de estructuras de control lógicas para bucles también es parte
  de un buen estilo de programación. Ayuda a alguien que esté leyendo
@@ -526,7 +498,7 @@ El uso de estructuras de control lógicas para bucles también es parte
 <div class="org-src-container">
 <pre class="src src-C">
    cuenta = 0
-   <span style="color: #51afef;">while</span> cuenta &lt; 5
+   <span style="color: #c099ff;">while</span> cuenta &lt; 5
      print cuenta * 2
      cuenta = cuenta + 1
    endwhile
@@ -541,7 +513,7 @@ código mucho más fácil de leer:
 
 <div class="org-src-container">
 <pre class="src src-C">
- <span style="color: #51afef;">for</span> cuenta = 0, cuenta &lt; 5, cuenta=cuenta+1
+ <span style="color: #c099ff;">for</span> cuenta = 0, cuenta &lt; 5, cuenta=cuenta+1
    print cuenta * 2
 </pre>
 </div>
@@ -553,16 +525,16 @@ en un rango" puede ser acortado a:
 
 <div class="org-src-container">
 <pre class="src src-C">
- <span style="color: #51afef;">for</span> cuenta = 0 to 5
+ <span style="color: #c099ff;">for</span> cuenta = 0 to 5
    print cuenta * 2
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org80ee309" class="outline-3">
-<h3 id="org80ee309">Espaciado</h3>
-<div class="outline-text-3" id="text-org80ee309">
+<div id="outline-container-org30c99f2" class="outline-4">
+<h4 id="org30c99f2">Espaciado</h4>
+<div class="outline-text-4" id="text-org30c99f2">
 <p>
 Los lenguajes de formato libre ignoran frecuentemente los espacios
 en blanco. El buen uso del espaciado en la disposición del código
@@ -574,19 +546,19 @@ Compárese el siguiente extracto de código C:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #FCCE7B;">int</span> <span style="color: #DFDFDF;">cuenta</span>; <span style="color: #51afef;">for</span><span style="color: #51afef;">(</span>cuenta=0;cuenta&lt;10;cuenta++<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">{</span>printf<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">"%d"</span>,cuenta*cuenta+cuenta<span style="color: #C57BDB;">)</span>;<span style="color: #51afef;">}</span>
+<pre class="src src-C"> <span style="color: #ffc777;">int</span> <span style="color: #ff98a4;">cuenta</span>; <span style="color: #c099ff;">for</span><span style="color: #c099ff;">(</span>cuenta=0;cuenta&lt;10;cuenta++<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">{</span>printf<span style="color: #ff995e;">(</span><span style="color: #c3e88d;">"%d"</span>,cuenta*cuenta+cuenta<span style="color: #ff995e;">)</span>;<span style="color: #c099ff;">}</span>
 </pre>
 </div>
 <p>
 con:
 </p>
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #FCCE7B;">int</span> <span style="color: #DFDFDF;">cuenta</span>;
- <span style="color: #51afef;">for</span> <span style="color: #51afef;">(</span>cuenta = 0; cuenta &lt; 10; cuenta++<span style="color: #51afef;">)</span>
- <span style="color: #51afef;">{</span>
-    printf<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">"%d"</span>, cuenta * cuenta + cuenta<span style="color: #C57BDB;">)</span>;
- <span style="color: #51afef;">}</span>
+<pre class="src src-C"> <span style="color: #ffc777;">int</span> <span style="color: #ff98a4;">cuenta</span>;
+ <span style="color: #c099ff;">for</span> <span style="color: #c099ff;">(</span>cuenta = 0; cuenta &lt; 10; cuenta++<span style="color: #c099ff;">)</span>
+ <span style="color: #c099ff;">{</span>
+    printf<span style="color: #ff995e;">(</span><span style="color: #c3e88d;">"%d"</span>, cuenta * cuenta + cuenta<span style="color: #ff995e;">)</span>;
+ <span style="color: #c099ff;">}</span>
 </pre>
 </div>
 
@@ -615,9 +587,9 @@ espacio en blanco.
 </div>
 </div>
 
-<div id="outline-container-org45640bf" class="outline-3">
-<h3 id="org45640bf">Evaluación de expresiones</h3>
-<div class="outline-text-3" id="text-org45640bf">
+<div id="outline-container-org0cab7ed" class="outline-4">
+<h4 id="org0cab7ed">Evaluación de expresiones</h4>
+<div class="outline-text-4" id="text-org0cab7ed">
 <p>
 En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
 flujo, las palabras-clave señalan al compilador aspectos complementarios que no
@@ -640,9 +612,14 @@ optimización del código.</li>
 
 
 
-<div id="outline-container-org67bb5a5" class="outline-2">
-<h2 id="org67bb5a5">Paradigma de Programación</h2>
-<div class="outline-text-2" id="text-org67bb5a5">
+<div id="outline-container-org1ecef56" class="outline-3">
+<h3 id="org1ecef56">Analizando diferentes estilos de Programación</h3>
+</div>
+
+
+<div id="outline-container-org55f5f33" class="outline-3">
+<h3 id="org55f5f33">Paradigma de Programación</h3>
+<div class="outline-text-3" id="text-org55f5f33">
 <p>
 Un paradigma de programación es una propuesta tecnológica adoptada por
 una comunidad de programadores y desarrolladores cuyo núcleo central
@@ -654,13 +631,13 @@ menos un parámetro que afecte a la ingeniería de software.
 </div>
 
 
-<div id="outline-container-org6f7a104" class="outline-3">
-<h3 id="org6f7a104">Tipos más comunes de paradigmas de programación</h3>
-<div class="outline-text-3" id="text-org6f7a104">
+<div id="outline-container-org5449567" class="outline-4">
+<h4 id="org5449567">Tipos más comunes de paradigmas de programación</h4>
+<div class="outline-text-4" id="text-org5449567">
 </div>
-<div id="outline-container-org23ab2c5" class="outline-4">
-<h4 id="org23ab2c5">Programación imperativa o por procedimientos:</h4>
-<div class="outline-text-4" id="text-org23ab2c5">
+<ul class="org-ul">
+<li><a id="org910d200"></a>Programación imperativa o por procedimientos:<br />
+<div class="outline-text-5" id="text-org910d200">
 <p>
  Es el más usado en general, se basa en dar instrucciones al ordenador
 de como hacer las cosas en forma de algoritmos. La programación
@@ -669,11 +646,10 @@ es el lenguaje de máquina. Ejemplos de lenguajes puros de este
 paradigma serían el C, BASIC o Pascal.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-orgad042b8" class="outline-4">
-<h4 id="orgad042b8">Programación orientada a objetos:</h4>
-<div class="outline-text-4" id="text-orgad042b8">
+<li><a id="orgad8313e"></a>Programación orientada a objetos:<br />
+<div class="outline-text-5" id="text-orgad8313e">
 <p>
 Está basada en el imperativo, pero encapsula elementos denominados
 objetos que incluyen tanto variables como funciones. Está
@@ -682,12 +658,11 @@ representativo sería el Smalltalk que está completamente orientado a
 objetos.
 </p>
 </div>
-</div>
+</li>
 
 
-<div id="outline-container-org8be4615" class="outline-4">
-<h4 id="org8be4615">Programación dinámica:</h4>
-<div class="outline-text-4" id="text-org8be4615">
+<li><a id="orgf415909"></a>Programación dinámica:<br />
+<div class="outline-text-5" id="text-orgf415909">
 <p>
  está definida como el proceso de romper
 problemas en partes pequeñas para analizarlos y resolverlos de forma
@@ -697,11 +672,10 @@ modo de realizar los algoritmos, por lo que se puede usar con
 cualquier lenguaje imperativo.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-orgec3c034" class="outline-4">
-<h4 id="orgec3c034">Programación dirigida por eventos:</h4>
-<div class="outline-text-4" id="text-orgec3c034">
+<li><a id="org17db805"></a>Programación dirigida por eventos:<br />
+<div class="outline-text-5" id="text-org17db805">
 <p>
 la programación dirigida por
 eventos es un paradigma de programación en el que tanto la estructura
@@ -710,12 +684,11 @@ que ocurran en el sistema, definidos por el usuario o que ellos
 mismos provoquen.
 </p>
 </div>
-</div>
+</li>
 
 
-<div id="outline-container-orgbaee0b4" class="outline-4">
-<h4 id="orgbaee0b4">Programación declarativa:</h4>
-<div class="outline-text-4" id="text-orgbaee0b4">
+<li><a id="org3a95386"></a>Programación declarativa:<br />
+<div class="outline-text-5" id="text-org3a95386">
 <p>
  está basado en describir el problema
 declarando propiedades y reglas que deben cumplirse, en lugar de
@@ -724,11 +697,10 @@ programación lógica, o la combinación lógico-funcional. Unos de los
 primeros lenguajes funcionales fueron Lisp y Prolog.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-org67b1f70" class="outline-4">
-<h4 id="org67b1f70">Programación funcional:</h4>
-<div class="outline-text-4" id="text-org67b1f70">
+<li><a id="orgbe66d75"></a>Programación funcional:<br />
+<div class="outline-text-5" id="text-orgbe66d75">
 <p>
 La programación funcional es un paradigma de programación declarativa
 basado en el uso de verdaderas funciones matemáticas. En este estilo
@@ -773,32 +745,29 @@ mutables. Las hojas de cálculo también pueden ser consideradas
 lenguajes de programación funcional.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-orgb8c2655" class="outline-4">
-<h4 id="orgb8c2655">Programación lógica:</h4>
-<div class="outline-text-4" id="text-orgb8c2655">
+<li><a id="orgb6f87a9"></a>Programación lógica:<br />
+<div class="outline-text-5" id="text-orgb6f87a9">
 <p>
 basado en la definición de relaciones lógicas,
  está representado por Prolog.
 </p>
 </div>
-</div>
+</li>
 
 
-<div id="outline-container-orge570ae0" class="outline-4">
-<h4 id="orge570ae0">Programación con restricciones:</h4>
-<div class="outline-text-4" id="text-orge570ae0">
+<li><a id="org00383b7"></a>Programación con restricciones:<br />
+<div class="outline-text-5" id="text-org00383b7">
 <p>
 similar a la lógica usando
  ecuaciones. Casi todos los lenguajes son variantes del Prolog.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-org4320c51" class="outline-4">
-<h4 id="org4320c51">Programación multiparadigma:</h4>
-<div class="outline-text-4" id="text-org4320c51">
+<li><a id="orge0897e8"></a>Programación multiparadigma:<br />
+<div class="outline-text-5" id="text-orge0897e8">
 <p>
 es el uso de dos o más paradigmas dentro
   de un programa. El lenguaje Lisp se considera multiparadigma. Al
@@ -806,11 +775,10 @@ es el uso de dos o más paradigmas dentro
   funcional.1
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-orgc4250bf" class="outline-4">
-<h4 id="orgc4250bf">Lenguaje específico del dominio o DSL:</h4>
-<div class="outline-text-4" id="text-orgc4250bf">
+<li><a id="org6dd543f"></a>Lenguaje específico del dominio o DSL:<br />
+<div class="outline-text-5" id="text-org6dd543f">
 <p>
 se denomina así a los
   lenguajes desarrollados para resolver un problema específico,
@@ -819,16 +787,32 @@ se denomina así a los
   tipo declarativo, pero los hay imperativos, como el Logo.
 </p>
 </div>
+</li>
+</ul>
 </div>
 </div>
+
+<div id="outline-container-org9756486" class="outline-3">
+<h3 id="org9756486">Evaluación de expresiones</h3>
+</div>
+
+<div id="outline-container-org85632e9" class="outline-3">
+<h3 id="org85632e9">Tipos de datos</h3>
+</div>
+
+<div id="outline-container-orgbd833d6" class="outline-3">
+<h3 id="orgbd833d6">Disciplina de tipos</h3>
+</div>
+
+<div id="outline-container-orgcbbdd39" class="outline-3">
+<h3 id="orgcbbdd39">Funciones</h3>
+</div>
 </div>
 
 
-
-
-<div id="outline-container-org4a00da1" class="outline-2">
-<h2 id="org4a00da1">Programación Funcional</h2>
-<div class="outline-text-2" id="text-org4a00da1">
+<div id="outline-container-org2e29062" class="outline-2">
+<h2 id="org2e29062">Programación Funcional</h2>
+<div class="outline-text-2" id="text-org2e29062">
 <p>
 La programación funcional, o mejor dicho, los lenguajes de
 programación funcionales, son aquellos lenguajes donde las variables
@@ -888,10 +872,10 @@ expresión reducible.
 
 <div class="org-src-container">
 <pre class="src src-C">&lt;?php
-    <span style="color: #62686E;">/* </span><span style="color: #62686E;">codigo PHP</span><span style="color: #62686E;"> */</span>
-    <span style="color: #51afef;">for</span> <span style="color: #51afef;">(</span>$i = 0; $i &lt; 500; $i++<span style="color: #51afef;">)</span> <span style="color: #51afef;">{</span>
-        echo <span style="color: #7bc275;">"Debo poner atenci&#243;n en clase"</span>;
-    <span style="color: #51afef;">}</span>
+    <span style="color: #7a88cf;">/* </span><span style="color: #7a88cf;">codigo PHP</span><span style="color: #7a88cf;"> */</span>
+    <span style="color: #c099ff;">for</span> <span style="color: #c099ff;">(</span>$i = 0; $i &lt; 500; $i++<span style="color: #c099ff;">)</span> <span style="color: #c099ff;">{</span>
+        echo <span style="color: #c3e88d;">"Debo poner atenci&#243;n en clase"</span>;
+    <span style="color: #c099ff;">}</span>
  ?&gt;
 </pre>
 </div>
@@ -907,12 +891,12 @@ para el Monad IO e imprime  el mensaje las 500 veces solicitada.
 
 
 <div class="org-src-container">
-<pre class="src src-C"> <span style="color: #FCCE7B;">module</span> <span style="color: #5cEfFF;">Main</span> <span style="color: #51afef;">(</span>main<span style="color: #51afef;">)</span> where
+<pre class="src src-C"> <span style="color: #ffc777;">module</span> <span style="color: #82aaff;">Main</span> <span style="color: #c099ff;">(</span>main<span style="color: #c099ff;">)</span> where
 
  -- codigo Haskell
 
- main :: IO <span style="color: #51afef;">()</span>
- main = mapM_ putStrLn $ take 500 $ repeat <span style="color: #7bc275;">"Debo poner atenci&#243;n"</span>
+ main :: IO <span style="color: #c099ff;">()</span>
+ main = mapM_ putStrLn $ take 500 $ repeat <span style="color: #c3e88d;">"Debo poner atenci&#243;n"</span>
 </pre>
 </div>
 
@@ -928,9 +912,9 @@ que corren sobre la máquina virtual de Java o JVM.
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"> <span style="color: #62686E;">;;; </span><span style="color: #62686E;">codigo Lisp</span>
+<pre class="src src-lisp"> <span style="color: #7a88cf;">;;; </span><span style="color: #7a88cf;">codigo Lisp</span>
 
- <span style="color: #51afef;">(</span><span style="color: #51afef;">loop</span> repeat 500 do <span style="color: #C57BDB;">(</span>format t <span style="color: #7bc275;">"Debo poner atencion en clases~%"</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+ <span style="color: #c099ff;">(</span><span style="color: #c099ff;">loop</span> repeat 500 do <span style="color: #ff995e;">(</span>format t <span style="color: #c3e88d;">"Debo poner atencion en clases~%"</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -970,18 +954,18 @@ el siguiente ejemplo.
 
 
 <div class="org-src-container">
-<pre class="src src-python"> <span style="color: #51afef;">def</span> <span style="color: #5cEfFF;">val_rut</span><span style="color: #51afef;">(</span>rut<span style="color: #51afef;">)</span>:
-     <span style="color: #7e7e87;">"""</span>
-<span style="color: #7e7e87;">     Valida un string con un RUT con el guion incluido, retornando</span>
-<span style="color: #7e7e87;">     cero si es valido.</span>
+<pre class="src src-python"> <span style="color: #c099ff;">def</span> <span style="color: #82aaff;">val_rut</span><span style="color: #c099ff;">(</span>rut<span style="color: #c099ff;">)</span>:
+     <span style="color: #9ba5db;">"""</span>
+<span style="color: #9ba5db;">     Valida un string con un RUT con el guion incluido, retornando</span>
+<span style="color: #9ba5db;">     cero si es valido.</span>
 
-<span style="color: #7e7e87;">     Ejemplo: print(val_rut("22222222-2"))</span>
-<span style="color: #7e7e87;">     """</span>
-     <span style="color: #51afef;">return</span> <span style="color: #C57BDB;">cmp</span><span style="color: #51afef;">(</span>rut<span style="color: #C57BDB;">[</span>-1<span style="color: #C57BDB;">]</span>,
-                <span style="color: #C57BDB;">str</span><span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span><span style="color: #C57BDB;">range</span><span style="color: #e69055;">(</span>10<span style="color: #e69055;">)</span> + <span style="color: #e69055;">[</span><span style="color: #7bc275;">'K'</span><span style="color: #e69055;">]</span><span style="color: #7bc275;">)[</span>
-                    <span style="color: #e69055;">(</span>11 - <span style="color: #C57BDB;">sum</span><span style="color: #a991f1;">(</span><span style="color: #C57BDB;">map</span><span style="color: #FCCE7B;">(</span><span style="color: #51afef;">lambda</span> x: <span style="color: #4db5bd;">(</span><span style="color: #C57BDB;">int</span><span style="color: #a2b6da;">(</span>x<span style="color: #9cb6ad;">[</span>0<span style="color: #9cb6ad;">]</span><span style="color: #a2b6da;">)</span> * x<span style="color: #a2b6da;">[</span>1<span style="color: #a2b6da;">]</span><span style="color: #4db5bd;">)</span>,
-                                  <span style="color: #C57BDB;">zip</span><span style="color: #4db5bd;">(</span><span style="color: #C57BDB;">reversed</span><span style="color: #a2b6da;">(</span>rut<span style="color: #9cb6ad;">[</span>:-2<span style="color: #9cb6ad;">]</span><span style="color: #a2b6da;">)</span>,
-                                      <span style="color: #a2b6da;">(</span>2 * <span style="color: #C57BDB;">range</span><span style="color: #9cb6ad;">(</span>2, 8<span style="color: #9cb6ad;">)</span><span style="color: #a2b6da;">)</span><span style="color: #4db5bd;">)</span><span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span> % 11<span style="color: #e69055;">)</span><span style="color: #7bc275;">]</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #9ba5db;">     Ejemplo: print(val_rut("22222222-2"))</span>
+<span style="color: #9ba5db;">     """</span>
+     <span style="color: #c099ff;">return</span> <span style="color: #c099ff;">cmp</span><span style="color: #c099ff;">(</span>rut<span style="color: #ff995e;">[</span>-1<span style="color: #ff995e;">]</span>,
+                <span style="color: #c099ff;">str</span><span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span><span style="color: #c099ff;">range</span><span style="color: #b4f9f8;">(</span>10<span style="color: #b4f9f8;">)</span> + <span style="color: #b4f9f8;">[</span><span style="color: #c3e88d;">'K'</span><span style="color: #b4f9f8;">]</span><span style="color: #ff98a4;">)[</span>
+                    <span style="color: #b4f9f8;">(</span>11 - <span style="color: #c099ff;">sum</span><span style="color: #f989d3;">(</span><span style="color: #c099ff;">map</span><span style="color: #ffc777;">(</span><span style="color: #c099ff;">lambda</span> x: <span style="color: #82aaff;">(</span><span style="color: #c099ff;">int</span><span style="color: #77e0c6;">(</span>x<span style="color: #86e1fc;">[</span>0<span style="color: #86e1fc;">]</span><span style="color: #77e0c6;">)</span> * x<span style="color: #77e0c6;">[</span>1<span style="color: #77e0c6;">]</span><span style="color: #82aaff;">)</span>,
+                                  <span style="color: #c099ff;">zip</span><span style="color: #82aaff;">(</span><span style="color: #c099ff;">reversed</span><span style="color: #77e0c6;">(</span>rut<span style="color: #86e1fc;">[</span>:-2<span style="color: #86e1fc;">]</span><span style="color: #77e0c6;">)</span>,
+                                      <span style="color: #77e0c6;">(</span>2 * <span style="color: #c099ff;">range</span><span style="color: #86e1fc;">(</span>2, 8<span style="color: #86e1fc;">)</span><span style="color: #77e0c6;">)</span><span style="color: #82aaff;">)</span><span style="color: #ffc777;">)</span><span style="color: #f989d3;">)</span> % 11<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">]</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
 </pre>
 </div>
@@ -1027,9 +1011,9 @@ dato y darle un aspecto procedural.
 </div>
 
 
-<div id="outline-container-org94ad8f8" class="outline-2">
-<h2 id="org94ad8f8">Lisp</h2>
-<div class="outline-text-2" id="text-org94ad8f8">
+<div id="outline-container-org7639693" class="outline-2">
+<h2 id="org7639693">Lisp</h2>
+<div class="outline-text-2" id="text-org7639693">
 <p>
 Lisp (históricamente LISP) es una familia de lenguajes de programación
 de computadora de tipo multiparadigma con larga historia y una
@@ -1083,9 +1067,9 @@ puede ser llamada usando (f x y z).
 </p>
 </div>
 
-<div id="outline-container-orge8802ac" class="outline-3">
-<h3 id="orge8802ac">Historia</h3>
-<div class="outline-text-3" id="text-orge8802ac">
+<div id="outline-container-orgba79a95" class="outline-3">
+<h3 id="orgba79a95">Historia</h3>
+<div class="outline-text-3" id="text-orgba79a95">
 <p>
 El proyecto se inició en 1987, cuando los autores originales, Bruno
 Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
@@ -1138,13 +1122,13 @@ clisp
 </div>
 
 
-<div id="outline-container-org7748421" class="outline-3">
-<h3 id="org7748421">Programación en Lisp</h3>
-<div class="outline-text-3" id="text-org7748421">
+<div id="outline-container-org68ba660" class="outline-3">
+<h3 id="org68ba660">Programación en Lisp</h3>
+<div class="outline-text-3" id="text-org68ba660">
 </div>
-<div id="outline-container-org9b5a28b" class="outline-4">
-<h4 id="org9b5a28b">Expresiones</h4>
-<div class="outline-text-4" id="text-org9b5a28b">
+<div id="outline-container-org7466dd8" class="outline-4">
+<h4 id="org7466dd8">Expresiones</h4>
+<div class="outline-text-4" id="text-org7466dd8">
 <p>
 Es particularmente cierto que la mejor forma de aprender Lisp es
 usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -1171,7 +1155,7 @@ expresión
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">&gt; <span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp">&gt; <span style="color: #c099ff;">(</span>+ 2 3<span style="color: #c099ff;">)</span>
 5
 </pre>
 </div>
@@ -1186,13 +1170,13 @@ Lisp, las siguientes sumas son válidas:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>+<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>+<span style="color: #c099ff;">)</span>
 0
-<span style="color: #51afef;">(</span>+ 2<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>+ 2<span style="color: #c099ff;">)</span>
 2
-<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>+ 2 3<span style="color: #c099ff;">)</span>
 5
-<span style="color: #51afef;">(</span>+ 2 3 5<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>+ 2 3 5<span style="color: #c099ff;">)</span>
 10
 </pre>
 </div>
@@ -1205,7 +1189,7 @@ una expresión puede ser otra expresión compleja. Ej.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>/ <span style="color: #C57BDB;">(</span>- 7 1<span style="color: #C57BDB;">)(</span>- 4 2<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>/ <span style="color: #ff995e;">(</span>- 7 1<span style="color: #ff995e;">)(</span>- 4 2<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 3
 </pre>
 </div>
@@ -1245,16 +1229,16 @@ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"path"</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>load <span style="color: #c3e88d;">"path"</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>load <span style="color: #c3e88d;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">hola</span><span style="color: #C57BDB;">()</span>
-<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">"Hola mundo Prolog"</span> <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>hola '<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">hola</span><span style="color: #ff995e;">()</span>
+<span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"Hola mundo Prolog"</span> <span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>hola '<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1262,10 +1246,10 @@ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load.
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma</span><span style="color: #C57BDB;">(</span>a b<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>+ a b<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>suma 3 4<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">suma</span><span style="color: #ff995e;">(</span>a b<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>+ a b<span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>suma 3 4<span style="color: #c099ff;">)</span>
 
 </pre>
 </div>
@@ -1289,13 +1273,13 @@ Resolver
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*pi*</span> 3.1415<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defparameter</span> <span style="color: #ff98a4;">*pi*</span> 3.1415<span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">areaCirculo</span><span style="color: #C57BDB;">(</span>r<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>* *pi* <span style="color: #7bc275;">(</span>* r r<span style="color: #7bc275;">)</span>  <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">areaCirculo</span><span style="color: #ff995e;">(</span>r<span style="color: #ff995e;">)</span>
+<span style="color: #ff995e;">(</span>* *pi* <span style="color: #ff98a4;">(</span>* r r<span style="color: #ff98a4;">)</span>  <span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
 
-'<span style="color: #51afef;">(</span>+ 5 6 <span style="color: #51afef;">)</span>
+'<span style="color: #c099ff;">(</span>+ 5 6 <span style="color: #c099ff;">)</span>
 eval
 </pre>
 </div>
@@ -1325,16 +1309,16 @@ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"path"</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>load <span style="color: #7bc275;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>load <span style="color: #c3e88d;">"path"</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>load <span style="color: #c3e88d;">"/home/likcos/Materias/Prolog/public/src/ejemplo1.lisp"</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">hola</span><span style="color: #C57BDB;">()</span>
-<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">"Hola mundo Prolog"</span> <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>hola '<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">hola</span><span style="color: #ff995e;">()</span>
+<span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"Hola mundo Prolog"</span> <span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>hola '<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1342,10 +1326,10 @@ Para cargar en un archivo y ejecutarlo en clisp se utiliza la función load.
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma</span><span style="color: #C57BDB;">(</span>a b<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>+ a b<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>suma 3 4<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">suma</span><span style="color: #ff995e;">(</span>a b<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>+ a b<span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>suma 3 4<span style="color: #c099ff;">)</span>
 
 </pre>
 </div>
@@ -1369,22 +1353,22 @@ Resolver
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*pi*</span> 3.1415<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defparameter</span> <span style="color: #ff98a4;">*pi*</span> 3.1415<span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">areaCirculo</span><span style="color: #C57BDB;">(</span>r<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>* *pi* <span style="color: #7bc275;">(</span>* r r<span style="color: #7bc275;">)</span>  <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">areaCirculo</span><span style="color: #ff995e;">(</span>r<span style="color: #ff995e;">)</span>
+<span style="color: #ff995e;">(</span>* *pi* <span style="color: #ff98a4;">(</span>* r r<span style="color: #ff98a4;">)</span>  <span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
 
-'<span style="color: #51afef;">(</span>+ 5 6 <span style="color: #51afef;">)</span>
+'<span style="color: #c099ff;">(</span>+ 5 6 <span style="color: #c099ff;">)</span>
 eval
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd4a8188" class="outline-4">
-<h4 id="orgd4a8188">Datos</h4>
-<div class="outline-text-4" id="text-orgd4a8188">
+<div id="outline-container-org23f9ec2" class="outline-4">
+<h4 id="org23f9ec2">Datos</h4>
+<div class="outline-text-4" id="text-org23f9ec2">
 <p>
 Lisp ofrece los tipos de datos que podemos encontrar en otros
 lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -1417,10 +1401,10 @@ a función. Veamos algunos ejemplos:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp">&#8217;<span style="color: #51afef;">(</span>Mis 2 <span style="color: #7bc275;">"ciudades"</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>MIS 2 <span style="color: #7bc275;">"CIUDADES"</span><span style="color: #51afef;">)</span>
-&#8217;<span style="color: #51afef;">(</span>La lista <span style="color: #C57BDB;">(</span>a b c<span style="color: #C57BDB;">)</span> tiene 3 elementos<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>LA LISTA <span style="color: #C57BDB;">(</span>A B C<span style="color: #C57BDB;">)</span> TIENE 3 ELEMENTOS<span style="color: #51afef;">)</span>
+<pre class="src src-lisp">&#8217;<span style="color: #c099ff;">(</span>Mis 2 <span style="color: #c3e88d;">"ciudades"</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>MIS 2 <span style="color: #c3e88d;">"CIUDADES"</span><span style="color: #c099ff;">)</span>
+&#8217;<span style="color: #c099ff;">(</span>La lista <span style="color: #ff995e;">(</span>a b c<span style="color: #ff995e;">)</span> tiene 3 elementos<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>LA LISTA <span style="color: #ff995e;">(</span>A B C<span style="color: #ff995e;">)</span> TIENE 3 ELEMENTOS<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1431,8 +1415,8 @@ evaluada. También es posible construir listas usando la función list:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>list &#8217;mis <span style="color: #C57BDB;">(</span>+ 4 2<span style="color: #C57BDB;">)</span> <span style="color: #7bc275;">"colegas"</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>MIS 6 COLEGAS<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>list &#8217;mis <span style="color: #ff995e;">(</span>+ 4 2<span style="color: #ff995e;">)</span> <span style="color: #c3e88d;">"colegas"</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>MIS 6 COLEGAS<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1446,16 +1430,16 @@ como si fuese código. Por ejemplo:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>list &#8217;<span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span> 5<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>list &#8217;<span style="color: #ff995e;">(</span>+ 2 3<span style="color: #ff995e;">)</span> <span style="color: #ff995e;">(</span>+ 2 3<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #ff995e;">(</span>+ 2 3<span style="color: #ff995e;">)</span> 5<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf6e0438" class="outline-4">
-<h4 id="orgf6e0438">Evaluación</h4>
-<div class="outline-text-4" id="text-orgf6e0438">
+<div id="outline-container-org01d89bc" class="outline-4">
+<h4 id="org01d89bc">Evaluación</h4>
+<div class="outline-text-4" id="text-org01d89bc">
 <p>
 Veamos más en detalle como las expresiones son evaluadas para
 desplegar su valor en el top-level. En Lisp, + es una función y (+
@@ -1498,10 +1482,10 @@ despliega lo que el usuario tecleo, verbatim.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>quote <span style="color: #C57BDB;">(</span>+ 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
-'<span style="color: #51afef;">(</span> + 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>+ 2 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>quote <span style="color: #ff995e;">(</span>+ 2 3<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>+ 2 3<span style="color: #c099ff;">)</span>
+'<span style="color: #c099ff;">(</span> + 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>+ 2 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1513,9 +1497,9 @@ protección puede ser útil.
 </div>
 </div>
 
-<div id="outline-container-org26c89c0" class="outline-4">
-<h4 id="org26c89c0">Funciones en Lisp</h4>
-<div class="outline-text-4" id="text-org26c89c0">
+<div id="outline-container-org801156e" class="outline-4">
+<h4 id="org801156e">Funciones en Lisp</h4>
+<div class="outline-text-4" id="text-org801156e">
 <p>
 Es posible definir nuevas funciones con defun que toma normalmente tres
 argumentos: un nombre, una lista de parámetros y una o más expresiones
@@ -1523,9 +1507,9 @@ que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">tercero</span><span style="color: #C57BDB;">(</span>lst<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>caddr lst<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">tercero</span><span style="color: #ff995e;">(</span>lst<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>caddr lst<span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1541,7 +1525,7 @@ resto, del resto del parámetro (caddr lst).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>tercero '<span style="color: #C57BDB;">(</span>a b c d e<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>tercero '<span style="color: #ff995e;">(</span>a b c d e<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 C
 </pre>
 </div>
@@ -1559,7 +1543,7 @@ suma de 1 y 4 es mayor que 3:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span> &gt;<span style="color: #C57BDB;">(</span>+ 1 4<span style="color: #C57BDB;">)</span> 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span> &gt;<span style="color: #ff995e;">(</span>+ 1 4<span style="color: #ff995e;">)</span> 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1570,11 +1554,10 @@ mayor que el tercero:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">suma-mayor-que</span> <span style="color: #C57BDB;">(</span>x  y z<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>&gt; <span style="color: #7bc275;">(</span>+ x y<span style="color: #7bc275;">)</span> z<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span>suma-mayor-que 1 4 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">suma-mayor-que</span> <span style="color: #ff995e;">(</span>x  y z<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>&gt; <span style="color: #ff98a4;">(</span>+ x y<span style="color: #ff98a4;">)</span> z<span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>suma-mayor-que 1 4 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1589,9 +1572,9 @@ incremental (bottom-up).
 </div>
 </div>
 
-<div id="outline-container-orgffb101a" class="outline-4">
-<h4 id="orgffb101a">Listas</h4>
-<div class="outline-text-4" id="text-orgffb101a">
+<div id="outline-container-org0f493d3" class="outline-4">
+<h4 id="org0f493d3">Listas</h4>
+<div class="outline-text-4" id="text-org0f493d3">
 <p>
 En Lisp, las listas son una estructura de datos fundamental y
 versátil. Se utilizan para almacenar una secuencia de elementos, que
@@ -1614,7 +1597,7 @@ Ejemplo de una lista simple en Lisp:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>1 2 3 4 5<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>1 2 3 4 5<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1630,7 +1613,7 @@ Ejemplo de una lista anidada en Lisp:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>1 <span style="color: #C57BDB;">(</span>2 3<span style="color: #C57BDB;">)</span> 4 <span style="color: #C57BDB;">(</span>5 <span style="color: #7bc275;">(</span>6 7<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>1 <span style="color: #ff995e;">(</span>2 3<span style="color: #ff995e;">)</span> 4 <span style="color: #ff995e;">(</span>5 <span style="color: #ff98a4;">(</span>6 7<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1645,7 +1628,7 @@ Ejemplo de una lista vacía en Lisp:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">()</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">()</span>
 </pre>
 </div>
 
@@ -1662,8 +1645,8 @@ Ejemplo de una llamada a función en Lisp:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>+ 1 2<span style="color: #51afef;">)</span>
-<span style="color: #62686E;">; </span><span style="color: #62686E;">En este caso, "+" es la funci&#243;n que suma los n&#250;meros 1 y 2.</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>+ 1 2<span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">; </span><span style="color: #7a88cf;">En este caso, "+" es la funci&#243;n que suma los n&#250;meros 1 y 2.</span>
 </pre>
 </div>
 
@@ -1684,9 +1667,9 @@ programación en Lisp.
 </div>
 </div>
 
-<div id="outline-container-org68944a5" class="outline-4">
-<h4 id="org68944a5">Cons</h4>
-<div class="outline-text-4" id="text-org68944a5">
+<div id="outline-container-org37bd219" class="outline-4">
+<h4 id="org37bd219">Cons</h4>
+<div class="outline-text-4" id="text-org37bd219">
 <p>
 La función `cons` se utiliza para crear nuevas listas al agregar un
 elemento al principio de una lista existente. Su sintaxis es la
@@ -1694,7 +1677,7 @@ siguiente:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>cons elemento lista<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>cons elemento lista<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1716,8 +1699,8 @@ Un ejemplo de cómo se utiliza la función <b><b>cons*</b></b>:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq lista-original '<span style="color: #C57BDB;">(</span>2 3 4<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>setq nueva-lista <span style="color: #C57BDB;">(</span>cons 1 lista-original<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>setq lista-original '<span style="color: #ff995e;">(</span>2 3 4<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>setq nueva-lista <span style="color: #ff995e;">(</span>cons 1 lista-original<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -1741,9 +1724,9 @@ crear estructuras de datos y manipular listas de manera eficiente.
 
 
 
-<div id="outline-container-org387f444" class="outline-4">
-<h4 id="org387f444">Funciones CAR y CDR</h4>
-<div class="outline-text-4" id="text-org387f444">
+<div id="outline-container-orgd74f298" class="outline-4">
+<h4 id="orgd74f298">Funciones CAR y CDR</h4>
+<div class="outline-text-4" id="text-orgd74f298">
 <p>
 CAR admite un único argumento que debe ser una lista o una expresión
 cuyo valor sea una lista y devuelve el primer elemento de dicha
@@ -1788,16 +1771,16 @@ en listas anidadas en varios niveles.
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #62686E;">;</span><span style="color: #62686E;">(eval (car '((+ 1 2) 2 3 4 5)))</span>
-<span style="color: #51afef;">(</span>cadr '<span style="color: #C57BDB;">(</span>1 2 3 4 5<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(cddd  '((1 2 3 4 5) (6 7 8 9 10) (11 12 13 14 15)))</span>
+<pre class="src src-lisp"><span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">(eval (car '((+ 1 2) 2 3 4 5)))</span>
+<span style="color: #c099ff;">(</span>cadr '<span style="color: #ff995e;">(</span>1 2 3 4 5<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">(cddd  '((1 2 3 4 5) (6 7 8 9 10) (11 12 13 14 15)))</span>
 
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span><span style="color: #c099ff;">)</span>
 
 
 </pre>
@@ -1805,30 +1788,116 @@ en listas anidadas en varios niveles.
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">mylength</span> <span style="color: #C57BDB;">(</span>list<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span><span style="color: #51afef;">if</span> list 
-    <span style="color: #7bc275;">(</span>1+ <span style="color: #e69055;">(</span>mylength <span style="color: #a991f1;">(</span>cdr list<span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-    0<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">mylength</span> <span style="color: #ff995e;">(</span>list<span style="color: #ff995e;">)</span>
+<span style="color: #ff995e;">(</span><span style="color: #c099ff;">if</span> list 
+    <span style="color: #ff98a4;">(</span>1+ <span style="color: #b4f9f8;">(</span>mylength <span style="color: #f989d3;">(</span>cdr list<span style="color: #f989d3;">)</span><span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span>
+    0<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">rec</span><span style="color: #C57BDB;">(</span>list<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>print <span style="color: #7bc275;">(</span>car list<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span><span style="color: #51afef;">if</span> list 
-<span style="color: #7bc275;">(</span>rec <span style="color: #e69055;">(</span> cdr list<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">a</span> 4<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>format T <span style="color: #7bc275;">"Hola mundo ~ d"</span> a<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>rec '<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>1 2 3 4 4<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(mylength '(1 2 3 4))</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">rec</span><span style="color: #ff995e;">(</span>list<span style="color: #ff995e;">)</span>
+<span style="color: #ff995e;">(</span>print <span style="color: #ff98a4;">(</span>car list<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+<span style="color: #ff995e;">(</span><span style="color: #c099ff;">if</span> list 
+<span style="color: #ff98a4;">(</span>rec <span style="color: #b4f9f8;">(</span> cdr list<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span>
+<span style="color: #ff995e;">)</span>
+<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">a</span> 4<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>format T <span style="color: #c3e88d;">"Hola mundo ~ d"</span> a<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>rec '<span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span>1 2 3 4 4<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">(mylength '(1 2 3 4))</span>
 
 </pre>
 </div>
 </div>
+
+<ul class="org-ul">
+<li><a id="orgb58fc64"></a>Ejercicios car cdr<br />
+<ul class="org-ul">
+<li><a id="org968c775"></a>Problema 1: Acceder al cuarto elemento de una lista<br />
+<div class="outline-text-6" id="text-org968c775">
+<p>
+Dada la lista `(a b c d e f g)`, escribe una expresión para devolver el cuarto elemento utilizando solo `car` y `cdr`.
+</p>
+</div>
+</li>
+
+<li><a id="org5c63e9b"></a>Problema 2: Obtener los tres últimos elementos de una lista<br />
+<div class="outline-text-6" id="text-org5c63e9b">
+<p>
+Dada la lista `(1 2 3 4 5 6)`, utiliza combinaciones de `car` y `cdr` para devolver los tres últimos elementos.
+</p>
+</div>
+</li>
+
+<li><a id="orga980491"></a>Problema 3: Construir una lista a partir de los tres primeros elementos<br />
+<div class="outline-text-6" id="text-orga980491">
+<p>
+Dada la lista `(a b c d e)`, construye una nueva lista que contenga solo los tres primeros elementos.
+</p>
+</div>
+</li>
+
+<li><a id="org5dbdd3b"></a>Problema 4: Eliminar el primer y último elemento de una lista<br />
+<div class="outline-text-6" id="text-org5dbdd3b">
+<p>
+Dada la lista `(x y z w)`, escribe una expresión que elimine el primer y último elemento.
+</p>
+</div>
+</li>
+
+<li><a id="org9661347"></a>Problema 5: Verificar si una lista tiene al menos tres elementos<br />
+<div class="outline-text-6" id="text-org9661347">
+<p>
+Escribe una función que reciba una lista y verifique si tiene al menos tres elementos usando `car` y `cdr`.
+</p>
+</div>
+</li>
+
+<li><a id="org141eb12"></a>Problema 6: Sumar los primeros tres números de una lista<br />
+<div class="outline-text-6" id="text-org141eb12">
+<p>
+Dada la lista `(10 20 30 40)`, utiliza `car` y `cdr` para obtener la suma de los tres primeros números.
+</p>
+</div>
+</li>
+<li><a id="org9434c2c"></a>Problema 7: Acceder al penúltimo elemento de una lista<br />
+<div class="outline-text-6" id="text-org9434c2c">
+<p>
+Dada la lista `(p q r s t)`, escribe una expresión que devuelva el penúltimo elemento.
+</p>
+</div>
+</li>
+<li><a id="org7030ab2"></a>Problema 8: Crear una lista anidada<br />
+<div class="outline-text-6" id="text-org7030ab2">
+<p>
+Dada la lista `(1 2 3)`, usa `cons`, `car`, y `cdr` para crear la lista anidada `((1) (2) (3))`.
+</p>
+</div>
+</li>
+
+<li><a id="orgd75c2d1"></a>Problema 9: Fusionar dos listas<br />
+<div class="outline-text-6" id="text-orgd75c2d1">
+<p>
+Dadas las listas `(a b c)` y `(x y z)`, escribe una expresión que las combine en una sola lista `(a b c x y z)` utilizando `cons`, `car`, y `cdr`.
+</p>
+</div>
+</li>
+<li><a id="orgf72bd5a"></a>Problema 10: Invertir los dos primeros pares de elementos de una lista<br />
+<div class="outline-text-6" id="text-orgf72bd5a">
+<p>
+Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de la lista, de modo que obtengas `(2 1 4 3 5 6)`.
+</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 
-<div id="outline-container-org5cdc0e1" class="outline-4">
-<h4 id="org5cdc0e1">Entradas y salidas</h4>
-<div class="outline-text-4" id="text-org5cdc0e1">
+
+
+
+<div id="outline-container-org6d7daa1" class="outline-4">
+<h4 id="org6d7daa1">Entradas y salidas</h4>
+<div class="outline-text-4" id="text-org6d7daa1">
 <p>
 Lisp proporciona un amplio conjunto de facilidades para realizar
 entrada/salida. Todas las operaciones de entrada/salida se realizan en
@@ -1866,8 +1935,8 @@ devuelve.
 </div>
 
 <ul class="org-ul">
-<li><a id="org800573d"></a>Funciones de Entrada:<br />
-<div class="outline-text-5" id="text-org800573d">
+<li><a id="org62ca065"></a>Funciones de Entrada:<br />
+<div class="outline-text-5" id="text-org62ca065">
 <p>
 Los caracteres de la representación impresa de un objeto Lisp se
 transmiten a un flujo mediante funciones como "print". El (Lisp)
@@ -2030,542 +2099,245 @@ enteros.
 </li>
 </ul>
 </div>
+</div>
+</div>
 
-<div id="outline-container-org64eca77" class="outline-4">
-<h4 id="org64eca77">Valores de Verdad IF</h4>
-<div class="outline-text-4" id="text-org64eca77">
+
+
+<div id="outline-container-orgc28d9e4" class="outline-2">
+<h2 id="orgc28d9e4">Condicionales en Lisp</h2>
+<div class="outline-text-2" id="text-orgc28d9e4">
 <p>
-En Lisp, el símbolo t es la representación por default para
-verdadero. La representación por default de falso es nil . Ambos
-evaluan a si mismos. Ej.  La función listp regresa verdadero si su
-argumento es una lista:
+En este documento se describen las condicionales más comunes
+utilizadas en Lisp. Las condicionales son fundamentales para la toma
+de decisiones en un programa y permiten ejecutar diferentes partes del
+código en función de condiciones específicas.
+</p>
+</div>
+
+<div id="outline-container-org5f02b1d" class="outline-3">
+<h3 id="org5f02b1d">Condicionales Básicas</h3>
+<div class="outline-text-3" id="text-org5f02b1d">
+</div>
+<div id="outline-container-org0382446" class="outline-4">
+<h4 id="org0382446">if</h4>
+<div class="outline-text-4" id="text-org0382446">
+<p>
+La expresión <code>if</code> es una de las condicionales más simples en
+Lisp. Evalúa una condición y ejecuta una de las dos ramas, dependiendo
+del resultado de esa condición.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>listp '<span style="color: #C57BDB;">(</span>a b c<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-T
-<span style="color: #51afef;">(</span>listp 34<span style="color: #51afef;">)</span>
-Nil
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">if</span> condici&#243;n
+    entonces
+    else<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <p>
-Una función cuyo valor de regreseo se intérpreta como un valor de ver-
-dad (verdadero o falso) se conoce como predicado. En lisp es común que
-el símbolo de un predicado termine en p .  Como nil juega dos roles en
-<b>Lisp</b>, las funciones <b>null</b> (lista vacía) y not (negación) hacen
-exactamente lo mismo:
+Ejemplo:
 </p>
 
-
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>null nil<span style="color: #51afef;">)</span>
-T
-<span style="color: #51afef;">(</span>not nil<span style="color: #51afef;">)</span>
-T
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">if</span> <span style="color: #ff995e;">(</span>&gt; 5 3<span style="color: #ff995e;">)</span>
+    <span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"5 es mayor que 3"</span><span style="color: #ff995e;">)</span>
+    <span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"Esto no se imprimir&#225;"</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <p>
-El condicional (estructura de control) más simple en <b>Lisp</b> es <b>if</b>
-. Normalmente toma tres argumentos: una expresión test, una expresión
-then y una expresión <b>else</b>. La expresión test es evaluada, si su
-valor es verdadero, la expresión <b>then</b> es evaluada; si su valor es
-falso, la expresión <b>else</b> es evaluada.
+En este caso, se imprimirá <code>5 es mayor que 3</code> porque la condición es verdadera.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4b8a3ca" class="outline-4">
+<h4 id="org4b8a3ca">when</h4>
+<div class="outline-text-4" id="text-org4b8a3ca">
+<p>
+La expresión <code>when</code> se utiliza cuando solo hay una acción que se desea ejecutar si la condición es verdadera. Si la condición es falsa, no se ejecuta nada.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> <span style="color: #C57BDB;">(</span>listp '<span style="color: #7bc275;">(</span>a b c d <span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-    <span style="color: #C57BDB;">(</span>+ 1 2<span style="color: #C57BDB;">)</span>
-    <span style="color: #C57BDB;">(</span>+ 3 4<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> <span style="color: #C57BDB;">(</span>listp 23<span style="color: #C57BDB;">)</span>
-    <span style="color: #C57BDB;">(</span>+ 1 2<span style="color: #C57BDB;">)</span>
-    <span style="color: #C57BDB;">(</span>+ 3 4<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">when</span> condici&#243;n
+  entonces<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <p>
-Como <b>quote</b>, <b>if*</b> es un operador especial. No puede implementarse como
-una función, porque los argumentos de una función siempre se evaluan,
-y la idea al usar if es que sólo uno de sus argumentos sea evaluado.
-Si bien el default para representar verdadero es <b>t</b> , todo excepto nil
-cuenta como verdadero en un contexto lógico. Ej.
+Ejemplo:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> 27 1 2<span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> nil 1 2<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">when</span> <span style="color: #ff995e;">(</span>&gt; 5 3<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"5 es mayor que 3"</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <p>
-Dado que solo se evalúa una expresión dentro de un <b>if</b>, es imposible
-hacer dos o más cosas separadas dentro de una opción. Sin embargo,
-para los casos en los que realmente se desea hacer más de una cosa, se
-puede utilizar un comando especial como el <b>progn</b> para insertar
-comandos adicionales en una sola expresión. Con <b>progn</b>, solo se
-devuelve la última evaluación como el valor de la expresión completa.
+Esto imprimirá <code>5 es mayor que 3</code> porque la condición es verdadera. Si no lo fuera, no haría nada.
 </p>
-
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*number-was-odd*</span> nil<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">if</span> <span style="color: #C57BDB;">(</span>oddp 5<span style="color: #C57BDB;">)</span>
-    <span style="color: #C57BDB;">(</span><span style="color: #51afef;">progn</span> <span style="color: #7bc275;">(</span>setf *number-was-odd* t<span style="color: #7bc275;">)</span>
-       'odd-number<span style="color: #C57BDB;">)</span>
-    'even-number<span style="color: #51afef;">)</span>
-</pre>
-</div>
 </div>
 </div>
 
-<div id="outline-container-org1b6ebf2" class="outline-4">
-<h4 id="org1b6ebf2">When Unless</h4>
-<div class="outline-text-4" id="text-org1b6ebf2">
+<div id="outline-container-org488a2a0" class="outline-4">
+<h4 id="org488a2a0">unless</h4>
+<div class="outline-text-4" id="text-org488a2a0">
 <p>
-De igual forma <b>Lisp</b> tiene otros comandos que tienen un <b>progn</b>
-implícito los más básicos son <b>when</b> y <b>unless</b>  en el siguiente ejemplo se puede ver la función oddp 
-que evalúa si el numero es par o impar. 
+La expresión <code>unless</code> es lo contrario de <code>when</code>. Ejecuta el bloque de código solo si la condición es falsa.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*number-is-odd*</span> nil<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">when</span> <span style="color: #C57BDB;">(</span>oddp 5<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>setf *number-is-odd* t<span style="color: #C57BDB;">)</span>
-  'odd-number<span style="color: #51afef;">)</span>
-
-ODD-NUMBER
-
-*number-is-odd*
-T
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">unless</span> <span style="color: #C57BDB;">(</span>oddp 4<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>setf *number-is-odd* nil<span style="color: #C57BDB;">)</span>
-  'even-number<span style="color: #51afef;">)</span>
-
-EVEN-NUMBER
-
-*number-is-odd*
-NIL
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">unless</span> condici&#243;n
+  entonces<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
 <p>
-Con <b>when</b>, todas las expresiones encerradas se evalúan cuando la
-condición es verdad, con <b>unless</b> todas las expresiones encerradas se
-evalúan cuando la condición es falsa. La compensación es que estos
-comandos no pueden hacer nada cuando la condición se evalúa de manera
-opuesta; simplemente devuelven cero y no hacen nada.
+Ejemplo:
 </p>
-</div>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">unless</span> <span style="color: #ff995e;">(</span>&lt; 5 3<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>print <span style="color: #c3e88d;">"5 no es menor que 3"</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
 </div>
 
-<div id="outline-container-org18d9a31" class="outline-4">
-<h4 id="org18d9a31">Cond</h4>
-<div class="outline-text-4" id="text-org18d9a31">
 <p>
-La función <b><b>cond</b></b> en Lisp es un formulario especial utilizado para
-crear estructuras condicionales. No es realmente una función en el
-sentido tradicional, sino más bien una construcción que permite
-evaluar una serie de condiciones y ejecutar una acción asociada a la
-primera condición verdadera. Aquí tienes una descripción detallada de
-cómo funciona <b><b>cond</b></b>:
+Esto imprimirá <code>5 no es menor que 3</code> porque la condición es falsa.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org132e9f6" class="outline-3">
+<h3 id="org132e9f6">Condicionales Anidadas</h3>
+<div class="outline-text-3" id="text-org132e9f6">
+<p>
+En Lisp, las condicionales pueden anidarse fácilmente combinando varias expresiones <code>if</code>, <code>when</code>, y <code>unless</code>.
 </p>
 
+<p>
+Ejemplo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">if</span> <span style="color: #ff995e;">(</span>= 5 5<span style="color: #ff995e;">)</span>
+    <span style="color: #ff995e;">(</span><span style="color: #c099ff;">when</span> <span style="color: #ff98a4;">(</span>&gt; 5 3<span style="color: #ff98a4;">)</span>
+      <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Ambas condiciones son verdaderas"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+    <span style="color: #ff995e;">(</span><span style="color: #c099ff;">unless</span> <span style="color: #ff98a4;">(</span>&gt; 5 3<span style="color: #ff98a4;">)</span>
+      <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Esto no se imprimir&#225;"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
+</div>
+
+<p>
+Aquí se imprime <code>Ambas condiciones son verdaderas</code>, ya que ambas condiciones dentro de la condicional son ciertas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6cc3bb0" class="outline-3">
+<h3 id="org6cc3bb0">Condicionales Complejas</h3>
+<div class="outline-text-3" id="text-org6cc3bb0">
+</div>
+<div id="outline-container-org26d7976" class="outline-4">
+<h4 id="org26d7976">cond</h4>
+<div class="outline-text-4" id="text-org26d7976">
+<p>
+La expresión <code>cond</code> se utiliza para evaluar múltiples condiciones. Se puede pensar en <code>cond</code> como una cadena de <code>if</code>, cada uno con su propia condición y acción.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">cond</span>
+  <span style="color: #ff995e;">(</span>condici&#243;n1 acci&#243;n1<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>condici&#243;n2 acci&#243;n2<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>t acci&#243;n-por-defecto<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
+</div>
+
+<p>
+Ejemplo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">cond</span>
+  <span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span>= 5 6<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"5 es igual a 6"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span>&gt; 5 6<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"5 es mayor que 6"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>t <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Ninguna de las anteriores"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
+</div>
+
+<p>
+Se imprimirá <code>Ninguna de las anteriores</code> porque ambas condiciones anteriores son falsas.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org360089e" class="outline-4">
+<h4 id="org360089e">case</h4>
+<div class="outline-text-4" id="text-org360089e">
+<p>
+La expresión <code>case</code> es similar a un "switch" en otros lenguajes de programación. Se utiliza para evaluar una expresión y compararla con una lista de posibles valores.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">case</span> expresi&#243;n
+  <span style="color: #ff995e;">(</span>valor1 acci&#243;n1<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>valor2 acci&#243;n2<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>t acci&#243;n-por-defecto<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
+</div>
+
+<p>
+Ejemplo:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">case</span> 5
+  <span style="color: #ff995e;">(</span>1 <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Uno"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>5 <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Cinco"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span>t <span style="color: #ff98a4;">(</span>print <span style="color: #c3e88d;">"Ninguno de los anteriores"</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+</pre>
+</div>
+
+<p>
+Aquí se imprimirá <code>Cinco</code> porque la expresión evaluada es igual a 5.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org32232ba" class="outline-3">
+<h3 id="org32232ba">Resumen</h3>
+<div class="outline-text-3" id="text-org32232ba">
 <ul class="org-ul">
-<li><b><b>cond</b></b> comienza con la palabra clave "cond" seguida de una lista
-de cláusulas.</li>
-<li>Cada cláusula consta de dos partes: una expresión de prueba
-(condición) y una expresión de resultado (acción).</li>
-<li>El Lisp evalúa secuencialmente las condiciones en orden, comenzando
-por la primera cláusula.</li>
-<li>Tan pronto como una condición se evalúa como verdadera, se ejecuta
-la acción asociada a esa cláusula y el `cond` se completa. No se
-evalúan ni ejecutan las cláusulas restantes.</li>
-<li>Si ninguna de las condiciones es verdadera y no hay una cláusula
-"else" (también conocida como "t" en Lisp), entonces no se realiza
-ninguna acción.</li>
+<li><code>if</code> permite evaluar una condición y ejecutar una de dos ramas.</li>
+<li><code>when</code> evalúa una condición y ejecuta el bloque de código si es verdadera.</li>
+<li><code>unless</code> evalúa una condición y ejecuta el bloque de código si es falsa.</li>
+<li><code>cond</code> permite evaluar múltiples condiciones de manera secuencial.</li>
+<li><code>case</code> compara una expresión con varios valores posibles y ejecuta el bloque correspondiente.</li>
 </ul>
-
-<p>
-Un ejemplo simple de <b><b>cond</b></b> en Lisp sería el siguiente:
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>= x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es igual a 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>&gt; x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es mayor que 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>&lt; x 0<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"x es menor que 0"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>t <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Esta es la acci&#243;n predeterminada"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-</pre>
-</div>
-
-
-
-<p>
-En este ejemplo, se evalúan las condiciones en orden y se ejecuta la
-acción asociada a la primera condición verdadera. Si ninguna condición
-es verdadera, se ejecuta la acción en la cláusula "t" (que actúa como
-una acción predeterminada o de último recurso).
-</p>
-
-<p>
-<b><b>cond</b></b> es una herramienta poderosa para controlar el flujo de
-programas en Lisp y se utiliza para implementar estructuras
-condicionales más complejas.
-</p>
 </div>
 </div>
 
-<div id="outline-container-org1b4d437" class="outline-4">
-<h4 id="org1b4d437">Case</h4>
-<div class="outline-text-4" id="text-org1b4d437">
+<div id="outline-container-org7745667" class="outline-3">
+<h3 id="org7745667">Referencias</h3>
+<div class="outline-text-3" id="text-org7745667">
 <p>
-El formulario `case` en Lisp se utiliza para realizar una selección
-múltiple basada en el valor de una expresión. Funciona de manera
-similar a una declaración `switch` en otros lenguajes de
-programación. Aquí tienes una descripción más detallada de cómo
-funciona `case` en Lisp:
+Para más información sobre las condicionales en Lisp, se recomienda revisar la documentación oficial o los siguientes recursos:
 </p>
-
-<p>
-La estructura básica de `case` es la siguiente:
-</p>
-
-<ol class="org-ol">
-<li><b><b>Sintaxis básica</b></b></li>
-</ol>
-<div class="org-src-container">
-<pre class="src src-lisp"> <span style="color: #51afef;">(</span><span style="color: #51afef;">case</span> expresi&#243;n
-     <span style="color: #C57BDB;">(</span>etiqueta-1 expresi&#243;n-1<span style="color: #C57BDB;">)</span>
-     <span style="color: #C57BDB;">(</span>etiqueta-2 expresi&#243;n-2<span style="color: #C57BDB;">)</span>
-     ...
-     <span style="color: #C57BDB;">(</span>etiqueta-n expresi&#243;n-n<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-</pre>
-</div>
-
 <ul class="org-ul">
-<li><b><b>expresión</b></b> es la expresión cuyo valor se evalúa para determinar
-qué etiqueta coincide.</li>
-<li>Cada <b>(etiqueta expresión)</b> es un par que especifica una etiqueta
-y una expresión asociada. Si la `expresión` coincide con una de
-las etiquetas, se evaluará y ejecutará la `expresión` asociada.</li>
+<li><a href="https://www.gnu.org/software/emacs/manual/html_node/elisp/Conditionals.html">GNU Emacs Lisp Reference Manual - Condicionales</a></li>
 </ul>
-<ol class="org-ol">
-<li><b><b>Evaluación</b></b>:
+</div>
+
+
+
+
 <ul class="org-ul">
-<li>`case` evalúa la `expresión` una vez y luego compara su valor con
-las etiquetas en orden.</li>
-<li>Cuando una etiqueta coincide con el valor de la `expresión`, se
-ejecuta la `expresión` asociada y `case` finaliza. Esto significa
-que solo se ejecutará una de las expresiones asociadas, la
-correspondiente a la primera etiqueta que coincida.</li>
-</ul></li>
-
-<li><b><b>Etiquetas y expresiones</b></b>:
-<ul class="org-ul">
-<li>Cada etiqueta es un valor constante que se compara con el valor
-de la `expresión` para determinar si hay coincidencia.</li>
-<li>Las expresiones asociadas son evaluadas y ejecutadas si su
-etiqueta coincide con la `expresión`.</li>
-</ul></li>
-
-<li><b><b>Default</b></b>:
-<ul class="org-ul">
-<li>Puedes incluir una etiqueta especial llamada `t` o `otherwise`
-como última opción en `case`. Esto se ejecutará si ninguna de las
-etiquetas anteriores coincide con la `expresión`. Es similar a un
-caso "predeterminado" en una declaración `switch`.</li>
-</ul></li>
-
-<li><b><b>Ejemplo</b></b>:</li>
-</ol>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq dia-de-la-semana 'martes<span style="color: #51afef;">)</span>
-
-   <span style="color: #51afef;">(</span><span style="color: #51afef;">case</span> dia-de-la-semana
-     <span style="color: #C57BDB;">(</span>lunes <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es lunes."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-     <span style="color: #C57BDB;">(</span>martes <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es martes."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-     <span style="color: #C57BDB;">(</span>mi&#233;rcoles <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hoy es mi&#233;rcoles."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-     <span style="color: #C57BDB;">(</span>otherwise <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"D&#237;a desconocido."</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-  
-</pre>
-</div>
-
-
-<p>
-En este ejemplo, se evalúa la variable `dia-de-la-semana`, y se
-ejecutará la acción correspondiente al valor de la variable (en
-este caso, imprimirá "Hoy es martes." porque `dia-de-la-semana` es
-igual a 'martes'). Si no se encuentra una coincidencia, se
-ejecutará la acción en la cláusula "otherwise".
-</p>
-</div>
-</div>
-
-<div id="outline-container-org8337244" class="outline-4">
-<h4 id="org8337244">Operadores Lógicos and or</h4>
-<div class="outline-text-4" id="text-org8337244">
-<p>
-Los operadores lógicos <b>and</b> y <b>or</b> parecen condicionales. Ambos toman
-cualquier número de argumentos, pero solo evaluan los necesarios
-para decidir que valor regresar. Si todos los argumentos son
-verdaderos (diferentes de nil ), entonces and regresa el valor del
-último argumento. Ej.
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">ejemplosif</span><span style="color: #C57BDB;">(</span>x<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span><span style="color: #51afef;">unless</span> <span style="color: #7bc275;">(</span>&lt;= 2 x 24<span style="color: #7bc275;">)</span>
-    <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"Hola"</span><span style="color: #7bc275;">)</span>
-    <span style="color: #7bc275;">(</span>print <span style="color: #7bc275;">"hola2"</span><span style="color: #7bc275;">)</span>
-<span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span>ejemplosif 21 <span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>setq var <span style="color: #C57BDB;">(</span>getreal <span style="color: #7bc275;">"\nEnter var: "</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">cond</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 2<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 24 <span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 2 &amp; 24"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 26<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 48<span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 26 &amp; 48"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>and <span style="color: #e69055;">(</span>&gt;= var 50<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>&lt;= var 96<span style="color: #e69055;">)</span><span style="color: #7bc275;">)(</span>princ <span style="color: #7bc275;">"\nvar is between 50 &amp; 96"</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span>T nil<span style="color: #C57BDB;">)</span>
-  <span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-
-
-
-<p>
-(cond
-  ((&lt;= 2 var 24)(DO THIS))
-  ((&lt;= 26 var 48)(DO THIS))
-  ((&lt;= 50 var 96)(DO THIS))
-  (T nil)
-  )
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*arch-enemy*</span> nil<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">pudding-eater</span> <span style="color: #C57BDB;">(</span>person<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #51afef;">cond</span> 
-    <span style="color: #7bc275;">(</span><span style="color: #e69055;">(</span>eq person 'henry<span style="color: #e69055;">)</span> 
-     '<span style="color: #e69055;">(</span>curse you lisp alien &#8211; you ate my pudding<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-    <span style="color: #7bc275;">(</span><span style="color: #e69055;">(</span>eq person 'johnny<span style="color: #e69055;">)</span> 
-     '<span style="color: #e69055;">(</span>i hope you choked on my pudding johnny<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-    <span style="color: #7bc275;">(</span>t
-     '<span style="color: #e69055;">(</span>why you eat my pudding stranger ?<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-    <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span>pudding-eater 'lalo<span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-<p>
-(espada pistol  )
-(espada) (pistola) 
-</p>
-<div class="org-src-container">
-<pre class="src src-lisp">
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*nodo*</span> '<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>Zerg
-                        <span style="color: #e69055;">(</span>Terreste
-                         <span style="color: #a991f1;">(</span>Larva
-                          <span style="color: #FCCE7B;">(</span>Unidad que se crea autom&#225;ticamente en la colmenta<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Zergling
-                          <span style="color: #FCCE7B;">(</span>Unidad de ataque cuerpo a cuerpo b&#225;sica<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Z&#225;ngano
-                          <span style="color: #FCCE7B;">(</span>Unidad no ofensiva cuya tarea consiste en la recolecci&#243;n de mineral y Gas Vespeno<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span> 
-                         <span style="color: #a991f1;">(</span>Corruptor
-                          <span style="color: #FCCE7B;">(</span>Unidad de ataque bacteriol&#243;gicos<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Plaga Terran
-                            <span style="color: #FCCE7B;">(</span>Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Merodeador
-                          <span style="color: #FCCE7B;">(</span>Es una mutaci&#243;n del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Ultralisco
-                          <span style="color: #FCCE7B;">(</span>El ultralisco es la unidad m&#225;s poderosa de la raza Zerg.<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                        <span style="color: #e69055;">(</span>Aereo
-                         <span style="color: #a991f1;">(</span>Superamo
-                          <span style="color: #FCCE7B;">(</span>Unidad de transporte Zerg<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Mutalisco
-                          <span style="color: #FCCE7B;">(</span>Unidad r&#225;pida pero de corto rango de ataque y bajo da&#241;o<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Atormentador
-                          <span style="color: #FCCE7B;">(</span>Unidad peque&#241;a y de r&#225;pida producci&#243;n<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                        <span style="color: #7bc275;">)</span>
-                       <span style="color: #7bc275;">(</span>Terran
-                        <span style="color: #e69055;">(</span>Terrestres
-                         <span style="color: #a991f1;">(</span>Soldado Terran
-                            <span style="color: #FCCE7B;">(</span>Los soldados terran son la primera linea de defensa de los planetas terran<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Tanque de Asedio
-                            <span style="color: #FCCE7B;">(</span>Unidad de asalto y defensa mecanizada de ataque terrestre<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Goliat
-                          <span style="color: #FCCE7B;">(</span>Unidad de apoyo ligera y versatil<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Buitre
-                          <span style="color: #FCCE7B;">(</span>Unidad ligera y con la habilidad de poner tres minas ara&#241;as<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                        <span style="color: #7bc275;">)</span>
-                       <span style="color: #7bc275;">(</span>protoss<span style="color: #7bc275;">)</span>
-                       <span style="color: #C57BDB;">)</span>
-<span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span>car *nodo*<span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*edges*</span> '<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>living-room <span style="color: #e69055;">(</span>garden west door<span style="color: #e69055;">)</span>
-                         <span style="color: #e69055;">(</span>attic upstairs ladder<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-                        <span style="color: #7bc275;">(</span>garden <span style="color: #e69055;">(</span>living-room east door<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-                        <span style="color: #7bc275;">(</span>attic <span style="color: #e69055;">(</span>living-room downstairs ladder<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span>car edges<span style="color: #51afef;">)</span>
-
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*nodos*</span> '<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>zerg
-                         <span style="color: #e69055;">(</span>Terrestres
-                          <span style="color: #a991f1;">()</span>
-                          <span style="color: #e69055;">)</span>
-                         <span style="color: #e69055;">(</span>Aereos<span style="color: #e69055;">)</span>
-                         <span style="color: #7bc275;">)</span>
-                        <span style="color: #7bc275;">(</span>protos<span style="color: #7bc275;">)</span>
-                        <span style="color: #7bc275;">(</span>terran<span style="color: #7bc275;">)</span>
-
-
-                        <span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*nodo*</span> '<span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>Zerg
-                        <span style="color: #e69055;">(</span>Terreste
-                         <span style="color: #a991f1;">(</span>Larva
-                          <span style="color: #FCCE7B;">(</span>Unidad que se crea autom&#225;ticamente en la colmenta<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Zergling
-                          <span style="color: #FCCE7B;">(</span>Unidad de ataque cuerpo a cuerpo b&#225;sica<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Z&#225;ngano
-                          <span style="color: #FCCE7B;">(</span>Unidad no ofensiva cuya tarea consiste en la recolecci&#243;n de mineral y Gas Vespeno<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span> 
-                         <span style="color: #a991f1;">(</span>Corruptor
-                          <span style="color: #FCCE7B;">(</span>Unidad de ataque bacteriol&#243;gicos<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Plaga Terran
-                            <span style="color: #FCCE7B;">(</span>Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Merodeador
-                          <span style="color: #FCCE7B;">(</span>Es una mutaci&#243;n del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Ultralisco
-                          <span style="color: #FCCE7B;">(</span>El ultralisco es la unidad m&#225;s poderosa de la raza Zerg.<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                        <span style="color: #e69055;">(</span>Aereo
-                         <span style="color: #a991f1;">(</span>Superamo
-                          <span style="color: #FCCE7B;">(</span>Unidad de transporte Zerg<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Mutalisco
-                          <span style="color: #FCCE7B;">(</span>Unidad r&#225;pida pero de corto rango de ataque y bajo da&#241;o<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Atormentador
-                          <span style="color: #FCCE7B;">(</span>Unidad peque&#241;a y de r&#225;pida producci&#243;n<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                        <span style="color: #7bc275;">)</span>
-                       <span style="color: #7bc275;">(</span>Terran
-                        <span style="color: #e69055;">(</span>Terrestre
-                          <span style="color: #a991f1;">(</span>Soldado Terran
-                            <span style="color: #FCCE7B;">(</span>Los soldados terran son la primera linea de defensa de los planetas terran<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Murcielago de Fuego
-                            <span style="color: #FCCE7B;">(</span>Unidad equipada con el traje de combate pesado CMC660<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Medico
-                          <span style="color: #FCCE7B;">(</span>No posse ningun tipo de ataque f&#237;sico<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Fantasma
-                          <span style="color: #FCCE7B;">(</span>Inteligencia y espionaje<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #e69055;">)</span>
-                        <span style="color: #e69055;">(</span>Aereo
-                         <span style="color: #a991f1;">(</span>Espectro
-                          <span style="color: #FCCE7B;">(</span>Unidad A&#233;rea b&#225;sica<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Crucero de batalla
-                          <span style="color: #FCCE7B;">(</span>Poderosa unidad de combante<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Nave de la ciencia
-                          <span style="color: #FCCE7B;">(</span>Unidad a&#233;rea de apoyo y especialista con la facultad de detectar unidades enemigas enterradas o invisible<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #e69055;">)</span>
-                        <span style="color: #7bc275;">)</span>
-                       <span style="color: #7bc275;">(</span>protoss
-                        <span style="color: #e69055;">(</span>Terrestres
-                         <span style="color: #a991f1;">(</span>Sonda
-                          <span style="color: #FCCE7B;">(</span>Recolectan el gas vespeno y el mineral<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Fan&#225;tico
-                          <span style="color: #FCCE7B;">(</span>Son la columna vertebral del ej&#233;rcito Protoss<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Dragoon
-                          <span style="color: #FCCE7B;">(</span>Son parecidos a ara&#241;as mec&#225;nicas<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #e69055;">)</span>
-                        <span style="color: #e69055;">(</span>Aereo
-                         <span style="color: #a991f1;">(</span>Observador
-                          <span style="color: #FCCE7B;">(</span>No tiene armamento<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span>
-                         <span style="color: #a991f1;">(</span>Lanzadera
-                          <span style="color: #FCCE7B;">(</span>Sirve para transportar unidades<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-                       <span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(caar *nodo*)</span>
-<span style="color: #51afef;">(</span>format t <span style="color: #7bc275;">"Estas pensando en los   ~a"</span> <span style="color: #C57BDB;">(</span>car <span style="color: #7bc275;">(</span>assoc 'protoss *nodo*<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(setq aux (car (assoc 'protoss *nodo*)))</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(print aux)</span>
-<span style="color: #51afef;">(</span>assoc 'Aereo <span style="color: #C57BDB;">(</span>cdr <span style="color: #7bc275;">(</span>assoc 'Terran *nodo*<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(assoc 'Terrestres (cdr (assoc 'protoss *nodo*)))</span>
-</pre>
-</div>
-<p>
-Hola  PROTOSS
-Hola  PROTOSS
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defparameter</span> <span style="color: #DFDFDF;">*lista*</span>  '<span style="color: #C57BDB;">(</span>Terran Zerg Protoss <span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">recorre</span><span style="color: #C57BDB;">(</span>lista<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>format t <span style="color: #7bc275;">"Tu personaje es ~a ~%"</span> <span style="color: #7bc275;">(</span>car lista <span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>setq aux <span style="color: #7bc275;">(</span>read<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span>terpri<span style="color: #C57BDB;">)</span>
-<span style="color: #C57BDB;">(</span><span style="color: #51afef;">if</span> <span style="color: #7bc275;">(</span>= aux 1 <span style="color: #7bc275;">)</span>
-
-<span style="color: #7bc275;">(</span><span style="color: #51afef;">if</span> lista
-<span style="color: #e69055;">(</span>recorre <span style="color: #a991f1;">(</span>cdr lista<span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-
-<span style="color: #C57BDB;">(</span>recorre *lista*<span style="color: #C57BDB;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(print (car *lista*))</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(print (cdr *lista*))</span>
-</pre>
-</div>
-<p>
-NIL
-(ZERG PROTOSS)
-TERRAN
-(TERRAN ZERG PROTOSS)
-</p>
-</div>
-</div>
-
-<div id="outline-container-orgc6294b7" class="outline-4">
-<h4 id="orgc6294b7">Funciones lambda en Lisp</h4>
-<div class="outline-text-4" id="text-orgc6294b7">
+<li><a id="org0a1bf15"></a>Funciones lambda en Lisp<br />
+<div class="outline-text-5" id="text-org0a1bf15">
 <p>
 En el ámbito de la programación, una expresión lambda, también
 denominada función lambda, función literal o función anónima, es una
@@ -2584,10 +2356,10 @@ los literales para otros tipos de datos.
 
 
 <ul class="org-ul">
-<li><a id="orgb7c3c03"></a>Funciones como valores de primera clase<br />
+<li><a id="org09433a4"></a>Funciones como valores de primera clase<br />
 <ul class="org-ul">
-<li><a id="org26f0a81"></a>Sintaxis<br />
-<div class="outline-text-6" id="text-org26f0a81">
+<li><a id="orgf6afecd"></a>Sintaxis<br />
+<div class="outline-text-7" id="text-orgf6afecd">
 <ul class="org-ul">
 <li>(nombre de la función) ; recupera la función objeto de ese nombre</li>
 <li>#'nombre ; azúcar sintáctica para (nombre de la función)</li>
@@ -2600,8 +2372,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="orgf0b0f9f"></a>Parámetros<br />
-<div class="outline-text-6" id="text-orgf0b0f9f">
+<li><a id="org3a05cc9"></a>Parámetros<br />
+<div class="outline-text-7" id="text-org3a05cc9">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -2657,8 +2429,8 @@ los literales para otros tipos de datos.
 </li>
 
 
-<li><a id="orge1dee15"></a>Observaciones<br />
-<div class="outline-text-6" id="text-orge1dee15">
+<li><a id="orgeed255f"></a>Observaciones<br />
+<div class="outline-text-7" id="text-orgeed255f">
 <p>
 Cuando se habla de lenguajes similares a Lisp, existe una distinción
 común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
@@ -2679,8 +2451,8 @@ y etiquetas, por ejemplo.
 </li>
 
 
-<li><a id="orgad621c8"></a>Definiendo funciones anónimas.<br />
-<div class="outline-text-6" id="text-orgad621c8">
+<li><a id="org0e4dd39"></a>Definiendo funciones anónimas.<br />
+<div class="outline-text-7" id="text-org0e4dd39">
 <p>
 Las funciones en Common Lisp son valores de primera clase . Se puede
 crear una función anónima usando lambda . Por ejemplo, aquí hay una
@@ -2688,11 +2460,12 @@ función de 3 argumentos que luego llamamos usando funcall
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #C57BDB;">(</span>a b c<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">(</span>+ a <span style="color: #7bc275;">(</span>* b c<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">LAMBDA</span> <span style="color: #C57BDB;">(</span>A B C<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span> {10034F484B}&gt;
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*foo*</span> <span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>a b c<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>+ a <span style="color: #e69055;">(</span>* b c<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">(defun nombrefuncion(a b c )  ())</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff995e;">(</span>a b c<span style="color: #ff995e;">)</span> <span style="color: #ff995e;">(</span>+ a <span style="color: #ff98a4;">(</span>* b c<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">LAMBDA</span> <span style="color: #ff995e;">(</span>A B C<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span> {10034F484B}&gt;
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">*foo*</span> <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>a b c<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>+ a <span style="color: #b4f9f8;">(</span>* b c<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 *FOO*
-<span style="color: #51afef;">(</span>funcall *foo* 1 2 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>funcall *foo* 1 2 3<span style="color: #c099ff;">)</span>
 7
 </pre>
 </div>
@@ -2707,22 +2480,25 @@ Lisp proporciona una sintaxis para ello.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>a b c<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>+ a <span style="color: #e69055;">(</span>* b c<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>    <span style="color: #62686E;">; Funcion lambda </span>
-                                   <span style="color: #62686E;">; </span>
-  1 2 3<span style="color: #51afef;">)</span>                           <span style="color: #62686E;">; Argumentos</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>a b c<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>+ a <span style="color: #b4f9f8;">(</span>* b c<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>    <span style="color: #7a88cf;">; Funcion lambda </span>
+                                   <span style="color: #7a88cf;">; </span>
+  1 2 3<span style="color: #c099ff;">)</span>                           <span style="color: #7a88cf;">; Argumentos</span>
 
 </pre>
 </div>
 
 
 <p>
-Las funciones anónimas también se pueden almacenar como funciones globales:
+Las funciones anónimas también se pueden almacenar como funciones
+globales:
+\**variable**
 </p>
-<div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">let</span> <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span>a-function <span style="color: #e69055;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #a991f1;">(</span>a b c<span style="color: #a991f1;">)</span> <span style="color: #a991f1;">(</span>+ a <span style="color: #FCCE7B;">(</span>* b c<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>      <span style="color: #62686E;">; funcion anonima </span>
-  <span style="color: #C57BDB;">(</span>setf <span style="color: #7bc275;">(</span>symbol-function 'some-function<span style="color: #7bc275;">)</span> a-function<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>   <span style="color: #62686E;">; se asigna a 'some-function</span>
 
-<span style="color: #51afef;">(</span>some-function 1 2 3<span style="color: #51afef;">)</span>                                   <span style="color: #62686E;">; se llama con el mismo nombre some-funtion</span>
+<div class="org-src-container">
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">let</span> <span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span>a-function <span style="color: #b4f9f8;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #f989d3;">(</span>a b c<span style="color: #f989d3;">)</span> <span style="color: #f989d3;">(</span>+ a <span style="color: #ffc777;">(</span>* b c<span style="color: #ffc777;">)</span><span style="color: #f989d3;">)</span><span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>      <span style="color: #7a88cf;">; funcion anonima </span>
+  <span style="color: #ff995e;">(</span>setf <span style="color: #ff98a4;">(</span>symbol-function 'some-function<span style="color: #ff98a4;">)</span> a-function<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>   <span style="color: #7a88cf;">; se asigna a 'some-function</span>
+
+<span style="color: #c099ff;">(</span>some-function 1 2 3<span style="color: #c099ff;">)</span>                                   <span style="color: #7a88cf;">; se llama con el mismo nombre some-funtion</span>
 
 </pre>
 </div>
@@ -2735,8 +2511,8 @@ no funciona:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>funcall '<span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span> x<span style="color: #C57BDB;">)</span>
-         42<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>funcall '<span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> x<span style="color: #ff995e;">)</span>
+         42<span style="color: #c099ff;">)</span>
 
 </pre>
 </div>
@@ -2747,13 +2523,13 @@ coerce , eval o funcall :
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>coerce '<span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span> x<span style="color: #C57BDB;">)</span> 'function<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>coerce '<span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> x<span style="color: #ff995e;">)</span> 'function<span style="color: #c099ff;">)</span>
 #&lt;anonymous interpreted function 4060000A7C&gt;
 
-<span style="color: #51afef;">(</span>eval '<span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span> x<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>eval '<span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> x<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 #&lt;anonymous interpreted function 4060000B9C&gt;
 
-<span style="color: #51afef;">(</span>compile nil '<span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span> x<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>compile nil '<span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> x<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 #&lt;Function 17 4060000CCC&gt;
 
 </pre>
@@ -2772,47 +2548,47 @@ ilustración. Las variables globales no deberían llamarse foo , sino
 la variable es una variable especial que utiliza el enlace dinámico .
 </p>
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>boundp 'foo<span style="color: #51afef;">)</span> <span style="color: #62686E;">;is FOO defined as a variable?</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>boundp 'foo<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;is FOO defined as a variable?</span>
 NIL
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">foo</span> 7<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">foo</span> 7<span style="color: #c099ff;">)</span>
 FOO
-<span style="color: #51afef;">(</span>boundp 'foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>boundp 'foo<span style="color: #c099ff;">)</span>
 T
 foo
 7
-<span style="color: #51afef;">(</span>symbol-value 'foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>symbol-value 'foo<span style="color: #c099ff;">)</span>
 7
-<span style="color: #51afef;">(</span>fboundp 'foo<span style="color: #51afef;">)</span> <span style="color: #62686E;">;is FOO defined as a function?</span>
+<span style="color: #c099ff;">(</span>fboundp 'foo<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;is FOO defined as a function?</span>
 NIL
- <span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">foo</span> <span style="color: #C57BDB;">(</span>x y<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">(</span>+ <span style="color: #7bc275;">(</span>* x x<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>* y y<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+ <span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">foo</span> <span style="color: #ff995e;">(</span>x y<span style="color: #ff995e;">)</span> <span style="color: #ff995e;">(</span>+ <span style="color: #ff98a4;">(</span>* x x<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>* y y<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 FOO
- <span style="color: #51afef;">(</span>fboundp 'foo<span style="color: #51afef;">)</span>
+ <span style="color: #c099ff;">(</span>fboundp 'foo<span style="color: #c099ff;">)</span>
 T
  foo
 7
-<span style="color: #51afef;">(</span>symbol-function 'foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>symbol-function 'foo<span style="color: #c099ff;">)</span>
 #&lt;FUNCTION FOO&gt;
-<span style="color: #51afef;">(</span>function foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>function foo<span style="color: #c099ff;">)</span>
 #&lt;FUNCTION FOO&gt;
-<span style="color: #51afef;">(</span>equalp <span style="color: #C57BDB;">(</span>quote #'foo<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">(</span>quote <span style="color: #7bc275;">(</span>function foo<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>equalp <span style="color: #ff995e;">(</span>quote #'foo<span style="color: #ff995e;">)</span> <span style="color: #ff995e;">(</span>quote <span style="color: #ff98a4;">(</span>function foo<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 T
-<span style="color: #51afef;">(</span>eq <span style="color: #C57BDB;">(</span>symbol-function 'foo<span style="color: #C57BDB;">)</span> #'foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>eq <span style="color: #ff995e;">(</span>symbol-function 'foo<span style="color: #ff995e;">)</span> #'foo<span style="color: #c099ff;">)</span>
 T
-<span style="color: #51afef;">(</span>foo 4 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>foo 4 3<span style="color: #c099ff;">)</span>
 25
-<span style="color: #51afef;">(</span>funcall foo 4 3<span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">get an error: 7 is not a function</span>
-<span style="color: #51afef;">(</span>funcall #'foo 4 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>funcall foo 4 3<span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">get an error: 7 is not a function</span>
+<span style="color: #c099ff;">(</span>funcall #'foo 4 3<span style="color: #c099ff;">)</span>
 25
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">bar</span> #'foo<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">bar</span> #'foo<span style="color: #c099ff;">)</span>
 BAR
 bar
 #&lt;FUNCTION FOO&gt;
-<span style="color: #51afef;">(</span>funcall bar 4 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>funcall bar 4 3<span style="color: #c099ff;">)</span>
 25
 #'+
 #&lt;FUNCTION +&gt;
-<span style="color: #51afef;">(</span>funcall #'+ 2 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>funcall #'+ 2 3<span style="color: #c099ff;">)</span>
 5
 </pre>
 </div>
@@ -2820,8 +2596,8 @@ bar
 </li>
 
 
-<li><a id="org5b2f470"></a>Funciones de orden superior<br />
-<div class="outline-text-6" id="text-org5b2f470">
+<li><a id="org728fd49"></a>Funciones de orden superior<br />
+<div class="outline-text-7" id="text-org728fd49">
 <p>
 Common Lisp contiene muchas funciones de orden superior que son
 funciones pasadas para los argumentos y las llaman. Tal vez los más
@@ -2829,23 +2605,23 @@ fundamentales sean funcall y de apply :
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>list 1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>funcall #'list 1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>funcall #'list 1 2 3 4 5<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3 4 5<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>apply #'list '<span style="color: #C57BDB;">(</span>1 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>apply #'list 1 2 '<span style="color: #C57BDB;">(</span>4 5<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3 4 5<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>apply #'+ 1 <span style="color: #C57BDB;">(</span>list 2 3<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>list 1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>funcall #'list 1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>funcall #'list 1 2 3 4 5<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3 4 5<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>apply #'list '<span style="color: #ff995e;">(</span>1 2 3<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>apply #'list 1 2 '<span style="color: #ff995e;">(</span>4 5<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3 4 5<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>apply #'+ 1 <span style="color: #ff995e;">(</span>list 2 3<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 6
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">my-funcall</span> <span style="color: #C57BDB;">(</span>function <span style="color: #FCCE7B;">&amp;rest</span> args<span style="color: #C57BDB;">)</span>
-           <span style="color: #C57BDB;">(</span>apply function args<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">my-funcall</span> <span style="color: #ff995e;">(</span>function <span style="color: #ffc777;">&amp;rest</span> args<span style="color: #ff995e;">)</span>
+           <span style="color: #ff995e;">(</span>apply function args<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 MY-FUNCALL
-<span style="color: #51afef;">(</span>my-funcall #'list 1 2 3<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 2 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>my-funcall #'list 1 2 3<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 2 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2855,14 +2631,14 @@ una función muchas veces a los elementos de una lista.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>map 'list #'/ '<span style="color: #C57BDB;">(</span>1 2 3 4<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 1/2 1/3 1/4<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>map 'vector #'+ '<span style="color: #C57BDB;">(</span>1 2 3 4 5<span style="color: #C57BDB;">)</span> #<span style="color: #C57BDB;">(</span>5 4 3 2 10<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-#<span style="color: #51afef;">(</span>6 6 6 6 15<span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>reduce #'+ '<span style="color: #C57BDB;">(</span>1 2 3 4 5<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>map 'list #'/ '<span style="color: #ff995e;">(</span>1 2 3 4<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 1/2 1/3 1/4<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>map 'vector #'+ '<span style="color: #ff995e;">(</span>1 2 3 4 5<span style="color: #ff995e;">)</span> #<span style="color: #ff995e;">(</span>5 4 3 2 10<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+#<span style="color: #c099ff;">(</span>6 6 6 6 15<span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>reduce #'+ '<span style="color: #ff995e;">(</span>1 2 3 4 5<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 15
-<span style="color: #51afef;">(</span>remove-if #'evenp '<span style="color: #C57BDB;">(</span>1 2 3 4 5<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span>1 3 5<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>remove-if #'evenp '<span style="color: #ff995e;">(</span>1 2 3 4 5<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span>1 3 5<span style="color: #c099ff;">)</span>
 
 </pre>
 </div>
@@ -2877,8 +2653,8 @@ los elementos de una lista.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>reduce '+ '<span style="color: #C57BDB;">(</span>1 2 3 4<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;;</span><span style="color: #62686E;">=&gt; 10</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>reduce '+ '<span style="color: #ff995e;">(</span>1 2 3 4<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;;</span><span style="color: #7a88cf;">=&gt; 10</span>
 </pre>
 </div>
 
@@ -2888,7 +2664,7 @@ lo que significa que la suma 10 se calcula como
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>+ <span style="color: #C57BDB;">(</span>+ <span style="color: #7bc275;">(</span>+ 1 2<span style="color: #7bc275;">)</span> 3<span style="color: #C57BDB;">)</span> 4<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>+ <span style="color: #ff995e;">(</span>+ <span style="color: #ff98a4;">(</span>+ 1 2<span style="color: #ff98a4;">)</span> 3<span style="color: #ff995e;">)</span> 4<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2913,8 +2689,8 @@ la suma se computa en el orden inverso. Es decir
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>reduce '+ <span style="color: #C57BDB;">(</span>1 2 3 4<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">:from-end</span> t<span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;;</span><span style="color: #62686E;">=&gt; 10</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>reduce '+ <span style="color: #ff995e;">(</span>1 2 3 4<span style="color: #ff995e;">)</span> <span style="color: #c099ff;">:from-end</span> t<span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;;</span><span style="color: #7a88cf;">=&gt; 10</span>
 </pre>
 </div>
 
@@ -2923,7 +2699,7 @@ está computando
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>+ 1 <span style="color: #C57BDB;">(</span>+ 2 <span style="color: #7bc275;">(</span>+ 3 4<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>+ 1 <span style="color: #ff995e;">(</span>+ 2 <span style="color: #ff98a4;">(</span>+ 3 4<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2935,7 +2711,7 @@ fácilmente usando reducir . Dada una lista como
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>1 2 3<span style="color: #51afef;">)</span> === <span style="color: #51afef;">(</span>cons 1 <span style="color: #C57BDB;">(</span>cons 2 <span style="color: #7bc275;">(</span>cons 3 '<span style="color: #e69055;">()</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>1 2 3<span style="color: #c099ff;">)</span> === <span style="color: #c099ff;">(</span>cons 1 <span style="color: #ff995e;">(</span>cons 2 <span style="color: #ff98a4;">(</span>cons 3 '<span style="color: #b4f9f8;">()</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2944,7 +2720,7 @@ la lista invertida es
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>cons 3 <span style="color: #C57BDB;">(</span>cons 2 <span style="color: #7bc275;">(</span>cons 1 '<span style="color: #e69055;">()</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span> === <span style="color: #51afef;">(</span>3 2 1<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>cons 3 <span style="color: #ff995e;">(</span>cons 2 <span style="color: #ff98a4;">(</span>cons 1 '<span style="color: #b4f9f8;">()</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span> === <span style="color: #c099ff;">(</span>3 2 1<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2954,7 +2730,7 @@ de "contras invertida", digamos xcons , de modo que
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>xcons 1 2<span style="color: #51afef;">)</span> === <span style="color: #51afef;">(</span>2 . 1<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>xcons 1 2<span style="color: #c099ff;">)</span> === <span style="color: #c099ff;">(</span>2 . 1<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2963,7 +2739,7 @@ Entonces
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>xcons <span style="color: #C57BDB;">(</span>xcons <span style="color: #7bc275;">(</span>xcons <span style="color: #e69055;">()</span> 1<span style="color: #7bc275;">)</span> 2<span style="color: #C57BDB;">)</span> 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>xcons <span style="color: #ff995e;">(</span>xcons <span style="color: #ff98a4;">(</span>xcons <span style="color: #b4f9f8;">()</span> 1<span style="color: #ff98a4;">)</span> 2<span style="color: #ff995e;">)</span> 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 
@@ -2972,11 +2748,11 @@ Que es una reducción.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>reduce <span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x y<span style="color: #7bc275;">)</span>
-          <span style="color: #7bc275;">(</span>cons y x<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-        '<span style="color: #C57BDB;">(</span>1 2 3 4<span style="color: #C57BDB;">)</span>
-        <span style="color: #C57BDB;">:initial-value</span> '<span style="color: #C57BDB;">()</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">=&gt; (4 3 2 1)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>reduce <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x y<span style="color: #ff98a4;">)</span>
+          <span style="color: #ff98a4;">(</span>cons y x<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+        '<span style="color: #ff995e;">(</span>1 2 3 4<span style="color: #ff995e;">)</span>
+        <span style="color: #c099ff;">:initial-value</span> '<span style="color: #ff995e;">()</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">=&gt; (4 3 2 1)</span>
 </pre>
 </div>
 
@@ -2988,8 +2764,8 @@ la agrega a alguna cola:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>revappend '<span style="color: #C57BDB;">(</span>3 2 1<span style="color: #C57BDB;">)</span> '<span style="color: #C57BDB;">(</span>4 5 6<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;;</span><span style="color: #62686E;">=&gt; (1 2 3 4 5 6)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>revappend '<span style="color: #ff995e;">(</span>3 2 1<span style="color: #ff995e;">)</span> '<span style="color: #ff995e;">(</span>4 5 6<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;;</span><span style="color: #7a88cf;">=&gt; (1 2 3 4 5 6)</span>
 
 </pre>
 </div>
@@ -3001,11 +2777,11 @@ inicial debería ser (4 5 6) en lugar de la lista vacía.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span>reduce <span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x y<span style="color: #7bc275;">)</span>
-          <span style="color: #7bc275;">(</span>cons y x<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span>
-        '<span style="color: #C57BDB;">(</span>3 2 1<span style="color: #C57BDB;">)</span>
-        <span style="color: #C57BDB;">:initial-value</span> '<span style="color: #C57BDB;">(</span>4 5 6<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #62686E;">;</span><span style="color: #62686E;">=&gt; (1 2 3 4 5 6)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span>reduce <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x y<span style="color: #ff98a4;">)</span>
+          <span style="color: #ff98a4;">(</span>cons y x<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
+        '<span style="color: #ff995e;">(</span>3 2 1<span style="color: #ff995e;">)</span>
+        <span style="color: #c099ff;">:initial-value</span> '<span style="color: #ff995e;">(</span>4 5 6<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">=&gt; (1 2 3 4 5 6)</span>
 </pre>
 </div>
 
@@ -3020,11 +2796,11 @@ definir los cierres.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*counter*</span> <span style="color: #C57BDB;">(</span><span style="color: #51afef;">let</span> <span style="color: #7bc275;">(</span><span style="color: #e69055;">(</span>count 0<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-                    <span style="color: #7bc275;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #e69055;">()</span> <span style="color: #e69055;">(</span>incf count<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">*counter*</span> <span style="color: #ff995e;">(</span><span style="color: #c099ff;">let</span> <span style="color: #ff98a4;">(</span><span style="color: #b4f9f8;">(</span>count 0<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span>
+                    <span style="color: #ff98a4;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #b4f9f8;">()</span> <span style="color: #b4f9f8;">(</span>incf count<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span>funcall *counter*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; 1</span>
-<span style="color: #51afef;">(</span>funcall *counter*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">= 2</span>
+<span style="color: #c099ff;">(</span>funcall *counter*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; 1</span>
+<span style="color: #c099ff;">(</span>funcall *counter*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">= 2</span>
 
 </pre>
 </div>
@@ -3035,13 +2811,13 @@ función anónima. Esto se ve más claramente en el siguiente ejemplo.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*counter-1*</span> <span style="color: #C57BDB;">(</span>make-counter<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defvar</span> <span style="color: #DFDFDF;">*counter-2*</span> <span style="color: #C57BDB;">(</span>make-counter<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">*counter-1*</span> <span style="color: #ff995e;">(</span>make-counter<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defvar</span> <span style="color: #ff98a4;">*counter-2*</span> <span style="color: #ff995e;">(</span>make-counter<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span>funcall *counter-1*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; 1</span>
-<span style="color: #51afef;">(</span>funcall *counter-1*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; 2</span>
-<span style="color: #51afef;">(</span>funcall *counter-2*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; 1</span>
-<span style="color: #51afef;">(</span>funcall *counter-1*<span style="color: #51afef;">)</span> <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; 3</span>
+<span style="color: #c099ff;">(</span>funcall *counter-1*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; 1</span>
+<span style="color: #c099ff;">(</span>funcall *counter-1*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; 2</span>
+<span style="color: #c099ff;">(</span>funcall *counter-2*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; 1</span>
+<span style="color: #c099ff;">(</span>funcall *counter-1*<span style="color: #c099ff;">)</span> <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; 3</span>
 
 </pre>
 </div>
@@ -3051,15 +2827,15 @@ Un ejemplo simple:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">make-apply-twice</span> <span style="color: #C57BDB;">(</span>fun<span style="color: #C57BDB;">)</span>
-           <span style="color: #7e7e87;">"return a new function that applies twice the function`</span><span style="color: #a991f1;">fun</span><span style="color: #7e7e87;">' to its argument"</span>
-           <span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span>
-             <span style="color: #7bc275;">(</span>funcall fun <span style="color: #e69055;">(</span>funcall fun x<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">make-apply-twice</span> <span style="color: #ff995e;">(</span>fun<span style="color: #ff995e;">)</span>
+           <span style="color: #9ba5db;">"return a new function that applies twice the function`</span><span style="color: #ff995e;">fun</span><span style="color: #9ba5db;">' to its argument"</span>
+           <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span>
+             <span style="color: #ff98a4;">(</span>funcall fun <span style="color: #b4f9f8;">(</span>funcall fun x<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span>funcall <span style="color: #C57BDB;">(</span>make-apply-twice #'1+<span style="color: #C57BDB;">)</span> 3<span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span>funcall <span style="color: #ff995e;">(</span>make-apply-twice #'1+<span style="color: #ff995e;">)</span> 3<span style="color: #c099ff;">)</span>
 
-<span style="color: #62686E;">;</span><span style="color: #62686E;">(let ((pow4 (make-apply-twice (lambda (x) (* x x)))))</span>
-<span style="color: #62686E;">;           </span><span style="color: #62686E;">(funcall pow4 3))</span>
+<span style="color: #7a88cf;">;</span><span style="color: #7a88cf;">(let ((pow4 (make-apply-twice (lambda (x) (* x x)))))</span>
+<span style="color: #7a88cf;">;           </span><span style="color: #7a88cf;">(funcall pow4 3))</span>
 
 </pre>
 </div>
@@ -3069,33 +2845,33 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">compose</span> <span style="color: #C57BDB;">(</span><span style="color: #FCCE7B;">&amp;rest</span> funs<span style="color: #C57BDB;">)</span>
-           <span style="color: #7e7e87;">"return a new function obtained by the functional compositions of the parameters"</span>
-           <span style="color: #C57BDB;">(</span><span style="color: #51afef;">if</span> <span style="color: #7bc275;">(</span>null funs<span style="color: #7bc275;">)</span> 
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">compose</span> <span style="color: #ff995e;">(</span><span style="color: #ffc777;">&amp;rest</span> funs<span style="color: #ff995e;">)</span>
+           <span style="color: #9ba5db;">"return a new function obtained by the functional compositions of the parameters"</span>
+           <span style="color: #ff995e;">(</span><span style="color: #c099ff;">if</span> <span style="color: #ff98a4;">(</span>null funs<span style="color: #ff98a4;">)</span> 
                #'identity
-               <span style="color: #7bc275;">(</span><span style="color: #51afef;">let</span> <span style="color: #e69055;">(</span><span style="color: #a991f1;">(</span>rest-funs <span style="color: #FCCE7B;">(</span>apply #'compose <span style="color: #4db5bd;">(</span>rest funs<span style="color: #4db5bd;">)</span><span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span>
-                 <span style="color: #e69055;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #a991f1;">(</span>x<span style="color: #a991f1;">)</span> <span style="color: #a991f1;">(</span>funcall <span style="color: #FCCE7B;">(</span>first funs<span style="color: #FCCE7B;">)</span> <span style="color: #FCCE7B;">(</span>funcall rest-funs x<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+               <span style="color: #ff98a4;">(</span><span style="color: #c099ff;">let</span> <span style="color: #b4f9f8;">(</span><span style="color: #f989d3;">(</span>rest-funs <span style="color: #ffc777;">(</span>apply #'compose <span style="color: #82aaff;">(</span>rest funs<span style="color: #82aaff;">)</span><span style="color: #ffc777;">)</span><span style="color: #f989d3;">)</span><span style="color: #b4f9f8;">)</span>
+                 <span style="color: #b4f9f8;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #f989d3;">(</span>x<span style="color: #f989d3;">)</span> <span style="color: #f989d3;">(</span>funcall <span style="color: #ffc777;">(</span>first funs<span style="color: #ffc777;">)</span> <span style="color: #ffc777;">(</span>funcall rest-funs x<span style="color: #ffc777;">)</span><span style="color: #f989d3;">)</span><span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span><span style="color: #51afef;">defun</span> <span style="color: #5cEfFF;">square</span> <span style="color: #C57BDB;">(</span>x<span style="color: #C57BDB;">)</span> <span style="color: #C57BDB;">(</span>* x x<span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">square</span> <span style="color: #ff995e;">(</span>x<span style="color: #ff995e;">)</span> <span style="color: #ff995e;">(</span>* x x<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
-<span style="color: #51afef;">(</span>funcall <span style="color: #C57BDB;">(</span>compose #'square #'1+ #'square<span style="color: #C57BDB;">)</span> 3<span style="color: #51afef;">)</span>
-100  <span style="color: #62686E;">;; </span><span style="color: #62686E;">=&gt; equivalent to (square (1+ (square 3)))</span>
+<span style="color: #c099ff;">(</span>funcall <span style="color: #ff995e;">(</span>compose #'square #'1+ #'square<span style="color: #ff995e;">)</span> 3<span style="color: #c099ff;">)</span>
+100  <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">=&gt; equivalent to (square (1+ (square 3)))</span>
 
 </pre>
 </div>
 
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span> lambda <span style="color: #C57BDB;">(</span>n<span style="color: #C57BDB;">)</span>
-  <span style="color: #C57BDB;">(</span><span style="color: #7bc275;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #e69055;">(</span>fact<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span>fact fact 1 n<span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span>
-   <span style="color: #7bc275;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #e69055;">(</span>f P n<span style="color: #e69055;">)</span> <span style="color: #e69055;">(</span><span style="color: #51afef;">if</span> <span style="color: #a991f1;">(</span>&lt;= n 1<span style="color: #a991f1;">)</span> P <span style="color: #a991f1;">(</span>f f <span style="color: #FCCE7B;">(</span>* n P<span style="color: #FCCE7B;">)</span> <span style="color: #FCCE7B;">(</span>- n 1<span style="color: #FCCE7B;">)</span><span style="color: #a991f1;">)</span><span style="color: #e69055;">)</span><span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span> lambda <span style="color: #ff995e;">(</span>n<span style="color: #ff995e;">)</span>
+  <span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #b4f9f8;">(</span>fact<span style="color: #b4f9f8;">)</span> <span style="color: #b4f9f8;">(</span>fact fact 1 n<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span>
+   <span style="color: #ff98a4;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #b4f9f8;">(</span>f P n<span style="color: #b4f9f8;">)</span> <span style="color: #b4f9f8;">(</span><span style="color: #c099ff;">if</span> <span style="color: #f989d3;">(</span>&lt;= n 1<span style="color: #f989d3;">)</span> P <span style="color: #f989d3;">(</span>f f <span style="color: #ffc777;">(</span>* n P<span style="color: #ffc777;">)</span> <span style="color: #ffc777;">(</span>- n 1<span style="color: #ffc777;">)</span><span style="color: #f989d3;">)</span><span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 
 
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lisp"><span style="color: #51afef;">(</span><span style="color: #C57BDB;">(</span><span style="color: #51afef;">lambda</span> <span style="color: #7bc275;">(</span>x<span style="color: #7bc275;">)</span> <span style="color: #7bc275;">(</span>* x x<span style="color: #7bc275;">)</span><span style="color: #C57BDB;">)</span> 3<span style="color: #51afef;">)</span>
+<pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>* x x<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span> 3<span style="color: #c099ff;">)</span>
 </pre>
 </div>
 </div>
@@ -3103,11 +2879,11 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 </ul>
 </li>
 </ul>
-</div>
+</li>
 
-<div id="outline-container-org7266187" class="outline-4">
-<h4 id="org7266187">Ejercicios</h4>
-<div class="outline-text-4" id="text-org7266187">
+
+<li><a id="org18bdf68"></a>Ejercicios<br />
+<div class="outline-text-5" id="text-org18bdf68">
 <p>
 (defpackage "EJERCICIOS")
 </p>
@@ -3143,14 +2919,15 @@ El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) 
 ;;
 </p>
 </div>
-</div>
+</li>
+</ul>
 </div>
 </div>
 
 
-<div id="outline-container-org3d6680b" class="outline-2">
-<h2 id="org3d6680b">Prolog</h2>
-<div class="outline-text-2" id="text-org3d6680b">
+<div id="outline-container-orgcb1c18c" class="outline-2">
+<h2 id="orgcb1c18c">Prolog</h2>
+<div class="outline-text-2" id="text-orgcb1c18c">
 <p>
 Una regla sirve para representar conocimiento que en lenguaje natural
  se expresa mediante una sentencia condicional. Por ejemplo, si en
@@ -3170,7 +2947,7 @@ Una regla sirve para representar conocimiento que en lenguaje natural
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"><span style="color: #5cEfFF;">mortal</span><span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span><span style="color: #51afef;">)</span> :- hombre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"><span style="color: #82aaff;">mortal</span><span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span><span style="color: #c099ff;">)</span> :- hombre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3181,7 +2958,7 @@ conjunción se utiliza una coma separando a los predicados del cuerpo:
 una definición de «abuelo» es:
 </p>
 <div class="org-src-container">
-<pre class="src src-prolog"> abuelo<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Z</span><span style="color: #51afef;">)</span>,padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"> abuelo<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Z</span><span style="color: #c099ff;">)</span>,padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3192,7 +2969,7 @@ abuelos paternos. Podemos completarla añadiendo otra regla:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"><span style="color: #5cEfFF;">abuelo</span><span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Z</span><span style="color: #51afef;">)</span>,madre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"><span style="color: #82aaff;">abuelo</span><span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Z</span><span style="color: #c099ff;">)</span>,madre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3204,7 +2981,7 @@ expresarse explícitamente la disyunción mediante «;» :
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"><span style="color: #5cEfFF;">abuelo</span><span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Z</span><span style="color: #51afef;">)</span>,<span style="color: #51afef;">(</span>padre<span style="color: #C57BDB;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">;</span>madre<span style="color: #C57BDB;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #C57BDB;">)</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"><span style="color: #82aaff;">abuelo</span><span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Z</span><span style="color: #c099ff;">)</span>,<span style="color: #c099ff;">(</span>padre<span style="color: #ff995e;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">;</span>madre<span style="color: #ff995e;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3215,9 +2992,9 @@ intermedio, «progenitor» (padre o madre):
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"> progenitor<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.  
- progenitor<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- madre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.  
- abuelo<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- padre<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Z</span><span style="color: #51afef;">)</span>,progenitor<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"> progenitor<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.  
+ progenitor<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- madre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.  
+ abuelo<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- padre<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Z</span><span style="color: #c099ff;">)</span>,progenitor<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3226,8 +3003,8 @@ El cuerpo de la regla puede contener literales negativos. Por ejemplo:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"><span style="color: #5cEfFF;">hermano</span><span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- progenitor<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">X</span><span style="color: #51afef;">)</span>,  
-                 progenitor<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">Z</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>, not <span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>=<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span>.
+<pre class="src src-prolog"><span style="color: #82aaff;">hermano</span><span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- progenitor<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">X</span><span style="color: #c099ff;">)</span>,  
+                 progenitor<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">Z</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>, not <span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>=<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span>.
 </pre>
 </div>
 
@@ -3249,9 +3026,9 @@ interpretación de los predicados y cualquier asignación de x).
 </p>
 </div>
 
-<div id="outline-container-orgd8626d9" class="outline-3">
-<h3 id="orgd8626d9">Corte</h3>
-<div class="outline-text-3" id="text-orgd8626d9">
+<div id="outline-container-org3076a82" class="outline-3">
+<h3 id="org3076a82">Corte</h3>
+<div class="outline-text-3" id="text-org3076a82">
 <p>
 El corte es un predicado predefinido que no recibe argumentos. Se
 representa mediante un signo de admiración (!). Sin duda, es el
@@ -3285,15 +3062,15 @@ predicados que solamente se diferencian en un corte:
 
 
 <div class="org-src-container">
-<pre class="src src-prolog"> <span style="color: #62686E;">% </span><span style="color: #62686E;">Sin corte. </span>
- p<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- <span style="color: #DFDFDF;">X</span> &gt; 15, <span style="color: #DFDFDF;">Y</span> &gt; 50. 
+<pre class="src src-prolog"> <span style="color: #7a88cf;">% </span><span style="color: #7a88cf;">Sin corte. </span>
+ p<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- <span style="color: #ff98a4;">X</span> &gt; 15, <span style="color: #ff98a4;">Y</span> &gt; 50. 
  
- p<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- <span style="color: #DFDFDF;">X</span> &gt; <span style="color: #DFDFDF;">Y</span>, 
+ p<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- <span style="color: #ff98a4;">X</span> &gt; <span style="color: #ff98a4;">Y</span>, 
 
- <span style="color: #62686E;">% </span><span style="color: #62686E;">Con corte.</span>
- q<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- <span style="color: #DFDFDF;">X</span> &gt; 15, <span style="color: #51afef;">!</span>, <span style="color: #DFDFDF;">Y</span> &gt; 50. 
+ <span style="color: #7a88cf;">% </span><span style="color: #7a88cf;">Con corte.</span>
+ q<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- <span style="color: #ff98a4;">X</span> &gt; 15, <span style="color: #c099ff;">!</span>, <span style="color: #ff98a4;">Y</span> &gt; 50. 
  
- q<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">X</span>,<span style="color: #DFDFDF;">Y</span><span style="color: #51afef;">)</span> :- <span style="color: #DFDFDF;">X</span> &gt; <span style="color: #DFDFDF;">Y</span>, 
+ q<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">X</span>,<span style="color: #ff98a4;">Y</span><span style="color: #c099ff;">)</span> :- <span style="color: #ff98a4;">X</span> &gt; <span style="color: #ff98a4;">Y</span>, 
 
 </pre>
 </div>
@@ -3356,9 +3133,9 @@ de Y&gt;15 en la primera cláusula.
 </div>
 
 
-<div id="outline-container-org1cd790f" class="outline-3">
-<h3 id="org1cd790f">Usos del corte</h3>
-<div class="outline-text-3" id="text-org1cd790f">
+<div id="outline-container-org8fc5b27" class="outline-3">
+<h3 id="org8fc5b27">Usos del corte</h3>
+<div class="outline-text-3" id="text-org8fc5b27">
 <p>
 El corte se utiliza muy frecuentemente, cuanto más diestro es el
 programador más lo suele usar. Los motivos por los que se usa el corte
@@ -3386,9 +3163,9 @@ busque otras soluciones aunque sabemos que éstas existen.</li>
 </div>
 </div>
 
-<div id="outline-container-orgba785dd" class="outline-3">
-<h3 id="orgba785dd">Corte y fallo</h3>
-<div class="outline-text-3" id="text-orgba785dd">
+<div id="outline-container-org7375ef2" class="outline-3">
+<h3 id="org7375ef2">Corte y fallo</h3>
+<div class="outline-text-3" id="text-org7375ef2">
 <p>
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
@@ -3398,25 +3175,35 @@ montón de código que al final va a fallar de todas formas.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-prolog"><span style="color: #5cEfFF;">fib</span><span style="color: #51afef;">(</span>0, 1<span style="color: #51afef;">)</span> :- <span style="color: #51afef;">!</span>.
-<span style="color: #5cEfFF;">fib</span><span style="color: #51afef;">(</span>1, 1<span style="color: #51afef;">)</span> :- <span style="color: #51afef;">!</span>.
-<span style="color: #5cEfFF;">fib</span><span style="color: #51afef;">(</span><span style="color: #DFDFDF;">N</span>, <span style="color: #DFDFDF;">F</span><span style="color: #51afef;">)</span> :-
-        <span style="color: #DFDFDF;">N</span> &gt; 1,
-        <span style="color: #DFDFDF;">N1</span> is <span style="color: #DFDFDF;">N</span>-1,
-        <span style="color: #DFDFDF;">N2</span> is <span style="color: #DFDFDF;">N</span>-2,
-        fib<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">N1</span>, <span style="color: #DFDFDF;">F1</span><span style="color: #51afef;">)</span>,
-        fib<span style="color: #51afef;">(</span><span style="color: #DFDFDF;">N2</span>, <span style="color: #DFDFDF;">F2</span><span style="color: #51afef;">)</span>,
-        <span style="color: #DFDFDF;">F</span> is <span style="color: #DFDFDF;">F1</span>+<span style="color: #DFDFDF;">F2</span>.
+<pre class="src src-prolog"><span style="color: #82aaff;">fib</span><span style="color: #c099ff;">(</span>0, 1<span style="color: #c099ff;">)</span> :- <span style="color: #c099ff;">!</span>.
+<span style="color: #82aaff;">fib</span><span style="color: #c099ff;">(</span>1, 1<span style="color: #c099ff;">)</span> :- <span style="color: #c099ff;">!</span>.
+<span style="color: #82aaff;">fib</span><span style="color: #c099ff;">(</span><span style="color: #ff98a4;">N</span>, <span style="color: #ff98a4;">F</span><span style="color: #c099ff;">)</span> :-
+        <span style="color: #ff98a4;">N</span> &gt; 1,
+        <span style="color: #ff98a4;">N1</span> is <span style="color: #ff98a4;">N</span>-1,
+        <span style="color: #ff98a4;">N2</span> is <span style="color: #ff98a4;">N</span>-2,
+        fib<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">N1</span>, <span style="color: #ff98a4;">F1</span><span style="color: #c099ff;">)</span>,
+        fib<span style="color: #c099ff;">(</span><span style="color: #ff98a4;">N2</span>, <span style="color: #ff98a4;">F2</span><span style="color: #c099ff;">)</span>,
+        <span style="color: #ff98a4;">F</span> is <span style="color: #ff98a4;">F1</span>+<span style="color: #ff98a4;">F2</span>.
 </pre>
 </div>
 </div>
 </div>
 </div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+La salida del libro es tacataca
+</p></div></div>
+
+
 </div>
+</div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Eduardo Alcaraz</p>
-<p class="date">Created: 2023-09-20 mié 09:55</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2024-10-02 mié 08:55</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

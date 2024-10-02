@@ -10,8 +10,6 @@
 #+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
 
 * Conceptos Fundamentales
-
-
 ** Diferentes Estilos de Programación 
 
 
@@ -1024,7 +1022,7 @@ programación y se utilizan para representar datos y programas. Su
 flexibilidad y capacidad para anidarse las hacen muy poderosas en la
 programación en Lisp.
 
-***  Cons
+*** Cons
 
 
 La función `cons` se utiliza para crear nuevas listas al agregar un
@@ -1140,6 +1138,37 @@ crear estructuras de datos y manipular listas de manera eficiente.
   : Hola mundo 4
   : (1 2 3 4 4) 
   : NIL 
+
+**** Ejercicios car cdr
+***** Problema 1: Acceder al cuarto elemento de una lista
+  Dada la lista `(a b c d e f g)`, escribe una expresión para devolver el cuarto elemento utilizando solo `car` y `cdr`.
+
+***** Problema 2: Obtener los tres últimos elementos de una lista
+  Dada la lista `(1 2 3 4 5 6)`, utiliza combinaciones de `car` y `cdr` para devolver los tres últimos elementos.
+
+***** Problema 3: Construir una lista a partir de los tres primeros elementos
+  Dada la lista `(a b c d e)`, construye una nueva lista que contenga solo los tres primeros elementos.
+
+***** Problema 4: Eliminar el primer y último elemento de una lista
+  Dada la lista `(x y z w)`, escribe una expresión que elimine el primer y último elemento.
+
+***** Problema 5: Verificar si una lista tiene al menos tres elementos
+  Escribe una función que reciba una lista y verifique si tiene al menos tres elementos usando `car` y `cdr`.
+
+***** Problema 6: Sumar los primeros tres números de una lista
+  Dada la lista `(10 20 30 40)`, utiliza `car` y `cdr` para obtener la suma de los tres primeros números.
+***** Problema 7: Acceder al penúltimo elemento de una lista
+  Dada la lista `(p q r s t)`, escribe una expresión que devuelva el penúltimo elemento.
+***** Problema 8: Crear una lista anidada
+  Dada la lista `(1 2 3)`, usa `cons`, `car`, y `cdr` para crear la lista anidada `((1) (2) (3))`.
+
+***** Problema 9: Fusionar dos listas
+  Dadas las listas `(a b c)` y `(x y z)`, escribe una expresión que las combine en una sola lista `(a b c x y z)` utilizando `cons`, `car`, y `cdr`.
+***** Problema 10: Invertir los dos primeros pares de elementos de una lista
+  Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de la lista, de modo que obtengas `(2 1 4 3 5 6)`.
+
+
+
 
 *** Entradas y salidas 
 
@@ -1307,922 +1336,229 @@ crear estructuras de datos y manipular listas de manera eficiente.
  caracteres y en la conversión de cadenas en objetos Lisp o números
  enteros.
 
-*** Valores de Verdad IF 
-
-  En Lisp, el símbolo t es la representación por default para
-  verdadero. La representación por default de falso es nil . Ambos
-  evaluan a si mismos. Ej.  La función listp regresa verdadero si su
-  argumento es una lista:
-
-  #+BEGIN_SRC lisp :results output
-(listp '(a b c))
-T
-(listp 34)
-Nil
-  #+END_SRC
-
-  Una función cuyo valor de regreseo se intérpreta como un valor de ver-
-  dad (verdadero o falso) se conoce como predicado. En lisp es común que
-  el símbolo de un predicado termine en p .  Como nil juega dos roles en
-  *Lisp*, las funciones *null* (lista vacía) y not (negación) hacen
-  exactamente lo mismo:
 
 
-  #+BEGIN_SRC lisp :results output
-(null nil)
-T
-(not nil)
-T
-  #+END_SRC
-
-  El condicional (estructura de control) más simple en *Lisp* es *if*
-  . Normalmente toma tres argumentos: una expresión test, una expresión
-  then y una expresión *else*. La expresión test es evaluada, si su
-  valor es verdadero, la expresión *then* es evaluada; si su valor es
-  falso, la expresión *else* es evaluada.
-
-  #+BEGIN_SRC lisp
-(if (listp '(a b c d ))
-	(+ 1 2)
-	(+ 3 4)
-)
-  #+END_SRC
-
-  #+RESULTS:
-  : 3
-
-  #+BEGIN_SRC lisp
-(if (listp 23)
-	(+ 1 2)
-	(+ 3 4)
-)
-  #+END_SRC
-
-  #+RESULTS:
-  : 7
-
-  Como *quote*, *if** es un operador especial. No puede implementarse como
-  una función, porque los argumentos de una función siempre se evaluan,
-  y la idea al usar if es que sólo uno de sus argumentos sea evaluado.
-  Si bien el default para representar verdadero es *t* , todo excepto nil
-  cuenta como verdadero en un contexto lógico. Ej.
-
-  #+BEGIN_SRC lisp
-(if 27 1 2)
-  #+END_SRC
-
-  #+RESULTS:
-  : 1
-
-  #+BEGIN_SRC lisp
-(if nil 1 2)
-  #+END_SRC
-
-  #+RESULTS:
-  : 2
-
-  Dado que solo se evalúa una expresión dentro de un *if*, es imposible
-  hacer dos o más cosas separadas dentro de una opción. Sin embargo,
-  para los casos en los que realmente se desea hacer más de una cosa, se
-  puede utilizar un comando especial como el *progn* para insertar
-  comandos adicionales en una sola expresión. Con *progn*, solo se
-  devuelve la última evaluación como el valor de la expresión completa.
+*** Condicionales en Lisp
+En este documento se describen las condicionales más comunes utilizadas en Lisp, con más ejemplos prácticos para =when= y =unless=.
 
 
+- =if= permite evaluar una condición y ejecutar una de dos ramas.
+- =when= evalúa una condición y ejecuta el bloque de código si es verdadera.
+- =unless= evalúa una condición y ejecuta el bloque de código si es falsa.
+- =cond= permite evaluar múltiples condiciones de manera secuencial.
+- =case= compara una expresión con varios valores posibles y ejecuta el bloque correspondiente.
 
-  #+BEGIN_SRC lisp
-(defvar *number-was-odd* nil)
-(if (oddp 5)
-	(progn (setf *number-was-odd* t)
-	   'odd-number)
-	'even-number)
-  #+END_SRC
+**** Condicionales Básicas
+***** if
+La expresión =if= es una de las condicionales más simples en Lisp. Evalúa una condición y ejecuta una de las dos ramas, dependiendo del resultado de esa condición.
 
-*** When Unless 
+#+BEGIN_SRC lisp
+(if condición
+    entonces
+    else)
+#+END_SRC
 
- De igual forma *Lisp* tiene otros comandos que tienen un *progn*
- implícito los más básicos son *when* y *unless*  en el siguiente ejemplo se puede ver la función oddp 
- que evalúa si el numero es par o impar. 
+Ejemplo:
 
- #+BEGIN_SRC lisp
-(defvar *number-is-odd* nil)
+#+BEGIN_SRC lisp
+(if (> 5 3)
+    (print "5 es mayor que 3")
+    (print "Esto no se imprimirá"))
+#+END_SRC
 
-(when (oddp 5)
-  (setf *number-is-odd* t)
-  'odd-number)
+***** when
+La expresión =when= se utiliza cuando solo hay una acción que se desea ejecutar si la condición es verdadera. Si la condición es falsa, no se ejecuta nada.
 
-ODD-NUMBER
+#+BEGIN_SRC lisp
+(when condición
+  entonces)
+#+END_SRC
 
-,*number-is-odd*
-T
+Ejemplo básico:
 
-(unless (oddp 4)
-  (setf *number-is-odd* nil)
-  'even-number)
+#+BEGIN_SRC lisp
+(when (> 5 3)
+  (print "5 es mayor que 3"))
+#+END_SRC
 
-EVEN-NUMBER
+Esto imprimirá =5 es mayor que 3= porque la condición es verdadera. Si no lo fuera, no haría nada.
 
-*number-is-odd*
-NIL
- #+END_SRC
+****** Ejemplo 2: Ejecutando varias expresiones con =when=
+Si quieres ejecutar múltiples expresiones cuando la condición sea verdadera, puedes hacerlo incluyendo más de una expresión dentro de =when=.
 
- Con *when*, todas las expresiones encerradas se evalúan cuando la
- condición es verdad, con *unless* todas las expresiones encerradas se
- evalúan cuando la condición es falsa. La compensación es que estos
- comandos no pueden hacer nada cuando la condición se evalúa de manera
- opuesta; simplemente devuelven cero y no hacen nada.
+#+BEGIN_SRC lisp
+(when (= 10 10)
+  (print "Diez es igual a diez")
+  (print "Este es otro mensaje dentro del when"))
+#+END_SRC
 
-*** Cond
+Esto imprimirá:
 
- La función **cond** en Lisp es un formulario especial utilizado para
- crear estructuras condicionales. No es realmente una función en el
- sentido tradicional, sino más bien una construcción que permite
- evaluar una serie de condiciones y ejecutar una acción asociada a la
- primera condición verdadera. Aquí tienes una descripción detallada de
- cómo funciona **cond**:
+#+BEGIN_EXAMPLE
+Diez es igual a diez
+Este es otro mensaje dentro del when
+#+END_EXAMPLE
 
-  - **cond** comienza con la palabra clave "cond" seguida de una lista
-	de cláusulas.
-  - Cada cláusula consta de dos partes: una expresión de prueba
-	(condición) y una expresión de resultado (acción).
-  - El Lisp evalúa secuencialmente las condiciones en orden, comenzando
-	por la primera cláusula.
-  - Tan pronto como una condición se evalúa como verdadera, se ejecuta
-	la acción asociada a esa cláusula y el `cond` se completa. No se
-	evalúan ni ejecutan las cláusulas restantes.
-  - Si ninguna de las condiciones es verdadera y no hay una cláusula
-	"else" (también conocida como "t" en Lisp), entonces no se realiza
-	ninguna acción.
+****** Ejemplo 3: Usando funciones dentro de =when=
+Puedes utilizar cualquier función dentro de =when=. Aquí hay un ejemplo en el que se verifica si una lista no está vacía antes de aplicar una función.
 
- Un ejemplo simple de **cond** en Lisp sería el siguiente:
+#+BEGIN_SRC lisp
+(setq mi-lista '(1 2 3 4))
+(when mi-lista
+  (print (car mi-lista))  ; Imprime el primer elemento de la lista
+  (print (length mi-lista)))  ; Imprime la longitud de la lista
+#+END_SRC
 
+La salida será:
 
- #+BEGIN_SRC lisp
+#+BEGIN_EXAMPLE
+1
+4
+#+END_EXAMPLE
+
+****** Ejemplo 4: =when= con listas vacías
+Lisp trata las listas vacías como =nil=. En este caso, =when= no ejecutará el bloque de código si la lista está vacía.
+
+#+BEGIN_SRC lisp
+(setq mi-lista '())
+(when mi-lista
+  (print "Esto no se imprimirá porque la lista está vacía"))
+#+END_SRC
+
+Como la lista está vacía, no se imprimirá nada.
+
+***** unless
+La expresión =unless= es lo contrario de =when=. Ejecuta el bloque de código solo si la condición es falsa.
+
+#+BEGIN_SRC lisp
+(unless condición
+  entonces)
+#+END_SRC
+
+Ejemplo básico:
+
+#+BEGIN_SRC lisp
+(unless (< 5 3)
+  (print "5 no es menor que 3"))
+#+END_SRC
+
+Esto imprimirá =5 no es menor que 3= porque la condición es falsa.
+
+****** Ejemplo 2: Ejecutando varias expresiones con =unless=
+Al igual que con =when=, también puedes ejecutar múltiples expresiones dentro de =unless=.
+
+#+BEGIN_SRC lisp
+(unless nil
+  (print "Esto se imprimirá")
+  (print "Este es otro mensaje dentro del unless"))
+#+END_SRC
+
+Esto imprimirá:
+
+#+BEGIN_EXAMPLE
+Esto se imprimirá
+Este es otro mensaje dentro del unless
+#+END_EXAMPLE
+
+****** Ejemplo 3: =unless= con funciones
+Puedes utilizar funciones dentro de =unless= de la misma forma que en =when=.
+
+#+BEGIN_SRC lisp
+(setq mi-lista '())
+(unless mi-lista
+  (print "La lista está vacía")
+  (print "No hay elementos en la lista"))
+#+END_SRC
+
+Esto imprimirá:
+
+#+BEGIN_EXAMPLE
+La lista está vacía
+No hay elementos en la lista
+#+END_EXAMPLE
+
+****** Ejemplo 4: =unless= con comparaciones
+En este ejemplo, se compara si dos valores no son iguales, y si es cierto, ejecuta el bloque de código.
+
+#+BEGIN_SRC lisp
+(setq x 10)
+(unless (= x 5)
+  (print "x no es igual a 5")
+  (print "El valor de x es" x))
+#+END_SRC
+
+La salida será:
+
+#+BEGIN_EXAMPLE
+x no es igual a 5
+El valor de x es 10
+#+END_EXAMPLE
+
+**** Condicionales Anidadas
+Las condicionales =when= y =unless= también pueden anidarse dentro de otras condicionales.
+
+Ejemplo:
+
+#+BEGIN_SRC lisp
+(if (= 5 5)
+    (when (> 5 3)
+      (print "Ambas condiciones son verdaderas"))
+    (unless (> 5 3)
+      (print "Esto no se imprimirá")))
+#+END_SRC
+
+Aquí se imprime =Ambas condiciones son verdaderas=, ya que ambas condiciones dentro de la condicional son ciertas.
+
+**** Condicionales Complejas
+***** cond
+La expresión =cond= se utiliza para evaluar múltiples condiciones. Se puede pensar en =cond= como una cadena de =if=, cada uno con su propia condición y acción.
+
+#+BEGIN_SRC lisp
 (cond
-  ((= x 0) (print "x es igual a 0"))
-  ((> x 0) (print "x es mayor que 0"))
-  ((< x 0) (print "x es menor que 0"))
-  (t (print "Esta es la acción predeterminada")))
- #+END_SRC
+  (condición1 acción1)
+  (condición2 acción2)
+  (t acción-por-defecto))
+#+END_SRC
 
+Ejemplo:
 
-
- En este ejemplo, se evalúan las condiciones en orden y se ejecuta la
- acción asociada a la primera condición verdadera. Si ninguna condición
- es verdadera, se ejecuta la acción en la cláusula "t" (que actúa como
- una acción predeterminada o de último recurso).
-
- **cond** es una herramienta poderosa para controlar el flujo de
- programas en Lisp y se utiliza para implementar estructuras
- condicionales más complejas.
-
-*** Case 
-
- El formulario `case` en Lisp se utiliza para realizar una selección
- múltiple basada en el valor de una expresión. Funciona de manera
- similar a una declaración `switch` en otros lenguajes de
- programación. Aquí tienes una descripción más detallada de cómo
- funciona `case` en Lisp:
-
- La estructura básica de `case` es la siguiente:
-
- 1. **Sintaxis básica** 
- #+BEGIN_SRC lisp
- (case expresión
-     (etiqueta-1 expresión-1)
-     (etiqueta-2 expresión-2)
-     ...
-     (etiqueta-n expresión-n))
- #+END_SRC
-
-	- **expresión** es la expresión cuyo valor se evalúa para determinar
-      qué etiqueta coincide.
-	- Cada *(etiqueta expresión)* es un par que especifica una etiqueta
-      y una expresión asociada. Si la `expresión` coincide con una de
-      las etiquetas, se evaluará y ejecutará la `expresión` asociada.
-
- 2. **Evaluación**:
-	- `case` evalúa la `expresión` una vez y luego compara su valor con
-      las etiquetas en orden.
-	- Cuando una etiqueta coincide con el valor de la `expresión`, se
-      ejecuta la `expresión` asociada y `case` finaliza. Esto significa
-      que solo se ejecutará una de las expresiones asociadas, la
-      correspondiente a la primera etiqueta que coincida.
-
- 3. **Etiquetas y expresiones**:
-	- Cada etiqueta es un valor constante que se compara con el valor
-      de la `expresión` para determinar si hay coincidencia.
-	- Las expresiones asociadas son evaluadas y ejecutadas si su
-      etiqueta coincide con la `expresión`.
-
- 4. **Default**:
-	- Puedes incluir una etiqueta especial llamada `t` o `otherwise`
-      como última opción en `case`. Esto se ejecutará si ninguna de las
-      etiquetas anteriores coincide con la `expresión`. Es similar a un
-      caso "predeterminado" en una declaración `switch`.
-
- 5. **Ejemplo**:
-  
- #+BEGIN_SRC lisp
-(setq dia-de-la-semana 'martes)
-
-   (case dia-de-la-semana
-     (lunes (print "Hoy es lunes."))
-     (martes (print "Hoy es martes."))
-     (miércoles (print "Hoy es miércoles."))
-     (otherwise (print "Día desconocido.")))
-  
- #+END_SRC
-
-   
-	En este ejemplo, se evalúa la variable `dia-de-la-semana`, y se
-	ejecutará la acción correspondiente al valor de la variable (en
-	este caso, imprimirá "Hoy es martes." porque `dia-de-la-semana` es
-	igual a 'martes'). Si no se encuentra una coincidencia, se
-	ejecutará la acción en la cláusula "otherwise".
-
-*** Operadores Lógicos and or  
-
-  Los operadores lógicos *and* y *or* parecen condicionales. Ambos toman
-  cualquier número de argumentos, pero solo evaluan los necesarios
-  para decidir que valor regresar. Si todos los argumentos son
-  verdaderos (diferentes de nil ), entonces and regresa el valor del
-  último argumento. Ej.
-
-
- #+BEGIN_SRC lisp
-(defun ejemplosif(x)
-(unless (<= 2 x 24)
-	(print "Hola")
-	(print "hola2")
-)
-)
-
-(ejemplosif 21 )
-
- #+END_SRC
-
- #+RESULTS:
- : NIL
-
- #+BEGIN_SRC lisp
-(setq var (getreal "\nEnter var: "))
+#+BEGIN_SRC lisp
 (cond
-  ((and (>= var 2) (<= var 24 ))(princ "\nvar is between 2 & 24"))
-  ((and (>= var 26) (<= var 48))(princ "\nvar is between 26 & 48"))
-  ((and (>= var 50) (<= var 96))(princ "\nvar is between 50 & 96"))
-  (T nil)
-  )
+  ((= 5 6) (print "5 es igual a 6"))
+  ((> 5 6) (print "5 es mayor que 6"))
+  (t (print "Ninguna de las anteriores")))
+#+END_SRC
 
- #+END_SRC
+Se imprimirá =Ninguna de las anteriores= porque ambas condiciones anteriores son falsas.
+
+***** case
+La expresión =case= es similar a un "switch" en otros lenguajes de programación. Se utiliza para evaluar una expresión y compararla con una lista de posibles valores.
+
+#+BEGIN_SRC lisp
+(case expresión
+  (valor1 acción1)
+  (valor2 acción2)
+  (t acción-por-defecto))
+#+END_SRC
+
+Ejemplo:
+
+#+BEGIN_SRC lisp
+(case 5
+  (1 (print "Uno"))
+  (5 (print "Cinco"))
+  (t (print "Ninguno de los anteriores")))
+#+END_SRC
+
+Aquí se imprimirá =Cinco= porque la expresión evaluada es igual a 5.
+
+**** Referencias
+Para más información sobre las condicionales en Lisp, se recomienda revisar la documentación oficial o los siguientes recursos:
+- [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Conditionals.html][GNU Emacs Lisp Reference Manual - Condicionales]]
+
 
 
  
-
- (cond
-   ((<= 2 var 24)(DO THIS))
-   ((<= 26 var 48)(DO THIS))
-   ((<= 50 var 96)(DO THIS))
-   (T nil)
-   )
-
-
- #+BEGIN_SRC lisp
-(defvar *arch-enemy* nil)
-
-(defun pudding-eater (person)
-  (cond 
-	((eq person 'henry) 
-	 '(curse you lisp alien – you ate my pudding))
-	((eq person 'johnny) 
-	 '(i hope you choked on my pudding johnny))
-	(t
-	 '(why you eat my pudding stranger ?))
-	)
-)
-
-(pudding-eater 'lalo)
-
- #+END_SRC
-
- #+RESULTS:
- : (WHY YOU EAT MY PUDDING STRANGER ?)
-
- (espada pistol  )
- (espada) (pistola) 
- #+BEGIN_SRC lisp
-
-(defparameter *nodo* '((Zerg
-						(Terreste
-						 (Larva
-						  (Unidad que se crea automáticamente en la colmenta))
-						 (Zergling
-						  (Unidad de ataque cuerpo a cuerpo básica))
-						 (Zángano
-						  (Unidad no ofensiva cuya tarea consiste en la recolección de mineral y Gas Vespeno)) 
-						 (Corruptor
-						  (Unidad de ataque bacteriológicos))
-						 (Plaga Terran
-							(Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg))
-						 (Merodeador
-						  (Es una mutación del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo))
-						 (Ultralisco
-						  (El ultralisco es la unidad más poderosa de la raza Zerg.)))
-						(Aereo
-						 (Superamo
-						  (Unidad de transporte Zerg))
-						 (Mutalisco
-						  (Unidad rápida pero de corto rango de ataque y bajo daño))
-						 (Atormentador
-						  (Unidad pequeña y de rápida producción)))
-						)
-					   (Terran
-						(Terrestres
-						 (Soldado Terran
-							(Los soldados terran son la primera linea de defensa de los planetas terran))
-						 (Tanque de Asedio
-							(Unidad de asalto y defensa mecanizada de ataque terrestre))
-						 (Goliat
-						  (Unidad de apoyo ligera y versatil))
-						 (Buitre
-						  (Unidad ligera y con la habilidad de poner tres minas arañas)))
-						)
-					   (protoss)
-					   )
-)
-
-(car *nodo*)
-
- #+END_SRC
-
-
- #+BEGIN_SRC lisp
-(defparameter *edges* '((living-room (garden west door)
-						 (attic upstairs ladder))
-						(garden (living-room east door))
-						(attic (living-room downstairs ladder))))
-
-(car edges)
-
- #+END_SRC
-
- #+RESULTS:
- | LIVING-ROOM | (GARDEN WEST DOOR) | (ATTIC UPSTAIRS LADDER) |
-
-
- #+BEGIN_SRC lisp 
-(defparameter *nodos* '((zerg
-						 (Terrestres
-						  ()
-						  )
-						 (Aereos)
-						 )
-						(protos)
-						(terran)
-
-
-						))
-
-
-(defparameter *nodo* '((Zerg
-						(Terreste
-						 (Larva
-						  (Unidad que se crea automáticamente en la colmenta))
-						 (Zergling
-						  (Unidad de ataque cuerpo a cuerpo básica))
-						 (Zángano
-						  (Unidad no ofensiva cuya tarea consiste en la recolección de mineral y Gas Vespeno)) 
-						 (Corruptor
-						  (Unidad de ataque bacteriológicos))
-						 (Plaga Terran
-							(Solo se crean en centros de mandos terran previamente infestados por una Reina Zerg))
-						 (Merodeador
-						  (Es una mutación del Hidralisco que solo atacan unidades terrestres tras enterrarse en el suelo))
-						 (Ultralisco
-						  (El ultralisco es la unidad más poderosa de la raza Zerg.)))
-						(Aereo
-						 (Superamo
-						  (Unidad de transporte Zerg))
-						 (Mutalisco
-						  (Unidad rápida pero de corto rango de ataque y bajo daño))
-						 (Atormentador
-						  (Unidad pequeña y de rápida producción)))
-						)
-					   (Terran
-						(Terrestre
-						  (Soldado Terran
-							(Los soldados terran son la primera linea de defensa de los planetas terran))
-						 (Murcielago de Fuego
-							(Unidad equipada con el traje de combate pesado CMC660))
-						 (Medico
-						  (No posse ningun tipo de ataque físico))
-						 (Fantasma
-						  (Inteligencia y espionaje))
-						 )
-						(Aereo
-						 (Espectro
-						  (Unidad Aérea básica))
-						 (Crucero de batalla
-						  (Poderosa unidad de combante))
-						 (Nave de la ciencia
-						  (Unidad aérea de apoyo y especialista con la facultad de detectar unidades enemigas enterradas o invisible))
-						 )
-						)
-					   (protoss
-						(Terrestres
-						 (Sonda
-						  (Recolectan el gas vespeno y el mineral))
-						 (Fanático
-						  (Son la columna vertebral del ejército Protoss))
-						 (Dragoon
-						  (Son parecidos a arañas mecánicas))
-						 )
-						(Aereo
-						 (Observador
-						  (No tiene armamento))
-						 (Lanzadera
-						  (Sirve para transportar unidades))))
-					   ))
-
-;(caar *nodo*)
-(format t "Estas pensando en los   ~a" (car (assoc 'protoss *nodo*)))
-;(setq aux (car (assoc 'protoss *nodo*)))
-;(print aux)
-(assoc 'Aereo (cdr (assoc 'Terran *nodo*)))
-;(assoc 'Terrestres (cdr (assoc 'protoss *nodo*)))
- #+END_SRC
-
- #+RESULTS:
- | AEREO | (ESPECTRO (UNIDAD AÉREA BÁSICA)) | (CRUCERO DE BATALLA (PODEROSA UNIDAD DE COMBANTE)) | (NAVE DE LA CIENCIA (UNIDAD AÉREA DE APOYO Y ESPECIALISTA CON LA FACULTAD DE DETECTAR UNIDADES ENEMIGAS ENTERRADAS O INVISIBLE)) |
- Hola  PROTOSS
- Hola  PROTOSS
-
-
- #+BEGIN_SRC lisp :results output 
-(defparameter *lista*  '(Terran Zerg Protoss ))
-
-(defun recorre(lista)
-(format t "Tu personaje es ~a ~%" (car lista ))
-(setq aux (read))
-(terpri)
-(if (= aux 1 )
-
-(if lista
-(recorre (cdr lista))))
-
-(recorre *lista*)
-;(print (car *lista*))
-;(print (cdr *lista*))
- #+END_SRC
-
- #+RESULTS:
- : Tu personaje es TERRAN 
- : 
- : Tu personaje es ZERG 
- : 
- : Tu personaje es PROTOSS 
- : 
- : Tu personaje es NIL 
- : 
- NIL
- (ZERG PROTOSS)
- TERRAN
- (TERRAN ZERG PROTOSS)
-
-*** Funciones lambda en Lisp 
-
- En el ámbito de la programación, una expresión lambda, también
- denominada función lambda, función literal o función anónima, es una
- subrutina definida que no está enlazada a un identificador. Las
- expresiones lambda a menudo son argumentos que se pasan a funciones de
- orden superior, o se usan para construir el resultado de una función
- de orden superior que necesita devolver una función.​ Si la función
- solo se usa una vez o un número limitado de veces, una expresión
- lambda puede ser sintácticamente más simple que usar una función con
- nombre. Las funciones lambda son muy comunes en los lenguajes de
- programación funcional y en otros lenguajes con funciones de primera
- clase, en los que cumplen el mismo papel para el tipo de función que
- los literales para otros tipos de datos.
-
-
-**** Funciones como valores de primera clase
-
-***** Sintaxis
-  - (nombre de la función) ; recupera la función objeto de ese nombre
-  - #'nombre ; azúcar sintáctica para (nombre de la función)
-  - (símbolo de función de símbolo); devuelve la función vinculada al símbolo
-  - (función funcs args ...); llamar a la función con args
-  - (aplicar la función arglista); Función de llamada con argumentos dados en una lista.
-  - (aplicar la función arg1 arg2 ... argn arglist); Función de llamada con argumentos dados por arg1, arg2, ..., argn y el resto en la lista arglist
-
-
-***** Parámetros 
-
- | Parámetro        | Detalles                                                   |
- |------------------+------------------------------------------------------------|
- | Nombres          | Algún símbolo (no evaluado que nombra una función)         |
- |------------------+------------------------------------------------------------|
- | Símbolo          | Un símbolo                                                 |
- |------------------+------------------------------------------------------------|
- | Función          | Una función que se va llamar                               |
- |------------------+------------------------------------------------------------|
- | arg              | cero o más argumentos (no una lista de argumentos)         |
- |------------------+------------------------------------------------------------|
- | arglista         | Una lista que contiene argumentos para pasar a una función |
- |------------------+------------------------------------------------------------|
- | arg1,arg2,..argn |                                                            |
- |------------------+------------------------------------------------------------|
-
-
-***** Observaciones
-
- Cuando se habla de lenguajes similares a Lisp, existe una distinción
- común entre lo que se conoce como Lisp-1 y Lisp-2. En un Lisp-1, los
- símbolos solo tienen un valor y si un símbolo se refiere a una
- función, entonces el valor de ese símbolo será esa función. En un
- Lisp-2, los símbolos pueden tener valores y funciones asociadas por
- separado, por lo que se requiere una forma especial para referirse a
- la función almacenada en un símbolo en lugar del valor.
-
- Common Lisp es básicamente un Lisp-2, sin embargo, en realidad hay más
- de 2 espacios de nombres (cosas a las que los símbolos pueden
- referirse): los símbolos pueden referirse a valores, funciones, tipos
- y etiquetas, por ejemplo.
-
-
-***** Definiendo funciones anónimas.
-
-Las funciones en Common Lisp son valores de primera clase . Se puede
-crear una función anónima usando lambda . Por ejemplo, aquí hay una
-función de 3 argumentos que luego llamamos usando funcall
-
-#+BEGIN_SRC lisp
-;(defun nombrefuncion(a b c )  ())
-(lambda (a b c) (+ a (* b c)))
-(LAMBDA (A B C)) {10034F484B}>
-(defvar *foo* (lambda (a b c) (+ a (* b c))))
-*FOO*
-(funcall *foo* 1 2 3)
-7
-#+END_SRC
-
-*Funcall*: La función funcall llama a la función proporcionada con argumentos específicos 
-
-Las funciones anónimas también se pueden utilizar directamente. Common
-Lisp proporciona una sintaxis para ello.
-
-#+BEGIN_SRC lisp
-((lambda (a b c) (+ a (* b c)))    ; Funcion lambda 
-                                   ; 
-  1 2 3)                           ; Argumentos
-
-#+END_SRC
-
-
-Las funciones anónimas también se pueden almacenar como funciones
-globales:
-\**variable**
-
-#+BEGIN_SRC lisp
-(let ((a-function (lambda (a b c) (+ a (* b c)))))      ; funcion anonima 
-  (setf (symbol-function 'some-function) a-function))   ; se asigna a 'some-function
-
-(some-function 1 2 3)                                   ; se llama con el mismo nombre some-funtion
-
-#+END_SRC
-
-
-Las expresiones lambda citadas no son funciones. Tenga en cuenta que
-las expresiones lambda citadas no son funciones en Common Lisp. Esto
-no funciona:
-
-#+BEGIN_SRC lisp
-(funcall '(lambda (x) x)
-         42)
-
-#+END_SRC
-
-Para convertir una expresión lambda entrecomillada a una función, use
-coerce , eval o funcall :
-
-#+BEGIN_SRC lisp
-(coerce '(lambda (x) x) 'function)
-#<anonymous interpreted function 4060000A7C>
-
-(eval '(lambda (x) x))
-#<anonymous interpreted function 4060000B9C>
-
-(compile nil '(lambda (x) x))
-#<Function 17 4060000CCC>
-
-#+END_SRC
-
-Haciendo referencia a las funciones existentes Cualquier símbolo en
-Common Lisp tiene una ranura para una variable a vincular y una ranura
-separada para una función a vincular.
-
-Se tiene que tener  en cuenta que la denominación en este ejemplo es solo para
-ilustración. Las variables globales no deberían llamarse foo , sino
-*foo* . La última notación es una convención para dejar en claro que
-la variable es una variable especial que utiliza el enlace dinámico .
-#+BEGIN_SRC lisp
-(boundp 'foo) ;is FOO defined as a variable?
-NIL
-(defvar foo 7)
-FOO
-(boundp 'foo)
-T
-foo
-7
-(symbol-value 'foo)
-7
-(fboundp 'foo) ;is FOO defined as a function?
-NIL
- (defun foo (x y) (+ (* x x) (* y y)))
-FOO
- (fboundp 'foo)
-T
- foo
-7
-(symbol-function 'foo)
-#<FUNCTION FOO>
-(function foo)
-#<FUNCTION FOO>
-(equalp (quote #'foo) (quote (function foo)))
-T
-(eq (symbol-function 'foo) #'foo)
-T
-(foo 4 3)
-25
-(funcall foo 4 3)
-;get an error: 7 is not a function
-(funcall #'foo 4 3)
-25
-(defvar bar #'foo)
-BAR
-bar
-#<FUNCTION FOO>
-(funcall bar 4 3)
-25
-#'+
-#<FUNCTION +>
-(funcall #'+ 2 3)
-5
-#+END_SRC
-
-
-***** Funciones de orden superior
- Common Lisp contiene muchas funciones de orden superior que son
- funciones pasadas para los argumentos y las llaman. Tal vez los más
- fundamentales sean funcall y de apply :
-
- #+BEGIN_SRC lisp
-(list 1 2 3)
-(1 2 3)
-(funcall #'list 1 2 3)
-(1 2 3)
-(funcall #'list 1 2 3 4 5)
-(1 2 3 4 5)
-(apply #'list '(1 2 3))
-(1 2 3)
-(apply #'list 1 2 '(4 5))
-(1 2 3 4 5)
-(apply #'+ 1 (list 2 3))
-6
-(defun my-funcall (function &rest args)
-           (apply function args))
-MY-FUNCALL
-(my-funcall #'list 1 2 3)
-(1 2 3)
- #+END_SRC
-
- Hay muchas otras funciones de orden superior que, por ejemplo, aplican
- una función muchas veces a los elementos de una lista.
-
- #+BEGIN_SRC lisp
-(map 'list #'/ '(1 2 3 4))
-(1 1/2 1/3 1/4)
-(map 'vector #'+ '(1 2 3 4 5) #(5 4 3 2 10))
-#(6 6 6 6 15)
-(reduce #'+ '(1 2 3 4 5))
-15
-(remove-if #'evenp '(1 2 3 4 5))
-(1 3 5)
-
- #+END_SRC
-
- Sumando una lista 
-
- La función de reducción se puede utilizar para sumar
- los elementos de una lista.
-
- #+BEGIN_SRC lisp
-(reduce '+ '(1 2 3 4))
-;;=> 10
- #+END_SRC
-
- Por defecto, reducir realiza una reducción asociativa a la izquierda ,
- lo que significa que la suma 10 se calcula como
-
- #+BEGIN_SRC lisp
-(+ (+ (+ 1 2) 3) 4)
- #+END_SRC
-
- Los primeros dos elementos se suman primero, y luego ese resultado (3)
- se agrega al siguiente elemento (3) para producir 6, que a su vez se
- agrega a 4, para producir el resultado final.
-
- Esto es más seguro que usar aplicar (por ejemplo, en (aplicar '+' (1 2
- 3 4)) porque la longitud de la lista de argumentos que se puede pasar
- a aplicar es limitada (consulte el límite de argumentos de llamadas ),
- y la reducción funcionará Con funciones que solo toman dos argumentos.
-
- Al especificar el argumento de la palabra clave desde el final ,
- reducir procesará la lista en la otra dirección, lo que significa que
- la suma se computa en el orden inverso. Es decir
-
-
- #+BEGIN_SRC lisp
-(reduce '+ (1 2 3 4) :from-end t)
-;;=> 10
- #+END_SRC
-
- está computando
-
- #+BEGIN_SRC lisp
-(+ 1 (+ 2 (+ 3 4)))
- #+END_SRC
-
-
- Implementación de reversa y reventa.  Common Lisp ya tiene una función
- inversa , pero si no lo tenía, entonces podría implementarse
- fácilmente usando reducir . Dada una lista como
-
- #+BEGIN_SRC lisp
-(1 2 3) === (cons 1 (cons 2 (cons 3 '())))
- #+END_SRC
-
- la lista invertida es
-
- #+BEGIN_SRC lisp
-(cons 3 (cons 2 (cons 1 '()))) === (3 2 1)
- #+END_SRC
-
- Puede que no sea un uso obvio de reducir , pero si tenemos una función
- de "contras invertida", digamos xcons , de modo que
-
- #+BEGIN_SRC lisp
-(xcons 1 2) === (2 . 1)
- #+END_SRC
-
- Entonces
-
- #+BEGIN_SRC lisp
-(xcons (xcons (xcons () 1) 2) 3)
- #+END_SRC
-
- Que es una reducción.
-
- #+BEGIN_SRC lisp
-(reduce (lambda (x y)
-          (cons y x))
-        '(1 2 3 4)
-        :initial-value '())
-;=> (4 3 2 1)
- #+END_SRC
-
-
- Common Lisp tiene otra función útil, revappend , que es una
- combinación de reversa y anexa . Conceptualmente, invierte una lista y
- la agrega a alguna cola:
-
- #+BEGIN_SRC lisp
-(revappend '(3 2 1) '(4 5 6))
-;;=> (1 2 3 4 5 6)
-
- #+END_SRC
-
- Esto también se puede implementar con reducir . De hecho, es lo mismo
- que la implementación del reverso anterior, excepto que el valor
- inicial debería ser (4 5 6) en lugar de la lista vacía.
-
- #+BEGIN_SRC lisp
-(reduce (lambda (x y)
-          (cons y x))
-        '(3 2 1)
-        :initial-value '(4 5 6))
-;=> (1 2 3 4 5 6)
- #+END_SRC
-
- Cierres
-
- Las funciones recuerdan el ámbito léxico en el que se
- definieron. Debido a esto, podemos incluir un lambda en un let para
- definir los cierres.
-
- #+BEGIN_SRC lisp
-(defvar *counter* (let ((count 0))
-                    (lambda () (incf count))))
-
-(funcall *counter*) ;; => 1
-(funcall *counter*) ;; = 2
-
- #+END_SRC
-
- En el ejemplo anterior, la variable de contador solo es accesible a la
- función anónima. Esto se ve más claramente en el siguiente ejemplo.
-
- #+BEGIN_SRC lisp
-(defvar *counter-1* (make-counter))
-(defvar *counter-2* (make-counter))
-
-(funcall *counter-1*) ;; => 1
-(funcall *counter-1*) ;; => 2
-(funcall *counter-2*) ;; => 1
-(funcall *counter-1*) ;; => 3
-
- #+END_SRC
- Definiendo funciones que toman funciones y devuelven funciones.
- Un ejemplo simple:
-
- #+BEGIN_SRC lisp
-(defun make-apply-twice (fun)
-           "return a new function that applies twice the function`fun' to its argument"
-           (lambda (x)
-             (funcall fun (funcall fun x))))
-
-(funcall (make-apply-twice #'1+) 3)
-
-;(let ((pow4 (make-apply-twice (lambda (x) (* x x)))))
-;           (funcall pow4 3))
-
- #+END_SRC
-
- #+RESULTS:
- : 5
-
- El ejemplo clásico de la composición de la función : ( f ∘ g ∘ h ) ( x ) = f ( g ( h ( x )):
-
- #+BEGIN_SRC lisp
-(defun compose (&rest funs)
-           "return a new function obtained by the functional compositions of the parameters"
-           (if (null funs) 
-               #'identity
-               (let ((rest-funs (apply #'compose (rest funs))))
-                 (lambda (x) (funcall (first funs) (funcall rest-funs x))))))
-
-(defun square (x) (* x x))
-
-(funcall (compose #'square #'1+ #'square) 3)
-100  ;; => equivalent to (square (1+ (square 3)))
-
- #+END_SRC
-
-
- #+BEGIN_SRC lisp
-( lambda (n)
-  ((lambda (fact) (fact fact 1 n))
-   (lambda (f P n) (if (<= n 1) P (f f (* n P) (- n 1))))))
-
-
- #+END_SRC
-
- #+RESULTS:
- : #<FUNCTION (LAMBDA (N)) {52B8D55B}>
-
- #+BEGIN_SRC lisp
-((lambda (x) (* x x)) 3)
- #+END_SRC
-
- #+RESULTS:
- : 9
-
-
-
-*** Ejercicios 
-
- (defpackage "EJERCICIOS")
-
- ;;1.1 Definir una función que calcule el valor de:
- ;; F = 1/ sqrt (a*2 + b*2 + c)
-
-
- ;;1.2 Definir una función que devuelva la longitud de una
- ;;circunferencia, dando como parámetro el radio R de la misma
-
-
- ;;1.3 Definir una función que pase de grados centígrados a grados
- ;;Fahrenheit, sabiendo que: F = (C + 40) x 1.8 - 40
-
- ;;1.4 Definir una función que, dados tres argumentos numéricos,
- ;;devuelva cuál es el mediano, utilizando MAX y MIN.
-
- ;;1.5 Definir un predicado que dados A, B y C como argumentos devuelva
- ;;    T si B2 - 4AC es menor que cero.
-
- ;;
-
-
 * Prolog
 
 Una regla sirve para representar conocimiento que en lenguaje natural
