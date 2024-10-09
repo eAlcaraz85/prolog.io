@@ -1558,7 +1558,517 @@ Para más información sobre las condicionales en Lisp, se recomienda revisar la
 
 
 
- 
+
+***  Listas de Asociación en Lisp
+Las **listas de asociación** en **Lisp** permiten asociar claves con
+valores. Cada clave está emparejada con un valor en una lista. A
+continuación, te muestro cómo crear, modificar, y acceder a estas
+listas.
+
+**Concepto de listas de asociación**
+
+Una **lista de asociación** es una lista donde cada elemento es un par clave-valor, representado por una lista de dos elementos. Por ejemplo:
+
+#+BEGIN_SRC lisp
+(setq mi-alist '((nombre . "Juan")
+                 (edad . 30)
+                 (ciudad . "Madrid")))
+#+END_SRC
+
+Esta lista tiene:
+- `nombre` asociado a `"Juan"`
+- `edad` asociado a `30`
+- `ciudad` asociado a `"Madrid"`
+
+**Operaciones básicas**
+
+**** 1. Acceder a un valor ***
+Para obtener el valor asociado a una clave, se utiliza la función `assoc`:
+
+#+BEGIN_SRC lisp
+(assoc 'nombre mi-alist)
+#+END_SRC
+
+Esto devolverá el par `(nombre . "Juan")`. Para obtener solo el valor, usa `cdr`:
+
+#+BEGIN_SRC lisp
+(cdr (assoc 'nombre mi-alist))
+#+END_SRC
+
+Resultado: `"Juan"`
+
+**** 2. Agregar un nuevo par clave-valor ***
+Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
+
+#+BEGIN_SRC lisp
+(setq mi-alist (cons '(pais . "España") mi-alist))
+#+END_SRC
+
+Ahora `mi-alist` incluirá `(pais . "España")`.
+
+**** 3. Modificar un valor existente ***
+Para modificar el valor de una clave existente, primero eliminas el par antiguo y luego agregas el nuevo:
+
+#+BEGIN_SRC lisp
+(setq mi-alist (cons '(edad . 31) (assq-delete-all 'edad mi-alist)))
+#+END_SRC
+
+Esto actualiza el valor de `edad` a `31`.
+
+**** 4. Eliminar un par clave-valor ***
+Para eliminar un par clave-valor por su clave, usa `assq-delete-all`:
+
+#+BEGIN_SRC lisp
+(setq mi-alist (assq-delete-all 'ciudad mi-alist))
+#+END_SRC
+
+Esto elimina el par `(ciudad . "Madrid")` de la lista.
+
+**Ejemplo completo**
+
+
+#+BEGIN_SRC lisp
+;; Definir una lista de asociación
+(setq mi-alist '((nombre . "Juan")
+                 (edad . 30)y
+                 (ciudad . "Madrid")))
+
+;; Acceder a un valor
+(format t "Nombre: ~a~%" (cdr (assoc 'nombre mi-alist)))
+
+;; Agregar un nuevo par
+(setq mi-alist (cons '(pais . "España") mi-alist))
+
+;; Modificar un valor existente
+(setq mi-alist (cons '(edad . 31) (assq-delete-all 'edad mi-alist)))
+
+;; Eliminar un par
+(setq mi-alist (assq-delete-all 'ciudad mi-alist))
+
+;; Imprimir la lista completa
+(format t "Lista de asociación: ~a~%" mi-alist)
+#+END_SRC
+
+
+*** Manual del Casi-Quoting en Lisp
+
+**** Introducción
+El **casi-quoting** (*backquote*) es una herramienta poderosa en Lisp
+para crear listas que contienen tanto valores literales como valores
+evaluados. A diferencia de `quote`, que previene la evaluación
+completa de una lista, el **backquote** te permite evaluar partes
+específicas de la lista usando comas (`,`).
+
+**** 1. Operador `quote`
+El operador `quote` (`'`) en Lisp previene la evaluación de una expresión. Si citas una lista, ésta se trata como literal:
+
+#+BEGIN_SRC lisp
+'(a b c)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(a b c)
+#+END_EXAMPLE
+
+**** 2. Operador `backquote`
+El **backquote** (o *casi-quoting*) es similar a `quote`, pero permite que algunas partes de la lista sean evaluadas. El operador es el símbolo de acento grave (**`**):
+
+#+BEGIN_SRC lisp
+`(a b c)
+#+END_SRC
+
+Este código produce el mismo resultado que `quote`, es decir:
+
+#+BEGIN_EXAMPLE
+(a b c)
+#+END_EXAMPLE
+
+La ventaja del `backquote` es que puedes usar comas (`,`) para evaluar partes específicas de la lista.
+
+**** 3. Evaluación con la coma (`,`)
+Dentro de una lista creada con *backquote*, cualquier parte de la lista precedida por una coma (`,`) se evalúa, mientras que el resto permanece literal.
+
+#+BEGIN_SRC lisp
+(setq x 10)
+`(a b ,x)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(a b 10)
+#+END_EXAMPLE
+
+Aquí, la variable `x` se evaluó y su valor, `10`, se insertó en la lista.
+
+**** 4. Expansión de listas con `,@`
+Cuando necesitas insertar los elementos de una lista en lugar de la lista completa como un elemento único, puedes usar `,@` (coma seguido de arroba). Esto "expande" la lista y la inserta en la lista resultante.
+
+#+BEGIN_SRC lisp
+(setq lst '(1 2 3))
+`(a b ,@lst)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(a b 1 2 3)
+#+END_EXAMPLE
+
+En este caso, los elementos de `lst` se expanden e insertan en la lista final.
+
+**** 5. Combinación de `backquote`, `,` y `,@`
+Puedes combinar `backquote`, `,` y `,@` para crear listas más complejas que mezclan datos literales y resultados evaluados.
+
+#+BEGIN_SRC lisp
+(setq x 10)
+(setq lst '(1 2 3))
+`(valores: ,x lista: ,@lst)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(valores: 10 lista: 1 2 3)
+#+END_EXAMPLE
+
+En este ejemplo:
+- `,x` inserta el valor de `x`.
+- `,@lst` expande los elementos de `lst`.
+
+**** 6. Ejemplos adicionales
+
+***** Ejemplo 1: Combinando literales y evaluaciones
+#+BEGIN_SRC lisp
+(setq a 5)
+(setq b 10)
+`(suma ,(+ a b) lista (1 2 ,(+ 3 4)))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(suma 15 lista (1 2 7))
+#+END_EXAMPLE
+
+***** Ejemplo 2: Insertando múltiples listas
+#+BEGIN_SRC lisp
+(setq l1 '(a b c))
+(setq l2 '(x y z))
+`(primera lista: ,@l1 segunda lista: ,@l2)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(primera lista: a b c segunda lista: x y z)
+#+END_EXAMPLE
+
+
+**** 8. Ejemplo completo
+
+#+BEGIN_SRC lisp
+(setq x 20)
+(setq nums '(1 2 3))
+(setq palabra "hola")
+
+`(el valor de x es ,x y la lista es ,@nums, con una palabra ,palabra)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(el valor de x es 20 y la lista es 1 2 3 con una palabra hola)
+#+END_EXAMPLE
+
+
+- **`quote`** (`'`): Cita una lista, evitando su evaluación.
+- **`backquote`** (**`**): Crea una lista que puede tener partes evaluadas.
+- **`,`**: Evalúa una expresión dentro de una lista con *backquote*.
+- **`,@`**: Expande el contenido de una lista dentro de otra lista.
+
+*** `mapcar` en Lisp
+
+**** Introducción
+La función `mapcar` en Lisp se utiliza para aplicar una función a cada
+elemento de una o más listas, devolviendo una nueva lista con los
+resultados de esas aplicaciones. Es una de las funciones más útiles
+para procesar listas en Lisp, ya que permite transformar listas de
+manera sencilla.
+
+**** Sintaxis básica de `mapcar`
+La sintaxis básica de `mapcar` es la siguiente:
+
+#+BEGIN_SRC lisp
+(mapcar función lista)
+#+END_SRC
+
+- **función**: Es una función que se aplicará a cada elemento de la lista.
+- **lista**: Es la lista a la que se aplicará la función.
+
+**** Ejemplos básicos
+
+***** Ejemplo 1: Aplicando una función a una lista
+Vamos a aplicar la función `1+` (que suma 1) a cada elemento de una lista de números:
+
+#+BEGIN_SRC lisp
+(mapcar #'1+ '(1 2 3 4 5))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(2 3 4 5 6)
+#+END_EXAMPLE
+
+Aquí, `mapcar` ha aplicado la función `1+` a cada número en la lista, incrementando cada uno en 1.
+
+***** Ejemplo 2: Usando una función lambda
+También puedes usar funciones anónimas (lambda) con `mapcar`. En este ejemplo, multiplicamos cada número de una lista por 2:
+
+#+BEGIN_SRC lisp
+(mapcar (lambda (x) (* x 2)) '(1 2 3 4 5))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(2 4 6 8 10)
+#+END_EXAMPLE
+
+***** Ejemplo 3: Aplicando una función a varias listas
+`mapcar` también puede operar sobre varias listas. La función debe tomar tantos argumentos como listas haya:
+
+#+BEGIN_SRC lisp
+(mapcar #'+ '(1 2 3) '(4 5 6))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(5 7 9)
+#+END_EXAMPLE
+
+Aquí, `mapcar` ha sumado los elementos correspondientes de las dos listas.
+
+**** Ejemplos 
+
+***** Ejemplo 4: Filtrando listas con `mapcar`
+Aunque `mapcar` no está diseñado específicamente para filtrar listas,
+podemos usarlo junto con una función condicional para obtener un
+efecto de filtrado. Por ejemplo, si queremos obtener solo los números
+pares de una lista, podríamos hacer lo siguiente:
+
+#+BEGIN_SRC lisp
+(mapcar (lambda (x) (if (evenp x) x nil)) '(1 2 3 4 5 6))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(nil 2 nil 4 nil 6)
+#+END_EXAMPLE
+
+Esto devolverá `nil` para los números impares y los números pares sin cambios.
+
+***** Ejemplo 5: Transformando listas de listas
+`mapcar` también es útil para trabajar con listas de listas. Por ejemplo, si queremos sumar los elementos de sublistas:
+
+#+BEGIN_SRC lisp
+(mapcar (lambda (lst) (apply #'+ lst)) '((1 2 3) (4 5 6) (7 8 9)))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(6 15 24)
+#+END_EXAMPLE
+
+Aquí, hemos sumado los elementos de cada sublista.
+
+***** Ejemplo 6: Trabajando con cadenas de texto
+`mapcar` no está limitado solo a números. También puede aplicarse a listas de caracteres o cadenas de texto:
+
+#+BEGIN_SRC lisp
+(mapcar #'char-upcase '("a" "b" "c" "d"))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+("A" "B" "C" "D")
+#+END_EXAMPLE
+
+Este ejemplo convierte cada letra en mayúscula.
+
+- `mapcar` es una función poderosa en Lisp para aplicar una función a cada elemento de una o más listas.
+- Puedes usar funciones predefinidas, como `1+` o `+`, o funciones anónimas (lambda).
+- Se puede aplicar a listas de números, cadenas de texto, o incluso listas de listas.
+
+
+#+BEGIN_SRC lisp
+;; Definimos una lista de números
+(setq numeros '(1 2 3 4 5 6 7 8 9 10))
+
+;; Usamos mapcar para obtener los números pares multiplicados por 2
+(mapcar (lambda (x) (if (evenp x) (* x 2) nil)) numeros)
+
+;; Aplicamos mapcar para sumar los elementos de dos listas
+(mapcar #'+ '(1 2 3) '(4 5 6))
+
+;; Aplicamos mapcar para convertir letras minúsculas a mayúsculas
+(mapcar #'char-upcase '("a" "b" "c" "d"))
+#+END_SRC
+
+
+*** Funciones lambda en Lisp
+
+**** Introducción
+En **Lisp**, las **funciones lambda** son funciones anónimas que
+puedes definir sin necesidad de darles un nombre. Son útiles cuando
+necesitas una función pequeña y no quieres definirla por
+separado. Estas funciones pueden ser pasadas como argumentos a otras
+funciones, utilizadas en listas de procesamiento, o empleadas en
+lugares donde una función completa sería innecesaria.
+
+**** Definición básica de una función lambda
+La sintaxis básica de una función lambda es la siguiente:
+
+#+BEGIN_SRC lisp
+(lambda (parametros) cuerpo)
+#+END_SRC
+
+- **parametros**: Una lista de parámetros que la función recibirá.
+- **cuerpo**: Las expresiones que se evaluarán cuando se invoque la función.
+
+Ejemplo básico:
+
+#+BEGIN_SRC lisp
+(lambda (x) (* x 2))
+#+END_SRC
+
+Esta es una función lambda que toma un número `x` y devuelve `x` multiplicado por 2.
+
+**** Ejemplos de uso de lambdas
+
+***** Ejemplo 1: Usando lambdas con `mapcar`
+Puedes usar una función lambda directamente en llamadas a funciones como `mapcar`, donde necesitas aplicar una operación a cada elemento de una lista. 
+
+#+BEGIN_SRC lisp
+(mapcar (lambda (x) (* x 2)) '(1 2 3 4 5))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(2 4 6 8 10)
+#+END_EXAMPLE
+
+En este caso, la función lambda toma cada elemento de la lista `(1 2 3 4 5)` y lo multiplica por 2.
+
+***** Ejemplo 2: Usando lambdas con `reduce`
+También puedes usar lambdas en combinación con otras funciones de orden superior como `reduce`. Por ejemplo, para sumar todos los elementos de una lista:
+
+#+BEGIN_SRC lisp
+(reduce (lambda (x y) (+ x y)) '(1 2 3 4 5))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+15
+#+END_EXAMPLE
+
+Aquí, la lambda toma dos elementos, los suma, y luego pasa el resultado para la siguiente suma.
+
+***** Ejemplo 3: Lambdas dentro de una función
+Las funciones lambda también pueden ser utilizadas dentro de otras funciones para definir comportamientos específicos:
+
+#+BEGIN_SRC lisp
+(defun aplicar-operacion (operacion lista)
+  (mapcar operacion lista))
+
+(aplicar-operacion (lambda (x) (* x x)) '(1 2 3 4))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(1 4 9 16)
+#+END_EXAMPLE
+
+Aquí, la función `aplicar-operacion` toma una lambda que eleva cada número al cuadrado y la aplica a la lista.
+
+**** Ámbito de las lambdas
+Las lambdas pueden acceder a variables que están en su entorno de definición. Esto es conocido como **alcance léxico**.
+
+***** Ejemplo 4: Usando una variable externa en una lambda
+#+BEGIN_SRC lisp
+(let ((factor 3))
+  (mapcar (lambda (x) (* x factor)) '(1 2 3 4 5)))
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+(3 6 9 12 15)
+#+END_EXAMPLE
+
+En este caso, la variable `factor` está definida en el entorno léxico donde se declara la lambda, y la lambda puede acceder a ella.
+
+**** Lambdas como valores de retorno
+Las funciones lambda también pueden ser retornadas desde otras funciones, lo que permite construir funciones dinámicamente.
+
+***** Ejemplo 5: Retornar una lambda desde una función
+#+BEGIN_SRC lisp
+(defun multiplicador (n)
+  (lambda (x) (* x n)))
+
+(setq duplicar (multiplicador 2))
+(funcall duplicar 10)
+#+END_SRC
+
+Resultado:
+
+#+BEGIN_EXAMPLE
+20
+#+END_EXAMPLE
+
+Aquí, la función `multiplicador` devuelve una lambda que multiplica por `n`. En el ejemplo, `duplicar` es una función que multiplica por 2, y al llamar `funcall` con `duplicar` y `10`, obtenemos `20`.
+
+**** Usos comunes de lambdas
+Las funciones lambda son extremadamente útiles en situaciones donde necesitas funciones temporales o pequeñas que no ameritan una definición completa. Algunas aplicaciones comunes son:
+
+- En procesamiento de listas (`mapcar`, `reduce`, etc.).
+- Para definir funciones rápidas que solo se usan en una parte del código.
+- Para generar funciones dinámicamente, como vimos en el ejemplo de `multiplicador`.
+
+**** Ejemplos
+
+#+BEGIN_SRC lisp
+;; Usando lambda con mapcar para elevar números al cubo
+(mapcar (lambda (x) (* x x x)) '(1 2 3 4 5))
+
+;; Usando lambda con reduce para multiplicar todos los elementos
+(reduce (lambda (x y) (* x y)) '(1 2 3 4 5))
+
+;; Usando lambda dentro de una función personalizada
+(defun aplicar-operacion (operacion lista)
+  (mapcar operacion lista))
+
+(aplicar-operacion (lambda (x) (+ x 10)) '(1 2 3 4 5))
+
+;; Retornando una lambda desde una función
+(defun multiplicador (n)
+  (lambda (x) (* x n)))
+
+(setq triplicar (multiplicador 3))
+(funcall triplicar 10)
+#+END_SRC
+
+
 * Prolog
 
 Una regla sirve para representar conocimiento que en lenguaje natural
