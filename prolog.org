@@ -15,75 +15,75 @@
 
 *** Estilos de Programación 
   
-  (también llamados estándares de código o convención de código) es un
-  término que describe convenciones para escribir código fuente en
-  ciertos lenguajes de programación. El estilo de programación es
-  frecuentemente dependiente del lenguaje de programación que se haya
-  elegido para escribir. Por ejemplo el estilo del lenguaje de
-  Programación C variará con respecto al del lenguaje BASIC. [fn:1]
+(también llamados estándares de código o convención de código) es un
+término que describe convenciones para escribir código fuente en
+ciertos lenguajes de programación. El estilo de programación es
+frecuentemente dependiente del lenguaje de programación que se haya
+elegido para escribir. Por ejemplo el estilo del lenguaje de
+Programación C variará con respecto al del lenguaje BASIC. [fn:1]
 
 [fn:1] La salida del libro es tacataca
 
 
 *** Características del Estilo
 
- Una pieza clave para un buen estilo es la elección apropiada de
- nombres de variable. Variables pobremente nombradas dificultan la
- lectura del código fuente y su comprensión.
+na pieza clave para un buen estilo es la elección apropiada de
+ombres de variable. Variables pobremente nombradas dificultan la
+ectura del código fuente y su comprensión.
 
- Como ejemplo, considérese el siguiente extracto de pseudocódigo:
+omo ejemplo, considérese el siguiente extracto de pseudocódigo:
 
- #+BEGIN_SRC C
-get a b c 
-if a < 24 and b < 60 and c < 60
-  return true
-else
-  return false
- #+END_SRC
- 
- Debido a la elección de nombres de variable, es difícil darse cuenta
- de la función del código. Compárese ahora con la siguiente versión:
++BEGIN_SRC C
+t a b c 
+ a < 24 and b < 60 and c < 60
+return true
+se
+return false
++END_SRC
+
+ebido a la elección de nombres de variable, es difícil darse cuenta
+e la función del código. Compárese ahora con la siguiente versión:
 
 
-  #+BEGIN_SRC C
- get horas minutos segundos 
- if horas < 24 and minutos < 60 and segundos < 60
-   return true
- else
-   return false
-  #+END_SRC
+#+BEGIN_SRC C
+et horas minutos segundos 
+f horas < 24 and minutos < 60 and segundos < 60
+ return true
+lse
+ return false
+#+END_SRC
 
-  La intención el código es ahora más sencilla de discernir, "dado una
-  hora en 24 horas, se devolverá true si es válida y false si no".
+La intención el código es ahora más sencilla de discernir, "dado una
+hora en 24 horas, se devolverá true si es válida y false si no".
 
 
 *** Nombres de Variable Apropiadas.
- Una piedra clave para un buen estilo es la elección apropiada de
- nombres de variable. Variables pobremente nombradas dificultan la
- lectura del código fuente y su comprensión.  y Como ejemplo,
- considérese el siguiente extracto de pseudocódigo:
+Una piedra clave para un buen estilo es la elección apropiada de
+nombres de variable. Variables pobremente nombradas dificultan la
+lectura del código fuente y su comprensión.  y Como ejemplo,
+considérese el siguiente extracto de pseudocódigo:
 
-  #+BEGIN_SRC C
-get a b c
-if a < 24 and b < 60 and c < 60
+ #+BEGIN_SRC C
+et a b c
+f a < 24 and b < 60 and c < 60
+ return true
+lse
+ return false
+ #+END_SRC
+
+Debido a la elección de nombres de variable, es difícil darse cuenta
+de la función del código. Compárese ahora con la siguiente versión:
+
+#+BEGIN_SRC C
+get horas minutos segundos 
+if horas < 24 and minutos < 60 and segundos < 60
   return true
 else
   return false
-  #+END_SRC
+#+END_SRC
 
- Debido a la elección de nombres de variable, es difícil darse cuenta
- de la función del código. Compárese ahora con la siguiente versión:
-
-  #+BEGIN_SRC C
- get horas minutos segundos 
- if horas < 24 and minutos < 60 and segundos < 60
-   return true
- else
-   return false
-  #+END_SRC
-
- La intención el código es ahora más sencilla de discernir, "dado una
- hora en 24 horas, se devolverá true si es válida y false si no".
+La intención el código es ahora más sencilla de discernir, "dado una
+hora en 24 horas, se devolverá true si es válida y false si no".
 
 *** Estilo de indentación
 
@@ -604,7 +604,7 @@ clisp
 
 
 ** Programación en Lisp
-*** Expresiones
+** Expresiones
 
  Es particularmente cierto que la mejor forma de aprender Lisp es
  usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -801,7 +801,7 @@ eval
 eval
  #+END_SRC
 
-*** Datos
+** Datos
 
  Lisp ofrece los tipos de datos que podemos encontrar en otros
  lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -855,7 +855,7 @@ uno
 ((+ 2 3) 5)
  #+END_SRC
 
-*** Evaluación
+** Evaluación
 
 	 Veamos más en detalle como las expresiones son evaluadas para
 	 desplegar su valor en el top-level. En Lisp, + es una función y (+
@@ -899,7 +899,7 @@ uno
 	 expresión sea evaluada. En la siguiente sección veremos porque esta
 	 protección puede ser útil.
 
-*** Funciones en Lisp
+** Funciones en Lisp
  Es posible definir nuevas funciones con defun que toma normalmente tres
  argumentos: un nombre, una lista de parámetros y una o más expresiones
  que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
@@ -956,7 +956,7 @@ C
  pieza, conforme los vamos escribiendo, lo que se conoce como programación
  incremental (bottom-up).
 
-*** Listas
+** Listas
 
 En Lisp, las listas son una estructura de datos fundamental y
 versátil. Se utilizan para almacenar una secuencia de elementos, que
@@ -1022,7 +1022,7 @@ programación y se utilizan para representar datos y programas. Su
 flexibilidad y capacidad para anidarse las hacen muy poderosas en la
 programación en Lisp.
 
-*** Cons
+** Cons
 
 
 La función `cons` se utiliza para crear nuevas listas al agregar un
@@ -1063,7 +1063,7 @@ crear estructuras de datos y manipular listas de manera eficiente.
 
 
 
-*** Funciones CAR y CDR
+** Funciones CAR y CDR
 
 
   CAR admite un único argumento que debe ser una lista o una expresión
@@ -1139,38 +1139,38 @@ crear estructuras de datos y manipular listas de manera eficiente.
   : (1 2 3 4 4) 
   : NIL 
 
-**** Ejercicios car cdr
-***** Problema 1: Acceder al cuarto elemento de una lista
+*** Ejercicios car cdr
+**** Problema 1: Acceder al cuarto elemento de una lista
   Dada la lista `(a b c d e f g)`, escribe una expresión para devolver el cuarto elemento utilizando solo `car` y `cdr`.
 
-***** Problema 2: Obtener los tres últimos elementos de una lista
+**** Problema 2: Obtener los tres últimos elementos de una lista
   Dada la lista `(1 2 3 4 5 6)`, utiliza combinaciones de `car` y `cdr` para devolver los tres últimos elementos.
 
-***** Problema 3: Construir una lista a partir de los tres primeros elementos
+**** Problema 3: Construir una lista a partir de los tres primeros elementos
   Dada la lista `(a b c d e)`, construye una nueva lista que contenga solo los tres primeros elementos.
 
-***** Problema 4: Eliminar el primer y último elemento de una lista
+**** Problema 4: Eliminar el primer y último elemento de una lista
   Dada la lista `(x y z w)`, escribe una expresión que elimine el primer y último elemento.
 
-***** Problema 5: Verificar si una lista tiene al menos tres elementos
+**** Problema 5: Verificar si una lista tiene al menos tres elementos
   Escribe una función que reciba una lista y verifique si tiene al menos tres elementos usando `car` y `cdr`.
 
-***** Problema 6: Sumar los primeros tres números de una lista
+**** Problema 6: Sumar los primeros tres números de una lista
   Dada la lista `(10 20 30 40)`, utiliza `car` y `cdr` para obtener la suma de los tres primeros números.
-***** Problema 7: Acceder al penúltimo elemento de una lista
+**** Problema 7: Acceder al penúltimo elemento de una lista
   Dada la lista `(p q r s t)`, escribe una expresión que devuelva el penúltimo elemento.
-***** Problema 8: Crear una lista anidada
+**** Problema 8: Crear una lista anidada
   Dada la lista `(1 2 3)`, usa `cons`, `car`, y `cdr` para crear la lista anidada `((1) (2) (3))`.
 
-***** Problema 9: Fusionar dos listas
+**** Problema 9: Fusionar dos listas
   Dadas las listas `(a b c)` y `(x y z)`, escribe una expresión que las combine en una sola lista `(a b c x y z)` utilizando `cons`, `car`, y `cdr`.
-***** Problema 10: Invertir los dos primeros pares de elementos de una lista
+**** Problema 10: Invertir los dos primeros pares de elementos de una lista
   Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de la lista, de modo que obtengas `(2 1 4 3 5 6)`.
 
 
 
 
-*** Entradas y salidas 
+** Entradas y salidas 
 
  Lisp proporciona un amplio conjunto de facilidades para realizar
  entrada/salida. Todas las operaciones de entrada/salida se realizan en
@@ -1199,7 +1199,7 @@ crear estructuras de datos y manipular listas de manera eficiente.
  representación impresa de un objeto Lisp, crea ese objeto y lo
  devuelve.
 
-**** Funciones de Entrada: 
+*** Funciones de Entrada: 
 
  Los caracteres de la representación impresa de un objeto Lisp se
  transmiten a un flujo mediante funciones como "print". El (Lisp)
@@ -1338,7 +1338,7 @@ crear estructuras de datos y manipular listas de manera eficiente.
 
 
 
-*** Condicionales en Lisp
+** Condicionales en Lisp
 En este documento se describen las condicionales más comunes utilizadas en Lisp, con más ejemplos prácticos para =when= y =unless=.
 
 
@@ -1348,8 +1348,8 @@ En este documento se describen las condicionales más comunes utilizadas en Lisp
 - =cond= permite evaluar múltiples condiciones de manera secuencial.
 - =case= compara una expresión con varios valores posibles y ejecuta el bloque correspondiente.
 
-**** Condicionales Básicas
-***** if
+*** Condicionales Básicas
+**** if
 La expresión =if= es una de las condicionales más simples en Lisp. Evalúa una condición y ejecuta una de las dos ramas, dependiendo del resultado de esa condición.
 
 #+BEGIN_SRC lisp
@@ -1366,7 +1366,7 @@ Ejemplo:
     (print "Esto no se imprimirá"))
 #+END_SRC
 
-***** when
+**** when
 La expresión =when= se utiliza cuando solo hay una acción que se desea ejecutar si la condición es verdadera. Si la condición es falsa, no se ejecuta nada.
 
 #+BEGIN_SRC lisp
@@ -1383,7 +1383,7 @@ Ejemplo básico:
 
 Esto imprimirá =5 es mayor que 3= porque la condición es verdadera. Si no lo fuera, no haría nada.
 
-****** Ejemplo 2: Ejecutando varias expresiones con =when=
+***** Ejemplo 2: Ejecutando varias expresiones con =when=
 Si quieres ejecutar múltiples expresiones cuando la condición sea verdadera, puedes hacerlo incluyendo más de una expresión dentro de =when=.
 
 #+BEGIN_SRC lisp
@@ -1399,7 +1399,7 @@ Diez es igual a diez
 Este es otro mensaje dentro del when
 #+END_EXAMPLE
 
-****** Ejemplo 3: Usando funciones dentro de =when=
+***** Ejemplo 3: Usando funciones dentro de =when=
 Puedes utilizar cualquier función dentro de =when=. Aquí hay un ejemplo en el que se verifica si una lista no está vacía antes de aplicar una función.
 
 #+BEGIN_SRC lisp
@@ -1416,7 +1416,7 @@ La salida será:
 4
 #+END_EXAMPLE
 
-****** Ejemplo 4: =when= con listas vacías
+***** Ejemplo 4: =when= con listas vacías
 Lisp trata las listas vacías como =nil=. En este caso, =when= no ejecutará el bloque de código si la lista está vacía.
 
 #+BEGIN_SRC lisp
@@ -1427,7 +1427,7 @@ Lisp trata las listas vacías como =nil=. En este caso, =when= no ejecutará el 
 
 Como la lista está vacía, no se imprimirá nada.
 
-***** unless
+**** unless
 La expresión =unless= es lo contrario de =when=. Ejecuta el bloque de código solo si la condición es falsa.
 
 #+BEGIN_SRC lisp
@@ -1444,7 +1444,7 @@ Ejemplo básico:
 
 Esto imprimirá =5 no es menor que 3= porque la condición es falsa.
 
-****** Ejemplo 2: Ejecutando varias expresiones con =unless=
+***** Ejemplo 2: Ejecutando varias expresiones con =unless=
 Al igual que con =when=, también puedes ejecutar múltiples expresiones dentro de =unless=.
 
 #+BEGIN_SRC lisp
@@ -1460,7 +1460,7 @@ Esto se imprimirá
 Este es otro mensaje dentro del unless
 #+END_EXAMPLE
 
-****** Ejemplo 3: =unless= con funciones
+***** Ejemplo 3: =unless= con funciones
 Puedes utilizar funciones dentro de =unless= de la misma forma que en =when=.
 
 #+BEGIN_SRC lisp
@@ -1477,7 +1477,7 @@ La lista está vacía
 No hay elementos en la lista
 #+END_EXAMPLE
 
-****** Ejemplo 4: =unless= con comparaciones
+***** Ejemplo 4: =unless= con comparaciones
 En este ejemplo, se compara si dos valores no son iguales, y si es cierto, ejecuta el bloque de código.
 
 #+BEGIN_SRC lisp
@@ -1494,7 +1494,7 @@ x no es igual a 5
 El valor de x es 10
 #+END_EXAMPLE
 
-**** Condicionales Anidadas
+*** Condicionales Anidadas
 Las condicionales =when= y =unless= también pueden anidarse dentro de otras condicionales.
 
 Ejemplo:
@@ -1509,8 +1509,8 @@ Ejemplo:
 
 Aquí se imprime =Ambas condiciones son verdaderas=, ya que ambas condiciones dentro de la condicional son ciertas.
 
-**** Condicionales Complejas
-***** cond
+*** Condicionales Complejas
+**** cond
 La expresión =cond= se utiliza para evaluar múltiples condiciones. Se puede pensar en =cond= como una cadena de =if=, cada uno con su propia condición y acción.
 
 #+BEGIN_SRC lisp
@@ -1531,7 +1531,7 @@ Ejemplo:
 
 Se imprimirá =Ninguna de las anteriores= porque ambas condiciones anteriores son falsas.
 
-***** case
+**** case
 La expresión =case= es similar a un "switch" en otros lenguajes de programación. Se utiliza para evaluar una expresión y compararla con una lista de posibles valores.
 
 #+BEGIN_SRC lisp
@@ -1552,14 +1552,14 @@ Ejemplo:
 
 Aquí se imprimirá =Cinco= porque la expresión evaluada es igual a 5.
 
-**** Referencias
+*** Referencias
 Para más información sobre las condicionales en Lisp, se recomienda revisar la documentación oficial o los siguientes recursos:
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Conditionals.html][GNU Emacs Lisp Reference Manual - Condicionales]]
 
 
 
 
-***  Listas de Asociación en Lisp
+**  Listas de Asociación en Lisp
 Las **listas de asociación** en **Lisp** permiten asociar claves con
 valores. Cada clave está emparejada con un valor en una lista. A
 continuación, te muestro cómo crear, modificar, y acceder a estas
@@ -1582,7 +1582,7 @@ Esta lista tiene:
 
 **Operaciones básicas**
 
-**** 1. Acceder a un valor ***
+*** 1. Acceder a un valor ***
 Para obtener el valor asociado a una clave, se utiliza la función `assoc`:
 
 #+BEGIN_SRC lisp
@@ -1597,7 +1597,7 @@ Esto devolverá el par `(nombre . "Juan")`. Para obtener solo el valor, usa `cdr
 
 Resultado: `"Juan"`
 
-**** 2. Agregar un nuevo par clave-valor ***
+*** 2. Agregar un nuevo par clave-valor ***
 Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
 
 #+BEGIN_SRC lisp
@@ -1606,7 +1606,7 @@ Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
 
 Ahora `mi-alist` incluirá `(pais . "España")`.
 
-**** 3. Modificar un valor existente ***
+*** 3. Modificar un valor existente ***
 Para modificar el valor de una clave existente, primero eliminas el par antiguo y luego agregas el nuevo:
 
 #+BEGIN_SRC lisp
@@ -1615,7 +1615,7 @@ Para modificar el valor de una clave existente, primero eliminas el par antiguo 
 
 Esto actualiza el valor de `edad` a `31`.
 
-**** 4. Eliminar un par clave-valor ***
+*** 4. Eliminar un par clave-valor ***
 Para eliminar un par clave-valor por su clave, usa `assq-delete-all`:
 
 #+BEGIN_SRC lisp
@@ -1650,16 +1650,16 @@ Esto elimina el par `(ciudad . "Madrid")` de la lista.
 #+END_SRC
 
 
-*** Manual del Casi-Quoting en Lisp
+** Casi-Quoting en Lisp
 
-**** Introducción
+*** Introducción
 El **casi-quoting** (*backquote*) es una herramienta poderosa en Lisp
 para crear listas que contienen tanto valores literales como valores
 evaluados. A diferencia de `quote`, que previene la evaluación
 completa de una lista, el **backquote** te permite evaluar partes
 específicas de la lista usando comas (`,`).
 
-**** 1. Operador `quote`
+*** 1. Operador `quote`
 El operador `quote` (`'`) en Lisp previene la evaluación de una expresión. Si citas una lista, ésta se trata como literal:
 
 #+BEGIN_SRC lisp
@@ -1672,7 +1672,7 @@ Resultado:
 (a b c)
 #+END_EXAMPLE
 
-**** 2. Operador `backquote`
+*** 2. Operador `backquote`
 El **backquote** (o *casi-quoting*) es similar a `quote`, pero permite que algunas partes de la lista sean evaluadas. El operador es el símbolo de acento grave (**`**):
 
 #+BEGIN_SRC lisp
@@ -1687,7 +1687,7 @@ Este código produce el mismo resultado que `quote`, es decir:
 
 La ventaja del `backquote` es que puedes usar comas (`,`) para evaluar partes específicas de la lista.
 
-**** 3. Evaluación con la coma (`,`)
+*** 3. Evaluación con la coma (`,`)
 Dentro de una lista creada con *backquote*, cualquier parte de la lista precedida por una coma (`,`) se evalúa, mientras que el resto permanece literal.
 
 #+BEGIN_SRC lisp
@@ -1703,7 +1703,7 @@ Resultado:
 
 Aquí, la variable `x` se evaluó y su valor, `10`, se insertó en la lista.
 
-**** 4. Expansión de listas con `,@`
+*** 4. Expansión de listas con `,@`
 Cuando necesitas insertar los elementos de una lista en lugar de la lista completa como un elemento único, puedes usar `,@` (coma seguido de arroba). Esto "expande" la lista y la inserta en la lista resultante.
 
 #+BEGIN_SRC lisp
@@ -1719,7 +1719,7 @@ Resultado:
 
 En este caso, los elementos de `lst` se expanden e insertan en la lista final.
 
-**** 5. Combinación de `backquote`, `,` y `,@`
+*** 5. Combinación de `backquote`, `,` y `,@`
 Puedes combinar `backquote`, `,` y `,@` para crear listas más complejas que mezclan datos literales y resultados evaluados.
 
 #+BEGIN_SRC lisp
@@ -1738,9 +1738,9 @@ En este ejemplo:
 - `,x` inserta el valor de `x`.
 - `,@lst` expande los elementos de `lst`.
 
-**** 6. Ejemplos adicionales
+*** 6. Ejemplos adicionales
 
-***** Ejemplo 1: Combinando literales y evaluaciones
+**** Ejemplo 1: Combinando literales y evaluaciones
 #+BEGIN_SRC lisp
 (setq a 5)
 (setq b 10)
@@ -1753,7 +1753,7 @@ Resultado:
 (suma 15 lista (1 2 7))
 #+END_EXAMPLE
 
-***** Ejemplo 2: Insertando múltiples listas
+**** Ejemplo 2: Insertando múltiples listas
 #+BEGIN_SRC lisp
 (setq l1 '(a b c))
 (setq l2 '(x y z))
@@ -1767,7 +1767,7 @@ Resultado:
 #+END_EXAMPLE
 
 
-**** 8. Ejemplo completo
+*** 8. Ejemplo completo
 
 #+BEGIN_SRC lisp
 (setq x 20)
@@ -1789,17 +1789,17 @@ Resultado:
 - **`,`**: Evalúa una expresión dentro de una lista con *backquote*.
 - **`,@`**: Expande el contenido de una lista dentro de otra lista.
 
-*** `mapcar` en Lisp
+** mapcar en Lisp
 
-**** Introducción
+*** Introducción
 La función `mapcar` en Lisp se utiliza para aplicar una función a cada
 elemento de una o más listas, devolviendo una nueva lista con los
 resultados de esas aplicaciones. Es una de las funciones más útiles
 para procesar listas en Lisp, ya que permite transformar listas de
 manera sencilla.
 
-**** Sintaxis básica de `mapcar`
-La sintaxis básica de `mapcar` es la siguiente:
+*** Sintaxis básica de mapcar
+La sintaxis básica de mapcar es la siguiente:
 
 #+BEGIN_SRC lisp
 (mapcar función lista)
@@ -1808,10 +1808,10 @@ La sintaxis básica de `mapcar` es la siguiente:
 - **función**: Es una función que se aplicará a cada elemento de la lista.
 - **lista**: Es la lista a la que se aplicará la función.
 
-**** Ejemplos básicos
+*** Ejemplos básicos
 
-***** Ejemplo 1: Aplicando una función a una lista
-Vamos a aplicar la función `1+` (que suma 1) a cada elemento de una lista de números:
+**** Ejemplo 1: Aplicando una función a una lista
+Vamos a aplicar la función 1+ (que suma 1) a cada elemento de una lista de números:
 
 #+BEGIN_SRC lisp
 (mapcar #'1+ '(1 2 3 4 5))
@@ -1823,9 +1823,9 @@ Resultado:
 (2 3 4 5 6)
 #+END_EXAMPLE
 
-Aquí, `mapcar` ha aplicado la función `1+` a cada número en la lista, incrementando cada uno en 1.
+Aquí, `mapcar` ha aplicado la función 1+ a cada número en la lista, incrementando cada uno en 1.
 
-***** Ejemplo 2: Usando una función lambda
+**** Ejemplo 2: Usando una función lambda
 También puedes usar funciones anónimas (lambda) con `mapcar`. En este ejemplo, multiplicamos cada número de una lista por 2:
 
 #+BEGIN_SRC lisp
@@ -1838,7 +1838,7 @@ Resultado:
 (2 4 6 8 10)
 #+END_EXAMPLE
 
-***** Ejemplo 3: Aplicando una función a varias listas
+**** Ejemplo 3: Aplicando una función a varias listas
 `mapcar` también puede operar sobre varias listas. La función debe tomar tantos argumentos como listas haya:
 
 #+BEGIN_SRC lisp
@@ -1853,9 +1853,9 @@ Resultado:
 
 Aquí, `mapcar` ha sumado los elementos correspondientes de las dos listas.
 
-**** Ejemplos 
+*** Ejemplos 
 
-***** Ejemplo 4: Filtrando listas con `mapcar`
+**** Ejemplo 4: Filtrando listas con `mapcar`
 Aunque `mapcar` no está diseñado específicamente para filtrar listas,
 podemos usarlo junto con una función condicional para obtener un
 efecto de filtrado. Por ejemplo, si queremos obtener solo los números
@@ -1873,7 +1873,7 @@ Resultado:
 
 Esto devolverá `nil` para los números impares y los números pares sin cambios.
 
-***** Ejemplo 5: Transformando listas de listas
+**** Ejemplo 5: Transformando listas de listas
 `mapcar` también es útil para trabajar con listas de listas. Por ejemplo, si queremos sumar los elementos de sublistas:
 
 #+BEGIN_SRC lisp
@@ -1888,7 +1888,7 @@ Resultado:
 
 Aquí, hemos sumado los elementos de cada sublista.
 
-***** Ejemplo 6: Trabajando con cadenas de texto
+**** Ejemplo 6: Trabajando con cadenas de texto
 `mapcar` no está limitado solo a números. También puede aplicarse a listas de caracteres o cadenas de texto:
 
 #+BEGIN_SRC lisp
@@ -1923,9 +1923,164 @@ Este ejemplo convierte cada letra en mayúscula.
 #+END_SRC
 
 
-*** Funciones lambda en Lisp
+** Manual de Comparaciones en Lisp
 
-**** Introducción
+En **Lisp**, las funciones de comparación se utilizan para comparar
+diferentes tipos de objetos: números, cadenas, símbolos, listas,
+etc. Dependiendo del tipo de dato que estés comparando, es importante
+usar la función adecuada.
+
+*** 1. *eq*
+La función *eq* es la forma más básica de comparación en Lisp. Compara si dos objetos son **idénticos** (el mismo objeto en memoria). Generalmente se usa para comparar símbolos.
+
+#+BEGIN_SRC lisp
+(eq 'a 'a)  ;; Devuelve T, porque los símbolos son el mismo objeto
+(eq 'a 'b)  ;; Devuelve NIL, los símbolos son diferentes
+(eq 10 10)  ;; En algunas implementaciones puede devolver NIL
+(eq "hola" "hola")  ;; Devuelve NIL, las cadenas no son el mismo objeto en memoria
+#+END_SRC
+
+- **Mejor uso**: Comparación de símbolos.
+- **Advertencia**: No usar para comparar números o cadenas de texto, ya que puede devolver resultados inesperados.
+
+*** 2. *eql*
+*eql* es más general que *eq*. Se comporta igual que *eq* para símbolos, pero también maneja correctamente la comparación de números y caracteres.
+
+#+BEGIN_SRC lisp
+(eql 'a 'a)  ;; Devuelve T
+(eql 10 10)  ;; Devuelve T, porque compara números por su valor
+(eql 10.0 10)  ;; Devuelve NIL, porque compara tipos también (entero vs flotante)
+(eql #\A #\A)  ;; Devuelve T, compara caracteres
+(eql "hola" "hola")  ;; Devuelve NIL, porque compara referencias de cadenas
+#+END_SRC
+
+- **Mejor uso**: Comparación de símbolos, números, y caracteres.
+
+*** 3. *equal*
+*equal* compara el contenido de dos objetos de forma más flexible. Es capaz de comparar listas, números, símbolos, y cadenas de texto, pero no distingue entre mayúsculas y minúsculas en cadenas.
+
+#+BEGIN_SRC lisp
+(equal '(1 2 3) '(1 2 3))  ;; Devuelve T, compara listas por contenido
+(equal "hola" "hola")  ;; Devuelve T, compara cadenas por su contenido
+(equal "Hola" "hola")  ;; Devuelve NIL, las mayúsculas y minúsculas importan
+(equal 10 10)  ;; Devuelve T, porque compara números por valor
+(equal 10.0 10)  ;; Devuelve NIL, porque no iguala flotantes y enteros
+#+END_SRC
+
+- **Mejor uso**: Comparación de listas, cadenas, símbolos, y números.
+
+*** 4. *equalp*
+*equalp* es similar a *equal*, pero es más "tolerante". Ignora las diferencias entre mayúsculas y minúsculas en cadenas, y compara enteros y flotantes de manera flexible.
+
+#+BEGIN_SRC lisp
+(equalp "hola" "HOLA")  ;; Devuelve T, ignora mayúsculas y minúsculas
+(equalp 10 10.0)  ;; Devuelve T, iguala enteros y flotantes
+(equalp '(1 2 3) '(1 2 3))  ;; Devuelve T, compara listas por contenido
+(equalp #\A #\a)  ;; Devuelve T, ignora las diferencias entre mayúsculas y minúsculas en caracteres
+#+END_SRC
+
+- **Mejor uso**: Comparación de listas, números, caracteres y cadenas ignorando las diferencias menores.
+
+*** 5. *=*
+*=* se usa exclusivamente para comparar **números**. Compara números enteros y flotantes, asegurándose de que sus valores sean los mismos.
+
+#+BEGIN_SRC lisp
+(= 10 10)  ;; Devuelve T, ambos números son iguales
+(= 10 10.0)  ;; Devuelve T, porque compara números enteros y flotantes
+(= 5 10)  ;; Devuelve NIL, los números son diferentes
+(= "10" 10)  ;; Error, no se puede usar para comparar cadenas
+#+END_SRC
+
+- **Mejor uso**: Comparación de números.
+
+*** 6. */=*
+*/=* compara si dos números **no** son iguales.
+
+#+BEGIN_SRC lisp
+(/= 10 5)  ;; Devuelve T, los números son diferentes
+(/= 10 10)  ;; Devuelve NIL, los números son iguales
+#+END_SRC
+
+- **Mejor uso**: Verificar que dos números no sean iguales.
+
+*** 7. *string=*
+*string=* se utiliza para comparar cadenas de texto de manera exacta, respetando las diferencias entre mayúsculas y minúsculas.
+
+#+BEGIN_SRC lisp
+(string= "hola" "hola")  ;; Devuelve T, las cadenas son iguales
+(string= "Hola" "hola")  ;; Devuelve NIL, mayúsculas y minúsculas no coinciden
+#+END_SRC
+
+- **Mejor uso**: Comparar cadenas de texto exactamente, respetando mayúsculas y minúsculas.
+
+*** 8. *string-equal*
+*string-equal* es similar a *string=*, pero ignora las diferencias entre mayúsculas y minúsculas.
+
+#+BEGIN_SRC lisp
+(string-equal "hola" "HOLA")  ;; Devuelve T, ignora las diferencias de mayúsculas
+#+END_SRC
+
+- **Mejor uso**: Comparar cadenas de texto sin importar las mayúsculas y minúsculas.
+
+*** 9. *char=* y *char-equal*
+Estas funciones comparan caracteres individuales. *char=* compara caracteres de manera exacta, mientras que *char-equal* ignora las diferencias entre mayúsculas y minúsculas.
+
+#+BEGIN_SRC lisp
+(char= #\A #\A)  ;; Devuelve T, los caracteres son iguales
+(char= #\A #\a)  ;; Devuelve NIL, mayúsculas y minúsculas no coinciden
+(char-equal #\A #\a)  ;; Devuelve T, ignora las diferencias de mayúsculas
+#+END_SRC
+
+- **Mejor uso**: Comparar caracteres individuales.
+
+*** Resumen
+| Función        | Propósito                               | Caso de uso                                          |
+| -------------- | --------------------------------------- | --------------------------------------------------- |
+| *eq*           | Comparar si dos símbolos son idénticos  | Comparación de símbolos                             |
+| *eql*          | Comparar símbolos, números y caracteres | Comparación de símbolos, números y caracteres       |
+| *equal*        | Comparar listas, cadenas y objetos      | Comparación de listas, cadenas y objetos estructurados |
+| *equalp*       | Comparar listas y cadenas de forma flexible | Comparación flexible de listas, cadenas, números y caracteres |
+| *=*            | Comparar si dos números son iguales     | Comparación estricta de números                     |
+| */=*           | Comparar si dos números no son iguales  | Verificar que dos números sean diferentes           |
+| *string=*      | Comparar cadenas exactamente            | Comparar cadenas de texto, respetando mayúsculas    |
+| *string-equal* | Comparar cadenas, ignorando mayúsculas  | Comparar cadenas de texto, ignorando mayúsculas     |
+| *char=*        | Comparar caracteres exactamente         | Comparar caracteres individuales                    |
+| *char-equal*   | Comparar caracteres, ignorando mayúsculas | Comparación flexible de caracteres                  |
+
+*** Ejemplo completo
+
+#+BEGIN_SRC lisp
+;; Comparación de símbolos
+(eq 'a 'a)  ;; T
+(eq 'a 'b)  ;; NIL
+
+;; Comparación de números y caracteres
+(eql 10 10)  ;; T
+(eql 10.0 10)  ;; NIL
+(eql #\A #\A)  ;; T
+
+;; Comparación de listas y cadenas
+(equal '(1 2 3) '(1 2 3))  ;; T
+(equal "Hola" "hola")  ;; NIL
+(equalp "Hola" "hola")  ;; T
+
+;; Comparación numérica
+(= 10 10.0)  ;; T
+(/= 10 5)  ;; T
+
+;; Comparación de cadenas
+(string= "hola" "HOLA")  ;; NIL
+(string-equal "hola" "HOLA")  ;; T
+
+;; Comparación de caracteres
+(char= #\A #\A)  ;; T
+(char-equal #\A #\a)  ;; T
+#+END_SRC
+
+
+** Funciones lambda en Lisp
+
+*** Introducción
 En **Lisp**, las **funciones lambda** son funciones anónimas que
 puedes definir sin necesidad de darles un nombre. Son útiles cuando
 necesitas una función pequeña y no quieres definirla por
@@ -1933,7 +2088,7 @@ separado. Estas funciones pueden ser pasadas como argumentos a otras
 funciones, utilizadas en listas de procesamiento, o empleadas en
 lugares donde una función completa sería innecesaria.
 
-**** Definición básica de una función lambda
+*** Definición básica de una función lambda
 La sintaxis básica de una función lambda es la siguiente:
 
 #+BEGIN_SRC lisp
@@ -1951,9 +2106,9 @@ Ejemplo básico:
 
 Esta es una función lambda que toma un número `x` y devuelve `x` multiplicado por 2.
 
-**** Ejemplos de uso de lambdas
+*** Ejemplos de uso de lambdas
 
-***** Ejemplo 1: Usando lambdas con `mapcar`
+**** Ejemplo 1: Usando lambdas con `mapcar`
 Puedes usar una función lambda directamente en llamadas a funciones como `mapcar`, donde necesitas aplicar una operación a cada elemento de una lista. 
 
 #+BEGIN_SRC lisp
@@ -1968,7 +2123,7 @@ Resultado:
 
 En este caso, la función lambda toma cada elemento de la lista `(1 2 3 4 5)` y lo multiplica por 2.
 
-***** Ejemplo 2: Usando lambdas con `reduce`
+**** Ejemplo 2: Usando lambdas con `reduce`
 También puedes usar lambdas en combinación con otras funciones de orden superior como `reduce`. Por ejemplo, para sumar todos los elementos de una lista:
 
 #+BEGIN_SRC lisp
@@ -1983,7 +2138,7 @@ Resultado:
 
 Aquí, la lambda toma dos elementos, los suma, y luego pasa el resultado para la siguiente suma.
 
-***** Ejemplo 3: Lambdas dentro de una función
+**** Ejemplo 3: Lambdas dentro de una función
 Las funciones lambda también pueden ser utilizadas dentro de otras funciones para definir comportamientos específicos:
 
 #+BEGIN_SRC lisp
@@ -2001,10 +2156,10 @@ Resultado:
 
 Aquí, la función `aplicar-operacion` toma una lambda que eleva cada número al cuadrado y la aplica a la lista.
 
-**** Ámbito de las lambdas
+*** Ámbito de las lambdas
 Las lambdas pueden acceder a variables que están en su entorno de definición. Esto es conocido como **alcance léxico**.
 
-***** Ejemplo 4: Usando una variable externa en una lambda
+**** Ejemplo 4: Usando una variable externa en una lambda
 #+BEGIN_SRC lisp
 (let ((factor 3))
   (mapcar (lambda (x) (* x factor)) '(1 2 3 4 5)))
@@ -2018,10 +2173,10 @@ Resultado:
 
 En este caso, la variable `factor` está definida en el entorno léxico donde se declara la lambda, y la lambda puede acceder a ella.
 
-**** Lambdas como valores de retorno
+*** Lambdas como valores de retorno
 Las funciones lambda también pueden ser retornadas desde otras funciones, lo que permite construir funciones dinámicamente.
 
-***** Ejemplo 5: Retornar una lambda desde una función
+**** Ejemplo 5: Retornar una lambda desde una función
 #+BEGIN_SRC lisp
 (defun multiplicador (n)
   (lambda (x) (* x n)))
@@ -2038,14 +2193,14 @@ Resultado:
 
 Aquí, la función `multiplicador` devuelve una lambda que multiplica por `n`. En el ejemplo, `duplicar` es una función que multiplica por 2, y al llamar `funcall` con `duplicar` y `10`, obtenemos `20`.
 
-**** Usos comunes de lambdas
+*** Usos comunes de lambdas
 Las funciones lambda son extremadamente útiles en situaciones donde necesitas funciones temporales o pequeñas que no ameritan una definición completa. Algunas aplicaciones comunes son:
 
 - En procesamiento de listas (`mapcar`, `reduce`, etc.).
 - Para definir funciones rápidas que solo se usan en una parte del código.
 - Para generar funciones dinámicamente, como vimos en el ejemplo de `multiplicador`.
 
-**** Ejemplos
+*** Ejemplos
 
 #+BEGIN_SRC lisp
 ;; Usando lambda con mapcar para elevar números al cubo
