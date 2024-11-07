@@ -1923,7 +1923,7 @@ Este ejemplo convierte cada letra en mayúscula.
 #+END_SRC
 
 
-** Manual de Comparaciones en Lisp
+** Comparaciones en Lisp
 
 En **Lisp**, las funciones de comparación se utilizan para comparar
 diferentes tipos de objetos: números, cadenas, símbolos, listas,
@@ -2287,7 +2287,11 @@ El cuerpo de la regla puede contener literales negativos. Por ejemplo:
 hermano(X,Y) :- progenitor(Z,X),  
                  progenitor(Z,Y), not (X=Y).
 #+END_SRC
- 
+
+
+
+
+
 
 importante: no debe confundirse «reglas de inferencia» con «reglas»
 (de Prolog) (y tampoco con «reglas gramaticales»). Las «reglas» de
@@ -2303,6 +2307,441 @@ corresponde la sentencia ( A x)((pol(x) ==>men(x)) /\ pol(x)
 ==>men(x)), que es una sentencia válida (se satisface con cualquier
 interpretación de los predicados y cualquier asignación de x).
 
+
+** Lógica de primer orden 
+
+
+*** 1. La Tierra es un planeta.
+   - **Enunciado**: "La Tierra es un planeta."
+   - **Interpretación**: Afirmamos que la "Tierra" tiene la propiedad de
+     ser un planeta.
+   - **Formalización**: ~Planeta(Tierra)~
+   - **Razonamiento**: Usamos el predicado ~Planeta~ aplicado a la
+     constante ~Tierra~, ya que solo queremos expresar una propiedad
+     directa sin relaciones adicionales.
+
+*** 2. La Luna no es un planeta.
+   - **Enunciado**: "La Luna no es un planeta."
+   - **Interpretación**: Queremos expresar la ausencia de la propiedad
+     de ser un planeta en la Luna.
+   - **Formalización**: ~¬Planeta(Luna)~
+   - **Razonamiento**: Utilizamos el operador de negación ~¬~ sobre el
+     predicado ~Planeta(Luna)~ para indicar que "Luna" no cumple con
+     esta propiedad. Es una negación directa de una propiedad.
+
+*** 3. La Luna es un satélite.
+   - **Enunciado**: "La Luna es un satélite."
+   - **Interpretación**: Decimos que la "Luna" tiene la propiedad de ser
+     un satélite.
+   - **Formalización**: ~Satelite(Luna)~
+   - **Razonamiento**: Similar al primer ejemplo, usamos el predicado
+     ~Satelite~ aplicado a ~Luna~ para indicar esta propiedad simple.
+
+*** 4. La Tierra gira alrededor del Sol.
+   - **Enunciado**: "La Tierra gira alrededor del Sol."
+   - **Interpretación**: Queremos expresar una relación entre "Tierra" y "Sol".
+   - **Formalización**: ~GiraAlrededor(Tierra, Sol)~
+   - **Razonamiento**: Usamos un predicado de dos argumentos
+     ~GiraAlrededor(x, y)~ para representar la relación "girar alrededor
+     de". Aplicamos esta relación entre "Tierra" y "Sol".
+
+*** 5. Todo planeta es un satélite.
+   - **Enunciado**: "Todo planeta es un satélite."
+   - **Interpretación**: Queremos expresar que ser un planeta implica ser un satélite.
+   - **Formalización**: ~∀x (Planeta(x) → Satelite(x))~
+   - **Razonamiento**: Usamos una **implicación** (~→~) para expresar una
+     regla general. La implicación establece que si un objeto ~x~ es un
+     planeta, entonces ~x~ también debe ser un satélite. ~∀x~ indica que
+     esta regla aplica a todos los elementos en el dominio.
+
+*** 6. Todo planeta gira alrededor del Sol.
+   - **Enunciado**: "Todo planeta gira alrededor del Sol."
+   - **Interpretación**: Decimos que si algo es un planeta, entonces
+     gira alrededor del Sol.
+   - **Formalización**: ~∀x (Planeta(x) → GiraAlrededor(x, Sol))~
+   - **Razonamiento**: Usamos **implicación** para expresar que la
+     propiedad de ser un planeta (~Planeta(x)~) lleva a la consecuencia
+     de girar alrededor del Sol (~GiraAlrededor(x, Sol)~). ~∀x~ indica que
+     esto se aplica a todos los planetas.
+
+*** 7. Algún planeta gira alrededor de la Luna.
+   - **Enunciado**: "Algún planeta gira alrededor de la Luna."
+   - **Interpretación**: Existe al menos un planeta que tiene la
+     propiedad de girar alrededor de la Luna.
+   - **Formalización**: ~∃x (Planeta(x) ∧ GiraAlrededor(x, Luna))~
+   - **Razonamiento**: Usamos el **cuantificador existencial** ~∃x~ para
+     indicar que al menos un objeto ~x~ cumple con ambas condiciones:
+     ser un planeta y girar alrededor de la Luna. La **conjunción** (~∧~)
+     asegura que ambas condiciones son verdaderas simultáneamente.
+
+*** 8. Hay por lo menos un satélite.
+   - **Enunciado**: "Hay por lo menos un satélite."
+   - **Interpretación**: Queremos indicar que existe al menos un objeto
+     que tiene la propiedad de ser un satélite.
+   - **Formalización**: ~∃x Satelite(x)~
+   - **Razonamiento**: Usamos el **cuantificador existencial** ~∃x~ con el
+     predicado ~Satelite(x)~ para expresar que existe al menos un objeto
+     que es un satélite. No necesitamos conjunción ni implicación
+     aquí, solo afirmamos la existencia de un satélite.
+
+*** 9. Todos los perros del vecindario muerden a algún cartero.
+   - **Enunciado**: "Todos los perros del vecindario muerden a algún
+     cartero."
+   - **Interpretación**: Cada perro tiene la propiedad de morder a por
+     lo menos un cartero.
+   - **Formalización**: ~∀x (Perro(x) → ∃y (Cartero(y) ∧ Muerde(x, y)))~
+   - **Razonamiento**: Usamos una **implicación** (~→~) para expresar una
+     condición general: "si ~x~ es un perro, entonces existe algún ~y~ que
+     es cartero y es mordido por ~x~". La conjunción ~Cartero(y) ∧
+     Muerde(x, y)~ asegura que ~y~ es cartero y es mordido por ~x~.
+
+*** 10. Hay un cartero al que lo muerden todos los perros.
+   - **Enunciado**: "Hay un cartero al que lo muerden todos los perros."
+   - **Interpretación**: Existe al menos un cartero al que todos los
+     perros muerden.
+   - **Formalización**: ~∃y (Cartero(y) ∧ ∀x (Perro(x) → Muerde(x, y)))~
+   - **Razonamiento**: Aquí, usamos **cuantificador existencial** ~∃y~ para
+     el cartero ~y~, y luego una **implicación** para decir que si ~x~ es un
+     perro, entonces ~x~ debe morder a ~y~. La conjunción ~Cartero(y)~
+     asegura que ~y~ es un cartero.
+
+*** 11. Todos los carteros son mordidos por algún perro.
+   - **Enunciado**: "Todos los carteros son mordidos por algún perro."
+   - **Interpretación**: Cada cartero es mordido por al menos un perro.
+   - **Formalización**: ~∀y (Cartero(y) → ∃x (Perro(x) ∧ Muerde(x, y)))~
+   - **Razonamiento**: Usamos **implicación** para indicar que si ~y~ es un
+     cartero, entonces existe algún perro ~x~ que muerde a ~y~. La
+     **conjunción** ~Perro(x) ∧ Muerde(x, y)~ asegura que ~x~ es un perro y
+     muerde a ~y~.
+
+*** 12. Hay un perro que muerde a todos los carteros.
+   - **Enunciado**: "Hay un perro que muerde a todos los carteros."
+   - **Interpretación**: Existe al menos un perro que muerde a todos los carteros.
+   - **Formalización**: ~∃x (Perro(x) ∧ ∀y (Cartero(y) → Muerde(x, y)))~
+   - **Razonamiento**: Usamos un **cuantificador existencial** ~∃x~ para
+     expresar que existe un perro que cumple esta condición. Luego, la
+     **implicación** indica que si ~y~ es cartero, entonces ~x~ lo muerde.
+
+*** 13. Todos los perros que asustan a algún cartero, lo muerden.
+   - **Enunciado**: "Todos los perros que asustan a algún cartero, lo muerden."
+   - **Formalización**: ~∀x ∀y ((Perro(x) ∧ Cartero(y) ∧ Asusta(x, y)) → Muerde(x, y))~
+   - **Razonamiento**: Usamos **implicación** para expresar que si un
+     perro ~x~ asusta a un cartero ~y~, entonces ~x~ lo muerde. La
+     **conjunción** ~Perro(x) ∧ Cartero(y) ∧ Asusta(x, y)~ dentro de la
+     implicación indica que todas estas condiciones deben cumplirse
+     para que el perro lo muerda.
+
+*** 14. Hay un perro que muerde a todos los perros que muerden a algún cartero.
+   - **Enunciado**: "Hay un perro que muerde a todos los perros que
+     muerden a algún cartero."
+   - **Formalización**: ~∃x (Perro(x) ∧ ∀y ((Perro(y) ∧ ∃z (Cartero(z) ∧ Muerde(y, z))) → Muerde(x, y)))~
+   - **Razonamiento**: Usamos un **cuantificador existencial** para
+     indicar que existe un perro ~x~ con esta característica. La
+     **implicación** dentro del cuantificador universal dice que, si ~y~
+     es un perro que muerde a algún cartero, entonces ~x~ muerde a ~y~.
+
+*** 15. Hay un solo perro que se muerde a sí mismo.
+   - **Enunciado**: "Hay un solo perro que se muerde a sí mismo."
+   - **Formalización**: ~∃x (Perro(x) ∧ Muerde(x, x) ∧ ∀y ((Perro(y) ∧
+     Muerde(y, y)) → x = y))~
+   - **Razonamiento**: Usamos el **cuantificador existencial** para
+     expresar la existencia de un único perro que cumple esta
+     condición. La **conjunción** asegura que existe un solo perro ~x~ que
+     se muerde a sí mismo y que ningún otro perro lo hace.
+
+
+
+
+
+** Hechos, Átomos y Reglas
+
+En Prolog, los programas se construyen mediante **hechos**, **átomos** y
+**reglas**. Estos elementos son la base de la programación lógica en
+Prolog y permiten representar el conocimiento y definir relaciones
+entre distintos elementos.
+
+*** 1. Hechos
+
+   Los **hechos** representan afirmaciones o declaraciones que se
+   consideran verdaderas en el programa. Los hechos se utilizan para
+   describir propiedades o relaciones entre elementos. Un hecho es una
+   sentencia simple que no requiere ser probada, ya que se asume que
+   es verdadera en el contexto de la base de datos.
+
+   Ejemplos de hechos:
+
+   #+begin_src prolog
+   % Representa que "Juan es un hombre"
+   hombre(juan).
+
+   % Representa que "María es mujer"
+   mujer(maria).
+
+   % Representa una relación de parentesco "Juan es padre de María"
+   padre(juan, maria).
+   #+end_src
+
+   En estos ejemplos:
+   - `hombre(juan)` es un hecho que indica que Juan es un hombre.
+   - `mujer(maria)` indica que María es una mujer.
+   - `padre(juan, maria)` indica que Juan es el padre de María.
+
+   Los hechos se escriben en minúsculas y sin variables, ya que
+   simplemente representan afirmaciones que se consideran verdaderas.
+
+*** 2. Átomos
+
+   Un **átomo** es un tipo de dato básico en Prolog que representa una
+   constante simbólica, similar a un nombre o una etiqueta. Los átomos
+   son entidades indivisibles, y Prolog los usa para identificar
+   hechos, valores o constantes simbólicas.
+
+   Los átomos pueden ser:
+   - Palabras en minúsculas sin espacios (`juan`, `maria`, `perro`).
+   - Cadenas de caracteres entre comillas simples (`'Juan Pérez'`, `'esto es un átomo'`).
+   - Secuencias especiales con caracteres como `@`, `#`, etc. (`@ejemplo`, `#dato`).
+
+   Ejemplos de átomos:
+
+   #+begin_src prolog
+   % Nombres simples
+   hombre(juan).
+   color(rojo).
+
+   % Nombres con caracteres especiales
+   gato('@michi').
+   palabra('#clave').
+
+   % Nombres con comillas
+   nombre('Juan Pérez').
+   #+end_src
+
+   **Importante**: Los átomos se diferencian de las variables porque los
+   átomos están en minúscula y representan constantes, mientras que
+   las variables están en mayúscula y representan valores que pueden
+   cambiar.
+
+*** 3. Reglas
+
+   Las **reglas** permiten definir relaciones lógicas entre hechos y se
+   utilizan para derivar nueva información. Una regla consiste en una
+   cabeza y un cuerpo, y su estructura general es:
+
+   #+begin_example
+   cabeza :- cuerpo.
+   #+end_example
+
+   La **cabeza** es el resultado o conclusión de la regla, mientras que
+   el **cuerpo** es una combinación de condiciones que deben cumplirse
+   para que la cabeza sea verdadera. Las reglas en Prolog son como
+   "si-entonces"; si se cumplen las condiciones en el cuerpo, entonces
+   la cabeza también es cierta.
+
+   Ejemplos de reglas:
+
+   #+begin_src prolog
+   % Definición de "padre" y "abuelo" mediante reglas
+   padre(juan, maria).                  % Hecho: Juan es padre de María
+   padre(jose, juan).                   % Hecho: José es padre de Juan
+
+   abuelo(X, Y) :- padre(X, Z), padre(Z, Y).
+   #+end_src
+
+   En este ejemplo:
+   - `padre(juan, maria)` y `padre(jose, juan)` son hechos que definen relaciones directas de parentesco.
+   - La regla `abuelo(X, Y) :- padre(X, Z), padre(Z, Y).` define que `X` es abuelo de `Y` si `X` es padre de `Z` y `Z` es padre de `Y`.
+
+   **Explicación de la regla**:
+   - `abuelo(X, Y)` es la cabeza de la regla.
+   - `padre(X, Z), padre(Z, Y)` es el cuerpo de la regla, que indica que para que `X` sea abuelo de `Y`, debe existir un `Z` tal que `X` sea padre de `Z` y `Z` sea padre de `Y`.
+
+*** 4. Ejemplos adicionales para comprender hechos, átomos y reglas
+
+   - **Hecho**: `es_amigo(juan, maria).` – Juan es amigo de María.
+   - **Átomo**: `rojo` en `color(rojo).` – Un color específico.
+   - **Regla**: `es_feliz(X) :- es_rico(X), tiene_salud(X).` – Una persona `X` es feliz si es rica y tiene salud.
+	 
+*** 5. Ejecución de consultas en Prolog
+
+   Las consultas en Prolog se utilizan para obtener información a partir de hechos y reglas. Cuando haces una consulta, Prolog intenta unificar la consulta con los hechos y reglas disponibles para determinar si la consulta es verdadera o para encontrar valores de las variables que hagan que sea verdadera.
+
+   Ejemplo de consulta:
+
+   #+begin_src prolog
+   ?- abuelo(jose, maria).
+   true.
+
+   ?- padre(X, maria).
+   X = juan.
+   #+end_src
+
+   En la primera consulta, Prolog verifica si `jose` es abuelo de
+   `maria` usando la regla definida. En la segunda consulta, Prolog
+   busca el valor de `X` que hace que `padre(X, maria)` sea verdadero,
+   unificando `X` con `juan`. 
+
+
+   - **Hechos**: Declaraciones de relaciones o propiedades que se consideran verdaderas.
+   - **Átomos**: Constantes simbólicas que representan nombres o valores específicos en Prolog.
+   - **Reglas**: Estructuras que permiten inferir nueva información mediante condiciones lógicas.
+
+
+** Unificación en Prolog
+
+La unificación es uno de los conceptos fundamentales en Prolog y es el
+proceso mediante el cual el lenguaje determina si dos términos pueden
+hacerse iguales. Este proceso es esencial para el funcionamiento de
+las consultas y reglas en Prolog, ya que permite enlazar variables con
+valores específicos y evaluar la compatibilidad entre términos.
+
+*** 1. ¿Qué es la unificación?
+
+La unificación en Prolog ocurre cuando intentamos "igualar" dos
+términos. Si los términos pueden unirse o emparejarse siguiendo las
+reglas de Prolog, decimos que se "unifican" y el intérprete establece
+correspondencias entre variables y valores que cumplen con la
+igualdad.
+
+Por ejemplo:
+
+#+begin_src prolog
+?- X = 5.
+X = 5.
+#+end_src
+
+Aquí, Prolog unifica la variable *X* con el valor *5*, es decir, establece
+que *X* ahora representa el valor *5*.
+
+*** 2. Reglas de unificación
+
+La unificación en Prolog sigue ciertas reglas:
+
+   - **Dos constantes se unifican si y solo si son idénticas.** Ejemplo:
+     #+begin_src prolog
+     ?- 3 = 3.
+     true.
+     
+     ?- 3 = 4.
+     false.
+     #+end_src
+
+   - **Una variable se puede unificar con cualquier valor.** Si una
+     variable no tiene un valor asignado, Prolog puede unirla con
+     cualquier término.
+     #+begin_src prolog
+     ?- X = 5.
+     X = 5.
+     #+end_src
+
+   - **Dos variables pueden unificarse entre sí.** Cuando dos variables
+     se unifican, ambas quedan enlazadas y cualquier valor que se
+     asigne a una también afectará a la otra.
+     #+begin_src prolog
+     ?- X = Y.
+     X = Y.
+     #+end_src
+
+   - **Unificamos listas y estructuras término a término.** Las listas y
+     estructuras (también llamadas compuestos) se unifican si tienen
+     la misma cantidad de elementos y cada elemento correspondiente
+     también se unifica.
+
+*** 3. Ejemplos de unificación
+
+**** a) Unificación de constantes
+
+   #+begin_src prolog
+   ?- hola = hola.
+   true.
+
+   ?- hola = adios.
+   false.
+   #+end_src
+
+   Aquí, solo la primera consulta unifica porque ambos términos son idénticos.
+
+**** b) Unificación de variables
+
+   Las variables en Prolog pueden unificarse con cualquier valor que
+   no contradiga otros enlaces:
+
+   #+begin_src prolog
+   ?- X = 42.
+   X = 42.
+
+   ?- X = Y.
+   X = Y.
+   #+end_src
+
+**** c) Unificación de listas
+
+   Para listas, Prolog trata de unificar cada elemento individualmente:
+
+   #+begin_src prolog
+   ?- [1, 2, 3] = [1, X, Y].
+   X = 2.
+   #+end_src
+   
+   En este caso, `X` se unifica con `2` para que ambas listas sean iguales.
+
+**** d) Unificación de estructuras o términos compuestos
+
+   Prolog permite trabajar con estructuras que siguen una sintaxis de
+   "functor(argumento1, argumento2, ...)".
+
+   #+begin_src prolog
+   ?- punto(X, Y) = punto(2, 4).
+   X = 3,
+   Y = 4.
+   #+end_src
+
+   Aquí, `X` y `Y` se unifican con `3` y `4`, respectivamente,
+   haciendo que ambas estructuras sean idénticas.
+
+*** 4. Casos en los que la unificación falla
+
+   La unificación falla cuando:
+   
+   - Los términos son distintos y no tienen variables que puedan
+     unificarse con otros valores.
+   - Los términos tienen estructuras diferentes (diferente número de
+     argumentos o diferentes functors).
+   
+   Ejemplo de fallos en la unificación:
+
+   #+begin_src prolog
+   ?- perro(orejas, cola) = gato(orejas, cola).
+   false.
+
+   ?- [1, 2, 3] = [1, 2].
+   false.
+   #+end_src
+
+*** 5. Importancia de la unificación en Prolog
+
+   La unificación es la base de la búsqueda de soluciones en Prolog,
+   ya que permite enlazar valores con variables dentro de las
+   consultas y reglas. Gracias a la unificación, Prolog puede "probar"
+   términos y hacer coincidencias, lo que es esencial en la resolución
+   de problemas lógicos.
+
+*** 6. Ejemplo práctico
+
+   Supongamos que queremos consultar si un punto `(3, 4)` coincide con un término `punto(X, Y)`:
+
+   #+begin_src prolog
+   ?- punto(X, Y) = punto(3, 4).
+   X = 3,
+   Y = 4.
+   #+end_src
+
+   Aquí, la unificación permite asignar `X = 3` y `Y = 4`, logrando
+   que ambos términos sean idénticos.
+
+*** Resumen
+
+La unificación en Prolog es el proceso de hacer iguales dos términos, enlazando variables con valores específicos cuando es posible. Este proceso es fundamental para las consultas y reglas, permitiendo que Prolog resuelva problemas y encuentre soluciones.
+	
 ** Corte 
 
 El corte es un predicado predefinido que no recibe argumentos. Se
@@ -2388,7 +2827,7 @@ porque el corte ha comprometido el resultado del objetivo al resultado
 de Y>15 en la primera cláusula.
 
 
-** Usos del corte
+*** Usos del corte
 
 El corte se utiliza muy frecuentemente, cuanto más diestro es el
 programador más lo suele usar. Los motivos por los que se usa el corte
@@ -2411,7 +2850,8 @@ son, por orden de importancia, los siguientes:
   encuentra una solución ejecutamos un corte. Así evitamos que Prolog
   busque otras soluciones aunque sabemos que éstas existen.
 
-** Corte y fallo
+
+*** Corte y fallo
 
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
@@ -2430,3 +2870,275 @@ fib(N, F) :-
         fib(N2, F2),
         F is F1+F2.
 #+END_SRC
+
+
+
+** Definición matemática del factorial
+
+   Matemáticamente, el factorial de \( N \) (denotado como \( N! \)) se define como:
+
+   - Caso base: \( 0! = 1 \)
+   - Caso recursivo: \( N! = N \times (N - 1)! \) para \( N > 0 \)
+
+*** Implementación en Prolog
+
+   La implementación en Prolog sigue esta definición. Usamos una regla
+   recursiva donde el caso base define que el factorial de 0 es 1, y
+   el caso recursivo multiplica \( N \) por el factorial de \( N - 1
+   \).
+
+   #+begin_src prolog
+   % Caso base: el factorial de 0 es 1
+   factorial(0, 1).
+
+   % Caso recursivo: factorial de N es N * factorial de (N-1)
+   factorial(N, F) :-
+       N > 0,                           % Comprobación para asegurar que N es positivo
+       N1 is N - 1,                     % Calcular N - 1
+       factorial(N1, F1),               % Llamada recursiva para obtener factorial de N - 1
+       F is N * F1.                     % Calcular el factorial de N
+   #+end_src
+
+*** Ejemplo de uso
+
+   Para calcular el factorial de 5, usamos una consulta que unifica la
+   variable `F` con el resultado:
+
+   #+begin_src prolog
+   ?- factorial(5, F).  F = 120.
+   #+end_src
+
+   Prolog realiza la recursión de la siguiente manera:
+
+   1. Calcula `factorial(5, F)`.
+   2. Llama recursivamente a `factorial(4, F1)`, `factorial(3, F2)`, etc., hasta llegar a `factorial(0, 1)`.
+   3. Luego, cada llamada recursiva se resuelve multiplicando el valor, acumulando el resultado y regresando el valor final.
+
+*** Explicación paso a paso del proceso recursivo
+
+   Para entender cómo se realiza la recursión, observa la secuencia de llamadas al calcular `factorial(3, F)`:
+
+   1. `factorial(3, F)` llama a `factorial(2, F1)`.
+   2. `factorial(2, F1)` llama a `factorial(1, F2)`.
+   3. `factorial(1, F2)` llama a `factorial(0, 1)`.
+   4. Al retornar, Prolog realiza las multiplicaciones:
+      - `F2 = 1 * 1 = 1` para `factorial(1, 1)`.
+      - `F1 = 2 * 1 = 2` para `factorial(2, 2)`.
+      - `F = 3 * 2 = 6` para `factorial(3, 6)`.
+
+*** Resumen
+
+   - **Caso base**: Define el factorial de 0 como 1.
+   - **Caso recursivo**: Define el factorial de \( N \) multiplicando \( N \) por el factorial de \( N - 1 \).
+
+   Esta implementación es un ejemplo clásico de recursión en Prolog y muestra cómo se usa el concepto de llamada recursiva para calcular valores acumulativos.
+
+
+
+
+
+** Listas en Prolog
+
+*** 1. Definición y construcción de listas
+   En Prolog, una lista se representa como una secuencia de elementos
+   entre corchetes. Algunos ejemplos de listas son:
+
+   #+begin_src prolog
+   []             % Lista vacía
+   [1, 2, 3]      % Lista de números
+   [a, b, c]      % Lista de átomos
+   [H | T]        % Lista con cabeza `H` y cola `T`
+   #+end_src
+
+   La lista `[H | T]` indica que `H` es el primer elemento (cabeza) y
+   `T` es la cola (el resto de los elementos de la lista).
+
+*** 2. Operaciones básicas en listas
+
+**** a) Concatenación de listas
+    Para concatenar dos listas en Prolog, puedes definir una regla
+    recursiva llamada `concatenar`:
+
+    #+begin_src prolog
+    concatenar([], L, L).                        
+    concatenar([H | T], L, [H | R]) :-           
+        concatenar(T, L, R).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- concatenar([1, 2], [3, 4], L).
+    L = [1, 2, 3, 4].
+    #+end_src
+
+**** b) Encontrar el tamaño de una lista
+    Para encontrar el tamaño de una lista, usamos una regla `tamano`:
+
+    #+begin_src prolog
+    tamano([], 0).                               
+    tamano([_ | T], N) :-                        
+        tamano(T, N1),                           
+        N is N1 + 1.                             
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- tamano([1, 2, 3], N).
+    N = 3.
+    #+end_src
+
+    **** Explicación del funcionamiento del contador La regla `tamano`
+    cuenta el número de elementos en la lista usando recursión y un
+    contador acumulativo.
+    
+    - En el caso base `tamano([], 0).`, la lista vacía tiene un tamaño de `0`.
+    - En la cláusula recursiva `tamano([_ | T], N) :- tamano(T, N1), N is N1 + 1.`:
+      - Primero, se llama a `tamano(T, N1)` para contar el tamaño de la cola `T`.
+      - Al volver de la recursión, `N1` contiene el tamaño de `T`, al
+        cual se suma `1` para contar el elemento de la cabeza.
+      - Esta suma (`N is N1 + 1`) es el nuevo tamaño de la lista completa `[H | T]`.
+
+**** c) Obtener el último elemento de una lista
+    Para obtener el último elemento de una lista, usamos la regla `ultimo`:
+
+    #+begin_src prolog
+    ultimo([X], X).                              
+    ultimo([_ | T], X) :-                        
+        ultimo(T, X).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- ultimo([1, 2, 3], X).
+    X = 3.
+    #+end_src
+
+**** d) Obtener el primer elemento de una lista
+    El primer elemento de una lista es simplemente la cabeza de la lista, que se puede obtener así:
+
+    #+begin_src prolog
+    primer_elemento([H | _], H).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- primer_elemento([1, 2, 3], X).
+    X = 1.
+    #+end_src
+
+**** e) Invertir una lista
+    Para invertir una lista, utilizamos una regla `invertir` que emplea acumuladores para construir la lista invertida:
+
+    #+begin_src prolog
+    invertir(L, R) :-
+        invertir_acum(L, [], R).
+
+    invertir_acum([], Acc, Acc).                 
+    invertir_acum([H | T], Acc, R) :-            
+        invertir_acum(T, [H | Acc], R).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- invertir([1, 2, 3], L).
+    L = [3, 2, 1].
+    #+end_src
+
+*** 3. Otras operaciones comunes
+
+**** a) Verificar si un elemento pertenece a una lista
+    Para verificar si un elemento está en una lista, usamos la regla `miembro`:
+
+    #+begin_src prolog
+    miembro(X, [X | _]).                         
+    miembro(X, [_ | T]) :-                       
+        miembro(X, T).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- miembro(2, [1, 2, 3]).
+    true.
+    ?- miembro(4, [1, 2, 3]).
+    false.
+    #+end_src
+
+**** b) Eliminar un elemento de una lista
+    La siguiente regla `eliminar` elimina una ocurrencia de un elemento de una lista:
+
+    #+begin_src prolog
+    eliminar(X, [X | T], T).                     
+    eliminar(X, [H | T], [H | R]) :-             
+        eliminar(X, T, R).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- eliminar(2, [1, 2, 3], L).
+    L = [1, 3].
+    #+end_src
+
+**** c) Insertar un elemento en una lista
+    Para insertar un elemento en cualquier posición de una lista, definimos una regla `insertar`:
+
+    #+begin_src prolog
+    insertar(X, L, [X | L]).                     
+    insertar(X, [H | T], [H | R]) :-             
+        insertar(X, T, R).
+    #+end_src
+	
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- insertar(4, [1, 2, 3], L).
+    L = [4, 1, 2, 3].
+    #+end_src
+
+**** d) Verificar si una lista es un sublista de otra
+Para verificar si una lista `Sub` es sublista de `L`, usamos la regla `sublista`:
+
+    #+begin_src prolog
+    sublista([], _).                             
+    sublista([H | T], [H | T2]) :-               
+        sublista(T, T2).
+    sublista(Sub, [_ | T]) :-                    
+        sublista(Sub, T).
+    #+end_src
+
+Ejemplo de uso:
+    #+begin_src prolog
+    ?- sublista([2, 3], [1, 2, 3, 4]).
+    true.
+    #+end_src
+
+*** 4. Ejemplos adicionales y casos de uso
+
+   Prolog permite expresar fácilmente otras operaciones sobre listas,
+   como el filtrado de elementos que cumplen una condición específica
+   o el uso de listas en combinaciones y permutaciones.
+
+**** a) Filtrar elementos mayores a un valor
+    Definamos `filtrar_mayores` para obtener elementos mayores a un valor `N`:
+
+    #+begin_src prolog
+    filtrar_mayores(_, [], []).                         
+    filtrar_mayores(N, [H | T], [H | R]) :-             
+        H > N,
+        filtrar_mayores(N, T, R).
+    filtrar_mayores(N, [_ | T], R) :-                   
+        filtrar_mayores(N, T, R).
+    #+end_src
+
+    Ejemplo de uso:
+    #+begin_src prolog
+    ?- filtrar_mayores(2, [1, 3, 5, 2], L).
+    L = [3, 5].
+    #+end_src
+
+
+	* Cálculo del factorial en Prolog
+
+El cálculo del factorial de un número \( N \) se define como el
+producto de todos los números enteros positivos desde \( 1 \) hasta \(
+N \). En Prolog, podemos implementar esta operación utilizando una
+regla recursiva.
+
