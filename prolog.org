@@ -3144,21 +3144,21 @@ regla recursiva.
 
 
 
-* Ejercicios
+** Ejercicios
 
-Problema: Los hermanos y sus mascotas
+*** Problema: Los hermanos y sus mascotas
 
 Cuatro hermanos (Ana, Bruno, Carla y Daniel) tienen cada uno una
 mascota diferente (perro, gato, loro y pez). Sabemos que:
 
-Ana no tiene un perro ni un pez.
-Bruno no tiene un gato.
-Carla tiene un animal que no es el pez.
-Daniel tiene un loro o un pez.
-Pregunta: ¿Qué mascota tiene cada hermano?
+- Ana no tiene un perro ni un pez.
+- Bruno no tiene un gato.
+- Carla tiene un animal que no es el pez.
+- Daniel tiene un loro o un pez.
+- Pregunta: ¿Qué mascota tiene cada hermano?
 
 Representación en Prolog: Define los hermanos y las mascotas como
-individuos.
+indyividuos.
 Utiliza reglas y hechos basados en las pistas para
 determinar qué mascota tiene cada hermano.
 
@@ -3166,7 +3166,7 @@ Objetivo: Escribir un programa en Prolog que determine la asignación
 correcta de mascotas para cada hermano en función de las pistas dadas.
 
 
-Problema: Los investigadores y sus descubrimientos
+*** Problema: Los investigadores y sus descubrimientos
 
 Cinco investigadores (Alonso, Beatriz, Carlos, Diana y Eduardo) han hecho
 descubrimientos importantes en cinco áreas diferentes de la ciencia
