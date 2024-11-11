@@ -3157,10 +3157,8 @@ mascota diferente (perro, gato, loro y pez). Sabemos que:
 - Daniel tiene un loro o un pez.
 - Pregunta: ¿Qué mascota tiene cada hermano?
 
-Representación en Prolog: Define los hermanos y las mascotas como
-indyividuos.
-Utiliza reglas y hechos basados en las pistas para
-determinar qué mascota tiene cada hermano.
+Representación en Prolog: Define los hermanos y las mascotas como individuos.
+Utiliza reglas y hechos basados en las pistas para determinar qué mascota tiene cada hermano.
 
 Objetivo: Escribir un programa en Prolog que determine la asignación
 correcta de mascotas para cada hermano en función de las pistas dadas.
