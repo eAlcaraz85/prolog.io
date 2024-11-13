@@ -3161,6 +3161,7 @@ Objetivo: Escribir un programa en Prolog que determine la asignación
 correcta de mascotas para cada hermano en función de las pistas dadas.
 
 *** Solución
+#+BEGIN_SRC prolog
 
 % Definimos los hermanos y las mascotas posibles
 hermano(ana).
@@ -3219,6 +3220,7 @@ resolver :-
     todos_diferentes(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel),
     mostrar_resultados(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel).
 
+#+END_SRC
 
 
 *** Problema: Los investigadores y sus descubrimientos
