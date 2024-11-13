@@ -33,13 +33,13 @@ ectura del código fuente y su comprensión.
 
 omo ejemplo, considérese el siguiente extracto de pseudocódigo:
 
-+BEGIN_SRC C
+#+BEGIN_SRC C
 t a b c 
  a < 24 and b < 60 and c < 60
 return true
 se
 return false
-+END_SRC
+#+END_SRC
 
 ebido a la elección de nombres de variable, es difícil darse cuenta
 e la función del código. Compárese ahora con la siguiente versión:
@@ -87,66 +87,66 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 
 *** Estilo de indentación
 
- Estilo de indentación, en lenguajes de programación que usan llaves
- para indentar o delimitar bloques lógicos de código, como por
- ejemplo C, es también un punto clave el buen estilo. Usando un
- estilo lógico y consistente hace el código de uno más
- legible. Compárese:
+Estilo de indentación, en lenguajes de programación que usan llaves
+para indentar o delimitar bloques lógicos de código, como por
+ejemplo C, es también un punto clave el buen estilo. Usando un
+estilo lógico y consistente hace el código de uno más
+legible. Compárese:
 
+ #+BEGIN_SRC C
+if(horas < 24 && minutos < 60 && segundos < 60){
+   return true;
+}else{
+   return false;
+}
+ #+END_SRC
+ o bien:
+ #+BEGIN_SRC C
+if(horas < 24 && minutos < 60 && segundos < 60)
+{
+   return true;
+}
+else
+{
+   return false;
+}
+ #+END_SRC
 
-  #+BEGIN_SRC C
- if(horas < 24 && minutos < 60 && segundos < 60){
-    return true;
- }else{
-    return false;
- }
-  #+END_SRC
-  o bien:
-  #+BEGIN_SRC C
- if(horas < 24 && minutos < 60 && segundos < 60)
- {
-    return true;
- }
- else
- {
-    return false;
- }
-  #+END_SRC
+con algo como:
 
- con algo como:
+ #+BEGIN_SRC C
 
-  #+BEGIN_SRC C
+if(horas<24&&minutos<60&&segundos<60){return true;}
+else{return false;}
+ #+END_SRC
 
- if(horas<24&&minutos<60&&segundos<60){return true;}
- else{return false;}
-  #+END_SRC
+Los primeros dos ejemplos son mucho más fáciles de leer porque están
+bien indentados, y los bloques lógicos de código se agrupan y se
+representan juntos de forma más clara.
 
- Los primeros dos ejemplos son mucho más fáciles de leer porque están
- bien indentados, y los bloques lógicos de código se agrupan y se
- representan juntos de forma más clara.
+Valores booleanos en estructuras de decisión Algunos programadores
+piensan que las estructuras de decisión como las anteriores, donde el
+resultado de la decisión es meramente una computación de un valor
+booleano, son demasiado prolijos e incluso propensos al
+error. Prefieren hacer la decisión en la computación por sí mismo,
+como esto:
 
- Valores booleanos en estructuras de decisión Algunos programadores
- piensan que las estructuras de decisión como las anteriores, donde el
- resultado de la decisión es meramente una computación de un valor
- booleano, son demasiado prolijos e incluso propensos al
- error. Prefieren hacer la decisión en la computación por sí mismo,
- como esto:
+ #+BEGIN_SRC C
+return horas < 12 && minutos < 60 && segundos < 60;
+ #+END_SRC
 
-  #+BEGIN_SRC C
- return horas < 12 && minutos < 60 && segundos < 60;
-  #+END_SRC
-
- La diferencia es, con frecuencia, puramente estilística y sintáctica,
- ya que los compiladores modernos producirán código objeto idéntico en
- las dos formas.
+La diferencia es, con frecuencia, puramente estilística y sintáctica,
+ya que los compiladores modernos producirán código objeto idéntico en
+las dos formas.
 
 *** Bucles y estructuras de control
 
-  El uso de estructuras de control lógicas para bucles también es parte
-   de un buen estilo de programación. Ayuda a alguien que esté leyendo
-   el código a entender la secuencia de ejecución (en programación
-   imperativa). Por ejemplo, el siguiente pseudocódigo:
-	#+BEGIN_SRC C
+El uso de estructuras de control lógicas para bucles también es parte
+de un buen estilo de programación. Ayuda a alguien que esté leyendo
+el código a entender la secuencia de ejecución (en programación
+imperativa). Por ejemplo, el siguiente pseudocódigo:
+
+#+BEGIN_SRC C
 
    cuenta = 0
    while cuenta < 5
@@ -155,20 +155,20 @@ hora en 24 horas, se devolverá true si es válida y false si no".
    endwhile
 	#+END_SRC
 
- El extracto anterior cumple con las dos recomendaciones de estilo
- anteriores, pero el siguiente uso de la construcción for hace el
- código mucho más fácil de leer:
+El extracto anterior cumple con las dos recomendaciones de estilo
+anteriores, pero el siguiente uso de la construcción for hace el
+código mucho más fácil de leer:
 
- #+BEGIN_SRC C
+#+BEGIN_SRC C
 
- for cuenta = 0, cuenta < 5, cuenta=cuenta+1
-   print cuenta * 2
- #+END_SRC
+for cuenta = 0, cuenta < 5, cuenta=cuenta+1
+  print cuenta * 2
+#+END_SRC
 
- En muchos lenguajes, el patrón frecuentemente usado "por cada elemento
- en un rango" puede ser acortado a:
+En muchos lenguajes, el patrón frecuentemente usado "por cada elemento
+en un rango" puede ser acortado a:
 
- #+BEGIN_SRC C
+#+BEGIN_SRC C
 
  for cuenta = 0 to 5
    print cuenta * 2
@@ -176,41 +176,41 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 
 *** Espaciado
 
- Los lenguajes de formato libre ignoran frecuentemente los espacios
- en blanco. El buen uso del espaciado en la disposición del código
- de uno es, por tanto, considerado un buen estilo de programación.
+Los lenguajes de formato libre ignoran frecuentemente los espacios
+en blanco. El buen uso del espaciado en la disposición del código
+de uno es, por tanto, considerado un buen estilo de programación.
 
- Compárese el siguiente extracto de código C:
+Compárese el siguiente extracto de código C:
 
-  #+BEGIN_SRC C
- int cuenta; for(cuenta=0;cuenta<10;cuenta++)
-{printf("%d",cuenta*cuenta+cuenta);}
-  #+END_SRC
-  con:
-  #+BEGIN_SRC C
- int cuenta;
- for (cuenta = 0; cuenta < 10; cuenta++)
- {
-    printf("%d", cuenta * cuenta + cuenta);
- }
-  #+END_SRC
+ #+BEGIN_SRC C
+int cuenta; for(cuenta=0;cuenta<10;cuenta++)
+printf("%d",cuenta*cuenta+cuenta);}
+ #+END_SRC
+ con:
+ #+BEGIN_SRC C
+int cuenta;
+for (cuenta = 0; cuenta < 10; cuenta++)
+{
+   printf("%d", cuenta * cuenta + cuenta);
+}
+ #+END_SRC
 
- En los lenguajes de programación de la familia C se recomienda también
- evitar el uso de caracteres tabulador en medio de una línea, ya que
- diferentes editores de textos muestran su anchura de forma diferente.
+En los lenguajes de programación de la familia C se recomienda también
+evitar el uso de caracteres tabulador en medio de una línea, ya que
+diferentes editores de textos muestran su anchura de forma diferente.
 
- El lenguaje de programación Python usa indentación para indicar
- estructuras de control, por tanto se requiere obligatoriamente una
- buena indentación. Haciendo esto, la necesidad de marcar con llaves ({
- y }) es eliminada, y la legibilidad es mejorada sin interferir con los
- estilos de codificación comunes.
+El lenguaje de programación Python usa indentación para indicar
+estructuras de control, por tanto se requiere obligatoriamente una
+buena indentación. Haciendo esto, la necesidad de marcar con llaves ({
+y }) es eliminada, y la legibilidad es mejorada sin interferir con los
+estilos de codificación comunes.
 
- 
- Con todo, esto lleva frecuentemente a problemas donde el código es
- copiado y pegado dentro de un programa Python, requiriendo un
- tedioso reformateado. Adicionalmente, el código Python se vuelve
- inusable cuando es publicado en un foro o página web que elimine el
- espacio en blanco.
+
+Con todo, esto lleva frecuentemente a problemas donde el código es
+copiado y pegado dentro de un programa Python, requiriendo un
+tedioso reformateado. Adicionalmente, el código Python se vuelve
+inusable cuando es publicado en un foro o página web que elimine el
+espacio en blanco.
 
 *** Evaluación de expresiones
   
@@ -351,7 +351,6 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 **  Disciplina de tipos
 
 ** Funciones
-
 
 * Programación Funcional
 
@@ -519,7 +518,6 @@ ser puras, y en términos muy sencillos el Mónada reúne una identidad y
 una composición de funciones del tipo $f(g(x))$, todo a través de un
 tipo de dato que permite componer funciones sin abandonar ese tipo de
 dato y darle un aspecto procedural.
-
 
 * Lisp 
 
@@ -2223,7 +2221,6 @@ Las funciones lambda son extremadamente útiles en situaciones donde necesitas f
 (funcall triplicar 10)
 #+END_SRC
 
-
 * Prolog
 
 Una regla sirve para representar conocimiento que en lenguaje natural
@@ -3162,6 +3159,66 @@ Utiliza reglas y hechos basados en las pistas para determinar qué mascota tiene
 
 Objetivo: Escribir un programa en Prolog que determine la asignación
 correcta de mascotas para cada hermano en función de las pistas dadas.
+
+*** Solución
+
+% Definimos los hermanos y las mascotas posibles
+hermano(ana).
+hermano(bruno).
+hermano(carla).
+hermano(daniel).
+
+mascota(perro).
+mascota(gato).
+mascota(loro).
+mascota(pez).
+
+% Regla que establece que cada hermano tiene una mascota única
+tiene_mascota(Hermano, Mascota) :-
+    hermano(Hermano),
+    mascota(Mascota).
+
+% Restricciones específicas según las pistas
+restricciones :-
+    tiene_mascota(ana, MascotaAna),
+    MascotaAna \= perro,
+    MascotaAna \= pez,
+
+    tiene_mascota(bruno, MascotaBruno),
+    MascotaBruno \= gato,
+
+    tiene_mascota(carla, MascotaCarla),
+    MascotaCarla \= pez,
+
+    tiene_mascota(daniel, MascotaDaniel),
+    (MascotaDaniel = loro ; MascotaDaniel = pez).
+
+% Regla para asegurar que todos tienen mascotas distintas
+todos_diferentes(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel) :-
+    MascotaAna \= MascotaBruno,
+    MascotaAna \= MascotaCarla,
+    MascotaAna \= MascotaDaniel,
+    MascotaBruno \= MascotaCarla,
+    MascotaBruno \= MascotaDaniel,
+    MascotaCarla \= MascotaDaniel.
+
+% Mostrar resultados
+mostrar_resultados(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel) :-
+    format('Ana tiene un ~w~n', [MascotaAna]),
+    format('Bruno tiene un ~w~n', [MascotaBruno]),
+    format('Carla tiene un ~w~n', [MascotaCarla]),
+    format('Daniel tiene un ~w~n', [MascotaDaniel]).
+
+% Regla principal que resuelve el problema
+resolver :-
+    tiene_mascota(ana, MascotaAna),
+    tiene_mascota(bruno, MascotaBruno),
+    tiene_mascota(carla, MascotaCarla),
+    tiene_mascota(daniel, MascotaDaniel),
+    restricciones,
+    todos_diferentes(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel),
+    mostrar_resultados(MascotaAna, MascotaBruno, MascotaCarla, MascotaDaniel).
+
 
 
 *** Problema: Los investigadores y sus descubrimientos
