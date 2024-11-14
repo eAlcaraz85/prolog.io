@@ -3253,3 +3253,57 @@ especialidad secundaria:
 
 Pregunta: ¿Cuál es el descubrimiento de cada investigador, su país de
 origen, su instrumento favorito y su especialidad secundaria?
+
+
+** Variables Anónimas en Prolog
+En Prolog, las variables anónimas se representan mediante el guion
+bajo ( _ ). Estas variables son útiles cuando no necesitamos almacenar
+un valor específico y solo queremos que el predicado se ejecute sin
+importar el valor de esa variable.
+
+*** Características de las Variables Anónimas
+- Una variable anónima ( _ ) es una variable "sin nombre".
+- No almacena ningún valor.
+- Cada vez que aparece en una expresión, se trata como una variable completamente nueva.
+- Es útil cuando una parte del predicado no es relevante y solo queremos que coincida.
+
+*** Ejemplo
+Supongamos que tenemos un predicado `padre/2`, que indica una relación entre un padre y su hijo:
+
+#+begin_src prolog
+padre(juan, maria).
+padre(carlos, pedro).
+padre(juan, jose).
+#+end_src
+
+Si queremos encontrar todos los hijos de Juan, podemos usar una consulta de esta forma:
+
+#+begin_src prolog
+?- padre(juan, Hijo).
+#+end_src
+
+Sin embargo, si solo queremos verificar si Juan tiene algún hijo, sin importar quién sea, podemos utilizar la variable anónima:
+
+#+begin_src prolog
+?- padre(juan, _).
+#+end_src
+
+Esta consulta devolverá `true` si Juan tiene al menos un hijo, ya que no necesitamos el valor del hijo específico.
+
+*** Casos Comunes de Uso
+- Ignorar ciertos argumentos en un predicado.
+- Simplificar consultas en las que solo se desea verificar la existencia de alguna condición.
+- Evitar que Prolog almacene valores innecesarios en la consulta.
+
+*** Ejercicio
+Intenta ejecutar las siguientes consultas para entender el uso de variables anónimas:
+
+#+begin_src prolog
+% 1. Consulta para verificar si Carlos tiene algún hijo.
+?- padre(carlos, _).
+
+% 2. Consulta para verificar si existe alguna relación padre-hijo en la base de datos.
+?- padre(_, _).
+#+end_src
+
+Cada una de estas consultas ignorará los valores específicos y solo verificará la existencia de la relación.
