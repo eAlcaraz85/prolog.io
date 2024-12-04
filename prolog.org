@@ -3307,3 +3307,431 @@ Intenta ejecutar las siguientes consultas para entender el uso de variables anó
 #+end_src
 
 Cada una de estas consultas ignorará los valores específicos y solo verificará la existencia de la relación.
+
+
+Proyecto 
+
+
+** Predicados Mitológicos en Programación Lógica
+
+*** Introducción
+En programación lógica, los predicados mitológicos son aquellos que
+destacan por su utilidad, flexibilidad y elegancia en la solución de
+problemas comunes o complejos. Estos predicados pueden resolver
+múltiples casos con reglas generales, lo que les otorga un carácter
+"mágico". Su uso es común en lenguajes como Prolog.
+
+*** Ejemplos Detallados de Predicados Mitológicos
+**** 1. maplist/3
+El predicado `maplist/3` aplica un predicado a cada elemento de una lista y genera una lista transformada.
+
+#+BEGIN_SRC prolog
+maplist(_, [], []).
+maplist(Predicado, [H1|T1], [H2|T2]) :-
+    call(Predicado, H1, H2),
+    maplist(Predicado, T1, T2).
+#+END_SRC
+
+Ejemplo: Calcular el cuadrado de cada número en una lista.
+
+#+BEGIN_SRC prolog
+cuadrado(X, Y) :- Y is X * X.
+?- maplist(cuadrado, [1, 2, 3], Resultados).
+% Resultados = [1, 4, 9].
+#+END_SRC
+
+**** 2. permutacion/2
+Genera todas las permutaciones posibles de una lista.
+
+#+BEGIN_SRC prolog
+permutacion([], []).
+permutacion([H|T], P) :-
+    permutacion(T, R),
+    insertar(H, R, P).
+
+insertar(X, L, [X|L]).
+insertar(X, [H|T], [H|R]) :- insertar(X, T, R).
+#+END_SRC
+
+Ejemplo: Enumerar las permutaciones de una lista.
+
+#+BEGIN_SRC prolog
+?- permutacion([1, 2, 3], P).
+% P = [1, 2, 3];
+% P = [1, 3, 2];
+% P = [2, 1, 3];
+% ...
+#+END_SRC
+
+**** 3. append/3
+El predicado `append/3` combina dos listas en una o las divide en dos partes.
+
+#+BEGIN_SRC prolog
+append([], L, L).
+append([H|T], L, [H|R]) :-
+    append(T, L, R).
+#+END_SRC
+
+Ejemplo 1: Concatenar listas.
+
+#+BEGIN_SRC prolog
+?- append([1, 2], [3, 4], Resultado).
+% Resultado = [1, 2, 3, 4].
+#+END_SRC
+
+Ejemplo 2: Dividir una lista en dos partes.
+
+#+BEGIN_SRC prolog
+?- append(L1, L2, [1, 2, 3]).
+% L1 = [];
+% L2 = [1, 2, 3];
+% L1 = [1];
+% L2 = [2, 3];
+% ...
+#+END_SRC
+
+**** 4. subconjunto/2
+Genera todos los subconjuntos posibles de una lista, útil en problemas combinatorios.
+
+#+BEGIN_SRC prolog
+subconjunto([], []).
+subconjunto([H|T], [H|R]) :-
+    subconjunto(T, R).
+subconjunto([_|T], R) :-
+    subconjunto(T, R).
+#+END_SRC
+
+Ejemplo: Generar subconjuntos.
+
+#+BEGIN_SRC prolog
+?- subconjunto([1, 2, 3], S).
+% S = [];
+% S = [1];
+% S = [2];
+% S = [1, 2];
+% ...
+#+END_SRC
+
+**** 5. reverse/2
+Invierte los elementos de una lista.
+
+#+BEGIN_SRC prolog
+reverse([], []).
+reverse([H|T], R) :-
+    reverse(T, RevT),
+    append(RevT, [H], R).
+#+END_SRC
+
+Ejemplo: Invertir una lista.
+
+#+BEGIN_SRC prolog
+?- reverse([1, 2, 3], R).
+% R = [3, 2, 1].
+#+END_SRC
+
+**** 6. flatten/2
+Convierte una lista con estructuras anidadas en una lista plana.
+
+#+BEGIN_SRC prolog
+flatten([], []).
+flatten([H|T], R) :-
+    flatten(H, RH),
+    flatten(T, RT),
+    append(RH, RT, R).
+flatten(X, [X]) :-
+    X \= [],
+    X \= [_|_].
+#+END_SRC
+
+Ejemplo: Aplanar una lista.
+
+#+BEGIN_SRC prolog
+?- flatten([1, [2, [3, 4]], 5], R).
+% R = [1, 2, 3, 4, 5].
+#+END_SRC
+
+Aplanar una lista vacía simplemente devuelve otra lista vacía.
+
+#+BEGIN_SRC prolog
+?- flatten([], R).
+% R = [].
+#+END_SRC
+
+Los elementos atómicos y las listas vacías no se modifican en el resultado.
+
+#+BEGIN_SRC prolog
+?- flatten([1, [], [2, [3, []], 4]], R).
+% R = [1, 2, 3, 4].
+#+END_SRC
+
+Aplanar múltiples niveles de anidación.
+
+#+BEGIN_SRC prolog
+?- flatten([[a, [b, c]], [d, [e, f]], g], R).
+% R = [a, b, c, d, e, f, g].
+#+END_SRC
+
+
+**** 7. findall/3
+
+El predicado `findall/3` recolecta todas las soluciones posibles de un
+predicado y las devuelve en una lista. Es útil para realizar consultas
+y almacenar resultados.
+
+
+Ejemplo: Recolectar miembros de una lista.
+
+#+BEGIN_SRC prolog
+?- findall(X, member(X, [1, 2, 3]), Soluciones).
+% Soluciones = [1, 2, 3].
+#+END_SRC
+
+Ejemplo: Recuperar todos los elementos de una lista utilizando el predicado `member/2`.
+
+#+BEGIN_SRC prolog
+?- findall(X, member(X, [1, 2, 3]), Resultados).
+% Resultados = [1, 2, 3].
+#+END_SRC
+
+Ejemplo : Recolectar pares ordenados donde el segundo elemento es el doble del primero.
+
+#+BEGIN_SRC prolog
+doble(X, Y) :- Y is X * 2.
+?- findall((X, Y), (member(X, [1, 2, 3]), doble(X, Y)), Pares).
+% Pares = [(1, 2), (2, 4), (3, 6)].
+#+END_SRC
+
+Ejemplo: Usar el predicado `permutacion/2` para generar y recolectar permutaciones de una lista.
+
+#+BEGIN_SRC prolog
+?- findall(P, permutacion([1, 2, 3], P), Permutaciones).
+% Permutaciones = [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]].
+#+END_SRC
+
+Ejemplo: Recolectar los números en una lista que están en un rango definido.
+
+#+BEGIN_SRC prolog
+en_rango(X) :- X >= 10, X =< 20.
+?- findall(X, (member(X, [5, 10, 15, 20, 25]), en_rango(X)), Filtrados).
+% Filtrados = [10, 15, 20].
+#+END_SRC
+
+Ejemplo: Usar `findall/3` junto con `length/2` para contar cuántas soluciones tiene un predicado.
+
+#+BEGIN_SRC prolog
+?- findall(X, member(X, [a, b, c, d]), Soluciones), length(Soluciones, Total).
+% Soluciones = [a, b, c, d],
+% Total = 4.
+#+END_SRC
+
+Ejemplo:  Ejemplo 6: Uso combinado con flatten/2
+Recolectar listas anidadas y luego aplanarlas.
+
+#+BEGIN_SRC prolog
+?- findall(SubLista, member(SubLista, [[1, 2], [3, [4, 5]], 6]), Listas),
+   flatten(Listas, R).
+% Listas = [[1, 2], [3, [4, 5]], 6],
+% R = [1, 2, 3, 4, 5, 6].
+#+END_SRC
+
+Ejemplo: Recolectar todas las soluciones que cumplen una condición, como encontrar números primos en un rango.
+
+#+BEGIN_SRC prolog
+es_primo(N) :- N > 1, \+ (between(2, N1, N), N1 < N, N mod N1 =:= 0).
+?- findall(Primo, (between(1, 20, Primo), es_primo(Primo)), Primos).
+% Primos = [2, 3, 5, 7, 11, 13, 17, 19].
+#+END_SRC
+
+
+Estos predicados "mitológicos" destacan en programación lógica por su
+capacidad para abordar una amplia variedad de problemas. Al dominar
+estos predicados, los programadores pueden escribir código más
+elegante y eficiente, aprovechando la potencia de lenguajes como
+Prolog para resolver problemas complejos de manera declarativa.
+
+
+** Problemas con Predicados Mitológicos
+*** 1. Aplanar una lista de listas anidadas
+   Utiliza el predicado `flatten/2` para transformar una estructura anidada en una lista plana.
+
+   **Problema:**  
+   Dada una lista como `[1, [2, [3, 4], 5], [6]]`, genera `[1, 2, 3, 4, 5, 6]`.
+
+   **Predicado:**  
+   `flatten/2`.
+
+*** 2. Encontrar todas las permutaciones de una lista
+   Utiliza `permutacion/2` para generar todas las permutaciones posibles de una lista.
+
+   **Problema:**  
+   Dada la lista `[a, b, c]`, genera las permutaciones:
+   - [a, b, c]
+   - [a, c, b]
+   - [b, a, c]
+   - [b, c, a]
+   - [c, a, b]
+   - [c, b, a]
+
+   **Predicado:**  
+   `permutacion/2`.
+
+*** 3. Generar subconjuntos de una lista
+   Utiliza `subconjunto/2` para encontrar todos los subconjuntos posibles de una lista.
+
+   **Problema:**  
+   Dada la lista `[1, 2, 3]`, genera:
+   - []
+   - [1]
+   - [2]
+   - [3]
+   - [1, 2]
+   - [1, 3]
+   - [2, 3]
+   - [1, 2, 3]
+
+   **Predicado:**  
+   `subconjunto/2`.
+
+*** 4. Encontrar todos los números en un rango que cumplen una condición
+   Usa `findall/3` para encontrar números que cumplan una propiedad específica, como ser pares o primos.
+
+   **Problema:**  
+   Encuentra todos los números primos entre 1 y 20.
+
+   **Predicados:**  
+   `findall/3`, `es_primo/1`.
+
+*** 5. Concatenar dos listas
+   Usa `append/3` para combinar dos listas en una sola.
+
+   **Problema:**  
+   Combina `[1, 2]` y `[3, 4]` en `[1, 2, 3, 4]`.
+
+   **Predicado:**  
+   `append/3`.
+
+*** 6. Encontrar elementos únicos en una lista
+   Usa `findall/3` y `member/2` para eliminar duplicados.
+
+   **Problema:**  
+   Dada la lista `[1, 2, 2, 3, 3, 3, 4]`, genera `[1, 2, 3, 4]`.
+
+   **Predicados:**  
+   `findall/3`, `member/2`.
+
+*** 7. Calcular la potencia de un número
+   Usa un predicado recursivo y `findall/3` para calcular todas las potencias de un número hasta un límite.
+
+   **Problema:**  
+   Dado el número 2, calcula sus potencias hasta \( 2^5 \):  
+   - [1, 2, 4, 8, 16, 32]
+
+   **Predicado:**  
+   `findall/3`.
+
+*** 8. Alinear equipos en un torneo
+   Usa `permutacion/2` para generar todas las alineaciones posibles de equipos en un torneo.
+
+   **Problema:**  
+   Dado un conjunto de equipos `[A, B, C]`, genera todas las combinaciones posibles de enfrentamientos.
+
+   **Predicado:**  
+   `permutacion/2`.
+
+*** 9. Resolver problemas de caminos
+   Encuentra todas las rutas posibles entre dos nodos en un grafo utilizando `findall/3`.
+
+   **Problema:**  
+   Dado un grafo representado como:
+   - arco(a, b).
+   - arco(b, c).
+   - arco(c, d).
+   - arco(a, d).
+
+   Encuentra todas las rutas de `a` a `d`.
+
+   **Predicados:**  
+   `findall/3`, predicado recursivo para buscar caminos.
+
+*** 10. Generar combinaciones con repetición
+   Usa `findall/3` para generar combinaciones posibles de elementos de una lista con repetición.
+
+   **Problema:**  
+   Dada la lista `[a, b]` y un tamaño 2, genera:
+   - [a, a]
+   - [a, b]
+   - [b, a]
+   - [b, b]
+
+   **Predicado:**  
+   `findall/3`.
+
+*** 11
+
+
+
+* Proyecto
+
+ELIZA es uno de los primeros programas de inteligencia artificial,
+desarrollado por Joseph Weizenbaum en el Instituto Tecnológico de
+Massachusetts (MIT) en 1966. Su objetivo era simular una conversación
+entre un ser humano y una computadora. ELIZA es particularmente
+conocida por emular a un terapeuta Rogeriano, utilizando técnicas de
+procesamiento de lenguaje natural muy básicas.
+
+Funcionamiento: ELIZA utiliza patrones predefinidos para analizar y
+generar respuestas. No "entiende" el significado de las palabras, sino
+que simplemente las manipula con base en reglas definidas. Por
+ejemplo, si alguien dice "Estoy triste", ELIZA podría responder "¿Por
+qué estás triste?" mediante la detección de palabras clave y su
+sustitución en plantillas de respuesta.
+
+Importancia histórica: Aunque su capacidad era limitada, ELIZA
+demostró el potencial de las interacciones humano-computadora. Su
+desarrollo ayudó a abrir camino para futuras investigaciones en
+procesamiento de lenguaje natural y chatbots modernos.
+
+Limitaciones: ELIZA no tiene comprensión semántica ni memoria
+contextual. Por lo tanto, sus respuestas pueden parecer desconectadas
+en conversaciones más largas o complejas.
+
+
+** Actividad
+
+Dado el texto anterior, utilizar los archivos de Dropbox eliza.pl y
+eliza2.pl y extender la funcionalidad de *Eliza*, agregando lo visto en
+clases además de añadir el árbol genealógico, el árbol de datos que
+generaron con clisp adaptándolo a prolog y adaptar a modo pregunta los
+siguientes problemas.
+
+
+Problema de medicina: Investigadores y sus especialidades Cinco
+médicos (Ana, Bruno, Carla, Diego y Elena) trabajan en cinco
+especialidades médicas diferentes (cardiología, neurología, oncología,
+pediatría y dermatología). Cada médico proviene de un hospital
+diferente (General, Regional, Universitario, Privado y Militar),
+prefiere un equipo médico (ecógrafo, resonancia, tomógrafo,
+dermatoscopio y electrocardiógrafo) y tiene un interés de
+investigación específico (genética, farmacología, inmunología,
+bioética y microbiología).
+
+Con las siguientes pistas, eliza debe  deducir la  especialidad médica, el hospital, el equipo favorito y el interés de investigación de cada médico:
+
+Carla no trabaja en el Hospital General ni en el Privado, y no estudia neurología.
+La persona que utiliza el electrocardiógrafo trabaja en cardiología en el Hospital Militar, pero no es Diego.
+Bruno está interesado en farmacología, pero no trabaja en el Hospital Regional ni en el Militar.
+La persona que utiliza el ecógrafo trabaja en pediatría y no es del Hospital Universitario ni del Militar.
+El especialista en oncología trabaja en el Hospital General y utiliza un tomógrafo.
+El médico interesado en inmunología usa el resonador magnético, pero no es Elena.
+El médico del Hospital Regional se dedica a dermatología.
+Elena está interesada en bioética y no utiliza el electrocardiógrafo.
+Diego es el experto en microbiología.
+El médico del Hospital Universitario utiliza un dermatoscopio.
+Pregunta:
+¿Cuál es la especialidad, el hospital, el equipo médico y el interés de investigación de cada médico
+
+
+Generar los hechos necesarios para resolver el problema. 
+
+
+
