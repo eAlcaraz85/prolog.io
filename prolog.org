@@ -3322,8 +3322,8 @@ múltiples casos con reglas generales, lo que les otorga un carácter
 "mágico". Su uso es común en lenguajes como Prolog.
 
 *** Ejemplos Detallados de Predicados Mitológicos
-**** 1. maplist/3
-El predicado `maplist/3` aplica un predicado a cada elemento de una lista y genera una lista transformada.
+**** 1. maplist
+El predicado *maplist* aplica un predicado a cada elemento de una lista y genera una lista transformada.
 
 #+BEGIN_SRC prolog
 maplist(_, [], []).
@@ -3340,7 +3340,7 @@ cuadrado(X, Y) :- Y is X * X.
 % Resultados = [1, 4, 9].
 #+END_SRC
 
-**** 2. permutacion/2
+**** 2. permutacion
 Genera todas las permutaciones posibles de una lista.
 
 #+BEGIN_SRC prolog
@@ -3363,8 +3363,8 @@ Ejemplo: Enumerar las permutaciones de una lista.
 % ...
 #+END_SRC
 
-**** 3. append/3
-El predicado `append/3` combina dos listas en una o las divide en dos partes.
+**** 3. append
+El predicado *append* combina dos listas en una o las divide en dos partes.
 
 #+BEGIN_SRC prolog
 append([], L, L).
@@ -3390,7 +3390,7 @@ Ejemplo 2: Dividir una lista en dos partes.
 % ...
 #+END_SRC
 
-**** 4. subconjunto/2
+**** 4. subconjunto
 Genera todos los subconjuntos posibles de una lista, útil en problemas combinatorios.
 
 #+BEGIN_SRC prolog
@@ -3412,7 +3412,7 @@ Ejemplo: Generar subconjuntos.
 % ...
 #+END_SRC
 
-**** 5. reverse/2
+**** 5. reverse
 Invierte los elementos de una lista.
 
 #+BEGIN_SRC prolog
@@ -3429,7 +3429,7 @@ Ejemplo: Invertir una lista.
 % R = [3, 2, 1].
 #+END_SRC
 
-**** 6. flatten/2
+**** 6. flatten
 Convierte una lista con estructuras anidadas en una lista plana.
 
 #+BEGIN_SRC prolog
@@ -3472,9 +3472,9 @@ Aplanar múltiples niveles de anidación.
 #+END_SRC
 
 
-**** 7. findall/3
+**** 7. findall
 
-El predicado `findall/3` recolecta todas las soluciones posibles de un
+El predicado *findall* recolecta todas las soluciones posibles de un
 predicado y las devuelve en una lista. Es útil para realizar consultas
 y almacenar resultados.
 
@@ -3486,7 +3486,7 @@ Ejemplo: Recolectar miembros de una lista.
 % Soluciones = [1, 2, 3].
 #+END_SRC
 
-Ejemplo: Recuperar todos los elementos de una lista utilizando el predicado `member/2`.
+Ejemplo: Recuperar todos los elementos de una lista utilizando el predicado `member`.
 
 #+BEGIN_SRC prolog
 ?- findall(X, member(X, [1, 2, 3]), Resultados).
@@ -3501,7 +3501,7 @@ doble(X, Y) :- Y is X * 2.
 % Pares = [(1, 2), (2, 4), (3, 6)].
 #+END_SRC
 
-Ejemplo: Usar el predicado `permutacion/2` para generar y recolectar permutaciones de una lista.
+Ejemplo: Usar el predicado *permutacion* para generar y recolectar permutaciones de una lista.
 
 #+BEGIN_SRC prolog
 ?- findall(P, permutacion([1, 2, 3], P), Permutaciones).
@@ -3516,7 +3516,7 @@ en_rango(X) :- X >= 10, X =< 20.
 % Filtrados = [10, 15, 20].
 #+END_SRC
 
-Ejemplo: Usar `findall/3` junto con `length/2` para contar cuántas soluciones tiene un predicado.
+Ejemplo: Usar *findall* junto con *length* para contar cuántas soluciones tiene un predicado.
 
 #+BEGIN_SRC prolog
 ?- findall(X, member(X, [a, b, c, d]), Soluciones), length(Soluciones, Total).
@@ -3524,7 +3524,7 @@ Ejemplo: Usar `findall/3` junto con `length/2` para contar cuántas soluciones t
 % Total = 4.
 #+END_SRC
 
-Ejemplo:  Ejemplo 6: Uso combinado con flatten/2
+Ejemplo:  Ejemplo 6: Uso combinado con *flatten*
 Recolectar listas anidadas y luego aplanarlas.
 
 #+BEGIN_SRC prolog
@@ -3538,12 +3538,12 @@ Ejemplo: Recolectar todas las soluciones que cumplen una condición, como encont
 
 #+BEGIN_SRC prolog
 es_primo(N) :- N > 1, \+ (between(2, N1, N), N1 < N, N mod N1 =:= 0).
-?- findall(Primo, (between(1, 20, Primo), es_primo(Primo)), Primos).
+?- findall(Primo, (between(1, 20, Primo), es\_primo(Primo)), Primos).
 % Primos = [2, 3, 5, 7, 11, 13, 17, 19].
 #+END_SRC
 
 
-Estos predicados "mitológicos" destacan en programación lógica por su
+Estos predicados *mitológicos* destacan en programación lógica por su
 capacidad para abordar una amplia variedad de problemas. Al dominar
 estos predicados, los programadores pueden escribir código más
 elegante y eficiente, aprovechando la potencia de lenguajes como
@@ -3552,19 +3552,19 @@ Prolog para resolver problemas complejos de manera declarativa.
 
 ** Problemas con Predicados Mitológicos
 *** 1. Aplanar una lista de listas anidadas
-   Utiliza el predicado `flatten/2` para transformar una estructura anidada en una lista plana.
+   Utiliza el predicado *flatten* para transformar una estructura anidada en una lista plana.
 
    **Problema:**  
-   Dada una lista como `[1, [2, [3, 4], 5], [6]]`, genera `[1, 2, 3, 4, 5, 6]`.
+   Dada una lista como *[1, [2, [3, 4], 5], [6]]*, genera *[1, 2, 3, 4, 5, 6]*.
 
    **Predicado:**  
    `flatten/2`.
 
 *** 2. Encontrar todas las permutaciones de una lista
-   Utiliza `permutacion/2` para generar todas las permutaciones posibles de una lista.
+   Utiliza *permutacion*` para generar todas las permutaciones posibles de una lista.
 
    **Problema:**  
-   Dada la lista `[a, b, c]`, genera las permutaciones:
+   Dada la lista *[a, b, c]*, genera las permutaciones:
    - [a, b, c]
    - [a, c, b]
    - [b, a, c]
@@ -3576,10 +3576,10 @@ Prolog para resolver problemas complejos de manera declarativa.
    `permutacion/2`.
 
 *** 3. Generar subconjuntos de una lista
-   Utiliza `subconjunto/2` para encontrar todos los subconjuntos posibles de una lista.
+   Utiliza *subconjunto* para encontrar todos los subconjuntos posibles de una lista.
 
    **Problema:**  
-   Dada la lista `[1, 2, 3]`, genera:
+   Dada la lista *[1, 2, 3]*, genera:
    - []
    - [1]
    - [2]
@@ -3590,34 +3590,34 @@ Prolog para resolver problemas complejos de manera declarativa.
    - [1, 2, 3]
 
    **Predicado:**  
-   `subconjunto/2`.
+   subconjunto.
 
 *** 4. Encontrar todos los números en un rango que cumplen una condición
-   Usa `findall/3` para encontrar números que cumplan una propiedad específica, como ser pares o primos.
+   Usa findall para encontrar números que cumplan una propiedad específica, como ser pares o primos.
 
    **Problema:**  
    Encuentra todos los números primos entre 1 y 20.
 
    **Predicados:**  
-   `findall/3`, `es_primo/1`.
+   *findall*, *es\_primo*.
 
 *** 5. Concatenar dos listas
-   Usa `append/3` para combinar dos listas en una sola.
+   Usa *append* para combinar dos listas en una sola.
 
    **Problema:**  
    Combina `[1, 2]` y `[3, 4]` en `[1, 2, 3, 4]`.
 
    **Predicado:**  
-   `append/3`.
+   *append*.
 
 *** 6. Encontrar elementos únicos en una lista
-   Usa `findall/3` y `member/2` para eliminar duplicados.
+   Usa *findall* y *member* para eliminar duplicados.
 
    **Problema:**  
-   Dada la lista `[1, 2, 2, 3, 3, 3, 4]`, genera `[1, 2, 3, 4]`.
+   Dada la lista *[1, 2, 2, 3, 3, 3, 4]*, genera *[1, 2, 3, 4]*.
 
    **Predicados:**  
-   `findall/3`, `member/2`.
+   *findall*, *member*.
 
 *** 7. Calcular la potencia de un número
    Usa un predicado recursivo y `findall/3` para calcular todas las potencias de un número hasta un límite.
@@ -3627,16 +3627,16 @@ Prolog para resolver problemas complejos de manera declarativa.
    - [1, 2, 4, 8, 16, 32]
 
    **Predicado:**  
-   `findall/3`.
+   *findall*.
 
 *** 8. Alinear equipos en un torneo
-   Usa `permutacion/2` para generar todas las alineaciones posibles de equipos en un torneo.
+   Usa *permutacion*` para generar todas las alineaciones posibles de equipos en un torneo.
 
    **Problema:**  
-   Dado un conjunto de equipos `[A, B, C]`, genera todas las combinaciones posibles de enfrentamientos.
+   Dado un conjunto de equipos *[A, B, C]*, genera todas las combinaciones posibles de enfrentamientos.
 
    **Predicado:**  
-   `permutacion/2`.
+   *permutacion*
 
 *** 9. Resolver problemas de caminos
    Encuentra todas las rutas posibles entre dos nodos en un grafo utilizando `findall/3`.
@@ -3648,23 +3648,23 @@ Prolog para resolver problemas complejos de manera declarativa.
    - arco(c, d).
    - arco(a, d).
 
-   Encuentra todas las rutas de `a` a `d`.
+   Encuentra todas las rutas de *a* a *d*.
 
    **Predicados:**  
-   `findall/3`, predicado recursivo para buscar caminos.
+   *findall*, predicado recursivo para buscar caminos.
 
 *** 10. Generar combinaciones con repetición
-   Usa `findall/3` para generar combinaciones posibles de elementos de una lista con repetición.
+   Usa *findall* para generar combinaciones posibles de elementos de una lista con repetición.
 
    **Problema:**  
-   Dada la lista `[a, b]` y un tamaño 2, genera:
+   Dada la lista *[a, b]* y un tamaño 2, genera:
    - [a, a]
    - [a, b]
    - [b, a]
    - [b, b]
 
    **Predicado:**  
-   `findall/3`.
+   *findall*.
 
 *** 11
 
@@ -3735,3 +3735,32 @@ Generar los hechos necesarios para resolver el problema.
 
 
 
+
+
+* Examen final
+
+
+** Problema 1: Los guardianes de los templos
+Cuatro guardianes (Apolo, Hécate, Ares y Hermes) custodian templos
+mitológicos asociados con diferentes elementos (fuego, agua, tierra y
+aire). Sabemos que:
+- Apolo no cuida el templo de fuego ni el de tierra.
+- Hécate no cuida el templo de aire.
+- Ares no cuida el templo de agua ni de aire.
+- Hermes cuida el templo de fuego o de agua.
+Pregunta: ¿Qué templo cuida cada guardián?
+** Problemas 2: Las armas de los héroes Cuatro héroes mitológicos    
+ Las armas de los héroes Cuatro héroes mitológicos (Aquiles, Perseo,
+ Hércules y Teseo) poseen armas únicas (espada, lanza, arco y
+ escudo). Sabemos que:
+Aquiles no usa el escudo ni el arco.
+Perseo no usa la espada.
+Hércules no usa la lanza ni el escudo.
+Teseo usa el arco o el escudo. Pregunta: ¿Qué arma pertenece a cada héroe?
+** Problema 3: Las gemas de los titanes Cuatro titanes
+(Cronos, Océano, Hiperión y Japeto) tienen cada uno una gema (zafiro,
+rubí, esmeralda y diamante). Sabemos que:
+Cronos no tiene el zafiro ni el diamante.
+Océano no tiene el rubí.
+Hiperión no tiene el zafiro ni el rubí.
+Japeto tiene el diamante o la esmeralda. Pregunta: ¿Qué gema tiene cada titán?
