@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2024-12-04 mié 09:47 -->
+<!-- 2024-12-05 jue 09:21 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Apuntes Programación Lógica Funcional</title>
@@ -230,237 +230,244 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9376553">Conceptos Fundamentales</a>
+<li><a href="#org61f0f3c">Conceptos Fundamentales</a>
 <ul>
-<li><a href="#org7a967b0">Diferentes Estilos de Programación</a>
+<li><a href="#orgbab80ce">Diferentes Estilos de Programación</a>
 <ul>
-<li><a href="#org1458899">Estilos de Programación</a></li>
-<li><a href="#orgc775516">Características del Estilo</a></li>
-<li><a href="#orgcfbf58f">Nombres de Variable Apropiadas.</a></li>
-<li><a href="#org9ff2899">Estilo de indentación</a></li>
-<li><a href="#org26d24be">Bucles y estructuras de control</a></li>
-<li><a href="#orgdb34c28">Espaciado</a></li>
-<li><a href="#org6c57e17">Evaluación de expresiones</a></li>
+<li><a href="#org8454035">Estilos de Programación</a></li>
+<li><a href="#org72f46be">Características del Estilo</a></li>
+<li><a href="#orge265ba0">Nombres de Variable Apropiadas.</a></li>
+<li><a href="#orgf938666">Estilo de indentación</a></li>
+<li><a href="#org8f37f55">Bucles y estructuras de control</a></li>
+<li><a href="#org01f3fa7">Espaciado</a></li>
+<li><a href="#org0608cab">Evaluación de expresiones</a></li>
 </ul>
 </li>
-<li><a href="#org790ed7e">Analizando diferentes estilos de Programación</a></li>
-<li><a href="#org24a7f98">Paradigma de Programación</a>
+<li><a href="#org3c261d8">Analizando diferentes estilos de Programación</a></li>
+<li><a href="#org22bdb74">Paradigma de Programación</a>
 <ul>
-<li><a href="#orgbf175b9">Tipos más comunes de paradigmas de programación</a></li>
+<li><a href="#orgf412b15">Tipos más comunes de paradigmas de programación</a></li>
 </ul>
 </li>
-<li><a href="#orge54094c">Evaluación de expresiones</a></li>
-<li><a href="#org23320f1">Tipos de datos</a></li>
-<li><a href="#orgb9083f2">Disciplina de tipos</a></li>
-<li><a href="#orge26aff5">Funciones</a></li>
+<li><a href="#orgec822ba">Evaluación de expresiones</a></li>
+<li><a href="#orgc441b14">Tipos de datos</a></li>
+<li><a href="#org7d78887">Disciplina de tipos</a></li>
+<li><a href="#orgebb2caa">Funciones</a></li>
 </ul>
 </li>
-<li><a href="#org793e5aa">Programación Funcional</a></li>
-<li><a href="#org56ac853">Lisp</a>
+<li><a href="#org4b084fd">Programación Funcional</a></li>
+<li><a href="#org9a6b9e6">Lisp</a>
 <ul>
-<li><a href="#orgbdeb70f">Historia</a></li>
-<li><a href="#orgb931dff">Programación en Lisp</a></li>
-<li><a href="#org9d634e3">Expresiones</a></li>
-<li><a href="#orgcaf3e80">Datos</a></li>
-<li><a href="#orgb74783f">Evaluación</a></li>
-<li><a href="#org41b65dc">Funciones en Lisp</a></li>
-<li><a href="#org19f6b61">Listas</a></li>
-<li><a href="#org6c67b69">Cons</a></li>
-<li><a href="#org3b85c9d">Funciones CAR y CDR</a>
+<li><a href="#org26039c5">Historia</a></li>
+<li><a href="#org95196fc">Programación en Lisp</a></li>
+<li><a href="#orgf413461">Expresiones</a></li>
+<li><a href="#orga2c82bc">Datos</a></li>
+<li><a href="#org5f9bcb3">Evaluación</a></li>
+<li><a href="#orgbea7491">Funciones en Lisp</a></li>
+<li><a href="#org2366db6">Listas</a></li>
+<li><a href="#org69efa04">Cons</a></li>
+<li><a href="#orgdcc04fb">Funciones CAR y CDR</a>
 <ul>
-<li><a href="#orgaee8487">Ejercicios car cdr</a></li>
+<li><a href="#orgb93717f">Ejercicios car cdr</a></li>
 </ul>
 </li>
-<li><a href="#orgd12c31f">Entradas y salidas</a>
+<li><a href="#org27fadda">Entradas y salidas</a>
 <ul>
-<li><a href="#org68b9799">Funciones de Entrada:</a></li>
+<li><a href="#org01eb398">Funciones de Entrada:</a></li>
 </ul>
 </li>
-<li><a href="#org9de461e">Condicionales en Lisp</a>
+<li><a href="#org01af259">Condicionales en Lisp</a>
 <ul>
-<li><a href="#org1a538eb">Condicionales Básicas</a></li>
-<li><a href="#org2821e47">Condicionales Anidadas</a></li>
-<li><a href="#org3469966">Condicionales Complejas</a></li>
-<li><a href="#org258763c">Referencias</a></li>
+<li><a href="#org0108cf7">Condicionales Básicas</a></li>
+<li><a href="#orgc55be60">Condicionales Anidadas</a></li>
+<li><a href="#org7b3ace5">Condicionales Complejas</a></li>
+<li><a href="#orgc0e9589">Referencias</a></li>
 </ul>
 </li>
-<li><a href="#org5182ba1">Listas de Asociación en Lisp</a>
+<li><a href="#org738bd55">Listas de Asociación en Lisp</a>
 <ul>
-<li><a href="#orgb8506bb">1. Acceder a un valor <b>*</b></a></li>
-<li><a href="#orgc6fdf41">2. Agregar un nuevo par clave-valor <b>*</b></a></li>
-<li><a href="#org36aab1d">3. Modificar un valor existente <b>*</b></a></li>
-<li><a href="#org6342351">4. Eliminar un par clave-valor <b>*</b></a></li>
+<li><a href="#org0313df8">1. Acceder a un valor <b>*</b></a></li>
+<li><a href="#org158d35d">2. Agregar un nuevo par clave-valor <b>*</b></a></li>
+<li><a href="#org1af25bd">3. Modificar un valor existente <b>*</b></a></li>
+<li><a href="#org350d87c">4. Eliminar un par clave-valor <b>*</b></a></li>
 </ul>
 </li>
-<li><a href="#orgd697fd8">Casi-Quoting en Lisp</a>
+<li><a href="#orgb684ca9">Casi-Quoting en Lisp</a>
 <ul>
-<li><a href="#org70c0529">Introducción</a></li>
-<li><a href="#org7796ca5">1. Operador `quote`</a></li>
-<li><a href="#org8cfce02">2. Operador `backquote`</a></li>
-<li><a href="#org7a84982">3. Evaluación con la coma (`,`)</a></li>
-<li><a href="#org5063edd">4. Expansión de listas con `,@`</a></li>
-<li><a href="#orgd5f1b3e">5. Combinación de `backquote`, `,` y `,@`</a></li>
-<li><a href="#org2e5442f">6. Ejemplos adicionales</a></li>
-<li><a href="#org3e35dc3">8. Ejemplo completo</a></li>
+<li><a href="#orga7da713">Introducción</a></li>
+<li><a href="#orgf3c43f4">1. Operador `quote`</a></li>
+<li><a href="#orga35615b">2. Operador `backquote`</a></li>
+<li><a href="#orgbb95bf5">3. Evaluación con la coma (`,`)</a></li>
+<li><a href="#orgcdbeede">4. Expansión de listas con `,@`</a></li>
+<li><a href="#org88d81c8">5. Combinación de `backquote`, `,` y `,@`</a></li>
+<li><a href="#org1dbcba3">6. Ejemplos adicionales</a></li>
+<li><a href="#orgd3dc63f">8. Ejemplo completo</a></li>
 </ul>
 </li>
-<li><a href="#org4abedc1">mapcar en Lisp</a>
+<li><a href="#orga98cd77">mapcar en Lisp</a>
 <ul>
-<li><a href="#org55821fb">Introducción</a></li>
-<li><a href="#org7f003f8">Sintaxis básica de mapcar</a></li>
-<li><a href="#orgbe7a198">Ejemplos básicos</a></li>
-<li><a href="#org15d0a13">Ejemplos</a></li>
+<li><a href="#org35505a0">Introducción</a></li>
+<li><a href="#orgf12adf8">Sintaxis básica de mapcar</a></li>
+<li><a href="#orgc0613c1">Ejemplos básicos</a></li>
+<li><a href="#orgef85f61">Ejemplos</a></li>
 </ul>
 </li>
-<li><a href="#orgadbe3a5">Comparaciones en Lisp</a>
+<li><a href="#org08cb505">Comparaciones en Lisp</a>
 <ul>
-<li><a href="#orgd77261c">1. <b>eq</b></a></li>
-<li><a href="#orgf8858b5">2. <b>eql</b></a></li>
-<li><a href="#org078d7c8">3. <b>equal</b></a></li>
-<li><a href="#orgf9b0238">4. <b>equalp</b></a></li>
-<li><a href="#org12f5a9e">5. <b>=</b></a></li>
-<li><a href="#org2efc19d">6. <b>/=</b></a></li>
-<li><a href="#org906ec00">7. <b>string=</b></a></li>
-<li><a href="#org4388155">8. <b>string-equal</b></a></li>
-<li><a href="#orge60b7f8">9. <b>char=</b> y <b>char-equal</b></a></li>
-<li><a href="#org8124b5a">Resumen</a></li>
-<li><a href="#org1f500d3">Ejemplo completo</a></li>
+<li><a href="#org2063647">1. <b>eq</b></a></li>
+<li><a href="#org1b91ef8">2. <b>eql</b></a></li>
+<li><a href="#org6503296">3. <b>equal</b></a></li>
+<li><a href="#org4c4c13b">4. <b>equalp</b></a></li>
+<li><a href="#org056bc70">5. <b>=</b></a></li>
+<li><a href="#org81382ff">6. <b>/=</b></a></li>
+<li><a href="#org70a619c">7. <b>string=</b></a></li>
+<li><a href="#org1c41bf0">8. <b>string-equal</b></a></li>
+<li><a href="#orgd104176">9. <b>char=</b> y <b>char-equal</b></a></li>
+<li><a href="#org61c1cf2">Resumen</a></li>
+<li><a href="#orgd49a029">Ejemplo completo</a></li>
 </ul>
 </li>
-<li><a href="#org9384b5d">Funciones lambda en Lisp</a>
+<li><a href="#org9b4cedc">Funciones lambda en Lisp</a>
 <ul>
-<li><a href="#orga0cb423">Introducción</a></li>
-<li><a href="#orgab341e2">Definición básica de una función lambda</a></li>
-<li><a href="#org21336b8">Ejemplos de uso de lambdas</a></li>
-<li><a href="#org6566a83">Ámbito de las lambdas</a></li>
-<li><a href="#org15e6aa6">Lambdas como valores de retorno</a></li>
-<li><a href="#org002554b">Usos comunes de lambdas</a></li>
-<li><a href="#org76f9098">Ejemplos</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org01cccae">Prolog</a>
-<ul>
-<li><a href="#orgc8c6125">Lógica de primer orden</a>
-<ul>
-<li><a href="#org710e792">1. La Tierra es un planeta.</a></li>
-<li><a href="#orga499298">2. La Luna no es un planeta.</a></li>
-<li><a href="#org8dc0f5f">3. La Luna es un satélite.</a></li>
-<li><a href="#org35194a0">4. La Tierra gira alrededor del Sol.</a></li>
-<li><a href="#org9078025">5. Todo planeta es un satélite.</a></li>
-<li><a href="#org6ef626f">6. Todo planeta gira alrededor del Sol.</a></li>
-<li><a href="#orgbb97909">7. Algún planeta gira alrededor de la Luna.</a></li>
-<li><a href="#orga99b607">8. Hay por lo menos un satélite.</a></li>
-<li><a href="#orgc5341b8">9. Todos los perros del vecindario muerden a algún cartero.</a></li>
-<li><a href="#org9ed504a">10. Hay un cartero al que lo muerden todos los perros.</a></li>
-<li><a href="#org7ff94ab">11. Todos los carteros son mordidos por algún perro.</a></li>
-<li><a href="#org82e1db5">12. Hay un perro que muerde a todos los carteros.</a></li>
-<li><a href="#orgc5e7532">13. Todos los perros que asustan a algún cartero, lo muerden.</a></li>
-<li><a href="#orgd702090">14. Hay un perro que muerde a todos los perros que muerden a algún cartero.</a></li>
-<li><a href="#org766606d">15. Hay un solo perro que se muerde a sí mismo.</a></li>
-</ul>
-</li>
-<li><a href="#org03c081c">Hechos, Átomos y Reglas</a>
-<ul>
-<li><a href="#orgda86a92">1. Hechos</a></li>
-<li><a href="#orgfc394e9">2. Átomos</a></li>
-<li><a href="#org3e991c9">3. Reglas</a></li>
-<li><a href="#orge2a66bd">4. Ejemplos adicionales para comprender hechos, átomos y reglas</a></li>
-<li><a href="#org06ae13e">5. Ejecución de consultas en Prolog</a></li>
-</ul>
-</li>
-<li><a href="#orgf5a1154">Unificación en Prolog</a>
-<ul>
-<li><a href="#org3d17b10">1. ¿Qué es la unificación?</a></li>
-<li><a href="#orge8d8975">2. Reglas de unificación</a></li>
-<li><a href="#orge605ff6">3. Ejemplos de unificación</a></li>
-<li><a href="#org06a3829">4. Casos en los que la unificación falla</a></li>
-<li><a href="#org3ca4f25">5. Importancia de la unificación en Prolog</a></li>
-<li><a href="#orgb9c53ec">6. Ejemplo práctico</a></li>
-<li><a href="#orgbcf7e3c">Resumen</a></li>
-</ul>
-</li>
-<li><a href="#orge46763f">Corte</a>
-<ul>
-<li><a href="#org573b38f">Usos del corte</a></li>
-<li><a href="#orga7d0395">Corte y fallo</a></li>
-</ul>
-</li>
-<li><a href="#org6b55c6f">Definición matemática del factorial</a>
-<ul>
-<li><a href="#org678ab05">Implementación en Prolog</a></li>
-<li><a href="#org108d07e">Ejemplo de uso</a></li>
-<li><a href="#org698b1ff">Explicación paso a paso del proceso recursivo</a></li>
-<li><a href="#org7273e88">Resumen</a></li>
-</ul>
-</li>
-<li><a href="#org66b62f0">Listas en Prolog</a>
-<ul>
-<li><a href="#org16d2e8b">1. Definición y construcción de listas</a></li>
-<li><a href="#org10505c4">2. Operaciones básicas en listas</a></li>
-<li><a href="#orge69d62d">3. Otras operaciones comunes</a></li>
-<li><a href="#orgf74df84">4. Ejemplos adicionales y casos de uso</a></li>
-</ul>
-</li>
-<li><a href="#org3f49a7d">Ejercicios</a>
-<ul>
-<li><a href="#org2e9eafe">Problema: Los hermanos y sus mascotas</a></li>
-<li><a href="#orgb37292b">Solución</a></li>
-<li><a href="#orgd4af7d8">Problema: Los investigadores y sus descubrimientos</a></li>
-</ul>
-</li>
-<li><a href="#orgec1029e">Variables Anónimas en Prolog</a>
-<ul>
-<li><a href="#org76f414d">Características de las Variables Anónimas</a></li>
-<li><a href="#orgd103210">Ejemplo</a></li>
-<li><a href="#org45db25b">Casos Comunes de Uso</a></li>
-<li><a href="#org0762abd">Ejercicio</a></li>
-</ul>
-</li>
-<li><a href="#org614fcd2">Predicados Mitológicos en Programación Lógica</a>
-<ul>
-<li><a href="#orgd903e82">Introducción</a></li>
-<li><a href="#org30d072a">Ejemplos Detallados de Predicados Mitológicos</a></li>
-</ul>
-</li>
-<li><a href="#orga9c6dcd">Problemas con Predicados Mitológicos</a>
-<ul>
-<li><a href="#org160d0fc">1. Aplanar una lista de listas anidadas</a></li>
-<li><a href="#org624e9cb">2. Encontrar todas las permutaciones de una lista</a></li>
-<li><a href="#org714768a">3. Generar subconjuntos de una lista</a></li>
-<li><a href="#org9eadc9e">4. Encontrar todos los números en un rango que cumplen una condición</a></li>
-<li><a href="#org3b0b93f">5. Concatenar dos listas</a></li>
-<li><a href="#org9c98b46">6. Encontrar elementos únicos en una lista</a></li>
-<li><a href="#orgad7e7b2">7. Calcular la potencia de un número</a></li>
-<li><a href="#orgce127d7">8. Alinear equipos en un torneo</a></li>
-<li><a href="#orgf416d0e">9. Resolver problemas de caminos</a></li>
-<li><a href="#org5e2f967">10. Generar combinaciones con repetición</a></li>
-<li><a href="#org1f85a82">11</a></li>
+<li><a href="#org8f16532">Introducción</a></li>
+<li><a href="#orgd05a85d">Definición básica de una función lambda</a></li>
+<li><a href="#org8ccd71b">Ejemplos de uso de lambdas</a></li>
+<li><a href="#org5b1bcc2">Ámbito de las lambdas</a></li>
+<li><a href="#org4dd3c3f">Lambdas como valores de retorno</a></li>
+<li><a href="#org132e32a">Usos comunes de lambdas</a></li>
+<li><a href="#orgf942214">Ejemplos</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd4db666">Proyecto</a>
+<li><a href="#org9b3ed74">Prolog</a>
 <ul>
-<li><a href="#org03dfd4b">Actividad</a></li>
+<li><a href="#org491be53">Lógica de primer orden</a>
+<ul>
+<li><a href="#org8e16f62">1. La Tierra es un planeta.</a></li>
+<li><a href="#orga660c94">2. La Luna no es un planeta.</a></li>
+<li><a href="#orge8a7e68">3. La Luna es un satélite.</a></li>
+<li><a href="#orgd562eea">4. La Tierra gira alrededor del Sol.</a></li>
+<li><a href="#orga962daa">5. Todo planeta es un satélite.</a></li>
+<li><a href="#orga2e81bc">6. Todo planeta gira alrededor del Sol.</a></li>
+<li><a href="#org133b951">7. Algún planeta gira alrededor de la Luna.</a></li>
+<li><a href="#org59e988e">8. Hay por lo menos un satélite.</a></li>
+<li><a href="#org8b6cb05">9. Todos los perros del vecindario muerden a algún cartero.</a></li>
+<li><a href="#orgd0e9c33">10. Hay un cartero al que lo muerden todos los perros.</a></li>
+<li><a href="#org1aa20d7">11. Todos los carteros son mordidos por algún perro.</a></li>
+<li><a href="#orgc0db22d">12. Hay un perro que muerde a todos los carteros.</a></li>
+<li><a href="#orgc980586">13. Todos los perros que asustan a algún cartero, lo muerden.</a></li>
+<li><a href="#org58eac82">14. Hay un perro que muerde a todos los perros que muerden a algún cartero.</a></li>
+<li><a href="#org3a65d84">15. Hay un solo perro que se muerde a sí mismo.</a></li>
+</ul>
+</li>
+<li><a href="#orga92972a">Hechos, Átomos y Reglas</a>
+<ul>
+<li><a href="#orge70b1cc">1. Hechos</a></li>
+<li><a href="#org54e23e8">2. Átomos</a></li>
+<li><a href="#org65cb36d">3. Reglas</a></li>
+<li><a href="#org82382e3">4. Ejemplos adicionales para comprender hechos, átomos y reglas</a></li>
+<li><a href="#orgc222e5e">5. Ejecución de consultas en Prolog</a></li>
+</ul>
+</li>
+<li><a href="#orgeba5837">Unificación en Prolog</a>
+<ul>
+<li><a href="#orgbddf07c">1. ¿Qué es la unificación?</a></li>
+<li><a href="#org38c2c61">2. Reglas de unificación</a></li>
+<li><a href="#orgb2af9ea">3. Ejemplos de unificación</a></li>
+<li><a href="#org5119f63">4. Casos en los que la unificación falla</a></li>
+<li><a href="#org3c6e915">5. Importancia de la unificación en Prolog</a></li>
+<li><a href="#org75b6f36">6. Ejemplo práctico</a></li>
+<li><a href="#org9197d8b">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#org2fef598">Corte</a>
+<ul>
+<li><a href="#orge159dda">Usos del corte</a></li>
+<li><a href="#org3e42493">Corte y fallo</a></li>
+</ul>
+</li>
+<li><a href="#org6a4d7d0">Definición matemática del factorial</a>
+<ul>
+<li><a href="#org9d10b1d">Implementación en Prolog</a></li>
+<li><a href="#org2b5e14b">Ejemplo de uso</a></li>
+<li><a href="#org389d56b">Explicación paso a paso del proceso recursivo</a></li>
+<li><a href="#orgbc6af8e">Resumen</a></li>
+</ul>
+</li>
+<li><a href="#org6c878ce">Listas en Prolog</a>
+<ul>
+<li><a href="#org25db72b">1. Definición y construcción de listas</a></li>
+<li><a href="#orgea37ef3">2. Operaciones básicas en listas</a></li>
+<li><a href="#orge7a533b">3. Otras operaciones comunes</a></li>
+<li><a href="#org42d8fe2">4. Ejemplos adicionales y casos de uso</a></li>
+</ul>
+</li>
+<li><a href="#org020b758">Ejercicios</a>
+<ul>
+<li><a href="#org3a00785">Problema: Los hermanos y sus mascotas</a></li>
+<li><a href="#orga599ff1">Solución</a></li>
+<li><a href="#org37f5408">Problema: Los investigadores y sus descubrimientos</a></li>
+</ul>
+</li>
+<li><a href="#orgd825634">Variables Anónimas en Prolog</a>
+<ul>
+<li><a href="#orgdff8f88">Características de las Variables Anónimas</a></li>
+<li><a href="#org8aef2ca">Ejemplo</a></li>
+<li><a href="#org37bfbc1">Casos Comunes de Uso</a></li>
+<li><a href="#org42f5e1d">Ejercicio</a></li>
+</ul>
+</li>
+<li><a href="#orga864cda">Predicados Mitológicos en Programación Lógica</a>
+<ul>
+<li><a href="#org0e6e2e4">Introducción</a></li>
+<li><a href="#orgd9d6c54">Ejemplos Detallados de Predicados Mitológicos</a></li>
+</ul>
+</li>
+<li><a href="#org5c275e6">Problemas con Predicados Mitológicos</a>
+<ul>
+<li><a href="#org06ae97a">1. Aplanar una lista de listas anidadas</a></li>
+<li><a href="#org8a985a0">2. Encontrar todas las permutaciones de una lista</a></li>
+<li><a href="#org402b2a5">3. Generar subconjuntos de una lista</a></li>
+<li><a href="#org2cab396">4. Encontrar todos los números en un rango que cumplen una condición</a></li>
+<li><a href="#org6dc7eec">5. Concatenar dos listas</a></li>
+<li><a href="#orga3e4512">6. Encontrar elementos únicos en una lista</a></li>
+<li><a href="#orgf2e12ff">7. Calcular la potencia de un número</a></li>
+<li><a href="#orgef22f84">8. Alinear equipos en un torneo</a></li>
+<li><a href="#orga38a8d3">9. Resolver problemas de caminos</a></li>
+<li><a href="#orgfd48568">10. Generar combinaciones con repetición</a></li>
+<li><a href="#orgc353a88">11</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgd31a65c">Proyecto</a>
+<ul>
+<li><a href="#org00cf30a">Actividad</a></li>
+</ul>
+</li>
+<li><a href="#org5fc6c30">Examen final</a>
+<ul>
+<li><a href="#org418fef2">Problema 1: Los guardianes de los templos</a></li>
+<li><a href="#orgca5f873">Problemas 2: Las armas de los héroes Cuatro héroes mitológicos</a></li>
+<li><a href="#orgc27200e">Problema 3: Las gemas de los titanes Cuatro titanes</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org9376553" class="outline-2">
-<h2 id="org9376553">Conceptos Fundamentales</h2>
-<div class="outline-text-2" id="text-org9376553">
+<div id="outline-container-org61f0f3c" class="outline-2">
+<h2 id="org61f0f3c">Conceptos Fundamentales</h2>
+<div class="outline-text-2" id="text-org61f0f3c">
 </div>
-<div id="outline-container-org7a967b0" class="outline-3">
-<h3 id="org7a967b0">Diferentes Estilos de Programación</h3>
-<div class="outline-text-3" id="text-org7a967b0">
+<div id="outline-container-orgbab80ce" class="outline-3">
+<h3 id="orgbab80ce">Diferentes Estilos de Programación</h3>
+<div class="outline-text-3" id="text-orgbab80ce">
 </div>
-<div id="outline-container-org1458899" class="outline-4">
-<h4 id="org1458899">Estilos de Programación</h4>
-<div class="outline-text-4" id="text-org1458899">
+<div id="outline-container-org8454035" class="outline-4">
+<h4 id="org8454035">Estilos de Programación</h4>
+<div class="outline-text-4" id="text-org8454035">
 <p>
 (también llamados estándares de código o convención de código) es un
 término que describe convenciones para escribir código fuente en
@@ -473,9 +480,9 @@ Programación C variará con respecto al del lenguaje BASIC. <sup><a id="fnr.1" 
 </div>
 
 
-<div id="outline-container-orgc775516" class="outline-4">
-<h4 id="orgc775516">Características del Estilo</h4>
-<div class="outline-text-4" id="text-orgc775516">
+<div id="outline-container-org72f46be" class="outline-4">
+<h4 id="org72f46be">Características del Estilo</h4>
+<div class="outline-text-4" id="text-org72f46be">
 <p>
 na pieza clave para un buen estilo es la elección apropiada de
 ombres de variable. Variables pobremente nombradas dificultan la
@@ -518,9 +525,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 
 
-<div id="outline-container-orgcfbf58f" class="outline-4">
-<h4 id="orgcfbf58f">Nombres de Variable Apropiadas.</h4>
-<div class="outline-text-4" id="text-orgcfbf58f">
+<div id="outline-container-orge265ba0" class="outline-4">
+<h4 id="orge265ba0">Nombres de Variable Apropiadas.</h4>
+<div class="outline-text-4" id="text-orge265ba0">
 <p>
 Una piedra clave para un buen estilo es la elección apropiada de
 nombres de variable. Variables pobremente nombradas dificultan la
@@ -558,9 +565,9 @@ hora en 24 horas, se devolverá true si es válida y false si no".
 </div>
 </div>
 
-<div id="outline-container-org9ff2899" class="outline-4">
-<h4 id="org9ff2899">Estilo de indentación</h4>
-<div class="outline-text-4" id="text-org9ff2899">
+<div id="outline-container-orgf938666" class="outline-4">
+<h4 id="orgf938666">Estilo de indentación</h4>
+<div class="outline-text-4" id="text-orgf938666">
 <p>
 Estilo de indentación, en lenguajes de programación que usan llaves
 para indentar o delimitar bloques lógicos de código, como por
@@ -631,9 +638,9 @@ las dos formas.
 </div>
 </div>
 
-<div id="outline-container-org26d24be" class="outline-4">
-<h4 id="org26d24be">Bucles y estructuras de control</h4>
-<div class="outline-text-4" id="text-org26d24be">
+<div id="outline-container-org8f37f55" class="outline-4">
+<h4 id="org8f37f55">Bucles y estructuras de control</h4>
+<div class="outline-text-4" id="text-org8f37f55">
 <p>
 El uso de estructuras de control lógicas para bucles también es parte
 de un buen estilo de programación. Ayuda a alguien que esté leyendo
@@ -678,9 +685,9 @@ en un rango" puede ser acortado a:
 </div>
 </div>
 
-<div id="outline-container-orgdb34c28" class="outline-4">
-<h4 id="orgdb34c28">Espaciado</h4>
-<div class="outline-text-4" id="text-orgdb34c28">
+<div id="outline-container-org01f3fa7" class="outline-4">
+<h4 id="org01f3fa7">Espaciado</h4>
+<div class="outline-text-4" id="text-org01f3fa7">
 <p>
 Los lenguajes de formato libre ignoran frecuentemente los espacios
 en blanco. El buen uso del espaciado en la disposición del código
@@ -733,9 +740,9 @@ espacio en blanco.
 </div>
 </div>
 
-<div id="outline-container-org6c57e17" class="outline-4">
-<h4 id="org6c57e17">Evaluación de expresiones</h4>
-<div class="outline-text-4" id="text-org6c57e17">
+<div id="outline-container-org0608cab" class="outline-4">
+<h4 id="org0608cab">Evaluación de expresiones</h4>
+<div class="outline-text-4" id="text-org0608cab">
 <p>
 En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
 flujo, las palabras-clave señalan al compilador aspectos complementarios que no
@@ -758,14 +765,14 @@ optimización del código.</li>
 
 
 
-<div id="outline-container-org790ed7e" class="outline-3">
-<h3 id="org790ed7e">Analizando diferentes estilos de Programación</h3>
+<div id="outline-container-org3c261d8" class="outline-3">
+<h3 id="org3c261d8">Analizando diferentes estilos de Programación</h3>
 </div>
 
 
-<div id="outline-container-org24a7f98" class="outline-3">
-<h3 id="org24a7f98">Paradigma de Programación</h3>
-<div class="outline-text-3" id="text-org24a7f98">
+<div id="outline-container-org22bdb74" class="outline-3">
+<h3 id="org22bdb74">Paradigma de Programación</h3>
+<div class="outline-text-3" id="text-org22bdb74">
 <p>
 Un paradigma de programación es una propuesta tecnológica adoptada por
 una comunidad de programadores y desarrolladores cuyo núcleo central
@@ -777,13 +784,13 @@ menos un parámetro que afecte a la ingeniería de software.
 </div>
 
 
-<div id="outline-container-orgbf175b9" class="outline-4">
-<h4 id="orgbf175b9">Tipos más comunes de paradigmas de programación</h4>
-<div class="outline-text-4" id="text-orgbf175b9">
+<div id="outline-container-orgf412b15" class="outline-4">
+<h4 id="orgf412b15">Tipos más comunes de paradigmas de programación</h4>
+<div class="outline-text-4" id="text-orgf412b15">
 </div>
 <ul class="org-ul">
-<li><a id="orge8f9ce8"></a>Programación imperativa o por procedimientos:<br />
-<div class="outline-text-5" id="text-orge8f9ce8">
+<li><a id="orgc36ac74"></a>Programación imperativa o por procedimientos:<br />
+<div class="outline-text-5" id="text-orgc36ac74">
 <p>
  Es el más usado en general, se basa en dar instrucciones al ordenador
 de como hacer las cosas en forma de algoritmos. La programación
@@ -794,8 +801,8 @@ paradigma serían el C, BASIC o Pascal.
 </div>
 </li>
 
-<li><a id="org6fd70e7"></a>Programación orientada a objetos:<br />
-<div class="outline-text-5" id="text-org6fd70e7">
+<li><a id="org1bc1867"></a>Programación orientada a objetos:<br />
+<div class="outline-text-5" id="text-org1bc1867">
 <p>
 Está basada en el imperativo, pero encapsula elementos denominados
 objetos que incluyen tanto variables como funciones. Está
@@ -807,8 +814,8 @@ objetos.
 </li>
 
 
-<li><a id="orgc6e902a"></a>Programación dinámica:<br />
-<div class="outline-text-5" id="text-orgc6e902a">
+<li><a id="org57704a4"></a>Programación dinámica:<br />
+<div class="outline-text-5" id="text-org57704a4">
 <p>
  está definida como el proceso de romper
 problemas en partes pequeñas para analizarlos y resolverlos de forma
@@ -820,8 +827,8 @@ cualquier lenguaje imperativo.
 </div>
 </li>
 
-<li><a id="org6685ed0"></a>Programación dirigida por eventos:<br />
-<div class="outline-text-5" id="text-org6685ed0">
+<li><a id="org55833b3"></a>Programación dirigida por eventos:<br />
+<div class="outline-text-5" id="text-org55833b3">
 <p>
 la programación dirigida por
 eventos es un paradigma de programación en el que tanto la estructura
@@ -833,8 +840,8 @@ mismos provoquen.
 </li>
 
 
-<li><a id="org107f49f"></a>Programación declarativa:<br />
-<div class="outline-text-5" id="text-org107f49f">
+<li><a id="org80e65fa"></a>Programación declarativa:<br />
+<div class="outline-text-5" id="text-org80e65fa">
 <p>
  está basado en describir el problema
 declarando propiedades y reglas que deben cumplirse, en lugar de
@@ -845,8 +852,8 @@ primeros lenguajes funcionales fueron Lisp y Prolog.
 </div>
 </li>
 
-<li><a id="org0055256"></a>Programación funcional:<br />
-<div class="outline-text-5" id="text-org0055256">
+<li><a id="org944cdbc"></a>Programación funcional:<br />
+<div class="outline-text-5" id="text-org944cdbc">
 <p>
 La programación funcional es un paradigma de programación declarativa
 basado en el uso de verdaderas funciones matemáticas. En este estilo
@@ -893,8 +900,8 @@ lenguajes de programación funcional.
 </div>
 </li>
 
-<li><a id="org7eee409"></a>Programación lógica:<br />
-<div class="outline-text-5" id="text-org7eee409">
+<li><a id="orgfbd68ea"></a>Programación lógica:<br />
+<div class="outline-text-5" id="text-orgfbd68ea">
 <p>
 basado en la definición de relaciones lógicas,
  está representado por Prolog.
@@ -903,8 +910,8 @@ basado en la definición de relaciones lógicas,
 </li>
 
 
-<li><a id="org9cc6d41"></a>Programación con restricciones:<br />
-<div class="outline-text-5" id="text-org9cc6d41">
+<li><a id="org579a290"></a>Programación con restricciones:<br />
+<div class="outline-text-5" id="text-org579a290">
 <p>
 similar a la lógica usando
  ecuaciones. Casi todos los lenguajes son variantes del Prolog.
@@ -912,8 +919,8 @@ similar a la lógica usando
 </div>
 </li>
 
-<li><a id="org637ce2d"></a>Programación multiparadigma:<br />
-<div class="outline-text-5" id="text-org637ce2d">
+<li><a id="org84f5713"></a>Programación multiparadigma:<br />
+<div class="outline-text-5" id="text-org84f5713">
 <p>
 es el uso de dos o más paradigmas dentro
   de un programa. El lenguaje Lisp se considera multiparadigma. Al
@@ -923,8 +930,8 @@ es el uso de dos o más paradigmas dentro
 </div>
 </li>
 
-<li><a id="org02a04c8"></a>Lenguaje específico del dominio o DSL:<br />
-<div class="outline-text-5" id="text-org02a04c8">
+<li><a id="orgdfe9cd2"></a>Lenguaje específico del dominio o DSL:<br />
+<div class="outline-text-5" id="text-orgdfe9cd2">
 <p>
 se denomina así a los
   lenguajes desarrollados para resolver un problema específico,
@@ -938,26 +945,26 @@ se denomina así a los
 </div>
 </div>
 
-<div id="outline-container-orge54094c" class="outline-3">
-<h3 id="orge54094c">Evaluación de expresiones</h3>
+<div id="outline-container-orgec822ba" class="outline-3">
+<h3 id="orgec822ba">Evaluación de expresiones</h3>
 </div>
 
-<div id="outline-container-org23320f1" class="outline-3">
-<h3 id="org23320f1">Tipos de datos</h3>
+<div id="outline-container-orgc441b14" class="outline-3">
+<h3 id="orgc441b14">Tipos de datos</h3>
 </div>
 
-<div id="outline-container-orgb9083f2" class="outline-3">
-<h3 id="orgb9083f2">Disciplina de tipos</h3>
+<div id="outline-container-org7d78887" class="outline-3">
+<h3 id="org7d78887">Disciplina de tipos</h3>
 </div>
 
-<div id="outline-container-orge26aff5" class="outline-3">
-<h3 id="orge26aff5">Funciones</h3>
+<div id="outline-container-orgebb2caa" class="outline-3">
+<h3 id="orgebb2caa">Funciones</h3>
 </div>
 </div>
 
-<div id="outline-container-org793e5aa" class="outline-2">
-<h2 id="org793e5aa">Programación Funcional</h2>
-<div class="outline-text-2" id="text-org793e5aa">
+<div id="outline-container-org4b084fd" class="outline-2">
+<h2 id="org4b084fd">Programación Funcional</h2>
+<div class="outline-text-2" id="text-org4b084fd">
 <p>
 La programación funcional, o mejor dicho, los lenguajes de
 programación funcionales, son aquellos lenguajes donde las variables
@@ -1155,9 +1162,9 @@ dato y darle un aspecto procedural.
 </div>
 </div>
 
-<div id="outline-container-org56ac853" class="outline-2">
-<h2 id="org56ac853">Lisp</h2>
-<div class="outline-text-2" id="text-org56ac853">
+<div id="outline-container-org9a6b9e6" class="outline-2">
+<h2 id="org9a6b9e6">Lisp</h2>
+<div class="outline-text-2" id="text-org9a6b9e6">
 <p>
 Lisp (históricamente LISP) es una familia de lenguajes de programación
 de computadora de tipo multiparadigma con larga historia y una
@@ -1211,9 +1218,9 @@ puede ser llamada usando (f x y z).
 </p>
 </div>
 
-<div id="outline-container-orgbdeb70f" class="outline-3">
-<h3 id="orgbdeb70f">Historia</h3>
-<div class="outline-text-3" id="text-orgbdeb70f">
+<div id="outline-container-org26039c5" class="outline-3">
+<h3 id="org26039c5">Historia</h3>
+<div class="outline-text-3" id="text-org26039c5">
 <p>
 El proyecto se inició en 1987, cuando los autores originales, Bruno
 Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
@@ -1266,12 +1273,12 @@ clisp
 </div>
 
 
-<div id="outline-container-orgb931dff" class="outline-3">
-<h3 id="orgb931dff">Programación en Lisp</h3>
+<div id="outline-container-org95196fc" class="outline-3">
+<h3 id="org95196fc">Programación en Lisp</h3>
 </div>
-<div id="outline-container-org9d634e3" class="outline-3">
-<h3 id="org9d634e3">Expresiones</h3>
-<div class="outline-text-3" id="text-org9d634e3">
+<div id="outline-container-orgf413461" class="outline-3">
+<h3 id="orgf413461">Expresiones</h3>
+<div class="outline-text-3" id="text-orgf413461">
 <p>
 Es particularmente cierto que la mejor forma de aprender Lisp es
 usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -1509,9 +1516,9 @@ eval
 </div>
 </div>
 
-<div id="outline-container-orgcaf3e80" class="outline-3">
-<h3 id="orgcaf3e80">Datos</h3>
-<div class="outline-text-3" id="text-orgcaf3e80">
+<div id="outline-container-orga2c82bc" class="outline-3">
+<h3 id="orga2c82bc">Datos</h3>
+<div class="outline-text-3" id="text-orga2c82bc">
 <p>
 Lisp ofrece los tipos de datos que podemos encontrar en otros
 lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -1580,9 +1587,9 @@ como si fuese código. Por ejemplo:
 </div>
 </div>
 
-<div id="outline-container-orgb74783f" class="outline-3">
-<h3 id="orgb74783f">Evaluación</h3>
-<div class="outline-text-3" id="text-orgb74783f">
+<div id="outline-container-org5f9bcb3" class="outline-3">
+<h3 id="org5f9bcb3">Evaluación</h3>
+<div class="outline-text-3" id="text-org5f9bcb3">
 <p>
 Veamos más en detalle como las expresiones son evaluadas para
 desplegar su valor en el top-level. En Lisp, + es una función y (+
@@ -1640,9 +1647,9 @@ protección puede ser útil.
 </div>
 </div>
 
-<div id="outline-container-org41b65dc" class="outline-3">
-<h3 id="org41b65dc">Funciones en Lisp</h3>
-<div class="outline-text-3" id="text-org41b65dc">
+<div id="outline-container-orgbea7491" class="outline-3">
+<h3 id="orgbea7491">Funciones en Lisp</h3>
+<div class="outline-text-3" id="text-orgbea7491">
 <p>
 Es posible definir nuevas funciones con defun que toma normalmente tres
 argumentos: un nombre, una lista de parámetros y una o más expresiones
@@ -1715,9 +1722,9 @@ incremental (bottom-up).
 </div>
 </div>
 
-<div id="outline-container-org19f6b61" class="outline-3">
-<h3 id="org19f6b61">Listas</h3>
-<div class="outline-text-3" id="text-org19f6b61">
+<div id="outline-container-org2366db6" class="outline-3">
+<h3 id="org2366db6">Listas</h3>
+<div class="outline-text-3" id="text-org2366db6">
 <p>
 En Lisp, las listas son una estructura de datos fundamental y
 versátil. Se utilizan para almacenar una secuencia de elementos, que
@@ -1810,9 +1817,9 @@ programación en Lisp.
 </div>
 </div>
 
-<div id="outline-container-org6c67b69" class="outline-3">
-<h3 id="org6c67b69">Cons</h3>
-<div class="outline-text-3" id="text-org6c67b69">
+<div id="outline-container-org69efa04" class="outline-3">
+<h3 id="org69efa04">Cons</h3>
+<div class="outline-text-3" id="text-org69efa04">
 <p>
 La función `cons` se utiliza para crear nuevas listas al agregar un
 elemento al principio de una lista existente. Su sintaxis es la
@@ -1867,9 +1874,9 @@ crear estructuras de datos y manipular listas de manera eficiente.
 
 
 
-<div id="outline-container-org3b85c9d" class="outline-3">
-<h3 id="org3b85c9d">Funciones CAR y CDR</h3>
-<div class="outline-text-3" id="text-org3b85c9d">
+<div id="outline-container-orgdcc04fb" class="outline-3">
+<h3 id="orgdcc04fb">Funciones CAR y CDR</h3>
+<div class="outline-text-3" id="text-orgdcc04fb">
 <p>
 CAR admite un único argumento que debe ser una lista o una expresión
 cuyo valor sea una lista y devuelve el primer elemento de dicha
@@ -1951,82 +1958,82 @@ en listas anidadas en varios niveles.
 </div>
 </div>
 
-<div id="outline-container-orgaee8487" class="outline-4">
-<h4 id="orgaee8487">Ejercicios car cdr</h4>
-<div class="outline-text-4" id="text-orgaee8487">
+<div id="outline-container-orgb93717f" class="outline-4">
+<h4 id="orgb93717f">Ejercicios car cdr</h4>
+<div class="outline-text-4" id="text-orgb93717f">
 </div>
 <ul class="org-ul">
-<li><a id="orgbb36bbd"></a>Problema 1: Acceder al cuarto elemento de una lista<br />
-<div class="outline-text-5" id="text-orgbb36bbd">
+<li><a id="orgffae1e1"></a>Problema 1: Acceder al cuarto elemento de una lista<br />
+<div class="outline-text-5" id="text-orgffae1e1">
 <p>
 Dada la lista `(a b c d e f g)`, escribe una expresión para devolver el cuarto elemento utilizando solo `car` y `cdr`.
 </p>
 </div>
 </li>
 
-<li><a id="org868863d"></a>Problema 2: Obtener los tres últimos elementos de una lista<br />
-<div class="outline-text-5" id="text-org868863d">
+<li><a id="org1f74d36"></a>Problema 2: Obtener los tres últimos elementos de una lista<br />
+<div class="outline-text-5" id="text-org1f74d36">
 <p>
 Dada la lista `(1 2 3 4 5 6)`, utiliza combinaciones de `car` y `cdr` para devolver los tres últimos elementos.
 </p>
 </div>
 </li>
 
-<li><a id="org2740076"></a>Problema 3: Construir una lista a partir de los tres primeros elementos<br />
-<div class="outline-text-5" id="text-org2740076">
+<li><a id="org2e7c138"></a>Problema 3: Construir una lista a partir de los tres primeros elementos<br />
+<div class="outline-text-5" id="text-org2e7c138">
 <p>
 Dada la lista `(a b c d e)`, construye una nueva lista que contenga solo los tres primeros elementos.
 </p>
 </div>
 </li>
 
-<li><a id="orgd4d2138"></a>Problema 4: Eliminar el primer y último elemento de una lista<br />
-<div class="outline-text-5" id="text-orgd4d2138">
+<li><a id="orgbf50766"></a>Problema 4: Eliminar el primer y último elemento de una lista<br />
+<div class="outline-text-5" id="text-orgbf50766">
 <p>
 Dada la lista `(x y z w)`, escribe una expresión que elimine el primer y último elemento.
 </p>
 </div>
 </li>
 
-<li><a id="org870c059"></a>Problema 5: Verificar si una lista tiene al menos tres elementos<br />
-<div class="outline-text-5" id="text-org870c059">
+<li><a id="org95d3fcf"></a>Problema 5: Verificar si una lista tiene al menos tres elementos<br />
+<div class="outline-text-5" id="text-org95d3fcf">
 <p>
 Escribe una función que reciba una lista y verifique si tiene al menos tres elementos usando `car` y `cdr`.
 </p>
 </div>
 </li>
 
-<li><a id="org15f10a4"></a>Problema 6: Sumar los primeros tres números de una lista<br />
-<div class="outline-text-5" id="text-org15f10a4">
+<li><a id="org697684e"></a>Problema 6: Sumar los primeros tres números de una lista<br />
+<div class="outline-text-5" id="text-org697684e">
 <p>
 Dada la lista `(10 20 30 40)`, utiliza `car` y `cdr` para obtener la suma de los tres primeros números.
 </p>
 </div>
 </li>
-<li><a id="org20b05ef"></a>Problema 7: Acceder al penúltimo elemento de una lista<br />
-<div class="outline-text-5" id="text-org20b05ef">
+<li><a id="org6ea0bff"></a>Problema 7: Acceder al penúltimo elemento de una lista<br />
+<div class="outline-text-5" id="text-org6ea0bff">
 <p>
 Dada la lista `(p q r s t)`, escribe una expresión que devuelva el penúltimo elemento.
 </p>
 </div>
 </li>
-<li><a id="org21b2e58"></a>Problema 8: Crear una lista anidada<br />
-<div class="outline-text-5" id="text-org21b2e58">
+<li><a id="orgfefe980"></a>Problema 8: Crear una lista anidada<br />
+<div class="outline-text-5" id="text-orgfefe980">
 <p>
 Dada la lista `(1 2 3)`, usa `cons`, `car`, y `cdr` para crear la lista anidada `((1) (2) (3))`.
 </p>
 </div>
 </li>
 
-<li><a id="org680bde3"></a>Problema 9: Fusionar dos listas<br />
-<div class="outline-text-5" id="text-org680bde3">
+<li><a id="org7c06ac2"></a>Problema 9: Fusionar dos listas<br />
+<div class="outline-text-5" id="text-org7c06ac2">
 <p>
 Dadas las listas `(a b c)` y `(x y z)`, escribe una expresión que las combine en una sola lista `(a b c x y z)` utilizando `cons`, `car`, y `cdr`.
 </p>
 </div>
 </li>
-<li><a id="org2e656c4"></a>Problema 10: Invertir los dos primeros pares de elementos de una lista<br />
-<div class="outline-text-5" id="text-org2e656c4">
+<li><a id="orgdeb4761"></a>Problema 10: Invertir los dos primeros pares de elementos de una lista<br />
+<div class="outline-text-5" id="text-orgdeb4761">
 <p>
 Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de la lista, de modo que obtengas `(2 1 4 3 5 6)`.
 </p>
@@ -2039,9 +2046,9 @@ Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de l
 
 
 
-<div id="outline-container-orgd12c31f" class="outline-3">
-<h3 id="orgd12c31f">Entradas y salidas</h3>
-<div class="outline-text-3" id="text-orgd12c31f">
+<div id="outline-container-org27fadda" class="outline-3">
+<h3 id="org27fadda">Entradas y salidas</h3>
+<div class="outline-text-3" id="text-org27fadda">
 <p>
 Lisp proporciona un amplio conjunto de facilidades para realizar
 entrada/salida. Todas las operaciones de entrada/salida se realizan en
@@ -2078,9 +2085,9 @@ devuelve.
 </p>
 </div>
 
-<div id="outline-container-org68b9799" class="outline-4">
-<h4 id="org68b9799">Funciones de Entrada:</h4>
-<div class="outline-text-4" id="text-org68b9799">
+<div id="outline-container-org01eb398" class="outline-4">
+<h4 id="org01eb398">Funciones de Entrada:</h4>
+<div class="outline-text-4" id="text-org01eb398">
 <p>
 Los caracteres de la representación impresa de un objeto Lisp se
 transmiten a un flujo mediante funciones como "print". El (Lisp)
@@ -2245,9 +2252,9 @@ enteros.
 
 
 
-<div id="outline-container-org9de461e" class="outline-3">
-<h3 id="org9de461e">Condicionales en Lisp</h3>
-<div class="outline-text-3" id="text-org9de461e">
+<div id="outline-container-org01af259" class="outline-3">
+<h3 id="org01af259">Condicionales en Lisp</h3>
+<div class="outline-text-3" id="text-org01af259">
 <p>
 En este documento se describen las condicionales más comunes utilizadas en Lisp, con más ejemplos prácticos para <code>when</code> y <code>unless</code>.
 </p>
@@ -2262,13 +2269,13 @@ En este documento se describen las condicionales más comunes utilizadas en Lisp
 </ul>
 </div>
 
-<div id="outline-container-org1a538eb" class="outline-4">
-<h4 id="org1a538eb">Condicionales Básicas</h4>
-<div class="outline-text-4" id="text-org1a538eb">
+<div id="outline-container-org0108cf7" class="outline-4">
+<h4 id="org0108cf7">Condicionales Básicas</h4>
+<div class="outline-text-4" id="text-org0108cf7">
 </div>
 <ul class="org-ul">
-<li><a id="orgf348b70"></a>if<br />
-<div class="outline-text-5" id="text-orgf348b70">
+<li><a id="org2fbcf02"></a>if<br />
+<div class="outline-text-5" id="text-org2fbcf02">
 <p>
 La expresión <code>if</code> es una de las condicionales más simples en Lisp. Evalúa una condición y ejecuta una de las dos ramas, dependiendo del resultado de esa condición.
 </p>
@@ -2293,8 +2300,8 @@ Ejemplo:
 </div>
 </li>
 
-<li><a id="org8831191"></a>when<br />
-<div class="outline-text-5" id="text-org8831191">
+<li><a id="org4da1839"></a>when<br />
+<div class="outline-text-5" id="text-org4da1839">
 <p>
 La expresión <code>when</code> se utiliza cuando solo hay una acción que se desea ejecutar si la condición es verdadera. Si la condición es falsa, no se ejecuta nada.
 </p>
@@ -2321,8 +2328,8 @@ Esto imprimirá <code>5 es mayor que 3</code> porque la condición es verdadera.
 </div>
 
 <ul class="org-ul">
-<li><a id="orgde118c4"></a>Ejemplo 2: Ejecutando varias expresiones con <code>when</code><br />
-<div class="outline-text-6" id="text-orgde118c4">
+<li><a id="orga3dcf4f"></a>Ejemplo 2: Ejecutando varias expresiones con <code>when</code><br />
+<div class="outline-text-6" id="text-orga3dcf4f">
 <p>
 Si quieres ejecutar múltiples expresiones cuando la condición sea verdadera, puedes hacerlo incluyendo más de una expresión dentro de <code>when</code>.
 </p>
@@ -2338,15 +2345,15 @@ Si quieres ejecutar múltiples expresiones cuando la condición sea verdadera, p
 Esto imprimirá:
 </p>
 
-<pre class="example" id="org91811ef">
+<pre class="example" id="orgbbf7557">
 Diez es igual a diez
 Este es otro mensaje dentro del when
 </pre>
 </div>
 </li>
 
-<li><a id="orgd7a4d1b"></a>Ejemplo 3: Usando funciones dentro de <code>when</code><br />
-<div class="outline-text-6" id="text-orgd7a4d1b">
+<li><a id="org52c41b4"></a>Ejemplo 3: Usando funciones dentro de <code>when</code><br />
+<div class="outline-text-6" id="text-org52c41b4">
 <p>
 Puedes utilizar cualquier función dentro de <code>when</code>. Aquí hay un ejemplo en el que se verifica si una lista no está vacía antes de aplicar una función.
 </p>
@@ -2363,15 +2370,15 @@ Puedes utilizar cualquier función dentro de <code>when</code>. Aquí hay un eje
 La salida será:
 </p>
 
-<pre class="example" id="org545c87e">
+<pre class="example" id="org1659a5f">
 1
 4
 </pre>
 </div>
 </li>
 
-<li><a id="org0d07170"></a>Ejemplo 4: <code>when</code> con listas vacías<br />
-<div class="outline-text-6" id="text-org0d07170">
+<li><a id="orgf43d837"></a>Ejemplo 4: <code>when</code> con listas vacías<br />
+<div class="outline-text-6" id="text-orgf43d837">
 <p>
 Lisp trata las listas vacías como <code>nil</code>. En este caso, <code>when</code> no ejecutará el bloque de código si la lista está vacía.
 </p>
@@ -2391,8 +2398,8 @@ Como la lista está vacía, no se imprimirá nada.
 </ul>
 </li>
 
-<li><a id="org089da86"></a>unless<br />
-<div class="outline-text-5" id="text-org089da86">
+<li><a id="org0fa3fa7"></a>unless<br />
+<div class="outline-text-5" id="text-org0fa3fa7">
 <p>
 La expresión <code>unless</code> es lo contrario de <code>when</code>. Ejecuta el bloque de código solo si la condición es falsa.
 </p>
@@ -2419,8 +2426,8 @@ Esto imprimirá <code>5 no es menor que 3</code> porque la condición es falsa.
 </div>
 
 <ul class="org-ul">
-<li><a id="orge06b837"></a>Ejemplo 2: Ejecutando varias expresiones con <code>unless</code><br />
-<div class="outline-text-6" id="text-orge06b837">
+<li><a id="orgce783b4"></a>Ejemplo 2: Ejecutando varias expresiones con <code>unless</code><br />
+<div class="outline-text-6" id="text-orgce783b4">
 <p>
 Al igual que con <code>when</code>, también puedes ejecutar múltiples expresiones dentro de <code>unless</code>.
 </p>
@@ -2436,15 +2443,15 @@ Al igual que con <code>when</code>, también puedes ejecutar múltiples expresio
 Esto imprimirá:
 </p>
 
-<pre class="example" id="org67164e7">
+<pre class="example" id="org745f8a0">
 Esto se imprimirá
 Este es otro mensaje dentro del unless
 </pre>
 </div>
 </li>
 
-<li><a id="org7aec4bc"></a>Ejemplo 3: <code>unless</code> con funciones<br />
-<div class="outline-text-6" id="text-org7aec4bc">
+<li><a id="org1f6a021"></a>Ejemplo 3: <code>unless</code> con funciones<br />
+<div class="outline-text-6" id="text-org1f6a021">
 <p>
 Puedes utilizar funciones dentro de <code>unless</code> de la misma forma que en <code>when</code>.
 </p>
@@ -2461,15 +2468,15 @@ Puedes utilizar funciones dentro de <code>unless</code> de la misma forma que en
 Esto imprimirá:
 </p>
 
-<pre class="example" id="org15d9969">
+<pre class="example" id="org017a11c">
 La lista está vacía
 No hay elementos en la lista
 </pre>
 </div>
 </li>
 
-<li><a id="org248355d"></a>Ejemplo 4: <code>unless</code> con comparaciones<br />
-<div class="outline-text-6" id="text-org248355d">
+<li><a id="orga567f5d"></a>Ejemplo 4: <code>unless</code> con comparaciones<br />
+<div class="outline-text-6" id="text-orga567f5d">
 <p>
 En este ejemplo, se compara si dos valores no son iguales, y si es cierto, ejecuta el bloque de código.
 </p>
@@ -2486,7 +2493,7 @@ En este ejemplo, se compara si dos valores no son iguales, y si es cierto, ejecu
 La salida será:
 </p>
 
-<pre class="example" id="orgd283982">
+<pre class="example" id="orgc929aab">
 x no es igual a 5
 El valor de x es 10
 </pre>
@@ -2497,9 +2504,9 @@ El valor de x es 10
 </ul>
 </div>
 
-<div id="outline-container-org2821e47" class="outline-4">
-<h4 id="org2821e47">Condicionales Anidadas</h4>
-<div class="outline-text-4" id="text-org2821e47">
+<div id="outline-container-orgc55be60" class="outline-4">
+<h4 id="orgc55be60">Condicionales Anidadas</h4>
+<div class="outline-text-4" id="text-orgc55be60">
 <p>
 Las condicionales <code>when</code> y <code>unless</code> también pueden anidarse dentro de otras condicionales.
 </p>
@@ -2523,13 +2530,13 @@ Aquí se imprime <code>Ambas condiciones son verdaderas</code>, ya que ambas con
 </div>
 </div>
 
-<div id="outline-container-org3469966" class="outline-4">
-<h4 id="org3469966">Condicionales Complejas</h4>
-<div class="outline-text-4" id="text-org3469966">
+<div id="outline-container-org7b3ace5" class="outline-4">
+<h4 id="org7b3ace5">Condicionales Complejas</h4>
+<div class="outline-text-4" id="text-org7b3ace5">
 </div>
 <ul class="org-ul">
-<li><a id="org7ef1741"></a>cond<br />
-<div class="outline-text-5" id="text-org7ef1741">
+<li><a id="org8313da3"></a>cond<br />
+<div class="outline-text-5" id="text-org8313da3">
 <p>
 La expresión <code>cond</code> se utiliza para evaluar múltiples condiciones. Se puede pensar en <code>cond</code> como una cadena de <code>if</code>, cada uno con su propia condición y acción.
 </p>
@@ -2560,8 +2567,8 @@ Se imprimirá <code>Ninguna de las anteriores</code> porque ambas condiciones an
 </div>
 </li>
 
-<li><a id="orgd504b7a"></a>case<br />
-<div class="outline-text-5" id="text-orgd504b7a">
+<li><a id="orgfccad73"></a>case<br />
+<div class="outline-text-5" id="text-orgfccad73">
 <p>
 La expresión <code>case</code> es similar a un "switch" en otros lenguajes de programación. Se utiliza para evaluar una expresión y compararla con una lista de posibles valores.
 </p>
@@ -2594,9 +2601,9 @@ Aquí se imprimirá <code>Cinco</code> porque la expresión evaluada es igual a 
 </ul>
 </div>
 
-<div id="outline-container-org258763c" class="outline-4">
-<h4 id="org258763c">Referencias</h4>
-<div class="outline-text-4" id="text-org258763c">
+<div id="outline-container-orgc0e9589" class="outline-4">
+<h4 id="orgc0e9589">Referencias</h4>
+<div class="outline-text-4" id="text-orgc0e9589">
 <p>
 Para más información sobre las condicionales en Lisp, se recomienda revisar la documentación oficial o los siguientes recursos:
 </p>
@@ -2610,9 +2617,9 @@ Para más información sobre las condicionales en Lisp, se recomienda revisar la
 
 
 
-<div id="outline-container-org5182ba1" class="outline-3">
-<h3 id="org5182ba1">Listas de Asociación en Lisp</h3>
-<div class="outline-text-3" id="text-org5182ba1">
+<div id="outline-container-org738bd55" class="outline-3">
+<h3 id="org738bd55">Listas de Asociación en Lisp</h3>
+<div class="outline-text-3" id="text-org738bd55">
 <p>
 Las <b><b>listas de asociación</b></b> en <b><b>Lisp</b></b> permiten asociar claves con
 valores. Cada clave está emparejada con un valor en una lista. A
@@ -2649,9 +2656,9 @@ Esta lista tiene:
 </p>
 </div>
 
-<div id="outline-container-orgb8506bb" class="outline-4">
-<h4 id="orgb8506bb">1. Acceder a un valor <b>*</b></h4>
-<div class="outline-text-4" id="text-orgb8506bb">
+<div id="outline-container-org0313df8" class="outline-4">
+<h4 id="org0313df8">1. Acceder a un valor <b>*</b></h4>
+<div class="outline-text-4" id="text-org0313df8">
 <p>
 Para obtener el valor asociado a una clave, se utiliza la función `assoc`:
 </p>
@@ -2676,9 +2683,9 @@ Resultado: `"Juan"`
 </div>
 </div>
 
-<div id="outline-container-orgc6fdf41" class="outline-4">
-<h4 id="orgc6fdf41">2. Agregar un nuevo par clave-valor <b>*</b></h4>
-<div class="outline-text-4" id="text-orgc6fdf41">
+<div id="outline-container-org158d35d" class="outline-4">
+<h4 id="org158d35d">2. Agregar un nuevo par clave-valor <b>*</b></h4>
+<div class="outline-text-4" id="text-org158d35d">
 <p>
 Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
 </p>
@@ -2694,9 +2701,9 @@ Ahora `mi-alist` incluirá `(pais . "España")`.
 </div>
 </div>
 
-<div id="outline-container-org36aab1d" class="outline-4">
-<h4 id="org36aab1d">3. Modificar un valor existente <b>*</b></h4>
-<div class="outline-text-4" id="text-org36aab1d">
+<div id="outline-container-org1af25bd" class="outline-4">
+<h4 id="org1af25bd">3. Modificar un valor existente <b>*</b></h4>
+<div class="outline-text-4" id="text-org1af25bd">
 <p>
 Para modificar el valor de una clave existente, primero eliminas el par antiguo y luego agregas el nuevo:
 </p>
@@ -2712,9 +2719,9 @@ Esto actualiza el valor de `edad` a `31`.
 </div>
 </div>
 
-<div id="outline-container-org6342351" class="outline-4">
-<h4 id="org6342351">4. Eliminar un par clave-valor <b>*</b></h4>
-<div class="outline-text-4" id="text-org6342351">
+<div id="outline-container-org350d87c" class="outline-4">
+<h4 id="org350d87c">4. Eliminar un par clave-valor <b>*</b></h4>
+<div class="outline-text-4" id="text-org350d87c">
 <p>
 Para eliminar un par clave-valor por su clave, usa `assq-delete-all`:
 </p>
@@ -2760,13 +2767,13 @@ Esto elimina el par `(ciudad . "Madrid")` de la lista.
 </div>
 
 
-<div id="outline-container-orgd697fd8" class="outline-3">
-<h3 id="orgd697fd8">Casi-Quoting en Lisp</h3>
-<div class="outline-text-3" id="text-orgd697fd8">
+<div id="outline-container-orgb684ca9" class="outline-3">
+<h3 id="orgb684ca9">Casi-Quoting en Lisp</h3>
+<div class="outline-text-3" id="text-orgb684ca9">
 </div>
-<div id="outline-container-org70c0529" class="outline-4">
-<h4 id="org70c0529">Introducción</h4>
-<div class="outline-text-4" id="text-org70c0529">
+<div id="outline-container-orga7da713" class="outline-4">
+<h4 id="orga7da713">Introducción</h4>
+<div class="outline-text-4" id="text-orga7da713">
 <p>
 El <b><b>casi-quoting</b></b> (<b>backquote</b>) es una herramienta poderosa en Lisp
 para crear listas que contienen tanto valores literales como valores
@@ -2777,9 +2784,9 @@ específicas de la lista usando comas (`,`).
 </div>
 </div>
 
-<div id="outline-container-org7796ca5" class="outline-4">
-<h4 id="org7796ca5">1. Operador `quote`</h4>
-<div class="outline-text-4" id="text-org7796ca5">
+<div id="outline-container-orgf3c43f4" class="outline-4">
+<h4 id="orgf3c43f4">1. Operador `quote`</h4>
+<div class="outline-text-4" id="text-orgf3c43f4">
 <p>
 El operador `quote` (`'`) en Lisp previene la evaluación de una expresión. Si citas una lista, ésta se trata como literal:
 </p>
@@ -2793,15 +2800,15 @@ El operador `quote` (`'`) en Lisp previene la evaluación de una expresión. Si 
 Resultado:
 </p>
 
-<pre class="example" id="orgeff27bf">
+<pre class="example" id="org8d61bf7">
 (a b c)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org8cfce02" class="outline-4">
-<h4 id="org8cfce02">2. Operador `backquote`</h4>
-<div class="outline-text-4" id="text-org8cfce02">
+<div id="outline-container-orga35615b" class="outline-4">
+<h4 id="orga35615b">2. Operador `backquote`</h4>
+<div class="outline-text-4" id="text-orga35615b">
 <p>
 El <b><b>backquote</b></b> (o <b>casi-quoting</b>) es similar a `quote`, pero permite que algunas partes de la lista sean evaluadas. El operador es el símbolo de acento grave (<b><b>`</b></b>):
 </p>
@@ -2815,7 +2822,7 @@ El <b><b>backquote</b></b> (o <b>casi-quoting</b>) es similar a `quote`, pero pe
 Este código produce el mismo resultado que `quote`, es decir:
 </p>
 
-<pre class="example" id="org7db7ffe">
+<pre class="example" id="org480eb32">
 (a b c)
 </pre>
 
@@ -2825,9 +2832,9 @@ La ventaja del `backquote` es que puedes usar comas (`,`) para evaluar partes es
 </div>
 </div>
 
-<div id="outline-container-org7a84982" class="outline-4">
-<h4 id="org7a84982">3. Evaluación con la coma (`,`)</h4>
-<div class="outline-text-4" id="text-org7a84982">
+<div id="outline-container-orgbb95bf5" class="outline-4">
+<h4 id="orgbb95bf5">3. Evaluación con la coma (`,`)</h4>
+<div class="outline-text-4" id="text-orgbb95bf5">
 <p>
 Dentro de una lista creada con <b>backquote</b>, cualquier parte de la lista precedida por una coma (`,`) se evalúa, mientras que el resto permanece literal.
 </p>
@@ -2842,7 +2849,7 @@ Dentro de una lista creada con <b>backquote</b>, cualquier parte de la lista pre
 Resultado:
 </p>
 
-<pre class="example" id="orgffb02d1">
+<pre class="example" id="orgd42d3aa">
 (a b 10)
 </pre>
 
@@ -2852,9 +2859,9 @@ Aquí, la variable `x` se evaluó y su valor, `10`, se insertó en la lista.
 </div>
 </div>
 
-<div id="outline-container-org5063edd" class="outline-4">
-<h4 id="org5063edd">4. Expansión de listas con `,@`</h4>
-<div class="outline-text-4" id="text-org5063edd">
+<div id="outline-container-orgcdbeede" class="outline-4">
+<h4 id="orgcdbeede">4. Expansión de listas con `,@`</h4>
+<div class="outline-text-4" id="text-orgcdbeede">
 <p>
 Cuando necesitas insertar los elementos de una lista en lugar de la lista completa como un elemento único, puedes usar `,@` (coma seguido de arroba). Esto "expande" la lista y la inserta en la lista resultante.
 </p>
@@ -2869,7 +2876,7 @@ Cuando necesitas insertar los elementos de una lista en lugar de la lista comple
 Resultado:
 </p>
 
-<pre class="example" id="org2a5d48a">
+<pre class="example" id="org82962f5">
 (a b 1 2 3)
 </pre>
 
@@ -2879,9 +2886,9 @@ En este caso, los elementos de `lst` se expanden e insertan en la lista final.
 </div>
 </div>
 
-<div id="outline-container-orgd5f1b3e" class="outline-4">
-<h4 id="orgd5f1b3e">5. Combinación de `backquote`, `,` y `,@`</h4>
-<div class="outline-text-4" id="text-orgd5f1b3e">
+<div id="outline-container-org88d81c8" class="outline-4">
+<h4 id="org88d81c8">5. Combinación de `backquote`, `,` y `,@`</h4>
+<div class="outline-text-4" id="text-org88d81c8">
 <p>
 Puedes combinar `backquote`, `,` y `,@` para crear listas más complejas que mezclan datos literales y resultados evaluados.
 </p>
@@ -2897,7 +2904,7 @@ Puedes combinar `backquote`, `,` y `,@` para crear listas más complejas que mez
 Resultado:
 </p>
 
-<pre class="example" id="org4084437">
+<pre class="example" id="org2d9d0b8">
 (valores: 10 lista: 1 2 3)
 </pre>
 
@@ -2911,13 +2918,13 @@ En este ejemplo:
 </div>
 </div>
 
-<div id="outline-container-org2e5442f" class="outline-4">
-<h4 id="org2e5442f">6. Ejemplos adicionales</h4>
-<div class="outline-text-4" id="text-org2e5442f">
+<div id="outline-container-org1dbcba3" class="outline-4">
+<h4 id="org1dbcba3">6. Ejemplos adicionales</h4>
+<div class="outline-text-4" id="text-org1dbcba3">
 </div>
 <ul class="org-ul">
-<li><a id="orgc2669f2"></a>Ejemplo 1: Combinando literales y evaluaciones<br />
-<div class="outline-text-5" id="text-orgc2669f2">
+<li><a id="orgc159512"></a>Ejemplo 1: Combinando literales y evaluaciones<br />
+<div class="outline-text-5" id="text-orgc159512">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #c099ff;">(</span>setq a 5<span style="color: #c099ff;">)</span>
 <span style="color: #c099ff;">(</span>setq b 10<span style="color: #c099ff;">)</span>
@@ -2929,14 +2936,14 @@ En este ejemplo:
 Resultado:
 </p>
 
-<pre class="example" id="org142824a">
+<pre class="example" id="orgec57b2d">
 (suma 15 lista (1 2 7))
 </pre>
 </div>
 </li>
 
-<li><a id="org6ab98e9"></a>Ejemplo 2: Insertando múltiples listas<br />
-<div class="outline-text-5" id="text-org6ab98e9">
+<li><a id="org0835fe4"></a>Ejemplo 2: Insertando múltiples listas<br />
+<div class="outline-text-5" id="text-org0835fe4">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #c099ff;">(</span>setq l1 '<span style="color: #ff995e;">(</span>a b c<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
 <span style="color: #c099ff;">(</span>setq l2 '<span style="color: #ff995e;">(</span>x y z<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
@@ -2948,7 +2955,7 @@ Resultado:
 Resultado:
 </p>
 
-<pre class="example" id="org6b903a7">
+<pre class="example" id="org2fefcd8">
 (primera lista: a b c segunda lista: x y z)
 </pre>
 </div>
@@ -2957,9 +2964,9 @@ Resultado:
 </div>
 
 
-<div id="outline-container-org3e35dc3" class="outline-4">
-<h4 id="org3e35dc3">8. Ejemplo completo</h4>
-<div class="outline-text-4" id="text-org3e35dc3">
+<div id="outline-container-orgd3dc63f" class="outline-4">
+<h4 id="orgd3dc63f">8. Ejemplo completo</h4>
+<div class="outline-text-4" id="text-orgd3dc63f">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #c099ff;">(</span>setq x 20<span style="color: #c099ff;">)</span>
 <span style="color: #c099ff;">(</span>setq nums '<span style="color: #ff995e;">(</span>1 2 3<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
@@ -2973,7 +2980,7 @@ Resultado:
 Resultado:
 </p>
 
-<pre class="example" id="orgf9e1038">
+<pre class="example" id="orgaf47f6b">
 (el valor de x es 20 y la lista es 1 2 3 con una palabra hola)
 </pre>
 
@@ -2988,13 +2995,13 @@ Resultado:
 </div>
 </div>
 
-<div id="outline-container-org4abedc1" class="outline-3">
-<h3 id="org4abedc1">mapcar en Lisp</h3>
-<div class="outline-text-3" id="text-org4abedc1">
+<div id="outline-container-orga98cd77" class="outline-3">
+<h3 id="orga98cd77">mapcar en Lisp</h3>
+<div class="outline-text-3" id="text-orga98cd77">
 </div>
-<div id="outline-container-org55821fb" class="outline-4">
-<h4 id="org55821fb">Introducción</h4>
-<div class="outline-text-4" id="text-org55821fb">
+<div id="outline-container-org35505a0" class="outline-4">
+<h4 id="org35505a0">Introducción</h4>
+<div class="outline-text-4" id="text-org35505a0">
 <p>
 La función `mapcar` en Lisp se utiliza para aplicar una función a cada
 elemento de una o más listas, devolviendo una nueva lista con los
@@ -3005,9 +3012,9 @@ manera sencilla.
 </div>
 </div>
 
-<div id="outline-container-org7f003f8" class="outline-4">
-<h4 id="org7f003f8">Sintaxis básica de mapcar</h4>
-<div class="outline-text-4" id="text-org7f003f8">
+<div id="outline-container-orgf12adf8" class="outline-4">
+<h4 id="orgf12adf8">Sintaxis básica de mapcar</h4>
+<div class="outline-text-4" id="text-orgf12adf8">
 <p>
 La sintaxis básica de mapcar es la siguiente:
 </p>
@@ -3024,13 +3031,13 @@ La sintaxis básica de mapcar es la siguiente:
 </div>
 </div>
 
-<div id="outline-container-orgbe7a198" class="outline-4">
-<h4 id="orgbe7a198">Ejemplos básicos</h4>
-<div class="outline-text-4" id="text-orgbe7a198">
+<div id="outline-container-orgc0613c1" class="outline-4">
+<h4 id="orgc0613c1">Ejemplos básicos</h4>
+<div class="outline-text-4" id="text-orgc0613c1">
 </div>
 <ul class="org-ul">
-<li><a id="org77c9dae"></a>Ejemplo 1: Aplicando una función a una lista<br />
-<div class="outline-text-5" id="text-org77c9dae">
+<li><a id="org827db86"></a>Ejemplo 1: Aplicando una función a una lista<br />
+<div class="outline-text-5" id="text-org827db86">
 <p>
 Vamos a aplicar la función 1+ (que suma 1) a cada elemento de una lista de números:
 </p>
@@ -3044,7 +3051,7 @@ Vamos a aplicar la función 1+ (que suma 1) a cada elemento de una lista de núm
 Resultado:
 </p>
 
-<pre class="example" id="org41fa64f">
+<pre class="example" id="org9b49b35">
 (2 3 4 5 6)
 </pre>
 
@@ -3054,8 +3061,8 @@ Aquí, `mapcar` ha aplicado la función 1+ a cada número en la lista, increment
 </div>
 </li>
 
-<li><a id="orgae2c3e7"></a>Ejemplo 2: Usando una función lambda<br />
-<div class="outline-text-5" id="text-orgae2c3e7">
+<li><a id="orge7f6487"></a>Ejemplo 2: Usando una función lambda<br />
+<div class="outline-text-5" id="text-orge7f6487">
 <p>
 También puedes usar funciones anónimas (lambda) con `mapcar`. En este ejemplo, multiplicamos cada número de una lista por 2:
 </p>
@@ -3069,14 +3076,14 @@ También puedes usar funciones anónimas (lambda) con `mapcar`. En este ejemplo,
 Resultado:
 </p>
 
-<pre class="example" id="org8e07a1c">
+<pre class="example" id="orgcfbd04f">
 (2 4 6 8 10)
 </pre>
 </div>
 </li>
 
-<li><a id="org12c6390"></a>Ejemplo 3: Aplicando una función a varias listas<br />
-<div class="outline-text-5" id="text-org12c6390">
+<li><a id="org9c887f0"></a>Ejemplo 3: Aplicando una función a varias listas<br />
+<div class="outline-text-5" id="text-org9c887f0">
 <p>
 `mapcar` también puede operar sobre varias listas. La función debe tomar tantos argumentos como listas haya:
 </p>
@@ -3090,7 +3097,7 @@ Resultado:
 Resultado:
 </p>
 
-<pre class="example" id="org1a9b8f8">
+<pre class="example" id="org38891ba">
 (5 7 9)
 </pre>
 
@@ -3102,13 +3109,13 @@ Aquí, `mapcar` ha sumado los elementos correspondientes de las dos listas.
 </ul>
 </div>
 
-<div id="outline-container-org15d0a13" class="outline-4">
-<h4 id="org15d0a13">Ejemplos</h4>
-<div class="outline-text-4" id="text-org15d0a13">
+<div id="outline-container-orgef85f61" class="outline-4">
+<h4 id="orgef85f61">Ejemplos</h4>
+<div class="outline-text-4" id="text-orgef85f61">
 </div>
 <ul class="org-ul">
-<li><a id="org7163bcc"></a>Ejemplo 4: Filtrando listas con `mapcar`<br />
-<div class="outline-text-5" id="text-org7163bcc">
+<li><a id="org5eeec5d"></a>Ejemplo 4: Filtrando listas con `mapcar`<br />
+<div class="outline-text-5" id="text-org5eeec5d">
 <p>
 Aunque `mapcar` no está diseñado específicamente para filtrar listas,
 podemos usarlo junto con una función condicional para obtener un
@@ -3125,7 +3132,7 @@ pares de una lista, podríamos hacer lo siguiente:
 Resultado:
 </p>
 
-<pre class="example" id="orgfdc1f76">
+<pre class="example" id="org593f0cd">
 (nil 2 nil 4 nil 6)
 </pre>
 
@@ -3135,8 +3142,8 @@ Esto devolverá `nil` para los números impares y los números pares sin cambios
 </div>
 </li>
 
-<li><a id="org947a54c"></a>Ejemplo 5: Transformando listas de listas<br />
-<div class="outline-text-5" id="text-org947a54c">
+<li><a id="org6ca2c16"></a>Ejemplo 5: Transformando listas de listas<br />
+<div class="outline-text-5" id="text-org6ca2c16">
 <p>
 `mapcar` también es útil para trabajar con listas de listas. Por ejemplo, si queremos sumar los elementos de sublistas:
 </p>
@@ -3150,7 +3157,7 @@ Esto devolverá `nil` para los números impares y los números pares sin cambios
 Resultado:
 </p>
 
-<pre class="example" id="org144afc6">
+<pre class="example" id="orgba3b2da">
 (6 15 24)
 </pre>
 
@@ -3160,8 +3167,8 @@ Aquí, hemos sumado los elementos de cada sublista.
 </div>
 </li>
 
-<li><a id="org182552e"></a>Ejemplo 6: Trabajando con cadenas de texto<br />
-<div class="outline-text-5" id="text-org182552e">
+<li><a id="orgd22ed92"></a>Ejemplo 6: Trabajando con cadenas de texto<br />
+<div class="outline-text-5" id="text-orgd22ed92">
 <p>
 `mapcar` no está limitado solo a números. También puede aplicarse a listas de caracteres o cadenas de texto:
 </p>
@@ -3175,7 +3182,7 @@ Aquí, hemos sumado los elementos de cada sublista.
 Resultado:
 </p>
 
-<pre class="example" id="orge7fc928">
+<pre class="example" id="org4246c4f">
 ("A" "B" "C" "D")
 </pre>
 
@@ -3211,9 +3218,9 @@ Este ejemplo convierte cada letra en mayúscula.
 </div>
 
 
-<div id="outline-container-orgadbe3a5" class="outline-3">
-<h3 id="orgadbe3a5">Comparaciones en Lisp</h3>
-<div class="outline-text-3" id="text-orgadbe3a5">
+<div id="outline-container-org08cb505" class="outline-3">
+<h3 id="org08cb505">Comparaciones en Lisp</h3>
+<div class="outline-text-3" id="text-org08cb505">
 <p>
 En <b><b>Lisp</b></b>, las funciones de comparación se utilizan para comparar
 diferentes tipos de objetos: números, cadenas, símbolos, listas,
@@ -3222,9 +3229,9 @@ usar la función adecuada.
 </p>
 </div>
 
-<div id="outline-container-orgd77261c" class="outline-4">
-<h4 id="orgd77261c">1. <b>eq</b></h4>
-<div class="outline-text-4" id="text-orgd77261c">
+<div id="outline-container-org2063647" class="outline-4">
+<h4 id="org2063647">1. <b>eq</b></h4>
+<div class="outline-text-4" id="text-org2063647">
 <p>
 La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara si dos objetos son <b><b>idénticos</b></b> (el mismo objeto en memoria). Generalmente se usa para comparar símbolos.
 </p>
@@ -3244,9 +3251,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-orgf8858b5" class="outline-4">
-<h4 id="orgf8858b5">2. <b>eql</b></h4>
-<div class="outline-text-4" id="text-orgf8858b5">
+<div id="outline-container-org1b91ef8" class="outline-4">
+<h4 id="org1b91ef8">2. <b>eql</b></h4>
+<div class="outline-text-4" id="text-org1b91ef8">
 <p>
 <b>eql</b> es más general que <b>eq</b>. Se comporta igual que <b>eq</b> para símbolos, pero también maneja correctamente la comparación de números y caracteres.
 </p>
@@ -3266,9 +3273,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-org078d7c8" class="outline-4">
-<h4 id="org078d7c8">3. <b>equal</b></h4>
-<div class="outline-text-4" id="text-org078d7c8">
+<div id="outline-container-org6503296" class="outline-4">
+<h4 id="org6503296">3. <b>equal</b></h4>
+<div class="outline-text-4" id="text-org6503296">
 <p>
 <b>equal</b> compara el contenido de dos objetos de forma más flexible. Es capaz de comparar listas, números, símbolos, y cadenas de texto, pero no distingue entre mayúsculas y minúsculas en cadenas.
 </p>
@@ -3288,9 +3295,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-orgf9b0238" class="outline-4">
-<h4 id="orgf9b0238">4. <b>equalp</b></h4>
-<div class="outline-text-4" id="text-orgf9b0238">
+<div id="outline-container-org4c4c13b" class="outline-4">
+<h4 id="org4c4c13b">4. <b>equalp</b></h4>
+<div class="outline-text-4" id="text-org4c4c13b">
 <p>
 <b>equalp</b> es similar a <b>equal</b>, pero es más "tolerante". Ignora las diferencias entre mayúsculas y minúsculas en cadenas, y compara enteros y flotantes de manera flexible.
 </p>
@@ -3309,9 +3316,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-org12f5a9e" class="outline-4">
-<h4 id="org12f5a9e">5. <b>=</b></h4>
-<div class="outline-text-4" id="text-org12f5a9e">
+<div id="outline-container-org056bc70" class="outline-4">
+<h4 id="org056bc70">5. <b>=</b></h4>
+<div class="outline-text-4" id="text-org056bc70">
 <p>
 <b>=</b> se usa exclusivamente para comparar <b><b>números</b></b>. Compara números enteros y flotantes, asegurándose de que sus valores sean los mismos.
 </p>
@@ -3330,9 +3337,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-org2efc19d" class="outline-4">
-<h4 id="org2efc19d">6. <b>/=</b></h4>
-<div class="outline-text-4" id="text-org2efc19d">
+<div id="outline-container-org81382ff" class="outline-4">
+<h4 id="org81382ff">6. <b>/=</b></h4>
+<div class="outline-text-4" id="text-org81382ff">
 <p>
 <b>/=</b> compara si dos números <b><b>no</b></b> son iguales.
 </p>
@@ -3349,9 +3356,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-org906ec00" class="outline-4">
-<h4 id="org906ec00">7. <b>string=</b></h4>
-<div class="outline-text-4" id="text-org906ec00">
+<div id="outline-container-org70a619c" class="outline-4">
+<h4 id="org70a619c">7. <b>string=</b></h4>
+<div class="outline-text-4" id="text-org70a619c">
 <p>
 <b>string=</b> se utiliza para comparar cadenas de texto de manera exacta, respetando las diferencias entre mayúsculas y minúsculas.
 </p>
@@ -3368,9 +3375,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-org4388155" class="outline-4">
-<h4 id="org4388155">8. <b>string-equal</b></h4>
-<div class="outline-text-4" id="text-org4388155">
+<div id="outline-container-org1c41bf0" class="outline-4">
+<h4 id="org1c41bf0">8. <b>string-equal</b></h4>
+<div class="outline-text-4" id="text-org1c41bf0">
 <p>
 <b>string-equal</b> es similar a <b>string=</b>, pero ignora las diferencias entre mayúsculas y minúsculas.
 </p>
@@ -3386,9 +3393,9 @@ La función <b>eq</b> es la forma más básica de comparación en Lisp. Compara 
 </div>
 </div>
 
-<div id="outline-container-orge60b7f8" class="outline-4">
-<h4 id="orge60b7f8">9. <b>char=</b> y <b>char-equal</b></h4>
-<div class="outline-text-4" id="text-orge60b7f8">
+<div id="outline-container-orgd104176" class="outline-4">
+<h4 id="orgd104176">9. <b>char=</b> y <b>char-equal</b></h4>
+<div class="outline-text-4" id="text-orgd104176">
 <p>
 Estas funciones comparan caracteres individuales. <b>char=</b> compara caracteres de manera exacta, mientras que <b>char-equal</b> ignora las diferencias entre mayúsculas y minúsculas.
 </p>
@@ -3406,9 +3413,9 @@ Estas funciones comparan caracteres individuales. <b>char=</b> compara caractere
 </div>
 </div>
 
-<div id="outline-container-org8124b5a" class="outline-4">
-<h4 id="org8124b5a">Resumen</h4>
-<div class="outline-text-4" id="text-org8124b5a">
+<div id="outline-container-org61c1cf2" class="outline-4">
+<h4 id="org61c1cf2">Resumen</h4>
+<div class="outline-text-4" id="text-org61c1cf2">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -3496,9 +3503,9 @@ Estas funciones comparan caracteres individuales. <b>char=</b> compara caractere
 </div>
 </div>
 
-<div id="outline-container-org1f500d3" class="outline-4">
-<h4 id="org1f500d3">Ejemplo completo</h4>
-<div class="outline-text-4" id="text-org1f500d3">
+<div id="outline-container-orgd49a029" class="outline-4">
+<h4 id="orgd49a029">Ejemplo completo</h4>
+<div class="outline-text-4" id="text-orgd49a029">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">Comparaci&#243;n de s&#237;mbolos</span>
 <span style="color: #c099ff;">(</span>eq 'a 'a<span style="color: #c099ff;">)</span>  <span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">T</span>
@@ -3532,13 +3539,13 @@ Estas funciones comparan caracteres individuales. <b>char=</b> compara caractere
 </div>
 
 
-<div id="outline-container-org9384b5d" class="outline-3">
-<h3 id="org9384b5d">Funciones lambda en Lisp</h3>
-<div class="outline-text-3" id="text-org9384b5d">
+<div id="outline-container-org9b4cedc" class="outline-3">
+<h3 id="org9b4cedc">Funciones lambda en Lisp</h3>
+<div class="outline-text-3" id="text-org9b4cedc">
 </div>
-<div id="outline-container-orga0cb423" class="outline-4">
-<h4 id="orga0cb423">Introducción</h4>
-<div class="outline-text-4" id="text-orga0cb423">
+<div id="outline-container-org8f16532" class="outline-4">
+<h4 id="org8f16532">Introducción</h4>
+<div class="outline-text-4" id="text-org8f16532">
 <p>
 En <b><b>Lisp</b></b>, las <b><b>funciones lambda</b></b> son funciones anónimas que
 puedes definir sin necesidad de darles un nombre. Son útiles cuando
@@ -3550,9 +3557,9 @@ lugares donde una función completa sería innecesaria.
 </div>
 </div>
 
-<div id="outline-container-orgab341e2" class="outline-4">
-<h4 id="orgab341e2">Definición básica de una función lambda</h4>
-<div class="outline-text-4" id="text-orgab341e2">
+<div id="outline-container-orgd05a85d" class="outline-4">
+<h4 id="orgd05a85d">Definición básica de una función lambda</h4>
+<div class="outline-text-4" id="text-orgd05a85d">
 <p>
 La sintaxis básica de una función lambda es la siguiente:
 </p>
@@ -3582,13 +3589,13 @@ Esta es una función lambda que toma un número `x` y devuelve `x` multiplicado 
 </div>
 </div>
 
-<div id="outline-container-org21336b8" class="outline-4">
-<h4 id="org21336b8">Ejemplos de uso de lambdas</h4>
-<div class="outline-text-4" id="text-org21336b8">
+<div id="outline-container-org8ccd71b" class="outline-4">
+<h4 id="org8ccd71b">Ejemplos de uso de lambdas</h4>
+<div class="outline-text-4" id="text-org8ccd71b">
 </div>
 <ul class="org-ul">
-<li><a id="org62a3cd4"></a>Ejemplo 1: Usando lambdas con `mapcar`<br />
-<div class="outline-text-5" id="text-org62a3cd4">
+<li><a id="org6cc51ae"></a>Ejemplo 1: Usando lambdas con `mapcar`<br />
+<div class="outline-text-5" id="text-org6cc51ae">
 <p>
 Puedes usar una función lambda directamente en llamadas a funciones como `mapcar`, donde necesitas aplicar una operación a cada elemento de una lista. 
 </p>
@@ -3602,7 +3609,7 @@ Puedes usar una función lambda directamente en llamadas a funciones como `mapca
 Resultado:
 </p>
 
-<pre class="example" id="org9e83438">
+<pre class="example" id="org1ddb428">
 (2 4 6 8 10)
 </pre>
 
@@ -3612,8 +3619,8 @@ En este caso, la función lambda toma cada elemento de la lista `(1 2 3 4 5)` y 
 </div>
 </li>
 
-<li><a id="orgfdc586f"></a>Ejemplo 2: Usando lambdas con `reduce`<br />
-<div class="outline-text-5" id="text-orgfdc586f">
+<li><a id="org0ce2419"></a>Ejemplo 2: Usando lambdas con `reduce`<br />
+<div class="outline-text-5" id="text-org0ce2419">
 <p>
 También puedes usar lambdas en combinación con otras funciones de orden superior como `reduce`. Por ejemplo, para sumar todos los elementos de una lista:
 </p>
@@ -3627,7 +3634,7 @@ También puedes usar lambdas en combinación con otras funciones de orden superi
 Resultado:
 </p>
 
-<pre class="example" id="orgf42daff">
+<pre class="example" id="org2637dd1">
 15
 </pre>
 
@@ -3637,8 +3644,8 @@ Aquí, la lambda toma dos elementos, los suma, y luego pasa el resultado para la
 </div>
 </li>
 
-<li><a id="orgbbed787"></a>Ejemplo 3: Lambdas dentro de una función<br />
-<div class="outline-text-5" id="text-orgbbed787">
+<li><a id="orgca81c4b"></a>Ejemplo 3: Lambdas dentro de una función<br />
+<div class="outline-text-5" id="text-orgca81c4b">
 <p>
 Las funciones lambda también pueden ser utilizadas dentro de otras funciones para definir comportamientos específicos:
 </p>
@@ -3655,7 +3662,7 @@ Las funciones lambda también pueden ser utilizadas dentro de otras funciones pa
 Resultado:
 </p>
 
-<pre class="example" id="orgd7e0c9a">
+<pre class="example" id="org2c49234">
 (1 4 9 16)
 </pre>
 
@@ -3667,17 +3674,17 @@ Aquí, la función `aplicar-operacion` toma una lambda que eleva cada número al
 </ul>
 </div>
 
-<div id="outline-container-org6566a83" class="outline-4">
-<h4 id="org6566a83">Ámbito de las lambdas</h4>
-<div class="outline-text-4" id="text-org6566a83">
+<div id="outline-container-org5b1bcc2" class="outline-4">
+<h4 id="org5b1bcc2">Ámbito de las lambdas</h4>
+<div class="outline-text-4" id="text-org5b1bcc2">
 <p>
 Las lambdas pueden acceder a variables que están en su entorno de definición. Esto es conocido como <b><b>alcance léxico</b></b>.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org5b31b5e"></a>Ejemplo 4: Usando una variable externa en una lambda<br />
-<div class="outline-text-5" id="text-org5b31b5e">
+<li><a id="org950c8f4"></a>Ejemplo 4: Usando una variable externa en una lambda<br />
+<div class="outline-text-5" id="text-org950c8f4">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">let</span> <span style="color: #ff995e;">(</span><span style="color: #ff98a4;">(</span>factor 3<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span>
   <span style="color: #ff995e;">(</span>mapcar <span style="color: #ff98a4;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #b4f9f8;">(</span>x<span style="color: #b4f9f8;">)</span> <span style="color: #b4f9f8;">(</span>* x factor<span style="color: #b4f9f8;">)</span><span style="color: #ff98a4;">)</span> '<span style="color: #ff98a4;">(</span>1 2 3 4 5<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
@@ -3688,7 +3695,7 @@ Las lambdas pueden acceder a variables que están en su entorno de definición. 
 Resultado:
 </p>
 
-<pre class="example" id="org01a7882">
+<pre class="example" id="org41182b0">
 (3 6 9 12 15)
 </pre>
 
@@ -3700,17 +3707,17 @@ En este caso, la variable `factor` está definida en el entorno léxico donde se
 </ul>
 </div>
 
-<div id="outline-container-org15e6aa6" class="outline-4">
-<h4 id="org15e6aa6">Lambdas como valores de retorno</h4>
-<div class="outline-text-4" id="text-org15e6aa6">
+<div id="outline-container-org4dd3c3f" class="outline-4">
+<h4 id="org4dd3c3f">Lambdas como valores de retorno</h4>
+<div class="outline-text-4" id="text-org4dd3c3f">
 <p>
 Las funciones lambda también pueden ser retornadas desde otras funciones, lo que permite construir funciones dinámicamente.
 </p>
 </div>
 
 <ul class="org-ul">
-<li><a id="org25d9210"></a>Ejemplo 5: Retornar una lambda desde una función<br />
-<div class="outline-text-5" id="text-org25d9210">
+<li><a id="orgdc2d9b6"></a>Ejemplo 5: Retornar una lambda desde una función<br />
+<div class="outline-text-5" id="text-orgdc2d9b6">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #c099ff;">(</span><span style="color: #c099ff;">defun</span> <span style="color: #82aaff;">multiplicador</span> <span style="color: #ff995e;">(</span>n<span style="color: #ff995e;">)</span>
   <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>* x n<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
@@ -3724,7 +3731,7 @@ Las funciones lambda también pueden ser retornadas desde otras funciones, lo qu
 Resultado:
 </p>
 
-<pre class="example" id="org1eb768f">
+<pre class="example" id="orgd0a688d">
 20
 </pre>
 
@@ -3736,9 +3743,9 @@ Aquí, la función `multiplicador` devuelve una lambda que multiplica por `n`. E
 </ul>
 </div>
 
-<div id="outline-container-org002554b" class="outline-4">
-<h4 id="org002554b">Usos comunes de lambdas</h4>
-<div class="outline-text-4" id="text-org002554b">
+<div id="outline-container-org132e32a" class="outline-4">
+<h4 id="org132e32a">Usos comunes de lambdas</h4>
+<div class="outline-text-4" id="text-org132e32a">
 <p>
 Las funciones lambda son extremadamente útiles en situaciones donde necesitas funciones temporales o pequeñas que no ameritan una definición completa. Algunas aplicaciones comunes son:
 </p>
@@ -3751,9 +3758,9 @@ Las funciones lambda son extremadamente útiles en situaciones donde necesitas f
 </div>
 </div>
 
-<div id="outline-container-org76f9098" class="outline-4">
-<h4 id="org76f9098">Ejemplos</h4>
-<div class="outline-text-4" id="text-org76f9098">
+<div id="outline-container-orgf942214" class="outline-4">
+<h4 id="orgf942214">Ejemplos</h4>
+<div class="outline-text-4" id="text-orgf942214">
 <div class="org-src-container">
 <pre class="src src-lisp"><span style="color: #7a88cf;">;; </span><span style="color: #7a88cf;">Usando lambda con mapcar para elevar n&#250;meros al cubo</span>
 <span style="color: #c099ff;">(</span>mapcar <span style="color: #ff995e;">(</span><span style="color: #c099ff;">lambda</span> <span style="color: #ff98a4;">(</span>x<span style="color: #ff98a4;">)</span> <span style="color: #ff98a4;">(</span>* x x x<span style="color: #ff98a4;">)</span><span style="color: #ff995e;">)</span> '<span style="color: #ff995e;">(</span>1 2 3 4 5<span style="color: #ff995e;">)</span><span style="color: #c099ff;">)</span>
@@ -3780,9 +3787,9 @@ Las funciones lambda son extremadamente útiles en situaciones donde necesitas f
 </div>
 </div>
 
-<div id="outline-container-org01cccae" class="outline-2">
-<h2 id="org01cccae">Prolog</h2>
-<div class="outline-text-2" id="text-org01cccae">
+<div id="outline-container-org9b3ed74" class="outline-2">
+<h2 id="org9b3ed74">Prolog</h2>
+<div class="outline-text-2" id="text-org9b3ed74">
 <p>
 Una regla sirve para representar conocimiento que en lenguaje natural
  se expresa mediante una sentencia condicional. Por ejemplo, si en
@@ -3886,13 +3893,13 @@ interpretación de los predicados y cualquier asignación de x).
 </div>
 
 
-<div id="outline-container-orgc8c6125" class="outline-3">
-<h3 id="orgc8c6125">Lógica de primer orden</h3>
-<div class="outline-text-3" id="text-orgc8c6125">
+<div id="outline-container-org491be53" class="outline-3">
+<h3 id="org491be53">Lógica de primer orden</h3>
+<div class="outline-text-3" id="text-org491be53">
 </div>
-<div id="outline-container-org710e792" class="outline-4">
-<h4 id="org710e792">1. La Tierra es un planeta.</h4>
-<div class="outline-text-4" id="text-org710e792">
+<div id="outline-container-org8e16f62" class="outline-4">
+<h4 id="org8e16f62">1. La Tierra es un planeta.</h4>
+<div class="outline-text-4" id="text-org8e16f62">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "La Tierra es un planeta."</li>
 <li><b><b>Interpretación</b></b>: Afirmamos que la "Tierra" tiene la propiedad de
@@ -3905,9 +3912,9 @@ directa sin relaciones adicionales.</li>
 </div>
 </div>
 
-<div id="outline-container-orga499298" class="outline-4">
-<h4 id="orga499298">2. La Luna no es un planeta.</h4>
-<div class="outline-text-4" id="text-orga499298">
+<div id="outline-container-orga660c94" class="outline-4">
+<h4 id="orga660c94">2. La Luna no es un planeta.</h4>
+<div class="outline-text-4" id="text-orga660c94">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "La Luna no es un planeta."</li>
 <li><b><b>Interpretación</b></b>: Queremos expresar la ausencia de la propiedad
@@ -3920,9 +3927,9 @@ esta propiedad. Es una negación directa de una propiedad.</li>
 </div>
 </div>
 
-<div id="outline-container-org8dc0f5f" class="outline-4">
-<h4 id="org8dc0f5f">3. La Luna es un satélite.</h4>
-<div class="outline-text-4" id="text-org8dc0f5f">
+<div id="outline-container-orge8a7e68" class="outline-4">
+<h4 id="orge8a7e68">3. La Luna es un satélite.</h4>
+<div class="outline-text-4" id="text-orge8a7e68">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "La Luna es un satélite."</li>
 <li><b><b>Interpretación</b></b>: Decimos que la "Luna" tiene la propiedad de ser
@@ -3934,9 +3941,9 @@ un satélite.</li>
 </div>
 </div>
 
-<div id="outline-container-org35194a0" class="outline-4">
-<h4 id="org35194a0">4. La Tierra gira alrededor del Sol.</h4>
-<div class="outline-text-4" id="text-org35194a0">
+<div id="outline-container-orgd562eea" class="outline-4">
+<h4 id="orgd562eea">4. La Tierra gira alrededor del Sol.</h4>
+<div class="outline-text-4" id="text-orgd562eea">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "La Tierra gira alrededor del Sol."</li>
 <li><b><b>Interpretación</b></b>: Queremos expresar una relación entre "Tierra" y "Sol".</li>
@@ -3948,9 +3955,9 @@ de". Aplicamos esta relación entre "Tierra" y "Sol".</li>
 </div>
 </div>
 
-<div id="outline-container-org9078025" class="outline-4">
-<h4 id="org9078025">5. Todo planeta es un satélite.</h4>
-<div class="outline-text-4" id="text-org9078025">
+<div id="outline-container-orga962daa" class="outline-4">
+<h4 id="orga962daa">5. Todo planeta es un satélite.</h4>
+<div class="outline-text-4" id="text-orga962daa">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Todo planeta es un satélite."</li>
 <li><b><b>Interpretación</b></b>: Queremos expresar que ser un planeta implica ser un satélite.</li>
@@ -3963,9 +3970,9 @@ esta regla aplica a todos los elementos en el dominio.</li>
 </div>
 </div>
 
-<div id="outline-container-org6ef626f" class="outline-4">
-<h4 id="org6ef626f">6. Todo planeta gira alrededor del Sol.</h4>
-<div class="outline-text-4" id="text-org6ef626f">
+<div id="outline-container-orga2e81bc" class="outline-4">
+<h4 id="orga2e81bc">6. Todo planeta gira alrededor del Sol.</h4>
+<div class="outline-text-4" id="text-orga2e81bc">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Todo planeta gira alrededor del Sol."</li>
 <li><b><b>Interpretación</b></b>: Decimos que si algo es un planeta, entonces
@@ -3979,9 +3986,9 @@ esto se aplica a todos los planetas.</li>
 </div>
 </div>
 
-<div id="outline-container-orgbb97909" class="outline-4">
-<h4 id="orgbb97909">7. Algún planeta gira alrededor de la Luna.</h4>
-<div class="outline-text-4" id="text-orgbb97909">
+<div id="outline-container-org133b951" class="outline-4">
+<h4 id="org133b951">7. Algún planeta gira alrededor de la Luna.</h4>
+<div class="outline-text-4" id="text-org133b951">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Algún planeta gira alrededor de la Luna."</li>
 <li><b><b>Interpretación</b></b>: Existe al menos un planeta que tiene la
@@ -3995,9 +4002,9 @@ asegura que ambas condiciones son verdaderas simultáneamente.</li>
 </div>
 </div>
 
-<div id="outline-container-orga99b607" class="outline-4">
-<h4 id="orga99b607">8. Hay por lo menos un satélite.</h4>
-<div class="outline-text-4" id="text-orga99b607">
+<div id="outline-container-org59e988e" class="outline-4">
+<h4 id="org59e988e">8. Hay por lo menos un satélite.</h4>
+<div class="outline-text-4" id="text-org59e988e">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Hay por lo menos un satélite."</li>
 <li><b><b>Interpretación</b></b>: Queremos indicar que existe al menos un objeto
@@ -4011,9 +4018,9 @@ aquí, solo afirmamos la existencia de un satélite.</li>
 </div>
 </div>
 
-<div id="outline-container-orgc5341b8" class="outline-4">
-<h4 id="orgc5341b8">9. Todos los perros del vecindario muerden a algún cartero.</h4>
-<div class="outline-text-4" id="text-orgc5341b8">
+<div id="outline-container-org8b6cb05" class="outline-4">
+<h4 id="org8b6cb05">9. Todos los perros del vecindario muerden a algún cartero.</h4>
+<div class="outline-text-4" id="text-org8b6cb05">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Todos los perros del vecindario muerden a algún
 cartero."</li>
@@ -4028,9 +4035,9 @@ es cartero y es mordido por <code>x</code>". La conjunción <code>Cartero(y) ∧
 </div>
 </div>
 
-<div id="outline-container-org9ed504a" class="outline-4">
-<h4 id="org9ed504a">10. Hay un cartero al que lo muerden todos los perros.</h4>
-<div class="outline-text-4" id="text-org9ed504a">
+<div id="outline-container-orgd0e9c33" class="outline-4">
+<h4 id="orgd0e9c33">10. Hay un cartero al que lo muerden todos los perros.</h4>
+<div class="outline-text-4" id="text-orgd0e9c33">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Hay un cartero al que lo muerden todos los perros."</li>
 <li><b><b>Interpretación</b></b>: Existe al menos un cartero al que todos los
@@ -4044,9 +4051,9 @@ asegura que <code>y</code> es un cartero.</li>
 </div>
 </div>
 
-<div id="outline-container-org7ff94ab" class="outline-4">
-<h4 id="org7ff94ab">11. Todos los carteros son mordidos por algún perro.</h4>
-<div class="outline-text-4" id="text-org7ff94ab">
+<div id="outline-container-org1aa20d7" class="outline-4">
+<h4 id="org1aa20d7">11. Todos los carteros son mordidos por algún perro.</h4>
+<div class="outline-text-4" id="text-org1aa20d7">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Todos los carteros son mordidos por algún perro."</li>
 <li><b><b>Interpretación</b></b>: Cada cartero es mordido por al menos un perro.</li>
@@ -4059,9 +4066,9 @@ muerde a <code>y</code>.</li>
 </div>
 </div>
 
-<div id="outline-container-org82e1db5" class="outline-4">
-<h4 id="org82e1db5">12. Hay un perro que muerde a todos los carteros.</h4>
-<div class="outline-text-4" id="text-org82e1db5">
+<div id="outline-container-orgc0db22d" class="outline-4">
+<h4 id="orgc0db22d">12. Hay un perro que muerde a todos los carteros.</h4>
+<div class="outline-text-4" id="text-orgc0db22d">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Hay un perro que muerde a todos los carteros."</li>
 <li><b><b>Interpretación</b></b>: Existe al menos un perro que muerde a todos los carteros.</li>
@@ -4073,9 +4080,9 @@ expresar que existe un perro que cumple esta condición. Luego, la
 </div>
 </div>
 
-<div id="outline-container-orgc5e7532" class="outline-4">
-<h4 id="orgc5e7532">13. Todos los perros que asustan a algún cartero, lo muerden.</h4>
-<div class="outline-text-4" id="text-orgc5e7532">
+<div id="outline-container-orgc980586" class="outline-4">
+<h4 id="orgc980586">13. Todos los perros que asustan a algún cartero, lo muerden.</h4>
+<div class="outline-text-4" id="text-orgc980586">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Todos los perros que asustan a algún cartero, lo muerden."</li>
 <li><b><b>Formalización</b></b>: <code>∀x ∀y ((Perro(x) ∧ Cartero(y) ∧ Asusta(x, y)) → Muerde(x, y))</code></li>
@@ -4088,9 +4095,9 @@ para que el perro lo muerda.</li>
 </div>
 </div>
 
-<div id="outline-container-orgd702090" class="outline-4">
-<h4 id="orgd702090">14. Hay un perro que muerde a todos los perros que muerden a algún cartero.</h4>
-<div class="outline-text-4" id="text-orgd702090">
+<div id="outline-container-org58eac82" class="outline-4">
+<h4 id="org58eac82">14. Hay un perro que muerde a todos los perros que muerden a algún cartero.</h4>
+<div class="outline-text-4" id="text-org58eac82">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Hay un perro que muerde a todos los perros que
 muerden a algún cartero."</li>
@@ -4103,9 +4110,9 @@ es un perro que muerde a algún cartero, entonces <code>x</code> muerde a <code>
 </div>
 </div>
 
-<div id="outline-container-org766606d" class="outline-4">
-<h4 id="org766606d">15. Hay un solo perro que se muerde a sí mismo.</h4>
-<div class="outline-text-4" id="text-org766606d">
+<div id="outline-container-org3a65d84" class="outline-4">
+<h4 id="org3a65d84">15. Hay un solo perro que se muerde a sí mismo.</h4>
+<div class="outline-text-4" id="text-org3a65d84">
 <ul class="org-ul">
 <li><b><b>Enunciado</b></b>: "Hay un solo perro que se muerde a sí mismo."</li>
 <li><b><b>Formalización</b></b>: <code>∃x (Perro(x) ∧ Muerde(x, x) ∧ ∀y ((Perro(y) ∧
@@ -4123,9 +4130,9 @@ se muerde a sí mismo y que ningún otro perro lo hace.</li>
 
 
 
-<div id="outline-container-org03c081c" class="outline-3">
-<h3 id="org03c081c">Hechos, Átomos y Reglas</h3>
-<div class="outline-text-3" id="text-org03c081c">
+<div id="outline-container-orga92972a" class="outline-3">
+<h3 id="orga92972a">Hechos, Átomos y Reglas</h3>
+<div class="outline-text-3" id="text-orga92972a">
 <p>
 En Prolog, los programas se construyen mediante <b><b>hechos</b></b>, <b><b>átomos</b></b> y
 <b><b>reglas</b></b>. Estos elementos son la base de la programación lógica en
@@ -4134,9 +4141,9 @@ entre distintos elementos.
 </p>
 </div>
 
-<div id="outline-container-orgda86a92" class="outline-4">
-<h4 id="orgda86a92">1. Hechos</h4>
-<div class="outline-text-4" id="text-orgda86a92">
+<div id="outline-container-orge70b1cc" class="outline-4">
+<h4 id="orge70b1cc">1. Hechos</h4>
+<div class="outline-text-4" id="text-orge70b1cc">
 <p>
 Los <b><b>hechos</b></b> representan afirmaciones o declaraciones que se
 consideran verdaderas en el programa. Los hechos se utilizan para
@@ -4177,9 +4184,9 @@ simplemente representan afirmaciones que se consideran verdaderas.
 </div>
 </div>
 
-<div id="outline-container-orgfc394e9" class="outline-4">
-<h4 id="orgfc394e9">2. Átomos</h4>
-<div class="outline-text-4" id="text-orgfc394e9">
+<div id="outline-container-org54e23e8" class="outline-4">
+<h4 id="org54e23e8">2. Átomos</h4>
+<div class="outline-text-4" id="text-org54e23e8">
 <p>
 Un <b><b>átomo</b></b> es un tipo de dato básico en Prolog que representa una
 constante simbólica, similar a un nombre o una etiqueta. Los átomos
@@ -4223,16 +4230,16 @@ cambiar.
 </div>
 </div>
 
-<div id="outline-container-org3e991c9" class="outline-4">
-<h4 id="org3e991c9">3. Reglas</h4>
-<div class="outline-text-4" id="text-org3e991c9">
+<div id="outline-container-org65cb36d" class="outline-4">
+<h4 id="org65cb36d">3. Reglas</h4>
+<div class="outline-text-4" id="text-org65cb36d">
 <p>
 Las <b><b>reglas</b></b> permiten definir relaciones lógicas entre hechos y se
 utilizan para derivar nueva información. Una regla consiste en una
 cabeza y un cuerpo, y su estructura general es:
 </p>
 
-<pre class="example" id="org2249910">
+<pre class="example" id="orgac7ca0b">
    cabeza :- cuerpo.
 </pre>
 
@@ -4275,9 +4282,9 @@ En este ejemplo:
 </div>
 </div>
 
-<div id="outline-container-orge2a66bd" class="outline-4">
-<h4 id="orge2a66bd">4. Ejemplos adicionales para comprender hechos, átomos y reglas</h4>
-<div class="outline-text-4" id="text-orge2a66bd">
+<div id="outline-container-org82382e3" class="outline-4">
+<h4 id="org82382e3">4. Ejemplos adicionales para comprender hechos, átomos y reglas</h4>
+<div class="outline-text-4" id="text-org82382e3">
 <ul class="org-ul">
 <li><b><b>Hecho</b></b>: `es<sub>amigo</sub>(juan, maria).` – Juan es amigo de María.</li>
 <li><b><b>Átomo</b></b>: `rojo` en `color(rojo).` – Un color específico.</li>
@@ -4286,9 +4293,9 @@ En este ejemplo:
 </div>
 </div>
 
-<div id="outline-container-org06ae13e" class="outline-4">
-<h4 id="org06ae13e">5. Ejecución de consultas en Prolog</h4>
-<div class="outline-text-4" id="text-org06ae13e">
+<div id="outline-container-orgc222e5e" class="outline-4">
+<h4 id="orgc222e5e">5. Ejecución de consultas en Prolog</h4>
+<div class="outline-text-4" id="text-orgc222e5e">
 <p>
 Las consultas en Prolog se utilizan para obtener información a partir de hechos y reglas. Cuando haces una consulta, Prolog intenta unificar la consulta con los hechos y reglas disponibles para determinar si la consulta es verdadera o para encontrar valores de las variables que hagan que sea verdadera.
 </p>
@@ -4324,9 +4331,9 @@ unificando `X` con `juan`.
 </div>
 
 
-<div id="outline-container-orgf5a1154" class="outline-3">
-<h3 id="orgf5a1154">Unificación en Prolog</h3>
-<div class="outline-text-3" id="text-orgf5a1154">
+<div id="outline-container-orgeba5837" class="outline-3">
+<h3 id="orgeba5837">Unificación en Prolog</h3>
+<div class="outline-text-3" id="text-orgeba5837">
 <p>
 La unificación es uno de los conceptos fundamentales en Prolog y es el
 proceso mediante el cual el lenguaje determina si dos términos pueden
@@ -4336,9 +4343,9 @@ valores específicos y evaluar la compatibilidad entre términos.
 </p>
 </div>
 
-<div id="outline-container-org3d17b10" class="outline-4">
-<h4 id="org3d17b10">1. ¿Qué es la unificación?</h4>
-<div class="outline-text-4" id="text-org3d17b10">
+<div id="outline-container-orgbddf07c" class="outline-4">
+<h4 id="orgbddf07c">1. ¿Qué es la unificación?</h4>
+<div class="outline-text-4" id="text-orgbddf07c">
 <p>
 La unificación en Prolog ocurre cuando intentamos "igualar" dos
 términos. Si los términos pueden unirse o emparejarse siguiendo las
@@ -4364,9 +4371,9 @@ que <b>X</b> ahora representa el valor <b>5</b>.
 </div>
 </div>
 
-<div id="outline-container-orge8d8975" class="outline-4">
-<h4 id="orge8d8975">2. Reglas de unificación</h4>
-<div class="outline-text-4" id="text-orge8d8975">
+<div id="outline-container-org38c2c61" class="outline-4">
+<h4 id="org38c2c61">2. Reglas de unificación</h4>
+<div class="outline-text-4" id="text-org38c2c61">
 <p>
 La unificación en Prolog sigue ciertas reglas:
 </p>
@@ -4414,13 +4421,13 @@ también se unifica.</li>
 </div>
 </div>
 
-<div id="outline-container-orge605ff6" class="outline-4">
-<h4 id="orge605ff6">3. Ejemplos de unificación</h4>
-<div class="outline-text-4" id="text-orge605ff6">
+<div id="outline-container-orgb2af9ea" class="outline-4">
+<h4 id="orgb2af9ea">3. Ejemplos de unificación</h4>
+<div class="outline-text-4" id="text-orgb2af9ea">
 </div>
 <ul class="org-ul">
-<li><a id="org548324a"></a>a) Unificación de constantes<br />
-<div class="outline-text-5" id="text-org548324a">
+<li><a id="org1c694e6"></a>a) Unificación de constantes<br />
+<div class="outline-text-5" id="text-org1c694e6">
 <div class="org-src-container">
 <pre class="src src-prolog">   ?- hola = hola.
    true.
@@ -4436,8 +4443,8 @@ Aquí, solo la primera consulta unifica porque ambos términos son idénticos.
 </div>
 </li>
 
-<li><a id="org32044c3"></a>b) Unificación de variables<br />
-<div class="outline-text-5" id="text-org32044c3">
+<li><a id="org29def71"></a>b) Unificación de variables<br />
+<div class="outline-text-5" id="text-org29def71">
 <p>
 Las variables en Prolog pueden unificarse con cualquier valor que
 no contradiga otros enlaces:
@@ -4454,8 +4461,8 @@ no contradiga otros enlaces:
 </div>
 </li>
 
-<li><a id="orgabfeff5"></a>c) Unificación de listas<br />
-<div class="outline-text-5" id="text-orgabfeff5">
+<li><a id="orgfc958a1"></a>c) Unificación de listas<br />
+<div class="outline-text-5" id="text-orgfc958a1">
 <p>
 Para listas, Prolog trata de unificar cada elemento individualmente:
 </p>
@@ -4472,8 +4479,8 @@ En este caso, `X` se unifica con `2` para que ambas listas sean iguales.
 </div>
 </li>
 
-<li><a id="org56fd4b2"></a>d) Unificación de estructuras o términos compuestos<br />
-<div class="outline-text-5" id="text-org56fd4b2">
+<li><a id="orgf157fa6"></a>d) Unificación de estructuras o términos compuestos<br />
+<div class="outline-text-5" id="text-orgf157fa6">
 <p>
 Prolog permite trabajar con estructuras que siguen una sintaxis de
 "functor(argumento1, argumento2, &#x2026;)".
@@ -4495,9 +4502,9 @@ haciendo que ambas estructuras sean idénticas.
 </ul>
 </div>
 
-<div id="outline-container-org06a3829" class="outline-4">
-<h4 id="org06a3829">4. Casos en los que la unificación falla</h4>
-<div class="outline-text-4" id="text-org06a3829">
+<div id="outline-container-org5119f63" class="outline-4">
+<h4 id="org5119f63">4. Casos en los que la unificación falla</h4>
+<div class="outline-text-4" id="text-org5119f63">
 <p>
 La unificación falla cuando:
 </p>
@@ -4524,9 +4531,9 @@ Ejemplo de fallos en la unificación:
 </div>
 </div>
 
-<div id="outline-container-org3ca4f25" class="outline-4">
-<h4 id="org3ca4f25">5. Importancia de la unificación en Prolog</h4>
-<div class="outline-text-4" id="text-org3ca4f25">
+<div id="outline-container-org3c6e915" class="outline-4">
+<h4 id="org3c6e915">5. Importancia de la unificación en Prolog</h4>
+<div class="outline-text-4" id="text-org3c6e915">
 <p>
 La unificación es la base de la búsqueda de soluciones en Prolog,
 ya que permite enlazar valores con variables dentro de las
@@ -4537,9 +4544,9 @@ de problemas lógicos.
 </div>
 </div>
 
-<div id="outline-container-orgb9c53ec" class="outline-4">
-<h4 id="orgb9c53ec">6. Ejemplo práctico</h4>
-<div class="outline-text-4" id="text-orgb9c53ec">
+<div id="outline-container-org75b6f36" class="outline-4">
+<h4 id="org75b6f36">6. Ejemplo práctico</h4>
+<div class="outline-text-4" id="text-org75b6f36">
 <p>
 Supongamos que queremos consultar si un punto `(3, 4)` coincide con un término `punto(X, Y)`:
 </p>
@@ -4558,9 +4565,9 @@ que ambos términos sean idénticos.
 </div>
 </div>
 
-<div id="outline-container-orgbcf7e3c" class="outline-4">
-<h4 id="orgbcf7e3c">Resumen</h4>
-<div class="outline-text-4" id="text-orgbcf7e3c">
+<div id="outline-container-org9197d8b" class="outline-4">
+<h4 id="org9197d8b">Resumen</h4>
+<div class="outline-text-4" id="text-org9197d8b">
 <p>
 La unificación en Prolog es el proceso de hacer iguales dos términos, enlazando variables con valores específicos cuando es posible. Este proceso es fundamental para las consultas y reglas, permitiendo que Prolog resuelva problemas y encuentre soluciones.
 </p>
@@ -4568,9 +4575,9 @@ La unificación en Prolog es el proceso de hacer iguales dos términos, enlazand
 </div>
 </div>
 
-<div id="outline-container-orge46763f" class="outline-3">
-<h3 id="orge46763f">Corte</h3>
-<div class="outline-text-3" id="text-orge46763f">
+<div id="outline-container-org2fef598" class="outline-3">
+<h3 id="org2fef598">Corte</h3>
+<div class="outline-text-3" id="text-org2fef598">
 <p>
 El corte es un predicado predefinido que no recibe argumentos. Se
 representa mediante un signo de admiración (!). Sin duda, es el
@@ -4674,9 +4681,9 @@ de Y&gt;15 en la primera cláusula.
 </div>
 
 
-<div id="outline-container-org573b38f" class="outline-4">
-<h4 id="org573b38f">Usos del corte</h4>
-<div class="outline-text-4" id="text-org573b38f">
+<div id="outline-container-orge159dda" class="outline-4">
+<h4 id="orge159dda">Usos del corte</h4>
+<div class="outline-text-4" id="text-orge159dda">
 <p>
 El corte se utiliza muy frecuentemente, cuanto más diestro es el
 programador más lo suele usar. Los motivos por los que se usa el corte
@@ -4705,9 +4712,9 @@ busque otras soluciones aunque sabemos que éstas existen.</li>
 </div>
 
 
-<div id="outline-container-orga7d0395" class="outline-4">
-<h4 id="orga7d0395">Corte y fallo</h4>
-<div class="outline-text-4" id="text-orga7d0395">
+<div id="outline-container-org3e42493" class="outline-4">
+<h4 id="org3e42493">Corte y fallo</h4>
+<div class="outline-text-4" id="text-org3e42493">
 <p>
 Es muy habitual encontrar la secuencia de objetivos corte-fallo:
 !,fail. El predicado fail/0 es un predicado predefinido que siempre
@@ -4734,9 +4741,9 @@ montón de código que al final va a fallar de todas formas.
 
 
 
-<div id="outline-container-org6b55c6f" class="outline-3">
-<h3 id="org6b55c6f">Definición matemática del factorial</h3>
-<div class="outline-text-3" id="text-org6b55c6f">
+<div id="outline-container-org6a4d7d0" class="outline-3">
+<h3 id="org6a4d7d0">Definición matemática del factorial</h3>
+<div class="outline-text-3" id="text-org6a4d7d0">
 <p>
 Matemáticamente, el factorial de \( N \) (denotado como \( N! \)) se define como:
 </p>
@@ -4747,9 +4754,9 @@ Matemáticamente, el factorial de \( N \) (denotado como \( N! \)) se define com
 </ul>
 </div>
 
-<div id="outline-container-org678ab05" class="outline-4">
-<h4 id="org678ab05">Implementación en Prolog</h4>
-<div class="outline-text-4" id="text-org678ab05">
+<div id="outline-container-org9d10b1d" class="outline-4">
+<h4 id="org9d10b1d">Implementación en Prolog</h4>
+<div class="outline-text-4" id="text-org9d10b1d">
 <p>
 La implementación en Prolog sigue esta definición. Usamos una regla
 recursiva donde el caso base define que el factorial de 0 es 1, y
@@ -4772,9 +4779,9 @@ el caso recursivo multiplica \( N \) por el factorial de \( N - 1
 </div>
 </div>
 
-<div id="outline-container-org108d07e" class="outline-4">
-<h4 id="org108d07e">Ejemplo de uso</h4>
-<div class="outline-text-4" id="text-org108d07e">
+<div id="outline-container-org2b5e14b" class="outline-4">
+<h4 id="org2b5e14b">Ejemplo de uso</h4>
+<div class="outline-text-4" id="text-org2b5e14b">
 <p>
 Para calcular el factorial de 5, usamos una consulta que unifica la
 variable `F` con el resultado:
@@ -4797,9 +4804,9 @@ Prolog realiza la recursión de la siguiente manera:
 </div>
 </div>
 
-<div id="outline-container-org698b1ff" class="outline-4">
-<h4 id="org698b1ff">Explicación paso a paso del proceso recursivo</h4>
-<div class="outline-text-4" id="text-org698b1ff">
+<div id="outline-container-org389d56b" class="outline-4">
+<h4 id="org389d56b">Explicación paso a paso del proceso recursivo</h4>
+<div class="outline-text-4" id="text-org389d56b">
 <p>
 Para entender cómo se realiza la recursión, observa la secuencia de llamadas al calcular `factorial(3, F)`:
 </p>
@@ -4818,9 +4825,9 @@ Para entender cómo se realiza la recursión, observa la secuencia de llamadas a
 </div>
 </div>
 
-<div id="outline-container-org7273e88" class="outline-4">
-<h4 id="org7273e88">Resumen</h4>
-<div class="outline-text-4" id="text-org7273e88">
+<div id="outline-container-orgbc6af8e" class="outline-4">
+<h4 id="orgbc6af8e">Resumen</h4>
+<div class="outline-text-4" id="text-orgbc6af8e">
 <ul class="org-ul">
 <li><b><b>Caso base</b></b>: Define el factorial de 0 como 1.</li>
 <li><b><b>Caso recursivo</b></b>: Define el factorial de \( N \) multiplicando \( N \) por el factorial de \( N - 1 \).</li>
@@ -4837,13 +4844,13 @@ Esta implementación es un ejemplo clásico de recursión en Prolog y muestra c�
 
 
 
-<div id="outline-container-org66b62f0" class="outline-3">
-<h3 id="org66b62f0">Listas en Prolog</h3>
-<div class="outline-text-3" id="text-org66b62f0">
+<div id="outline-container-org6c878ce" class="outline-3">
+<h3 id="org6c878ce">Listas en Prolog</h3>
+<div class="outline-text-3" id="text-org6c878ce">
 </div>
-<div id="outline-container-org16d2e8b" class="outline-4">
-<h4 id="org16d2e8b">1. Definición y construcción de listas</h4>
-<div class="outline-text-4" id="text-org16d2e8b">
+<div id="outline-container-org25db72b" class="outline-4">
+<h4 id="org25db72b">1. Definición y construcción de listas</h4>
+<div class="outline-text-4" id="text-org25db72b">
 <p>
 En Prolog, una lista se representa como una secuencia de elementos
 entre corchetes. Algunos ejemplos de listas son:
@@ -4864,13 +4871,13 @@ La lista `[H | T]` indica que `H` es el primer elemento (cabeza) y
 </div>
 </div>
 
-<div id="outline-container-org10505c4" class="outline-4">
-<h4 id="org10505c4">2. Operaciones básicas en listas</h4>
-<div class="outline-text-4" id="text-org10505c4">
+<div id="outline-container-orgea37ef3" class="outline-4">
+<h4 id="orgea37ef3">2. Operaciones básicas en listas</h4>
+<div class="outline-text-4" id="text-orgea37ef3">
 </div>
 <ul class="org-ul">
-<li><a id="org97d4861"></a>a) Concatenación de listas<br />
-<div class="outline-text-5" id="text-org97d4861">
+<li><a id="org9e5c2c2"></a>a) Concatenación de listas<br />
+<div class="outline-text-5" id="text-org9e5c2c2">
 <p>
 Para concatenar dos listas en Prolog, puedes definir una regla
 recursiva llamada `concatenar`:
@@ -4894,8 +4901,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="org05b1ef2"></a>b) Encontrar el tamaño de una lista<br />
-<div class="outline-text-5" id="text-org05b1ef2">
+<li><a id="orgd4cf25b"></a>b) Encontrar el tamaño de una lista<br />
+<div class="outline-text-5" id="text-orgd4cf25b">
 <p>
 Para encontrar el tamaño de una lista, usamos una regla `tamano`:
 </p>
@@ -4936,8 +4943,8 @@ cual se suma `1` para contar el elemento de la cabeza.</li>
 </div>
 </li>
 
-<li><a id="orgf3ac415"></a>c) Obtener el último elemento de una lista<br />
-<div class="outline-text-5" id="text-orgf3ac415">
+<li><a id="orgb3009f5"></a>c) Obtener el último elemento de una lista<br />
+<div class="outline-text-5" id="text-orgb3009f5">
 <p>
 Para obtener el último elemento de una lista, usamos la regla `ultimo`:
 </p>
@@ -4960,8 +4967,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="org1f8e152"></a>d) Obtener el primer elemento de una lista<br />
-<div class="outline-text-5" id="text-org1f8e152">
+<li><a id="org6f912a0"></a>d) Obtener el primer elemento de una lista<br />
+<div class="outline-text-5" id="text-org6f912a0">
 <p>
 El primer elemento de una lista es simplemente la cabeza de la lista, que se puede obtener así:
 </p>
@@ -4982,8 +4989,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="org0cbb1fa"></a>e) Invertir una lista<br />
-<div class="outline-text-5" id="text-org0cbb1fa">
+<li><a id="org1fdeaec"></a>e) Invertir una lista<br />
+<div class="outline-text-5" id="text-org1fdeaec">
 <p>
 Para invertir una lista, utilizamos una regla `invertir` que emplea acumuladores para construir la lista invertida:
 </p>
@@ -5011,13 +5018,13 @@ Ejemplo de uso:
 </ul>
 </div>
 
-<div id="outline-container-orge69d62d" class="outline-4">
-<h4 id="orge69d62d">3. Otras operaciones comunes</h4>
-<div class="outline-text-4" id="text-orge69d62d">
+<div id="outline-container-orge7a533b" class="outline-4">
+<h4 id="orge7a533b">3. Otras operaciones comunes</h4>
+<div class="outline-text-4" id="text-orge7a533b">
 </div>
 <ul class="org-ul">
-<li><a id="orgb52b9d1"></a>a) Verificar si un elemento pertenece a una lista<br />
-<div class="outline-text-5" id="text-orgb52b9d1">
+<li><a id="orgc0f2a16"></a>a) Verificar si un elemento pertenece a una lista<br />
+<div class="outline-text-5" id="text-orgc0f2a16">
 <p>
 Para verificar si un elemento está en una lista, usamos la regla `miembro`:
 </p>
@@ -5042,8 +5049,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="org95492cc"></a>b) Eliminar un elemento de una lista<br />
-<div class="outline-text-5" id="text-org95492cc">
+<li><a id="org6df5f25"></a>b) Eliminar un elemento de una lista<br />
+<div class="outline-text-5" id="text-org6df5f25">
 <p>
 La siguiente regla `eliminar` elimina una ocurrencia de un elemento de una lista:
 </p>
@@ -5066,8 +5073,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="org35af435"></a>c) Insertar un elemento en una lista<br />
-<div class="outline-text-5" id="text-org35af435">
+<li><a id="orgc30703e"></a>c) Insertar un elemento en una lista<br />
+<div class="outline-text-5" id="text-orgc30703e">
 <p>
 Para insertar un elemento en cualquier posición de una lista, definimos una regla `insertar`:
 </p>
@@ -5090,8 +5097,8 @@ Ejemplo de uso:
 </div>
 </li>
 
-<li><a id="orga32c8a2"></a>d) Verificar si una lista es un sublista de otra<br />
-<div class="outline-text-5" id="text-orga32c8a2">
+<li><a id="orge45e724"></a>d) Verificar si una lista es un sublista de otra<br />
+<div class="outline-text-5" id="text-orge45e724">
 <p>
 Para verificar si una lista `Sub` es sublista de `L`, usamos la regla `sublista`:
 </p>
@@ -5118,9 +5125,9 @@ Ejemplo de uso:
 </ul>
 </div>
 
-<div id="outline-container-orgf74df84" class="outline-4">
-<h4 id="orgf74df84">4. Ejemplos adicionales y casos de uso</h4>
-<div class="outline-text-4" id="text-orgf74df84">
+<div id="outline-container-org42d8fe2" class="outline-4">
+<h4 id="org42d8fe2">4. Ejemplos adicionales y casos de uso</h4>
+<div class="outline-text-4" id="text-org42d8fe2">
 <p>
 Prolog permite expresar fácilmente otras operaciones sobre listas,
 como el filtrado de elementos que cumplen una condición específica
@@ -5129,8 +5136,8 @@ o el uso de listas en combinaciones y permutaciones.
 </div>
 
 <ul class="org-ul">
-<li><a id="orgd4662fb"></a>a) Filtrar elementos mayores a un valor<br />
-<div class="outline-text-5" id="text-orgd4662fb">
+<li><a id="org8637991"></a>a) Filtrar elementos mayores a un valor<br />
+<div class="outline-text-5" id="text-org8637991">
 <p>
 Definamos `filtrar<sub>mayores</sub>` para obtener elementos mayores a un valor `N`:
 </p>
@@ -5173,13 +5180,13 @@ regla recursiva.
 
 
 
-<div id="outline-container-org3f49a7d" class="outline-3">
-<h3 id="org3f49a7d">Ejercicios</h3>
-<div class="outline-text-3" id="text-org3f49a7d">
+<div id="outline-container-org020b758" class="outline-3">
+<h3 id="org020b758">Ejercicios</h3>
+<div class="outline-text-3" id="text-org020b758">
 </div>
-<div id="outline-container-org2e9eafe" class="outline-4">
-<h4 id="org2e9eafe">Problema: Los hermanos y sus mascotas</h4>
-<div class="outline-text-4" id="text-org2e9eafe">
+<div id="outline-container-org3a00785" class="outline-4">
+<h4 id="org3a00785">Problema: Los hermanos y sus mascotas</h4>
+<div class="outline-text-4" id="text-org3a00785">
 <p>
 Cuatro hermanos (Ana, Bruno, Carla y Daniel) tienen cada uno una
 mascota diferente (perro, gato, loro y pez). Sabemos que:
@@ -5205,9 +5212,9 @@ correcta de mascotas para cada hermano en función de las pistas dadas.
 </div>
 </div>
 
-<div id="outline-container-orgb37292b" class="outline-4">
-<h4 id="orgb37292b">Solución</h4>
-<div class="outline-text-4" id="text-orgb37292b">
+<div id="outline-container-orga599ff1" class="outline-4">
+<h4 id="orga599ff1">Solución</h4>
+<div class="outline-text-4" id="text-orga599ff1">
 <div class="org-src-container">
 <pre class="src src-prolog">
 <span style="color: #7a88cf;">% </span><span style="color: #7a88cf;">Definimos los hermanos y las mascotas posibles</span>
@@ -5273,9 +5280,9 @@ correcta de mascotas para cada hermano en función de las pistas dadas.
 </div>
 
 
-<div id="outline-container-orgd4af7d8" class="outline-4">
-<h4 id="orgd4af7d8">Problema: Los investigadores y sus descubrimientos</h4>
-<div class="outline-text-4" id="text-orgd4af7d8">
+<div id="outline-container-org37f5408" class="outline-4">
+<h4 id="org37f5408">Problema: Los investigadores y sus descubrimientos</h4>
+<div class="outline-text-4" id="text-org37f5408">
 <p>
 Cinco investigadores (Alonso, Beatriz, Carlos, Diana y Eduardo) han hecho
 descubrimientos importantes en cinco áreas diferentes de la ciencia
@@ -5317,9 +5324,9 @@ origen, su instrumento favorito y su especialidad secundaria?
 </div>
 
 
-<div id="outline-container-orgec1029e" class="outline-3">
-<h3 id="orgec1029e">Variables Anónimas en Prolog</h3>
-<div class="outline-text-3" id="text-orgec1029e">
+<div id="outline-container-orgd825634" class="outline-3">
+<h3 id="orgd825634">Variables Anónimas en Prolog</h3>
+<div class="outline-text-3" id="text-orgd825634">
 <p>
 En Prolog, las variables anónimas se representan mediante el guion
 bajo ( _ ). Estas variables son útiles cuando no necesitamos almacenar
@@ -5328,9 +5335,9 @@ importar el valor de esa variable.
 </p>
 </div>
 
-<div id="outline-container-org76f414d" class="outline-4">
-<h4 id="org76f414d">Características de las Variables Anónimas</h4>
-<div class="outline-text-4" id="text-org76f414d">
+<div id="outline-container-orgdff8f88" class="outline-4">
+<h4 id="orgdff8f88">Características de las Variables Anónimas</h4>
+<div class="outline-text-4" id="text-orgdff8f88">
 <ul class="org-ul">
 <li>Una variable anónima ( _ ) es una variable "sin nombre".</li>
 <li>No almacena ningún valor.</li>
@@ -5340,9 +5347,9 @@ importar el valor de esa variable.
 </div>
 </div>
 
-<div id="outline-container-orgd103210" class="outline-4">
-<h4 id="orgd103210">Ejemplo</h4>
-<div class="outline-text-4" id="text-orgd103210">
+<div id="outline-container-org8aef2ca" class="outline-4">
+<h4 id="org8aef2ca">Ejemplo</h4>
+<div class="outline-text-4" id="text-org8aef2ca">
 <p>
 Supongamos que tenemos un predicado `padre/2`, que indica una relación entre un padre y su hijo:
 </p>
@@ -5378,9 +5385,9 @@ Esta consulta devolverá `true` si Juan tiene al menos un hijo, ya que no necesi
 </div>
 </div>
 
-<div id="outline-container-org45db25b" class="outline-4">
-<h4 id="org45db25b">Casos Comunes de Uso</h4>
-<div class="outline-text-4" id="text-org45db25b">
+<div id="outline-container-org37bfbc1" class="outline-4">
+<h4 id="org37bfbc1">Casos Comunes de Uso</h4>
+<div class="outline-text-4" id="text-org37bfbc1">
 <ul class="org-ul">
 <li>Ignorar ciertos argumentos en un predicado.</li>
 <li>Simplificar consultas en las que solo se desea verificar la existencia de alguna condición.</li>
@@ -5389,9 +5396,9 @@ Esta consulta devolverá `true` si Juan tiene al menos un hijo, ya que no necesi
 </div>
 </div>
 
-<div id="outline-container-org0762abd" class="outline-4">
-<h4 id="org0762abd">Ejercicio</h4>
-<div class="outline-text-4" id="text-org0762abd">
+<div id="outline-container-org42f5e1d" class="outline-4">
+<h4 id="org42f5e1d">Ejercicio</h4>
+<div class="outline-text-4" id="text-org42f5e1d">
 <p>
 Intenta ejecutar las siguientes consultas para entender el uso de variables anónimas:
 </p>
@@ -5418,13 +5425,13 @@ Proyecto
 </div>
 
 
-<div id="outline-container-org614fcd2" class="outline-3">
-<h3 id="org614fcd2">Predicados Mitológicos en Programación Lógica</h3>
-<div class="outline-text-3" id="text-org614fcd2">
+<div id="outline-container-orga864cda" class="outline-3">
+<h3 id="orga864cda">Predicados Mitológicos en Programación Lógica</h3>
+<div class="outline-text-3" id="text-orga864cda">
 </div>
-<div id="outline-container-orgd903e82" class="outline-4">
-<h4 id="orgd903e82">Introducción</h4>
-<div class="outline-text-4" id="text-orgd903e82">
+<div id="outline-container-org0e6e2e4" class="outline-4">
+<h4 id="org0e6e2e4">Introducción</h4>
+<div class="outline-text-4" id="text-org0e6e2e4">
 <p>
 En programación lógica, los predicados mitológicos son aquellos que
 destacan por su utilidad, flexibilidad y elegancia en la solución de
@@ -5435,13 +5442,13 @@ múltiples casos con reglas generales, lo que les otorga un carácter
 </div>
 </div>
 
-<div id="outline-container-org30d072a" class="outline-4">
-<h4 id="org30d072a">Ejemplos Detallados de Predicados Mitológicos</h4>
-<div class="outline-text-4" id="text-org30d072a">
+<div id="outline-container-orgd9d6c54" class="outline-4">
+<h4 id="orgd9d6c54">Ejemplos Detallados de Predicados Mitológicos</h4>
+<div class="outline-text-4" id="text-orgd9d6c54">
 </div>
 <ul class="org-ul">
-<li><a id="org2f428f7"></a>1. maplist<br />
-<div class="outline-text-5" id="text-org2f428f7">
+<li><a id="org7364f90"></a>1. maplist<br />
+<div class="outline-text-5" id="text-org7364f90">
 <p>
 El predicado <b>maplist</b> aplica un predicado a cada elemento de una lista y genera una lista transformada.
 </p>
@@ -5467,8 +5474,8 @@ Ejemplo: Calcular el cuadrado de cada número en una lista.
 </div>
 </li>
 
-<li><a id="orgc3f6c1b"></a>2. permutacion<br />
-<div class="outline-text-5" id="text-orgc3f6c1b">
+<li><a id="orga6556b4"></a>2. permutacion<br />
+<div class="outline-text-5" id="text-orga6556b4">
 <p>
 Genera todas las permutaciones posibles de una lista.
 </p>
@@ -5499,8 +5506,8 @@ Ejemplo: Enumerar las permutaciones de una lista.
 </div>
 </li>
 
-<li><a id="orgde2e75d"></a>3. append<br />
-<div class="outline-text-5" id="text-orgde2e75d">
+<li><a id="org602abff"></a>3. append<br />
+<div class="outline-text-5" id="text-org602abff">
 <p>
 El predicado <b>append</b> combina dos listas en una o las divide en dos partes.
 </p>
@@ -5538,8 +5545,8 @@ Ejemplo 2: Dividir una lista en dos partes.
 </div>
 </li>
 
-<li><a id="orgf92c237"></a>4. subconjunto<br />
-<div class="outline-text-5" id="text-orgf92c237">
+<li><a id="org438d1e3"></a>4. subconjunto<br />
+<div class="outline-text-5" id="text-org438d1e3">
 <p>
 Genera todos los subconjuntos posibles de una lista, útil en problemas combinatorios.
 </p>
@@ -5569,8 +5576,8 @@ Ejemplo: Generar subconjuntos.
 </div>
 </li>
 
-<li><a id="org6a2d60a"></a>5. reverse<br />
-<div class="outline-text-5" id="text-org6a2d60a">
+<li><a id="org8f348b8"></a>5. reverse<br />
+<div class="outline-text-5" id="text-org8f348b8">
 <p>
 Invierte los elementos de una lista.
 </p>
@@ -5595,8 +5602,8 @@ Ejemplo: Invertir una lista.
 </div>
 </li>
 
-<li><a id="orga09e9a1"></a>6. flatten<br />
-<div class="outline-text-5" id="text-orga09e9a1">
+<li><a id="org41a4666"></a>6. flatten<br />
+<div class="outline-text-5" id="text-org41a4666">
 <p>
 Convierte una lista con estructuras anidadas en una lista plana.
 </p>
@@ -5656,8 +5663,8 @@ Aplanar múltiples niveles de anidación.
 </li>
 
 
-<li><a id="org6726fed"></a>7. findall<br />
-<div class="outline-text-5" id="text-org6726fed">
+<li><a id="org6e0741f"></a>7. findall<br />
+<div class="outline-text-5" id="text-org6e0741f">
 <p>
 El predicado <b>findall</b> recolecta todas las soluciones posibles de un
 predicado y las devuelve en una lista. Es útil para realizar consultas
@@ -5767,13 +5774,13 @@ Prolog para resolver problemas complejos de manera declarativa.
 </div>
 
 
-<div id="outline-container-orga9c6dcd" class="outline-3">
-<h3 id="orga9c6dcd">Problemas con Predicados Mitológicos</h3>
-<div class="outline-text-3" id="text-orga9c6dcd">
+<div id="outline-container-org5c275e6" class="outline-3">
+<h3 id="org5c275e6">Problemas con Predicados Mitológicos</h3>
+<div class="outline-text-3" id="text-org5c275e6">
 </div>
-<div id="outline-container-org160d0fc" class="outline-4">
-<h4 id="org160d0fc">1. Aplanar una lista de listas anidadas</h4>
-<div class="outline-text-4" id="text-org160d0fc">
+<div id="outline-container-org06ae97a" class="outline-4">
+<h4 id="org06ae97a">1. Aplanar una lista de listas anidadas</h4>
+<div class="outline-text-4" id="text-org06ae97a">
 <p>
 Utiliza el predicado <b>flatten</b> para transformar una estructura anidada en una lista plana.
 </p>
@@ -5790,9 +5797,9 @@ Dada una lista como <b>[1, [2, [3, 4], 5], [6]]</b>, genera <b>[1, 2, 3, 4, 5, 6
 </div>
 </div>
 
-<div id="outline-container-org624e9cb" class="outline-4">
-<h4 id="org624e9cb">2. Encontrar todas las permutaciones de una lista</h4>
-<div class="outline-text-4" id="text-org624e9cb">
+<div id="outline-container-org8a985a0" class="outline-4">
+<h4 id="org8a985a0">2. Encontrar todas las permutaciones de una lista</h4>
+<div class="outline-text-4" id="text-org8a985a0">
 <p>
 Utiliza *permutacion*` para generar todas las permutaciones posibles de una lista.
 </p>
@@ -5817,9 +5824,9 @@ Dada la lista <b>[a, b, c]</b>, genera las permutaciones:
 </div>
 </div>
 
-<div id="outline-container-org714768a" class="outline-4">
-<h4 id="org714768a">3. Generar subconjuntos de una lista</h4>
-<div class="outline-text-4" id="text-org714768a">
+<div id="outline-container-org402b2a5" class="outline-4">
+<h4 id="org402b2a5">3. Generar subconjuntos de una lista</h4>
+<div class="outline-text-4" id="text-org402b2a5">
 <p>
 Utiliza <b>subconjunto</b> para encontrar todos los subconjuntos posibles de una lista.
 </p>
@@ -5846,9 +5853,9 @@ subconjunto.
 </div>
 </div>
 
-<div id="outline-container-org9eadc9e" class="outline-4">
-<h4 id="org9eadc9e">4. Encontrar todos los números en un rango que cumplen una condición</h4>
-<div class="outline-text-4" id="text-org9eadc9e">
+<div id="outline-container-org2cab396" class="outline-4">
+<h4 id="org2cab396">4. Encontrar todos los números en un rango que cumplen una condición</h4>
+<div class="outline-text-4" id="text-org2cab396">
 <p>
 Usa findall para encontrar números que cumplan una propiedad específica, como ser pares o primos.
 </p>
@@ -5865,9 +5872,9 @@ Encuentra todos los números primos entre 1 y 20.
 </div>
 </div>
 
-<div id="outline-container-org3b0b93f" class="outline-4">
-<h4 id="org3b0b93f">5. Concatenar dos listas</h4>
-<div class="outline-text-4" id="text-org3b0b93f">
+<div id="outline-container-org6dc7eec" class="outline-4">
+<h4 id="org6dc7eec">5. Concatenar dos listas</h4>
+<div class="outline-text-4" id="text-org6dc7eec">
 <p>
 Usa <b>append</b> para combinar dos listas en una sola.
 </p>
@@ -5884,9 +5891,9 @@ Combina `[1, 2]` y `[3, 4]` en `[1, 2, 3, 4]`.
 </div>
 </div>
 
-<div id="outline-container-org9c98b46" class="outline-4">
-<h4 id="org9c98b46">6. Encontrar elementos únicos en una lista</h4>
-<div class="outline-text-4" id="text-org9c98b46">
+<div id="outline-container-orga3e4512" class="outline-4">
+<h4 id="orga3e4512">6. Encontrar elementos únicos en una lista</h4>
+<div class="outline-text-4" id="text-orga3e4512">
 <p>
 Usa <b>findall</b> y <b>member</b> para eliminar duplicados.
 </p>
@@ -5903,9 +5910,9 @@ Dada la lista <b>[1, 2, 2, 3, 3, 3, 4]</b>, genera <b>[1, 2, 3, 4]</b>.
 </div>
 </div>
 
-<div id="outline-container-orgad7e7b2" class="outline-4">
-<h4 id="orgad7e7b2">7. Calcular la potencia de un número</h4>
-<div class="outline-text-4" id="text-orgad7e7b2">
+<div id="outline-container-orgf2e12ff" class="outline-4">
+<h4 id="orgf2e12ff">7. Calcular la potencia de un número</h4>
+<div class="outline-text-4" id="text-orgf2e12ff">
 <p>
 Usa un predicado recursivo y `findall/3` para calcular todas las potencias de un número hasta un límite.
 </p>
@@ -5925,9 +5932,9 @@ Dado el número 2, calcula sus potencias hasta \( 2^5 \):
 </div>
 </div>
 
-<div id="outline-container-orgce127d7" class="outline-4">
-<h4 id="orgce127d7">8. Alinear equipos en un torneo</h4>
-<div class="outline-text-4" id="text-orgce127d7">
+<div id="outline-container-orgef22f84" class="outline-4">
+<h4 id="orgef22f84">8. Alinear equipos en un torneo</h4>
+<div class="outline-text-4" id="text-orgef22f84">
 <p>
 Usa *permutacion*` para generar todas las alineaciones posibles de equipos en un torneo.
 </p>
@@ -5944,9 +5951,9 @@ Dado un conjunto de equipos <b>[A, B, C]</b>, genera todas las combinaciones pos
 </div>
 </div>
 
-<div id="outline-container-orgf416d0e" class="outline-4">
-<h4 id="orgf416d0e">9. Resolver problemas de caminos</h4>
-<div class="outline-text-4" id="text-orgf416d0e">
+<div id="outline-container-orga38a8d3" class="outline-4">
+<h4 id="orga38a8d3">9. Resolver problemas de caminos</h4>
+<div class="outline-text-4" id="text-orga38a8d3">
 <p>
 Encuentra todas las rutas posibles entre dos nodos en un grafo utilizando `findall/3`.
 </p>
@@ -5973,9 +5980,9 @@ Encuentra todas las rutas de <b>a</b> a <b>d</b>.
 </div>
 </div>
 
-<div id="outline-container-org5e2f967" class="outline-4">
-<h4 id="org5e2f967">10. Generar combinaciones con repetición</h4>
-<div class="outline-text-4" id="text-org5e2f967">
+<div id="outline-container-orgfd48568" class="outline-4">
+<h4 id="orgfd48568">10. Generar combinaciones con repetición</h4>
+<div class="outline-text-4" id="text-orgfd48568">
 <p>
 Usa <b>findall</b> para generar combinaciones posibles de elementos de una lista con repetición.
 </p>
@@ -5998,17 +6005,17 @@ Dada la lista <b>[a, b]</b> y un tamaño 2, genera:
 </div>
 </div>
 
-<div id="outline-container-org1f85a82" class="outline-4">
-<h4 id="org1f85a82">11</h4>
+<div id="outline-container-orgc353a88" class="outline-4">
+<h4 id="orgc353a88">11</h4>
 </div>
 </div>
 </div>
 
 
 
-<div id="outline-container-orgd4db666" class="outline-2">
-<h2 id="orgd4db666">Proyecto</h2>
-<div class="outline-text-2" id="text-orgd4db666">
+<div id="outline-container-orgd31a65c" class="outline-2">
+<h2 id="orgd31a65c">Proyecto</h2>
+<div class="outline-text-2" id="text-orgd31a65c">
 <p>
 ELIZA es uno de los primeros programas de inteligencia artificial,
 desarrollado por Joseph Weizenbaum en el Instituto Tecnológico de
@@ -6042,9 +6049,9 @@ en conversaciones más largas o complejas.
 </div>
 
 
-<div id="outline-container-org03dfd4b" class="outline-3">
-<h3 id="org03dfd4b">Actividad</h3>
-<div class="outline-text-3" id="text-org03dfd4b">
+<div id="outline-container-org00cf30a" class="outline-3">
+<h3 id="org00cf30a">Actividad</h3>
+<div class="outline-text-3" id="text-org00cf30a">
 <p>
 Dado el texto anterior, utilizar los archivos de Dropbox eliza.pl y
 eliza2.pl y extender la funcionalidad de <b>Eliza</b>, agregando lo visto en
@@ -6092,6 +6099,62 @@ Generar los hechos necesarios para resolver el problema.
 </div>
 </div>
 </div>
+
+
+
+
+
+<div id="outline-container-org5fc6c30" class="outline-2">
+<h2 id="org5fc6c30">Examen final</h2>
+<div class="outline-text-2" id="text-org5fc6c30">
+</div>
+<div id="outline-container-org418fef2" class="outline-3">
+<h3 id="org418fef2">Problema 1: Los guardianes de los templos</h3>
+<div class="outline-text-3" id="text-org418fef2">
+<p>
+Cuatro guardianes (Apolo, Hécate, Ares y Hermes) custodian templos
+mitológicos asociados con diferentes elementos (fuego, agua, tierra y
+aire). Sabemos que:
+</p>
+<ul class="org-ul">
+<li>Apolo no cuida el templo de fuego ni el de tierra.</li>
+<li>Hécate no cuida el templo de aire.</li>
+<li>Ares no cuida el templo de agua ni de aire.</li>
+<li>Hermes cuida el templo de fuego o de agua.</li>
+</ul>
+<p>
+Pregunta: ¿Qué templo cuida cada guardián?
+</p>
+</div>
+</div>
+<div id="outline-container-orgca5f873" class="outline-3">
+<h3 id="orgca5f873">Problemas 2: Las armas de los héroes Cuatro héroes mitológicos</h3>
+<div class="outline-text-3" id="text-orgca5f873">
+<p>
+ Las armas de los héroes Cuatro héroes mitológicos (Aquiles, Perseo,
+ Hércules y Teseo) poseen armas únicas (espada, lanza, arco y
+ escudo). Sabemos que:
+Aquiles no usa el escudo ni el arco.
+Perseo no usa la espada.
+Hércules no usa la lanza ni el escudo.
+Teseo usa el arco o el escudo. Pregunta: ¿Qué arma pertenece a cada héroe?
+</p>
+</div>
+</div>
+<div id="outline-container-orgc27200e" class="outline-3">
+<h3 id="orgc27200e">Problema 3: Las gemas de los titanes Cuatro titanes</h3>
+<div class="outline-text-3" id="text-orgc27200e">
+<p>
+(Cronos, Océano, Hiperión y Japeto) tienen cada uno una gema (zafiro,
+rubí, esmeralda y diamante). Sabemos que:
+Cronos no tiene el zafiro ni el diamante.
+Océano no tiene el rubí.
+Hiperión no tiene el zafiro ni el rubí.
+Japeto tiene el diamante o la esmeralda. Pregunta: ¿Qué gema tiene cada titán?
+</p>
+</div>
+</div>
+</div>
 <div id="footnotes">
 <h2 class="footnotes">Footnotes: </h2>
 <div id="text-footnotes">
@@ -6105,7 +6168,7 @@ La salida del libro es tacataca
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Eduardo Alcaraz</p>
-<p class="date">Created: 2024-12-04 mié 09:47</p>
+<p class="date">Created: 2024-12-05 jue 09:21</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
