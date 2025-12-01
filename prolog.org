@@ -5152,53 +5152,48 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 
 
 #+BEGIN_SRC emacs-lisp
-;;;; eliza.lisp -- Núcleo ELIZA traducido desde Prolog 
-;;;; - Templates similares a los de Prolog
-;;;; - match que acepta elementos atom (coinciden exactamente) y (s) como wildcard para 1 token
-;;;; - replace-resp que sustituye enteros en la respuesta por tokens del input según indices
-;;;; - handlers genéricos para flags
+;;;; eliza.lisp 
 
-(in-package :cl-user)
-(defparameter *punct-chars* ".,;:()?!\"'")
+(defun eliza--space-p (c)
+  "Devuelve T si c es un separador de espacio/linea/tab."
+  (or (char= c #\Space) (char= c #\Tab) (char= c #\Newline) (char= c #\Return)))
+
+(defparameter *eliza-punct-chars* ".,;:()?!\"'")
 
 (defun clean-and-tokenize (line)
-  "Convierte a minúsculas, reemplaza puntuación por espacios y separa en tokens (strings)."
-  (let* ((lower (string-downcase line))
-         (clean (coerce
-                 (map 'string (lambda (c)
-                                (if (search (string c) *punct-chars*) #\Space c))
-                      lower)
-                 'string)))
-    (remove "" (mapcar (lambda (s) s)
-                       (split-sequence:split-sequence #\Space clean)))))
+  "Convierte LINE a minúsculas, sustituye puntuación por espacios y la divide en tokens."
+  (when line
+    (let* ((lower (string-downcase line))
+           (clean-str
+            (with-output-to-string (out)
+              (loop for c across lower do
+                    (if (find c *eliza-punct-chars* :test #'char-equal)
+                        (write-char #\Space out)
+                        (write-char c out))))))
+      (let ((tokens '())
+            (cur ""))
+        (loop for c across clean-str do
+             (if (eliza--space-p c)
+                 (when (> (length cur) 0)
+                   (push cur tokens)
+                   (setf cur ""))
+                 (setf cur (concatenate 'string cur (string c)))))
+        (when (> (length cur) 0) (push cur tokens))
+        (nreverse tokens)))))
 
-;; -- Templates --
-;; Cada template es una lista: (stim resp indices)
-;; Stim: lista de elementos donde:
-;;       - un símbolo (ej: 'hola) debe coincidir con el token exacto
-;;       - la forma (s) representa el s(_) de Prolog: coincide con un token cualquiera
-;; Resp: lista con strings y/o símbolos; si aparece un número entero K en Resp,
-;;       indica un placeholder que será sustituido por el token en Input en
-;;       la posición indicada por indices[K].
-;; Indices: lista de enteros que indican posiciones en Input para extraer.
-;; Ejemplo inspirado en tu Prolog:
 (defparameter *templates*
   (list
-   ;; template([hola, s(_), como, estas, soy, s(_), '.'],
-   ;;          [hola , 1, 'como estas tu yo soy', 0 , 'como esta tu ?'],
-   ;;          [1, 5]).
+   ;; Hola … soy …
    (list (list 'hola (list 's) 'como 'estas 'soy (list 's))
          (list "hola" 1 "como estas tu yo soy" 0 "como esta tu ?")
          (list 1 5))
 
-   ;; template([hola, s(_), soy, s(_), '.'],
-   ;;        [hola, 1, ' mi nombre es', 0 , 'en que te puedo ayudar'],
-   ;;        [1, 3] ).
+   ;; Hola … soy …
    (list (list 'hola (list 's) 'soy (list 's))
          (list "hola" 1 "mi nombre es" 0 "en que te puedo ayudar")
          (list 1 3))
 
-   ;; algunos templates más simples:
+   ;; Saludos simples
    (list (list 'hola (list 's))
          (list "Hola" "como" "estas" "tu" "?")
          nil)
@@ -5207,10 +5202,11 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
          (list "Buendia" "Como" "estas" "tu" "?")
          nil)
 
-   ;; ejemplos con flags (se manejan después con handlers genéricos)
+   ;; flags (simulan predicados Prolog like/does/is...)
    (list (list 'te 'gustan 'las (list 's) (list 's))
          (list 'flagLike)
          (list 3))
+
    (list (list 'tu 'eres (list 's) (list 's))
          (list 'flagDo)
          (list 2))
@@ -5223,132 +5219,104 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
    (list nil (list "Please" "explain" "a" "little" "more" ".") nil)
    ))
 
-;; -- Match --
+
 (defun element-match-p (templ-el token)
-  "Comprueba si un elemento de template coincide con token.
-   templ-el puede ser:
-     - un símbolo: compara igualdad con token
-     - la lista (s): wildcard que acepta cualquier token (si hay token)
-     - NIL en template significa 'aceptar' (match siempre si template vacío)"
+  "Coincidencia de un elemento con token."
   (cond
     ((null templ-el) t)
-    ((and (consp templ-el) (eq (first templ-el) 's))
-     (not (null token)))                 ; s(_) => debe haber un token para casar
+    ((and (consp templ-el)
+          (symbolp (first templ-el))
+          (string= (symbol-name (first templ-el)) "s"))
+     (not (null token)))   ;; wildcard s => un token
     ((symbolp templ-el)
      (and token (string= (symbol-name templ-el) token)))
     (t nil)))
 
 (defun match-template (stim input)
-  "Intenta emparejar stim con input.
-   Reglas:
-   - si stim es NIL entonces coincide (como en Prolog: match([], _):- true).
-   - avanza por los elementos de stim e input; (s) consume EXACTAMENTE 1 token.
-   - si un elemento simbólico no coincide, falla.
-   Devuelve T o NIL."
+  "Devuelve T si stim coincide con input."
   (labels ((rec (slist ilist)
              (cond
-               ;; si stim vacío -> éxito (Prolog permitía esto)
                ((null slist) t)
-               ;; si stim no vacío pero input vacío -> fallo (no hay tokens para comparar)
-               ((null ilist)
-                ;; excepción: si todos los elementos restantes de slist son nil o sólo wildcards?
-                nil)
+               ((null ilist) nil)
                (t
-                (let ((se (first slist)) (it (first ilist)))
+                (let ((se (first slist))
+                      (it (first ilist)))
                   (if (element-match-p se it)
                       (rec (rest slist) (rest ilist))
                       nil))))))
     (rec stim input)))
 
-;; -- Replace / Build response --
+
 (defun get-token-at (input pos)
-  "Devuelve token en input por índice; si se sale, devuelve \"\"."
   (if (and input (>= pos 0) (< pos (length input)))
       (nth pos input)
       ""))
 
 (defun build-response-from-resp (resp indices input)
-  "Construye la respuesta final:
-   - si resp contiene un entero k -> sustituir por token en input en posición indices[k]"
+  "Sustituye enteros por tokens según índices."
   (mapcan
    (lambda (e)
      (cond
        ((integerp e)
-        (let ((idx (if (and indices (>= e 0) (< e (length indices)))
-                       (nth e indices)
-                       nil)))
-          (if idx
-              (list (get-token-at input idx))
-              (list ""))))            ; si algo falla, string vacío
-       ((symbolp e)
-        (list (symbol-name e)))
+        (let ((idx (and indices (nth e indices))))
+          (list (get-token-at input (or idx -1)))))
+       ((symbolp e) (list (symbol-name e)))
        ((stringp e) (list e))
-       (t (list (princ-to-string e))))
+       (t (list (princ-to-string e)))))
    resp))
 
-;; -- Handlers genéricos para flags (porque NO tenemos los predicados likes/does/.. ) --
+
 (defun handle-flag (flag indices input)
-  "Respuestas genéricas para los flag* usados en tus templates."
   (let ((arg-token (and indices (> (length indices) 0)
                         (get-token-at input (first indices)))))
     (case flag
       (flagLike (if arg-token
                     (list "I" "can't" "tell" "if" "I" "like" arg-token)
-                    (list "I" "don't" "have" "preferences" "here.")))
-      (flagDo (if arg-token
-                  (list "I" "sometimes" "do" arg-token)
-                  (list "I" "do" "a" "few" "things.")))
-      (flagIs (if arg-token
-                  (list "I" "am" "a" arg-token)
-                  (list "I" "am" "Eliza" ".")))
-      (flagEres (if arg-token
-                    (list "Yes," "you" "are" arg-token)
-                    (list "I" "am" "not" "sure.")))
-      (flagfam (list "I" "cannot" "compute" "family" "without" "facts."))
+                    (list "I" "don't" "have" "preferences.")))
+      (flagDo   (if arg-token
+                    (list "I" "sometimes" "do" arg-token)
+                    (list "I" "do" "various" "things.")))
+      (flagIs   (if arg-token
+                    (list "I" "am" "a" arg-token)
+                    (list "I" "am" "Eliza" ".")))
       (t (list "Please" "explain" "a" "little" "more" ".")))))
 
-;; Versión auxiliar que busca la primer template que haga match
+
 (defun find-matching-template (input)
-  "Busca en *templates* la primer template cuyo stim haga match con input.
-   Devuelve la plantilla (stim resp indices) o NIL."
   (find-if (lambda (tpl)
              (let ((stim (first tpl)))
                (if (null stim)
-                   t
+                   (null input) ;; fallback solo si input vacío
                    (match-template stim input))))
            *templates*))
 
-;; Función de respuesta dada una entrada tokenizada
+
 (defun respond-to (input)
   (let ((tpl (find-matching-template input)))
     (when tpl
       (let* ((resp (second tpl))
              (indices (third tpl)))
-        ;; si resp empieza por un flag simbólico, usar handler
         (if (and (consp resp) (symbolp (first resp))
-                 (find (first resp) '(flagLike flagDo flagIs flagEres flagfam)))
-            (let ((handled (handle-flag (first resp) indices input)))
-              (format t "~{~a~^ ~}~%" handled))
-            ;; si no es un flag, construir la respuesta
-            (let ((built (build-response-from-resp resp indices input)))
-              (format t "~{~a~^ ~}~%" built)))))))
+                 (find (first resp) '(flagLike flagDo flagIs)))
+            (format t "~{~a~^ ~}~%" (handle-flag (first resp) indices input))
+            (format t "~{~a~^ ~}~%" (build-response-from-resp resp indices input)))))))
 
-;; -- Loop principal --
+
 (defun eliza-loop ()
-  (format t "Hola, mi nombre es Eliza, tu chatbot.~%por favor ingresa tu consulta (minúsculas, sin punto al final preferible).~%")
+  (format t "Hola, soy Eliza. Ingresa tu consulta.~%")
   (loop
      (format t "~%> ")
-     (let* ((line (read-line *query-io* nil nil)))
-       (when (null line) (return)) ; fin si EOF
-       (let* ((tokens (clean-and-tokenize line)))
+     (let ((line (read-line *query-io* nil nil)))
+       (when (null line) (return))
+       (let ((tokens (clean-and-tokenize line)))
          (cond
-           ((or (and tokens (string= (first tokens) "adios"))
-                (and tokens (string= (first tokens) "bye")))
-            (format t "Adios. espero poder verte ayudado.~%")
+           ((or (string= (first tokens) "adios")
+                (string= (first tokens) "bye"))
+            (format t "Adios.~%")
             (return))
            (t (respond-to tokens)))))))
 
-;; Para ejecutar: (eliza-loop)
+
 
 #+END_SRC
 
