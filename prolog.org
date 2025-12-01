@@ -2858,8 +2858,8 @@ son, por orden de importancia, los siguientes:
   culpa del backtracking se exploren puntos de elección que, con toda
   seguridad, no llevan a otra solución (fallan). Para los entendidos,
   esto es podar el árbol de búsqueda de posibles soluciones.
-- Para facilitar la legibilidad y comprensión del algoritmo que está
-  siendo programado. A veces se situan cortes en puntos donde, con
+- *Para facilitar la legibilidad y comprensión del algoritmo que está
+  siendo programado*. A veces se situan cortes en puntos donde, con
   toda seguridad, no van a existir puntos de elección para eliminar,
   pero ayuda a entender que la ejecución sólo depende de la cláusula
   en cuestión.
@@ -2915,7 +2915,7 @@ fib(N, F) :- N > 1, N1 is N-1,  N2 is N-2, fib(N1, F1), fib(N2, F2),
        factorial(N1, F1),               % Llamada recursiva para obtener factorial de N - 1
        F is N * F1.                     % Calcular el factorial de N
    #+end_src
-
+   
 *** Ejemplo de uso
 
    Para calcular el factorial de 5, usamos una consulta que unifica la
@@ -3448,7 +3448,8 @@ y genera una lista transformada.
 
 #+BEGIN_SRC prolog
 maplist(_, [], []).
-maplist(Predicado, [H1|T1], [H2|T2]) :- call(Predicado, H1, H2), maplist(Predicado, T1, T2).
+maplist(Predicado, [H1|T1], [H2|T2]) :-
+	call(Predicado, H1, H2), maplist(Predicado, T1, T2).
 #+END_SRC
 
 Ejemplo: Calcular el cuadrado de cada número en una lista.
@@ -3586,7 +3587,6 @@ Aplanar múltiples niveles de anidación.
 ?- flatten([[a, [b, c]], [d, [e, f]], g], R).
 % R = [a, b, c, d, e, f, g].
 #+END_SRC
-
 
 **** 7. findall
 
@@ -4078,7 +4078,7 @@ lista y llama recursivamente a sí mismo con esa entrada.
 
 #+begin_src prolog
 eliza(Input) :- Input == ['Adios'], writeln('Adios. espero poder verte ayudado.'), !.
-eliza(Input) :- Input == ['Adios', '.'], writeln('Adios. espero poder verte ayudado.'), !.
+eliza(Input) :- Input == ['adios', '.'], writeln('Adios. espero poder verte ayudado.'), !.
 eliza(Input) :- Input == ['Bye', '.'], writeln('Bye bye .'), !.
 eliza(Input) :- Input == ['bye', '.'], writeln('Bye bye .'), !.
 #+end_src
@@ -4134,7 +4134,8 @@ Significa:
 
 ** Predicado ~replace0/5~
 
-Este predicado reemplaza los valores numéricos en la respuesta por palabras del input:
+Este predicado reemplaza los valores numéricos en la respuesta por
+palabras del input:
 
 #+begin_src prolog
 replace0([I|Index], Input, N, Resp, R):-
@@ -4149,7 +4150,8 @@ replace0([], _, _, Resp, Resp).
 
 
 ** Parámetros
-- ~[I|Index]~: Lista de índices que indican las posiciones en la entrada de usuario cuyos valores deben insertarse en la respuesta.
+- ~[I|Index]~: Lista de índices que indican las posiciones en la entrada
+  de usuario cuyos valores deben insertarse en la respuesta.
 - ~Input~: Lista de palabras ingresadas por el usuario.
 - ~N~: Contador que se usa para reemplazar la variable correspondiente en la respuesta (~Resp~).
 - ~Resp~: Plantilla de respuesta con variables representadas como números (e.g., 0, 1).
@@ -4163,8 +4165,8 @@ replace0([], _, _, Resp, Resp).
 2. ~length(Index, M), M > 0~  
    Asegura que aún hay más índices por procesar.
 
-3. ~select(N, Resp, Atom, R1)~  
-   Reemplaza la primera aparición de ~N~ en ~Resp~ con ~Atom~, devolviendo la nueva lista ~R1~.
+3. ~select(N, Resp, Atom, R1)~ Reemplaza la primera aparición de ~N~ en
+   ~Resp~ con ~Atom~, devolviendo la nueva lista ~R1~.
 
 4. ~N1 is N + 1~  
    Se incrementa el contador para reemplazar la siguiente variable.
@@ -4208,6 +4210,146 @@ replace0([1, 5], Input, 0, Resp, R).
 % Resultado:
 % R = [hola, maria, 'como estas tu yo soy', juan, 'como esta tu ?']
 #+end_src
+
+
+
+** Corrida completa del código replace0/5
+
+*** Llamada inicial
+
+#+begin_src prolog
+replace0([2],
+         [hola, soy, juan, y, estudio],
+         0,
+         [hola, 1, yo, soy, eliza],
+         R).
+#+end_src
+
+** Análisis del patrón
+
+- Index = [2]
+- Hay más de un índice → M > 0
+- Por lo tanto, **se utiliza la cláusula recursiva completa**, que incluye:
+
+#+begin_src prolog
+N1 is N + 1
+#+end_src
+
+** Paso 1 — Sustitución del índice 1
+
+- I = 2
+- nth0(2, Input, Atom) → Atom = juan
+- N = 0  (placeholder que toca reemplazar)
+- Resp actual = [hola, 1, yo, soy, eliza]
+
+Se ejecuta:
+
+#+begin_src prolog
+select(0, [hola, 1, yo, soy, 0], soy, R1)
+#+end_src
+
+Sustituyendo el placeholder **0** por **soy**:
+
+#+begin_src prolog
+R1 = [hola, 1, yo, soy, soy]
+#+end_src
+
+Ahora viene el incremento:
+
+#+begin_src prolog
+N1 is N + 1   →   N1 = 1
+#+end_src
+
+** Llamada recursiva con el nuevo N1
+
+#+begin_src prolog
+replace0([4],
+         [hola, soy, juan, y, estudio],
+         1,
+         [hola, 1, yo, soy, soy],
+         R).
+#+end_src
+
+
+** Paso 2 — Último índice
+
+Ahora:
+
+- Index = [4]
+- length([4], M) → M = 0  
+  → Esto significa que **ya no se usa**:
+
+#+begin_src prolog
+N1 is N + 1
+#+end_src
+
+*** Esta llamada usa la cláusula “final” (no recursiva)**.
+
+- I = 4
+- nth0(4, Input, Atom) → Atom = estudio
+- N = 1
+- Resp actual = [hola, 1, yo, soy, soy]
+
+Se ejecuta:
+
+#+begin_src prolog
+select(1, [hola, juan, yo, soy, eliza], estudio, R1)
+#+end_src
+
+Reemplazando el placeholder **1**:
+
+#+begin_src prolog
+R = [hola, juan, yo, soy, eliza]
+#+end_src
+
+*** Resultado final:
+
+#+begin_src prolog
+R = [hola, juan, yo, soy, eliza].
+#+end_src
+
+
+
+*** Árbol de derivación completo con momentos exactos de N + 1
+
+#+begin_example
+                                   replace0([2], Input, 0, Resp, R)
+          input      hola, soy, juan, y, estudio   |
+                                                   |
+                           ------------------------------------   
+                           |                                               |
+                I=1 → Atom = juan                                  replace0([4], Input, 1, R1, R)
+                Placeholder 0                                      (Aquí Index = [], M = 0)
+                Se reemplaza →                                    → NO se ejecuta N1 is N + 1
+                R1 = [hola, 1, yo, soy, eliza]                       |
+                                                                   
+                     *** Aquí se ejecuta N1 is N + 1 ***  ________ |
+                     N1 = 1                                        |
+                                                                   v
+                                                   R = [hola, juan, yo, soy, eliza]
+#+end_example
+
+
+
+*** Resumen claro
+
+- Se usa **N1 is N + 1** cuando:
+  - hay más índices por procesar (M > 0)
+  - estás en el caso recursivo
+
+- NO se usa cuando:
+  - es el último índice (M = 0)
+
+
+
+*** Resultado final del proceso
+
+#+begin_src prolog
+R = [hola, estudio, yo, soy, soy].
+#+end_src
+
+
+
 
 ** Conocimiento del mundo
 
@@ -4259,7 +4401,8 @@ elizaEres(X, R) :- \+eres(X), R = ['No', i, am, not, X].
 
 ** Plantillas especiales con *flags*
 
-Las plantillas con respuestas ~flagLike~, ~flagDo~, ~flagEres~, ~flagfam~, etc., delegan la respuesta a otro predicado.
+Las plantillas con respuestas ~flagLike~, ~flagDo~, ~flagEres~, ~flagfam~,
+etc., delegan la respuesta a otro predicado.
 
 Ejemplo:
 
@@ -4267,11 +4410,13 @@ Ejemplo:
 template([te, gustan, las, s(_), _], [flagLike], [3]).
 #+end_src
 
-Esto activa el predicado ~elizaLikes/2~ que genera la respuesta según si Eliza "gusta" de esa cosa.
+Esto activa el predicado ~elizaLikes/2~ que genera la respuesta según si
+Eliza "gusta" de esa cosa.
 
 ** Respuestas genéricas
 
-Cuando no hay coincidencia con ninguna plantilla, Eliza responde con una frase por defecto:
+Cuando no hay coincidencia con ninguna plantilla, Eliza responde con
+una frase por defecto:
 
 #+begin_src prolog
 template(_, ['Please', explain, a, little, more, '.'], []).
@@ -4632,5 +4777,929 @@ Puedes hacer mediante la unificación la corrida del factorial en prolog  ?
 
 
 
+
+
+
+
+* Examen
+
+1. ¿Qué es la unificación en Prolog y cómo se diferencia de la
+   asignación en otros lenguajes de programación?
+
+  
+2. Explica el concepto de backtracking en Prolog y cómo afecta la
+   búsqueda de soluciones.
+
+3. Describe la diferencia entre un hecho, una regla y una consulta en
+   Prolog, proporcionando un ejemplo de cada uno.
+
+4. ¿Cuál es el propósito del predicado cut (!), y cómo afecta el flujo
+   de ejecución de un programa en Prolog?
+
+5. ¿Qué representa el término "_" (guion bajo) en Prolog? ¿En qué
+   situaciones es útil?
+
+6. Explica cómo funcionan las listas en Prolog. ¿Cómo se define una
+   lista y cómo se accede a su cabeza y cola?
+
+7. Describe la diferencia entre los predicados is/2, =, y == en
+   Prolog. ¿Cuándo se usa cada uno?
+
+8. ¿Cómo puedes implementar recursión en Prolog para sumar los
+   elementos de una lista?
+
+9. ¿Qué papel juega el orden de las cláusulas en Prolog? ¿Puede
+   influir en el resultado de una consulta?
+
+10. ¿Cómo puedes representar relaciones familiares (padre, abuelo,
+    hermano) en Prolog usando hechos y reglas?
+
+
+* Examen Prolog — Respuestas 
+
+---
+
+*1. ¿Cuál de los siguientes términos es un átomo válido en Prolog?*
+A) MiVariable   B) mi_constante_1   C) _OtraCosa   D) 123_numero
+
+**Respuesta correcta:** B) mi_constante_1
+
+  
+Un átomo es un nombre en minúsculas, o una cadena entre comillas.  
+Los que empiezan con mayúscula son variables (A).  
+Los que empiezan con guion bajo son variables anónimas o nombradas (C).  
+Los que comienzan con número NO son átomos válidos (D).
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+es_atomo(mi_constante_1).
+padre(juan)% válido
+#+END_SRC
+
+---
+
+*2. ¿Resultado de [X,2] = [1,Y]?*
+A) X=[1],Y=[2]  B) X=1,Y=2  C) Falla  D) X=1,Y=[2]
+
+**Respuesta correcta:** B) X = 1, Y = 2
+
+  
+La unificación compara elemento por elemento:
+- X unifica con 1  
+- 2 unifica con Y → Y = 2  
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- [X,2] = [1,Y].
+X = 1, Y = 2.
+#+END_SRC
+
+---
+
+*3. Meta [H|T] = [a,b,c,d]*  
+A) ... B) H=a,T=[b,c,d] C) ... D) ...
+
+**Respuesta correcta:** B
+
+  
+El operador | separa cabeza y cola:
+- H = a  
+- T = [b,c,d]
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- [H|T] = [a,b,c,d].
+H = a,
+T = [b, b, c, d].
+#+END_SRC
+
+---
+
+*4. Cláusula base correcta de longitud(L,N)*  
+A) []→1 B) [_] →1 C) recursiva D) []→0
+
+**Respuesta correcta:** D) longitud([],0)
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+longitud([],0).
+longitud([_|T],N) :- longitud(T,N1), N is N1 + 1.
+#+END_SRC
+
+---
+
+*5. Declaración verdadera sin cuerpo:*
+A) Regla  B) Cláusula  C) Hecho  D) Meta
+
+**Respuesta correcta:** C) Hecho
+
+  
+Un hecho describe un enunciado verdadero sin condiciones.
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+gato(felix).  % hecho
+#+END_SRC
+
+---
+
+*6. Aridad del predicado persona(nombre('Ana'), edad(25), sexo(f)).*
+A)1 B)2 C)3 D)4
+
+**Respuesta correcta:** C) 3
+
+  
+La aridad es el número de argumentos.
+
+---
+
+*7. Efecto del operador de corte (!)*
+A) ... B) ... C) Poda alternativas D) ...
+
+**Respuesta correcta:** C
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+ejemplo(X) :- X=1, !.
+ejemplo(2).
+#+END_SRC
+
+---
+
+*8. Predicado que evalúa expresiones aritméticas*
+A) X=2+3 B) X==2+3 C) X is 2+3 D) ...
+
+**Respuesta correcta:** C
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- X is 2+3.
+X = 5.
+#+END_SRC
+
+---
+
+*9. ¿Qué proceso deshace unificación al fallar?*
+A) Forward chaining B) GC C) Backtracking D) Stack overflow
+
+**Respuesta correcta:** C
+
+---
+
+*10. Uso del guion bajo (_)*
+A) nada B) variable anónima C) último elemento D) átomo
+
+**Respuesta correcta:** B
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- miembro(X, [a,_,c]).
+X = a ;
+X = c.
+#+END_SRC
+
+---
+
+*11. ¿Qué pasa si fail aparece después de !?*
+A) ... B) ... C) La regla falla y el backtracking se detiene D)
+
+**Respuesta correcta:** C
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+p :- a, !, fail.
+#+END_SRC
+
+---
+
+*12. Negación por fallo (NAF)*
+A) \= B) == C) \+ D) !
+
+**Respuesta correcta:** C) \+
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+no_existe(X) :- \+ hecho(X).
+#+END_SRC
+
+---
+
+*13. Cabeza en c(X) :- a(X), b(X).*
+A) ... B) c(X) C) :- D) a(X)
+
+**Respuesta correcta:** B
+
+---
+
+*14. Operador para verificar identidad estructural*
+A) === B) is C) ==== D) \
+
+**Respuesta correcta:** C) ==
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- a(b) == a(b).
+true.
+#+END_SRC
+
+---
+
+*15. Functor de persona(nombre(luis),30).*
+A) nombre B) persona C) luis D) 30
+
+**Respuesta correcta:** B
+
+---
+
+*16. Predicado para agregar hecho al inicio*
+A) retract B) assertz C) dynamic D) asserta
+
+**Respuesta correcta:** D) asserta
+
+---
+
+*17. Predicados para imprimir texto y nueva línea*
+A) read B) print C) write, nl D) display, enter
+
+**Respuesta correcta:** C
+
+---
+
+*18. Unificación [a,b,c] = [X|[]]*
+A) imposible B) X=[a,b,c] C) falla D) X=a
+
+**Respuesta correcta:** C
+
+Explicación: la lista derecha exige solo un elemento.
+
+---
+
+*19. Recursión de cola*
+A) llamada recursiva al final B) ... C) ... D) ...
+
+**Respuesta correcta:** A
+
+**Ejemplo (optimizable):**
+#+BEGIN_SRC prolog
+suma([],Acc,Acc).
+suma([H|T],Acc,R) :- Acc1 is Acc+H, suma(T,Acc1,R).
+#+END_SRC
+
+---
+
+*20. Predicado que combina listas*
+A) concatenate B) join C) append D) sum_list
+
+**Respuesta correcta:** C) append/3
+
+**Ejemplo:**
+#+BEGIN_SRC prolog
+?- append([1,2],[3,4],R).
+R = [1,2,3,4].
+#+END_SRC
+
+
+*  Acertijo Lógico Examen
+
+** Descripción General
+Cinco investigadores trabajan en un laboratorio de biología molecular.  
+Cada uno tiene:
+- una especialidad distinta,
+- un horario distinto,
+- una bebida que prefiere,
+- un equipo de laboratorio distinto,
+- y un país de origen diferente.
+
+Tu tarea es usar Prolog para deducir quién tiene qué atributos.
+
+** Entidades
+
+**Investigadores**
+1. Ana
+2. Bruno
+3. Carlos
+4. Diana
+5. Elisa
+
+**Especialidades**
+- Genética
+- Microbiología
+- Bioquímica
+- Inmunología
+- Neurociencia
+
+**Horarios**
+- 6am
+- 8am
+- 10am
+- 12pm
+- 14pm
+
+**Bebidas**
+- Café
+- Té
+- Jugo
+- Mate
+- Agua
+
+**Equipos**
+- Microscopio
+- Centrífuga
+- PCR
+- Espectrómetro
+- Incubadora
+
+**Países**
+- México
+- Chile
+- España
+- Argentina
+- Perú
+
+** Reglas del Acertijo
+
+1. El investigador de Genética llega a las 6am.  
+2. Ana no trabaja ni en Genética ni en Neurociencia.  
+3. La persona que usa la Centrífuga bebe Té.  
+4. La investigadora de Perú llega a las 10am.  
+5. Carlos usa el Espectrómetro.  
+6. Quien bebe Café llega dos horas antes que quien bebe Jugo.  
+7. La persona que trabaja en Inmunología usa PCR.  
+8. La especialista en Bioquímica es de Chile.  
+9. La Incubadora es utilizada por alguien que llega a las 14pm.  
+10. El investigador de Argentina bebe Mate.  
+11. Elisa no bebe Té ni Café.  
+12. Diana trabaja en Microbiología.  
+13. El que llega a las 8am usa el Microscopio.  
+14. Bruno no es de México.  
+15. La persona de España trabaja en Neurociencia.  
+16. El usuario del equipo PCR llega después que el especialista en Microbiología.  
+17. El de México usa el equipo que NO es Microscopio ni Incubadora.  
+18. La persona que bebe Agua no usa ni PCR ni Espectrómetro.  
+19. El especialista en Neurociencia llega después de la persona que bebe Jugo.  
+20. El de Perú NO bebe Agua.  
+
+** Preguntas para resolver con Prolog
+
+1. ¿A qué hora llega cada investigador?  
+2. ¿Qué especialidad tiene cada uno?  
+3. ¿Qué bebida prefiere cada investigador?  
+4. ¿Qué equipo usa cada quien?  
+5. ¿De qué país es cada uno?
+
+
+* Eliza Lisp
+
+
+#+BEGIN_SRC emacs-lisp
+;;;; eliza.lisp -- Núcleo ELIZA traducido desde Prolog 
+;;;; - Templates similares a los de Prolog
+;;;; - match que acepta elementos atom (coinciden exactamente) y (s) como wildcard para 1 token
+;;;; - replace-resp que sustituye enteros en la respuesta por tokens del input según indices
+;;;; - handlers genéricos para flags
+
+(in-package :cl-user)
+(defparameter *punct-chars* ".,;:()?!\"'")
+
+(defun clean-and-tokenize (line)
+  "Convierte a minúsculas, reemplaza puntuación por espacios y separa en tokens (strings)."
+  (let* ((lower (string-downcase line))
+         (clean (coerce
+                 (map 'string (lambda (c)
+                                (if (search (string c) *punct-chars*) #\Space c))
+                      lower)
+                 'string)))
+    (remove "" (mapcar (lambda (s) s)
+                       (split-sequence:split-sequence #\Space clean)))))
+
+;; -- Templates --
+;; Cada template es una lista: (stim resp indices)
+;; Stim: lista de elementos donde:
+;;       - un símbolo (ej: 'hola) debe coincidir con el token exacto
+;;       - la forma (s) representa el s(_) de Prolog: coincide con un token cualquiera
+;; Resp: lista con strings y/o símbolos; si aparece un número entero K en Resp,
+;;       indica un placeholder que será sustituido por el token en Input en
+;;       la posición indicada por indices[K].
+;; Indices: lista de enteros que indican posiciones en Input para extraer.
+;; Ejemplo inspirado en tu Prolog:
+(defparameter *templates*
+  (list
+   ;; template([hola, s(_), como, estas, soy, s(_), '.'],
+   ;;          [hola , 1, 'como estas tu yo soy', 0 , 'como esta tu ?'],
+   ;;          [1, 5]).
+   (list (list 'hola (list 's) 'como 'estas 'soy (list 's))
+         (list "hola" 1 "como estas tu yo soy" 0 "como esta tu ?")
+         (list 1 5))
+
+   ;; template([hola, s(_), soy, s(_), '.'],
+   ;;        [hola, 1, ' mi nombre es', 0 , 'en que te puedo ayudar'],
+   ;;        [1, 3] ).
+   (list (list 'hola (list 's) 'soy (list 's))
+         (list "hola" 1 "mi nombre es" 0 "en que te puedo ayudar")
+         (list 1 3))
+
+   ;; algunos templates más simples:
+   (list (list 'hola (list 's))
+         (list "Hola" "como" "estas" "tu" "?")
+         nil)
+
+   (list (list 'buendia (list 's))
+         (list "Buendia" "Como" "estas" "tu" "?")
+         nil)
+
+   ;; ejemplos con flags (se manejan después con handlers genéricos)
+   (list (list 'te 'gustan 'las (list 's) (list 's))
+         (list 'flagLike)
+         (list 3))
+   (list (list 'tu 'eres (list 's) (list 's))
+         (list 'flagDo)
+         (list 2))
+
+   (list (list 'que 'eres 'tu (list 's))
+         (list 'flagIs)
+         (list 2))
+
+   ;; fallback
+   (list nil (list "Please" "explain" "a" "little" "more" ".") nil)
+   ))
+
+;; -- Match --
+(defun element-match-p (templ-el token)
+  "Comprueba si un elemento de template coincide con token.
+   templ-el puede ser:
+     - un símbolo: compara igualdad con token
+     - la lista (s): wildcard que acepta cualquier token (si hay token)
+     - NIL en template significa 'aceptar' (match siempre si template vacío)"
+  (cond
+    ((null templ-el) t)
+    ((and (consp templ-el) (eq (first templ-el) 's))
+     (not (null token)))                 ; s(_) => debe haber un token para casar
+    ((symbolp templ-el)
+     (and token (string= (symbol-name templ-el) token)))
+    (t nil)))
+
+(defun match-template (stim input)
+  "Intenta emparejar stim con input.
+   Reglas:
+   - si stim es NIL entonces coincide (como en Prolog: match([], _):- true).
+   - avanza por los elementos de stim e input; (s) consume EXACTAMENTE 1 token.
+   - si un elemento simbólico no coincide, falla.
+   Devuelve T o NIL."
+  (labels ((rec (slist ilist)
+             (cond
+               ;; si stim vacío -> éxito (Prolog permitía esto)
+               ((null slist) t)
+               ;; si stim no vacío pero input vacío -> fallo (no hay tokens para comparar)
+               ((null ilist)
+                ;; excepción: si todos los elementos restantes de slist son nil o sólo wildcards?
+                nil)
+               (t
+                (let ((se (first slist)) (it (first ilist)))
+                  (if (element-match-p se it)
+                      (rec (rest slist) (rest ilist))
+                      nil))))))
+    (rec stim input)))
+
+;; -- Replace / Build response --
+(defun get-token-at (input pos)
+  "Devuelve token en input por índice; si se sale, devuelve \"\"."
+  (if (and input (>= pos 0) (< pos (length input)))
+      (nth pos input)
+      ""))
+
+(defun build-response-from-resp (resp indices input)
+  "Construye la respuesta final:
+   - si resp contiene un entero k -> sustituir por token en input en posición indices[k]"
+  (mapcan
+   (lambda (e)
+     (cond
+       ((integerp e)
+        (let ((idx (if (and indices (>= e 0) (< e (length indices)))
+                       (nth e indices)
+                       nil)))
+          (if idx
+              (list (get-token-at input idx))
+              (list ""))))            ; si algo falla, string vacío
+       ((symbolp e)
+        (list (symbol-name e)))
+       ((stringp e) (list e))
+       (t (list (princ-to-string e))))
+   resp))
+
+;; -- Handlers genéricos para flags (porque NO tenemos los predicados likes/does/.. ) --
+(defun handle-flag (flag indices input)
+  "Respuestas genéricas para los flag* usados en tus templates."
+  (let ((arg-token (and indices (> (length indices) 0)
+                        (get-token-at input (first indices)))))
+    (case flag
+      (flagLike (if arg-token
+                    (list "I" "can't" "tell" "if" "I" "like" arg-token)
+                    (list "I" "don't" "have" "preferences" "here.")))
+      (flagDo (if arg-token
+                  (list "I" "sometimes" "do" arg-token)
+                  (list "I" "do" "a" "few" "things.")))
+      (flagIs (if arg-token
+                  (list "I" "am" "a" arg-token)
+                  (list "I" "am" "Eliza" ".")))
+      (flagEres (if arg-token
+                    (list "Yes," "you" "are" arg-token)
+                    (list "I" "am" "not" "sure.")))
+      (flagfam (list "I" "cannot" "compute" "family" "without" "facts."))
+      (t (list "Please" "explain" "a" "little" "more" ".")))))
+
+;; Versión auxiliar que busca la primer template que haga match
+(defun find-matching-template (input)
+  "Busca en *templates* la primer template cuyo stim haga match con input.
+   Devuelve la plantilla (stim resp indices) o NIL."
+  (find-if (lambda (tpl)
+             (let ((stim (first tpl)))
+               (if (null stim)
+                   t
+                   (match-template stim input))))
+           *templates*))
+
+;; Función de respuesta dada una entrada tokenizada
+(defun respond-to (input)
+  (let ((tpl (find-matching-template input)))
+    (when tpl
+      (let* ((resp (second tpl))
+             (indices (third tpl)))
+        ;; si resp empieza por un flag simbólico, usar handler
+        (if (and (consp resp) (symbolp (first resp))
+                 (find (first resp) '(flagLike flagDo flagIs flagEres flagfam)))
+            (let ((handled (handle-flag (first resp) indices input)))
+              (format t "~{~a~^ ~}~%" handled))
+            ;; si no es un flag, construir la respuesta
+            (let ((built (build-response-from-resp resp indices input)))
+              (format t "~{~a~^ ~}~%" built)))))))
+
+;; -- Loop principal --
+(defun eliza-loop ()
+  (format t "Hola, mi nombre es Eliza, tu chatbot.~%por favor ingresa tu consulta (minúsculas, sin punto al final preferible).~%")
+  (loop
+     (format t "~%> ")
+     (let* ((line (read-line *query-io* nil nil)))
+       (when (null line) (return)) ; fin si EOF
+       (let* ((tokens (clean-and-tokenize line)))
+         (cond
+           ((or (and tokens (string= (first tokens) "adios"))
+                (and tokens (string= (first tokens) "bye")))
+            (format t "Adios. espero poder verte ayudado.~%")
+            (return))
+           (t (respond-to tokens)))))))
+
+;; Para ejecutar: (eliza-loop)
+
+#+END_SRC
+
+
+
+*  Implementando ELIZA en Common Lisp
+
+* Introducción
+
+- El sistema de *templates* (plantillas de entrada–respuesta)
+- La función =match/2= que compara *input* con *stim*
+- La función =replace0/5= para sustituir los índices en la respuesta
+- El ciclo principal de interacción del chatbot
+
+
+* Diferencias conceptuales entre Prolog y Lisp
+Prolog es:
+- declarativo
+- basado en hechos y reglas
+- usa unificación y *backtracking* automático
+- las listas son estructuras fundamentales de coincidencia
+
+Common Lisp es:
+- imperativo/funcional
+- no tiene motor lógico incorporado
+- el programador implementa manualmente las reglas
+
+Esto implica:
+
+**Cada predicado Prolog debe convertirse en una función Lisp.**
+**Cada plantilla debe procesarse explícitamente.**
+
+Por ejemplo, en Prolog:
+
+#+BEGIN_SRC prolog
+match([hola, s(_), soy, s(_)], Input).
+#+END_SRC
+
+En Lisp debemos programar la función que recorra ambas listas y detecte:
+
+- símbolos que deben coincidir exactamente
+- =s(_)= representado como un comodín que coincide con cualquier token
+
+* Representación de Templates en Lisp
+En Prolog:
+
+#+BEGIN_SRC prolog
+template([hola, s(_), soy, s(_), '.'],
+         [hola, 1, 'mi nombre es', 0 , 'en que te puedo ayudar'],
+         [1, 3]).
+#+END_SRC
+
+En Common Lisp lo representamos como una lista con tres partes:
+
+1. La *stim* (condición de entrada)
+2. La *resp* (lista con textos y números que serán reemplazados)
+3. La lista de *índices* que indica qué posiciones del input usar
+
+Ejemplo en Lisp:
+
+#+BEGIN_SRC lisp
+(list
+  (list 'hola (list 's) 'soy (list 's))   ; stim
+  (list "hola" 1 "mi nombre es" 0 "en que te puedo ayudar")
+  (list 1 3))
+#+END_SRC
+
+El `(list 's)` representa el comodín =s(_)= de Prolog.
+
+* Tokenización del input
+Prolog ya trabaja tokenizado porque =readln/1= produce una lista de átomos.
+
+En Lisp debemos tokenizar manualmente:
+
+#+BEGIN_SRC lisp
+(defun clean-and-tokenize (line)
+  "Convierte un string a tokens limpios."
+  ...
+)
+#+END_SRC
+
+El tokenizer elimina signos de puntuación y baja todo a minúsculas.
+
+* Implementación del MATCH (equivalente a match/2 en Prolog)
+La regla de Prolog:
+
+#+BEGIN_SRC prolog
+match([], _).
+match([S|Stim], [I|Input]) :- S == I, match(Stim, Input).
+match([s(_)|Stim], [_|Input]) :- match(Stim, Input).
+#+END_SRC
+
+En Lisp:
+
+#+BEGIN_SRC lisp
+(defun match-template (stim input)
+  (labels ((rec (slist ilist) ...))
+    (rec stim input)))
+#+END_SRC
+
+La función =element-match-p= maneja:
+
+- coincidencia exacta
+- comodín (s)
+
+* Implementación del replace0 (equivalente a replace0/5)
+En Prolog:
+
+#+BEGIN_SRC prolog
+replace0([I|Index], Input, N, Resp, R) :-
+    nth0(I, Input, Atom),
+    select(N, Resp, Atom, R1),
+    ...
+#+END_SRC
+
+En Lisp implementamos una sustitución basada en:
+
+- índices
+- valores numéricos en la respuesta (0,1,2…)
+- reemplazo por tokens del input
+
+#+BEGIN_SRC lisp
+(defun build-response-from-resp (resp indices input)
+  ...
+)
+#+END_SRC
+
+Ejemplo:
+
+- Resp: =("hola" 1 "soy" 0)=
+- Indices: =(3 5)=
+- Input: =("hola" "eduardo" "soy" "programador")=
+
+Resultado:
+
+=hola programador soy eduardo=
+
+Porque:
+- índice 1 → input[5]
+- índice 0 → input[3]
+
+* Manejo de FLAGS
+Aunque en tu Prolog hay flags como:
+
+- flagLike
+- flagDo
+- flagIs
+- flagEres
+- flagfam
+
+En la opción 2 pediste NO incluir base de conocimiento.
+
+Así que implementamos un handler genérico:
+
+#+BEGIN_SRC lisp
+(defun handle-flag (flag indices input)
+  ...
+)
+#+END_SRC
+
+Esto permite que el programa funcione
+sin tener hechos tipo =likes/1= o =padre/2=.
+
+* Búsqueda de la plantilla correcta
+En Prolog:
+
+#+BEGIN_SRC prolog
+template(Stim, Resp, Index),
+match(Stim, Input),
+replace0(...).
+#+END_SRC
+
+En Lisp usamos =find-if=:
+
+#+BEGIN_SRC lisp
+(defun find-matching-template (input)
+  (find-if
+    (lambda (tpl) (match-template (first tpl) input))
+    *templates*))
+#+END_SRC
+
+* Ciclo principal (loop) equivalente al =eliza/1= de Prolog
+En Prolog:
+
+#+BEGIN_SRC prolog
+eliza(Input) :- Input == ['Adios'], ...
+eliza(Input) :-
+    template(...),
+    match(...),
+    replace0(...),
+    eliza(Input1).
+#+END_SRC
+
+En Lisp usamos un bucle =loop=:
+
+#+BEGIN_SRC lisp
+(defun eliza-loop ()
+  (loop
+    (format t "> ")
+    (let ((line (read-line)))
+      (let ((tokens (clean-and-tokenize line)))
+        (cond
+          ((string= (first tokens) "adios") ...)
+          (t (respond-to tokens)))))))
+#+END_SRC
+
+* Código completo (NÚCLEO de ELIZA)
+
+#+BEGIN_SRC lisp
+
+(in-package :cl-user)
+(defparameter *punct-chars* ".,;:()?!\"'")
+
+(defun clean-and-tokenize (line)
+  (let* ((lower (string-downcase line))
+         (clean (coerce
+                 (map 'string (lambda (c)
+                                (if (search (string c) *punct-chars*) #\Space c))
+                      lower)
+                 'string)))
+    (remove "" (split-sequence:split-sequence #\Space clean))))
+
+(defun element-match-p (templ-el token)
+  (cond
+    ((null templ-el) t)
+    ((and (consp templ-el) (eq (first templ-el) 's))
+     (not (null token)))
+    ((symbolp templ-el)
+     (and token (string= (symbol-name templ-el) token)))
+    (t nil)))
+
+(defun match-template (stim input)
+  (labels ((rec (slist ilist)
+             (cond
+               ((null slist) t)
+               ((null ilist) nil)
+               (t
+                (let ((se (first slist))
+                      (it (first ilist)))
+                  (if (element-match-p se it)
+                      (rec (rest slist) (rest ilist))
+                      nil))))))
+    (rec stim input)))
+
+(defun get-token-at (input pos)
+  (if (and input (>= pos 0) (< pos (length input)))
+      (nth pos input)
+      ""))
+
+(defun build-response-from-resp (resp indices input)
+  (mapcan
+   (lambda (e)
+     (cond
+       ((integerp e)
+        (let* ((idx (nth e indices))
+               (tok (get-token-at input idx)))
+          (list tok)))
+       ((symbolp e) (list (symbol-name e)))
+       ((stringp e) (list e))
+       (t (list (princ-to-string e)))))
+   resp))
+
+(defun handle-flag (flag indices input)
+  (let ((arg-token (and indices (get-token-at input (first indices)))))
+    (case flag
+      (flagLike (list "I" "cannot" "tell" "if" "I" "like" arg-token))
+      (flagDo   (list "I" "sometimes" "do" arg-token))
+      (flagIs   (list "I" "am" "a" arg-token))
+      (flagEres (list "Yes," "you" "are" arg-token))
+      (flagfam  (list "I" "cannot" "compute" "family" "facts"))
+      (t        (list "Please" "explain" "more")))))
+
+;; Templates
+(defparameter *templates*
+  (list
+   (list (list 'hola (list 's) 'como 'estas 'soy (list 's))
+         (list "hola" 1 "como estas tu yo soy" 0 "como esta tu ?")
+         (list 1 5))
+
+   (list (list 'hola (list 's) 'soy (list 's))
+         (list "hola" 1 "mi nombre es" 0 "en que te puedo ayudar")
+         (list 1 3))
+
+   (list (list 'hola (list 's))
+         (list "Hola" "como" "estas" "tu" "?")
+         nil)
+
+   (list (list 'buendia (list 's))
+         (list "Buendia" "Como" "estas" "tu" "?")
+         nil)
+
+   (list (list 'te 'gustan 'las (list 's) (list 's))
+         (list 'flagLike)
+         (list 3))
+
+   (list (list 'tu 'eres (list 's) (list 's))
+         (list 'flagDo)
+         (list 2))
+
+   (list (list 'que 'eres 'tu (list 's))
+         (list 'flagIs)
+         (list 2))
+
+   (list nil
+         (list "Please" "explain" "a" "little" "more" ".")
+         nil)))
+
+(defun find-matching-template (input)
+  (find-if (lambda (tpl)
+             (let ((stim (first tpl)))
+               (if (null stim) t (match-template stim input))))
+           *templates*))
+
+(defun respond-to (input)
+  (let ((tpl (find-matching-template input)))
+    (let ((resp (second tpl))
+          (indices (third tpl)))
+      (if (and (symbolp (first resp))
+               (member (first resp) '(flagLike flagDo flagIs flagEres flagfam)))
+          (format t "~{~a~^ ~}~%" (handle-flag (first resp) indices input))
+          (format t "~{~a~^ ~}~%"
+                  (build-response-from-resp resp indices input))))))
+
+(defun eliza-loop ()
+  (format t "Hola, soy Eliza.~%Escribe algo:~%")
+  (loop
+     (format t "~%> ")
+     (let* ((line (read-line *query-io* nil nil)))
+       (when (null line) (return))
+       (let ((tokens (clean-and-tokenize line)))
+         (cond
+           ((or (string= (first tokens) "adios")
+                (string= (first tokens) "bye"))
+            (format t "Adios, espero ayudarte.~%")
+            (return))
+           (t (respond-to tokens)))))))
+#+END_SRC
+
+* Cómo ejecutar ELIZA
+1. Guarda el archivo en =eliza.lisp=
+2. Abre SBCL o CLISP
+3. Carga el archivo:
+
+#+BEGIN_SRC lisp
+(load "eliza.lisp")
+#+END_SRC
+
+4. Ejecuta el loop:
+
+#+BEGIN_SRC lisp
+(eliza-loop)
+#+END_SRC
 
 
