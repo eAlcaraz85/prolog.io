@@ -5683,7 +5683,6 @@ experto médico en Prolog.
 
 ** Base de Conocimiento (medico_extendido.pl)
 
-A continuación se incluye el contenido completo del archivo =medico_extendido.pl= para que lo puedan utilizar y extenderlo en cada actividad.
 
 #+begin_src prolog
 % ==========================================================
@@ -5893,7 +5892,7 @@ arbol_diagnostico(Paciente, Enfermedad).
 Basado en preguntas clave (fiebre, estornudos, dolor fuerte de cabeza, etc.).
 
 
-* Actividad 8: Enfermedades Graves con Riesgo
+** Actividad 8: Enfermedades Graves con Riesgo
 Agregar al menos una enfermedad grave, y definir:
 
 #+begin_src prolog
