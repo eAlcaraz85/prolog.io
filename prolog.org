@@ -5671,3 +5671,288 @@ En Lisp usamos un bucle =loop=:
 #+END_SRC
 
 
+
+
+*  Sistema Experto Médico en Prolog – Actividades y Base de Conocimiento
+
+* Introducción
+Este apartado contiene la *base de conocimiento completa* y una serie de
+actividades  diseñadas para trabajar sobre un sistema
+experto médico en Prolog.
+
+
+** Base de Conocimiento (medico_extendido.pl)
+
+A continuación se incluye el contenido completo del archivo =medico_extendido.pl= para que lo puedan utilizar y extenderlo en cada actividad.
+
+#+begin_src prolog
+% ==========================================================
+% HECHOS: Enfermedades y Síntomas
+% ==========================================================
+
+tiene_sintoma(gripe, fiebre).
+tiene_sintoma(gripe, dolor_cabeza).
+tiene_sintoma(gripe, congestion).
+
+tiene_sintoma(alergia, estornudos).
+tiene_sintoma(alergia, picazon_ojos).
+tiene_sintoma(alergia, congestion).
+
+tiene_sintoma(migrana, dolor_cabeza_severo).
+tiene_sintoma(migrana, sensibilidad_luz).
+tiene_sintoma(migrana, nauseas).
+
+tiene_sintoma(resfriado, estornudos).
+tiene_sintoma(resfriado, congestion).
+tiene_sintoma(resfriado, dolor_garganta).
+
+% ==========================================================
+% HECHOS: Tratamientos
+% ==========================================================
+
+tratamiento(gripe, 'Reposo, hidratacion, paracetamol y aislamiento.').
+tratamiento(alergia, 'Antihistaminicos y evitar el alergeno conocido.').
+tratamiento(migrana, 'Medicacion especifica, ambiente oscuro y tranquilo.').
+tratamiento(resfriado, 'Liquidos calientes, descongestionantes y vitamina C.').
+
+% ==========================================================
+% PREDICADO DINÁMICO
+% ==========================================================
+
+:- dynamic sintoma/2.
+
+reset_paciente(P) :- retractall(sintoma(P,_)).
+
+% Sistema de interacción
+pregunta(Paciente, Sintoma) :-
+    sintoma(Paciente, Sintoma), !.
+
+pregunta(Paciente, Sintoma) :-
+    write('¿El paciente '), write(Paciente),
+    write(' tiene '), write(Sintoma), write('? (si/no): '),
+    read(Resp),
+    ( Resp = si ->
+        assertz(sintoma(Paciente, Sintoma))
+    ;
+        fail
+    ).
+
+% ==========================================================
+% DIAGNÓSTICO BÁSICO
+% ==========================================================
+
+diagnostico_basico(Paciente, Enfermedad) :-
+    tiene_sintoma(Enfermedad, S),
+    pregunta(Paciente, S).
+
+% ==========================================================
+% DIAGNÓSTICO COMPLETO
+% ==========================================================
+
+diagnostico_completo(Paciente, Enfermedad) :-
+    findall(S, tiene_sintoma(Enfermedad, S), Lista),
+    todos_confirmados(Paciente, Lista).
+
+todos_confirmados(_, []).
+todos_confirmados(Paciente, [S|R]) :-
+    pregunta(Paciente, S),
+    todos_confirmados(Paciente, R).
+
+% ==========================================================
+% DISTINCIÓN FUERTE Y TRATAMIENTOS
+% ==========================================================
+
+distincion_fuerte(P, gripe) :-
+    diagnostico_basico(P, gripe),
+    pregunta(P, fiebre),
+    \+ pregunta(P, estornudos).
+
+distincion_fuerte(P, resfriado) :-
+    diagnostico_basico(P, resfriado),
+    pregunta(P, estornudos),
+    \+ pregunta(P, fiebre).
+
+obtener_tratamiento(P, Trat) :-
+    (distincion_fuerte(P, E) ; diagnostico_basico(P, E)),
+    tratamiento(E, Trat).
+
+% ==========================================================
+% SEVERIDAD
+% ==========================================================
+
+contar_sintomas_confirmados(P, Enfermedad, C) :-
+    findall(S, (tiene_sintoma(Enfermedad,S), sintoma(P,S)), L),
+    length(L, C).
+
+severidad(P, E, 'Severa') :-
+    contar_sintomas_confirmados(P, E, C), C >= 3, !.
+
+severidad(P, E, 'Moderada') :-
+    contar_sintomas_confirmados(P, E, C), C = 2, !.
+
+severidad(P, E, 'Leve') :-
+    contar_sintomas_confirmados(P, E, C), C = 1, !.
+#+end_src
+
+** Actividades para Desarrollar (Con Base de Conocimiento Incluida)
+
+Cada actividad debe realizarse extendiendo la base de conocimiento anterior.
+
+---
+
+** Actividad 1: Agregar Nuevas Enfermedades y Síntomas
+Agregar al menos 2 nuevas enfermedades con 3 síntomas cada una.  
+También agregar su tratamiento.
+
+Modificación requerida del archivo:
+- Añadir nuevos hechos =tiene_sintoma/2=
+- Añadir =tratamiento/2=
+
+Ejemplos opcionales:
+- covid  
+- sinusitis  
+- bronquitis  
+- otitis  
+- gastritis  
+
+---
+
+** Actividad 2: Diagnóstico por Síntoma Exclusivo
+Crear una regla:
+
+#+begin_src prolog
+diagnostico_exclusivo(Paciente, Enfermedad).
+#+end_src
+
+Debe cumplirse cuando:
+- El paciente confirma un síntoma único que no se presenta en ninguna otra enfermedad.
+
+
+** Actividad 3: Diagnóstico por Probabilidad
+Crear:
+
+#+begin_src prolog
+probabilidad(Paciente, Enfermedad, Porcentaje).
+#+end_src
+
+Debe calcular:
+#+begin_example
+Porcentaje = (Confirmados / Totales) * 100
+#+end_example
+
+Usar:
+- findall/3  
+- length/2  
+
+
+** Actividad 4: Diagnóstico Preventivo
+Crear:
+
+#+begin_src prolog
+diagnostico_preventivo(Paciente, Enfermedad).
+#+end_src
+
+Regla:
+- Debe activar si el paciente tiene al menos 1 síntoma pero no todos.
+
+
+** Actividad 5: Enfermedades Similares
+Crear:
+
+#+begin_src prolog
+enfermedades_similares(E1, E2).
+#+end_src
+
+Deben considerarse similares si comparten al menos *dos síntomas*.
+
+
+** Actividad 6: Detectar Síntomas Contradictorios
+Añadir hechos como:
+
+#+begin_src prolog
+contradictorio(fiebre, picazon_ojos).
+contradictorio(nauseas, estornudos).
+#+end_src
+
+Luego implementar:
+
+#+begin_src prolog
+sintomas_contradictorios(Paciente).
+#+end_src`
+
+Debe indicar si el paciente confirmó síntomas incompatibles.
+
+
+** Actividad 7: Árbol de Decisión Médico
+Diseñar:
+
+#+begin_src prolog
+arbol_diagnostico(Paciente, Enfermedad).
+#+end_src
+
+Basado en preguntas clave (fiebre, estornudos, dolor fuerte de cabeza, etc.).
+
+
+* Actividad 8: Enfermedades Graves con Riesgo
+Agregar al menos una enfermedad grave, y definir:
+
+#+begin_src prolog
+riesgo(Paciente, Enfermedad, Nivel).
+#+end_src
+
+Niveles:  
+- alto  
+- medio  
+- bajo  
+
+
+** Actividad 9: Tratamiento Combinado
+Crear:
+
+#+begin_src prolog
+tratamiento_combinado(Paciente, Lista).
+#+end_src
+
+Debe listar todos los tratamientos para las enfermedades que cumple con diagnóstico básico.
+
+
+** Actividad 10: Recomendaciones según Severidad
+Crear:
+
+#+begin_src prolog
+recomendacion(Paciente, Enfermedad, Texto).
+#+end_src
+
+Basarse en el predicado existente =severidad/3=.
+
+
+** Actividad 11: Diagnosticar y Tratar en un Sol Paso
+Crear:
+
+#+begin_src prolog
+diagnosticar_y_tratar(Paciente, Diagnostico, Tratamiento).
+#+end_src
+
+Debe:
+1. Diagnosticar  
+2. Obtener tratamiento  
+3. Devolver ambos resultados  
+
+
+** Actividad 12: Reporte Completo
+Implementar:
+
+#+begin_src prolog
+reporte(Paciente).
+#+end_src
+
+Debe imprimir:
+- Síntomas confirmados  
+- Enfermedades posibles  
+- Probabilidad por enfermedad  
+- Diagnóstico final  
+- Severidad  
+- Tratamiento  
+- Recomendación  
+
+
