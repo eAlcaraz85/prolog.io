@@ -5147,7 +5147,6 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 4. ¿Qué equipo usa cada quien?  
 5. ¿De qué país es cada uno?
 
-
 * Eliza Lisp
 
 
@@ -5321,7 +5320,6 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 #+END_SRC
 
 
-
 *  Implementando ELIZA en Common Lisp
 
 * Introducción
@@ -5330,7 +5328,6 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 - La función =match/2= que compara *input* con *stim*
 - La función =replace0/5= para sustituir los índices en la respuesta
 - El ciclo principal de interacción del chatbot
-
 
 * Diferencias conceptuales entre Prolog y Lisp
 Prolog es:
@@ -5672,10 +5669,9 @@ En Lisp usamos un bucle =loop=:
 
 
 
+* Sistema Experto Médico en Prolog – Actividades y Base de Conocimiento
 
-*  Sistema Experto Médico en Prolog – Actividades y Base de Conocimiento
-
-* Introducción
+** Introducción
 Este apartado contiene la *base de conocimiento completa* y una serie de
 actividades  diseñadas para trabajar sobre un sistema
 experto médico en Prolog.
@@ -5688,7 +5684,7 @@ experto médico en Prolog.
 % ==========================================================
 % HECHOS: Enfermedades y Síntomas
 % ==========================================================
-
+xxxxxxxxx
 tiene_sintoma(gripe, fiebre).
 tiene_sintoma(gripe, dolor_cabeza).
 tiene_sintoma(gripe, congestion).
@@ -5799,6 +5795,7 @@ Cada actividad debe realizarse extendiendo la base de conocimiento anterior.
 
 ---
 
+
 ** Actividad 1: Agregar Nuevas Enfermedades y Síntomas
 Agregar al menos 2 nuevas enfermedades con 3 síntomas cada una.  
 También agregar su tratamiento.
@@ -5815,6 +5812,7 @@ Ejemplos opcionales:
 - gastritis  
 
 ---
+
 
 ** Actividad 2: Diagnóstico por Síntoma Exclusivo
 Crear una regla:
@@ -5955,3 +5953,38 @@ Debe imprimir:
 - Recomendación  
 
 
+* Proyecto Final Agosto Diciembre 2025
+
+ELIZA es el primer programa informático de procesamiento del lenguaje
+natural creado entre 1964 y 1966 ​en el MIT por Joseph
+Weizenbaum.Creada para explorar la comunicación entre humanos y
+máquinas, ELIZA simuló la conversación utilizando una metodología de
+concordancia y sustitución de patrones que daba a los usuarios una
+ilusión de entendimiento por parte del programa, pero no tenía ninguna
+representación que pudiera considerarse que realmente comprendía lo
+que se decía por ninguna de las dos partes.​Mientras que el
+programa ELIZA en sí se escribió (originalmente) en MAD-SLIP, las
+directivas de concordancia de patrones que contenían la mayor parte de
+su capacidad de lenguaje se proporcionaron en "scripts" separados,
+representados en una representación similar al Lisp. ​El guion más
+famoso, DOCTOR, simulaba un psicoterapeuta de la escuela rogeriana (en
+la que el terapeuta a menudo refleja las palabras del paciente al
+paciente),y utilizaba reglas, dictadas en el guion, para
+responder con preguntas no direccionales en las entradas de los
+usuarios. Como tal, ELIZA fue uno de los primeros chatterbots
+("chatbot" modernamente) y uno de los primeros programas capaces de
+ejecutar la prueba de Turing.
+
+
+Por lo anterior, parte del proyecto final consiste en utilizar el
+ejemplo de Eliza en Prolog y en Lisp, añadiendo una base de
+conocimiento que incluya los siguientes temas:
+
+- Las enfermedades asignadas en clase.
+- Personajes de alguna película o tema elegido, para ampliar la base
+  de conocimientos (también generada en Lisp).
+- Un árbol genealógico, de modo que sea posible realizar consultas a
+  Eliza sobre la familia.
+- Utilizar los códigos proporcionados en estos apuntes.
+
+Fecha límite de entrega: 19 de diciembre de 2025.
