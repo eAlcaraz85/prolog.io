@@ -2,8 +2,10 @@
 
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/htmlize.css"/>
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/readtheorg.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/minimal-sobrio.css"/>
 
 #+HTML_HEAD: <script type="text/javascript" src="src/lib/js/jquery.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="src/lib/js/bootstrap.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="src/lib/js/jquery.stickytableheaders.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="src/readtheorg_theme/js/readtheorg.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="src/readtheorg_theme/js/toc-search.js"></script>

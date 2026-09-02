@@ -1,89 +1,181 @@
-
-#+TITLE: Apuntes Programación Lógica Funcional
+#+TITLE: Programación Lógica y Funcional (SCC-1019)
 #+AUTHOR: Eduardo Alcaraz
-#+email: eduardo.ac@morelia.tecnm.mx  
+#+email: eduardo.ac@morelia.tecnm.mx
 #+LaTeX_HEADER: \usepackage[spanish]{inputenc}
 #+SETUPFILE: /home/likcos/Materias/Prolog/theme-readtheorg-local.setup
 #+EXPORT_FILE_NAME: index.html
-#+OPTIONS: num:nil
-#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
-#+HTML_HEAD: <style>pre.src {background-color: #303030; color: #e5e5e5;}</style>
+#+OPTIONS: num:nil toc:3
+#+HTML_HEAD: <style>
+#+HTML_HEAD: #content { max-width: none; width: calc(100% - 300px); margin-left: 300px; box-sizing: border-box; }
+#+HTML_HEAD: @media screen and (max-width: 768px) {
+#+HTML_HEAD:   #content { margin-left: 0 !important; width: 100% !important; max-width: 100% !important; padding: 4.25rem 1rem 2rem !important; }
+#+HTML_HEAD: }
+#+HTML_HEAD: pre.src { background-color: #303030; color: #e5e5e5; max-width: 100%; overflow-x: auto; }
+#+HTML_HEAD: </style>
 
-* Conceptos Fundamentales
-** Diferentes Estilos de Programación 
+Estos apuntes desarrollan la asignatura *Programación Lógica y Funcional* (SCC-1019). El hilo conductor es la comparación de paradigmas: qué se entiende por programa, cómo se evalúa o se demuestra, y cómo se representan los datos. Lisp realiza el modelo funcional; Prolog, el modelo lógico. ELIZA y el sistema experto ilustran, al final, la manipulación de términos y el uso de una base de conocimiento.
 
+* 1. Conceptos Fundamentales
+** Estilo de código y paradigmas de programación
 
-*** Estilos de Programación 
-  
-(también llamados estándares de código o convención de código) es un
-término que describe convenciones para escribir código fuente en
-ciertos lenguajes de programación. El estilo de programación es
-frecuentemente dependiente del lenguaje de programación que se haya
-elegido para escribir. Por ejemplo el estilo del lenguaje de
-Programación C variará con respecto al del lenguaje BASIC. [fn:1]
+En la bibliografía y en el programa de la asignatura, *estilo* designa dos nociones distintas. Conviene separarlas desde el principio.
 
-[fn:1] La salida del libro es tacataca
+La primera es el *estilo de código* o convención de escritura: identificadores, indentación, colocación de llaves, espaciado. CamelCase, snake_case y convenciones análogas pertenecen a este nivel. El compilador o el intérprete no distinguen, en general, =numeroDeHijos= de =numero_de_hijos=: ambos denotan el mismo enlace. Lo que cambia es la legibilidad y la homogeneidad del texto fuente.
 
+La segunda es el *paradigma de programación*: la teoría de qué es un programa y qué significa ejecutarlo. Un programa imperativo es una secuencia de instrucciones que transforman un estado. Un programa funcional es una expresión que se reduce a un valor. Un programa lógico es un conjunto de cláusulas respecto del cual se formula una meta. Estas tres lecturas no son un cambio de nombres: cambian el modelo de cómputo. El factorial escrito con un =while= en C, el de =factorial.lsp= y el predicado Prolog =factorial/2= resuelven el mismo problema matemático con máquinas distintas.
 
-*** Características del Estilo
+En lo que sigue se presenta primero el paradigma, con el factorial y una relación de parentesco; después, las convenciones de identificadores y el resto de la legibilidad. Adoptar camelCase no convierte un programa en funcional.
 
-na pieza clave para un buen estilo es la elección apropiada de
-ombres de variable. Variables pobremente nombradas dificultan la
-ectura del código fuente y su comprensión.
+*** Paradigmas de programación
 
-omo ejemplo, considérese el siguiente extracto de pseudocódigo:
+Un paradigma responde, de manera sistemática, a tres preguntas: qué se escribe, qué significa evaluar o demostrar, y qué se considera un dato.
 
-#+BEGIN_SRC C
-t a b c 
- a < 24 and b < 60 and c < 60
-return true
-se
-return false
-#+END_SRC
+En el modelo imperativo (C, Pascal, gran parte de Java), el programa muta memoria. En Lisp, una expresión se reduce según reglas de evaluación. En Prolog, una consulta se satisface por unificación y resolución: el resultado es una sustitución, o el fracaso.
 
-ebido a la elección de nombres de variable, es difícil darse cuenta
-e la función del código. Compárese ahora con la siguiente versión:
-
+El factorial, ya presente en =factorial.lsp=, permite ver las tres lecturas. En C el estado reside en =n= y en un acumulador:
 
 #+BEGIN_SRC C
-et horas minutos segundos 
-f horas < 24 and minutos < 60 and segundos < 60
- return true
-lse
- return false
+int factorial(int n) {
+  int acc = 1;
+  while (n > 0) {
+    acc = acc * n;
+    n = n - 1;
+  }
+  return acc;
+}
 #+END_SRC
 
-La intención el código es ahora más sencilla de discernir, "dado una
-hora en 24 horas, se devolverá true si es válida y false si no".
+En Lisp no hay iteración explícita. La función coincide con la definición matemática =0! = 1= y =n! = n·(n-1)!=; la pila de llamadas realiza la recurrencia:
 
+#+BEGIN_SRC lisp
+(defun factorial (x)
+  (if (= x 0)
+      1
+      (* x (factorial (- x 1)))))
+#+END_SRC
 
-*** Nombres de Variable Apropiadas.
-Una piedra clave para un buen estilo es la elección apropiada de
-nombres de variable. Variables pobremente nombradas dificultan la
-lectura del código fuente y su comprensión.  y Como ejemplo,
-considérese el siguiente extracto de pseudocódigo:
+En Prolog el factorial no es una función que «devuelve» 24: es una *relación* entre un natural y su factorial. La consulta =?- factorial(4, F).= pide una ligadura de =F= que haga verdadera esa relación:
 
- #+BEGIN_SRC C
-et a b c
-f a < 24 and b < 60 and c < 60
- return true
-lse
- return false
- #+END_SRC
+#+BEGIN_SRC prolog
+factorial(0, 1).
+factorial(N, F) :-
+    N > 0,
+    N1 is N - 1,
+    factorial(N1, F1),
+    F is N * F1.
+#+END_SRC
 
-Debido a la elección de nombres de variable, es difícil darse cuenta
-de la función del código. Compárese ahora con la siguiente versión:
+El parentesco muestra con más claridad la diferencia de control. En un lenguaje imperativo se recorrería una estructura de registros. En Lisp se construiría una lista. En Prolog se afirma lo que es el caso y se pregunta:
+
+#+BEGIN_SRC prolog
+padre(juan, luis).
+padre(luis, jaime).
+hijo(Y, X) :- padre(X, Y).
+?- hijo(jaime, Quien).
+#+END_SRC
+
+No hay un ciclo que recorra padres. El intérprete busca una cláusula cuya cabeza unifique con la meta. Ese mecanismo —unificación y resolución— se desarrolla en las unidades 3 y 4. Escribir =esHijo= en camelCase no altera el paradigma: el programa sigue siendo un conjunto de cláusulas de Horn.
+
+*** Convenciones de identificadores
+
+Las convenciones de nombres no constituyen un paradigma. Un programa Java escrito en camelCase sigue siendo, en lo esencial, imperativo u orientado a objetos; un programa Python en snake_case, también. Mezclar convenciones en un mismo archivo no cambia la semántica; reduce la homogeneidad del código.
+
+El espacio en blanco no forma parte de un identificador: =numero de hijos= se analiza como tres tokens. Las convenciones siguientes resuelven ese límite léxico.
+
+**** camelCase
+
+La primera palabra va en minúscula; cada palabra siguiente, con mayúscula inicial: =numeroDeHijos=, =factorialIterativo=. Es la convención habitual de métodos y campos en Java, JavaScript y C#.
+
+#+BEGIN_SRC java
+int numeroDeHijos;
+int factorialIterativo(int n) { ... }
+#+END_SRC
+
+**** PascalCase
+
+Igual que camelCase, con mayúscula también en la primera letra: =ListaDePadres=. En Java y C# se reserva, por convención, a los nombres de tipo. El compilador no lo exige; el incumplimiento dificulta distinguir tipos de variables.
+
+#+BEGIN_SRC java
+class ListaDePadres { }
+#+END_SRC
+
+**** snake_case
+
+Palabras en minúscula separadas por guión bajo: =numero_de_hijos=. El PEP 8 de Python la prescribe para funciones y variables. Es frecuente en C y, en Prolog, es la forma natural de predicados compuestos, porque la mayúscula inicial está reservada a las variables.
+
+#+BEGIN_SRC python
+def numero_de_hijos(padre):
+    ...
+#+END_SRC
+
+#+BEGIN_SRC prolog
+numero_de_hijos(Padre, N) :-
+    findall(H, padre(Padre, H), Hs),
+    length(Hs, N).
+#+END_SRC
+
+**** SCREAMING_SNAKE_CASE
+
+Snake_case en mayúsculas: =MAX_HIJOS=, =PI=. Por convención se emplea para constantes, es decir, enlaces que no deben reasignarse. =maxHijos= en camelCase es semánticamente equivalente; se pierde la marca tipográfica de inmutabilidad pretendida.
+
+**** kebab-case y Lisp
+
+Palabras unidas por guión: =numero-de-hijos=. En CSS y en identificadores de URL se denomina kebab-case. En Lisp es la forma ordinaria de los símbolos, porque el guión forma parte del nombre:
+
+#+BEGIN_SRC lisp
+(defun numero-de-hijos (padre)
+  ...)
+
+(setq *max-hijos* 10)  ; asteriscos: convención de variable especial / global
+#+END_SRC
+
+En C, =numero-de-hijos= se analiza como tres identificadores y dos restas. El léxico de C reservó =-= a la resta; la convención no está disponible. Lisp puede usarla porque, fuera de la posición de operador, =-= no se evalúa como resta.
+
+Los asteriscos de =*max-hijos*= (*earmuffs*) no alteran la semántica del estándar: son una convención de Common Lisp para distinguir variables especiales de las léxicas.
+
+**** Mayúsculas en Prolog
+
+En Prolog la capitalización no es estilo: es parte de la gramática. =juan= es un átomo; =Juan= es una variable. El hecho
+
+#+BEGIN_SRC prolog
+Padre(juan, luis).
+#+END_SRC
+
+no registra la relación «juan es padre de luis»: el functor es una variable, y esa forma no constituye un hecho legal. Los predicados se escriben en minúscula (=padre/2=, =es_hijo/2=). Las variables (=Quien=, =X=) son los símbolos que la unificación puede ligar.
+
+En Java, =Padre= como nombre de clase es convención. En Prolog, =Padre= como functor es un error de categoría.
+
+**** Un mismo predicado, dos convenciones
+
+Las cláusulas siguientes son lógicamente equivalentes. El paradigma no cambia; solo el identificador:
+
+#+BEGIN_SRC prolog
+es_abuelo(X, Y) :- padre(X, Z), padre(Z, Y).
+
+esAbuelo(X, Y) :- padre(X, Z), padre(Z, Y).
+#+END_SRC
+
+La segunda es sintácticamente correcta y se aparta de la práctica habitual de Prolog, del mismo modo que =(defun esAbuelo ...)= se aparta de la de Lisp (=es-abuelo=). Conviene adoptar la convención del ecosistema (PEP 8, Java Code Conventions; en Prolog, minúsculas y snake_case) y mantenerla en el proyecto.
+
+**** Nombres significativos
+
+La convención no sustituye a la denotación. CamelCase no hace inteligible un identificador opaco:
 
 #+BEGIN_SRC C
-get horas minutos segundos 
-if horas < 24 and minutos < 60 and segundos < 60
-  return true
-else
-  return false
+int a, b, c;
+if (a < 24 && b < 60 && c < 60) return 1;
 #+END_SRC
 
-La intención el código es ahora más sencilla de discernir, "dado una
-hora en 24 horas, se devolverá true si es válida y false si no".
+frente a:
+
+#+BEGIN_SRC C
+int horas, minutos, segundos;
+if (horas < 24 && minutos < 60 && segundos < 60) return 1;
+#+END_SRC
+
+Tanto =horasMinutosSegundos= como =horas_minutos_segundos= serían aceptables. Lo esencial es que el nombre indique el dominio. La convención indica cómo se segmentan las palabras; el paradigma, cómo se ejecuta el programa.
+
+Otras convenciones (notación húngara, prefijos =m_=) han perdido vigencia en la mayor parte de los ecosistemas actuales. Las de esta sección bastan para leer Lisp y Prolog de manera uniforme.
 
 *** Estilo de indentación
 
@@ -213,146 +305,65 @@ inusable cuando es publicado en un foro o página web que elimine el
 espacio en blanco.
 
 *** Evaluación de expresiones
-  
- En general, salvo que se relacionen con las mencionadas sentencias modificadoras del 
- flujo, las palabras-clave señalan al compilador aspectos complementarios que no
- alteran el orden de ejecución dentro de la propia sentencia. Este orden viene 
- determinado por cuatro condicionantes:
 
- 1. Presencia de paréntesis que obligan a un orden de evaluación
-	específico.
- 2. Naturaleza de los operadores involucrados en la expresión
-	(asociatividad).
- 3. Orden en que están colocados (precedencia).
- 4. Providencias (impredecibles) del compilador relativas a la
-	optimización del código.
+Una expresión es un fragmento de programa que denota un valor o, en el modelo lógico, una meta que puede satisfacerse. Cada paradigma determina *cómo* se obtiene ese valor.
 
+En C la expresión puede, además de denotar, producir un efecto. =x++= vale lo que valía =x= y, simultáneamente, incrementa =x=. El orden de evaluación (paréntesis, precedencia, asociatividad) es significativo; el compilador puede reordenar en ausencia de efectos secundarios. Las cuatro reglas enunciadas más arriba en esta unidad corresponden a ese modelo.
 
+En Lisp casi toda forma es expresión. =(+ 2 3)= no «ejecuta una instrucción de suma»: se *reduce* a =5=. La regla de evaluación —desarrollada al tratar Lisp— evalúa los argumentos de izquierda a derecha y aplica después el operador. =(quote (+ 2 3))= no se reduce: el dato *es* la lista =(+ 2 3)=. De ahí la homoiconicidad: programa y dato comparten la misma notación.
 
-** Analizando diferentes estilos de Programación
+Si la función es *pura*, dos evaluaciones de la misma expresión coinciden (*transparencia referencial*). =(* x (factorial (- x 1)))= admite el mismo razonamiento que una igualdad algebraica. =printf= o =setq= rompen esa propiedad porque alteran el entorno.
 
+En Prolog unificar no es calcular. =X = 1 + 2= liga =X= al *término* =1+2=, no al entero 3. El cálculo aritmético se solicita con =is=:
 
-** Paradigma de Programación 
+#+BEGIN_SRC prolog
+?- X = 1 + 2.
+X = 1+2.
 
- Un paradigma de programación es una propuesta tecnológica adoptada por
- una comunidad de programadores y desarrolladores cuyo núcleo central
- es incuestionable en cuanto que únicamente trata de resolver uno o
- varios problemas claramente delimitados; la resolución de estos
- problemas debe suponer consecuentemente un avance significativo en al
- menos un parámetro que afecte a la ingeniería de software.
+?- X is 1 + 2.
+X = 3.
+#+END_SRC
 
+La evaluación cotidiana de Prolog no es esa reducción aritmética: es la satisfacción de una meta. =padre(juan, luis)= no produce un número; produce éxito, fracaso o un conjunto de ligaduras.
 
-*** Tipos más comunes de paradigmas de programación 
+** Tipos de datos
 
-**** Programación imperativa o por procedimientos: 
-	 Es el más usado en general, se basa en dar instrucciones al ordenador
-	de como hacer las cosas en forma de algoritmos. La programación
-	imperativa es la más usada y la más antigua, el ejemplo principal
-	es el lenguaje de máquina. Ejemplos de lenguajes puros de este
-	paradigma serían el C, BASIC o Pascal.
+El tipo determina qué operaciones son aplicables a un valor.
 
-**** Programación orientada a objetos: 
-   Está basada en el imperativo, pero encapsula elementos denominados
-   objetos que incluyen tanto variables como funciones. Está
-   representado por C++, C#, Java o Python entre otros, pero el más
-   representativo sería el Smalltalk que está completamente orientado a
-   objetos.
+En el modelo imperativo clásico los tipos son enteros, flotantes, arreglos, registros y punteros: =padres[i]= designa una celda. En orientación a objetos el valor lleva comportamiento (métodos). En Lisp los constructores básicos son átomos, números y celdas =cons=; una lista anidada es ya un árbol, y el programa mismo es una lista. En Prolog todo es *término*: átomo, número, variable o término compuesto =padre(juan, luis)=. No hay un objeto con métodos: hay símbolos que unifican.
 
+La función de =suma.lisp= opera sobre números ya instanciados:
 
-**** Programación dinámica: 
-	está definida como el proceso de romper
-   problemas en partes pequeñas para analizarlos y resolverlos de forma
-   lo más cercana al óptimo, busca resolver problemas en O(n) sin usar
-   por tanto métodos recursivos. Este paradigma está más basado en el
-   modo de realizar los algoritmos, por lo que se puede usar con
-   cualquier lenguaje imperativo.
+#+BEGIN_SRC lisp
+(defun suma2 (a b c)
+  (+ a b c))
+#+END_SRC
 
-**** Programación dirigida por eventos: 
-   la programación dirigida por
-   eventos es un paradigma de programación en el que tanto la estructura
-   como la ejecución de los programas van determinados por los sucesos
-   que ocurran en el sistema, definidos por el usuario o que ellos
-   mismos provoquen.
+El predicado análogo =suma(A, B, C, R)= no asigna un tipo entero a =A= hasta que =is= exige un número. Si =A= permanece libre, =R is A + B= falla: el término aún no era un número. No es un defecto del intérprete; es la semántica de la aritmética evaluada.
 
+** Disciplina de tipos
 
-**** Programación declarativa:
-	está basado en describir el problema
-   declarando propiedades y reglas que deben cumplirse, en lugar de
-   instrucciones. Hay lenguajes para la programación funcional, la
-   programación lógica, o la combinación lógico-funcional. Unos de los
-   primeros lenguajes funcionales fueron Lisp y Prolog.
+La disciplina de tipos fija *cuándo* y con qué rigor se comprueba la corrección de las operaciones.
 
-**** Programación funcional:
+Hay comprobación *estática* (Haskell, Java: el error se detecta al compilar) y *dinámica* (Lisp, Prolog, Python: al evaluar la forma). =abs "hola"= no compila en Haskell; =(+ 1 "hola")= en Lisp se evalúa y produce un error en tiempo de ejecución. Ningún extremo es superior en abstracto: el primero anticipa fallos; el segundo favorece la exploración en el REPL, útil en esta asignatura.
 
- La programación funcional es un paradigma de programación declarativa
- basado en el uso de verdaderas funciones matemáticas. En este estilo
- de programación las funciones son ciudadanas de primera clase, porque
- sus expresiones pueden ser asignadas a variables como se haría con
- cualquier otro valor; además de que pueden crearse funciones de orden
- superior.​
+El eje *fuerte* / *débil* es independiente. C convierte entre =char= e =int= con facilidad. Lisp y Prolog, aun sin declaraciones, no suman un símbolo y un número de manera silenciosa: fallan. Son, pues, de tipado dinámico y relativamente fuerte.
 
- La programación funcional tiene sus raíces en el cálculo lambda, un
- sistema formal desarrollado en los años 1930 para investigar la
- naturaleza de las funciones, la naturaleza de la computabilidad y su
- relación con la recursión. Los lenguajes funcionales priorizan el uso
- de recursividad y aplicación de funciones de orden superior para
- resolver problemas que en otros lenguajes se resolverían mediante
- estructuras de control (por ejemplo, ciclos). Algunos lenguajes
- funcionales también buscan eliminar la mutabilidad o efectos
- secundarios; en contraste con la programación imperativa, que se basa
- en los cambios de estado mediante la mutación de variables. Esto
- significa que, en programación funcional pura, dos o más expresiones
- sintácticas idénticas (por ejemplo, dos llamadas a rutinas o dos
- evaluaciones) siempre devolverán el mismo resultado. Es decir, se
- tiene transparencia referencial. Lo anterior también puede ser
- aprovechado para diseñar estrategias de evaluación que eviten repetir
- el cómputo de expresiones antes vistas, ahorrando tiempo de ejecución.
+Haskell nombra el tipo: =absN :: Num a => a -> a=. Lisp lo descubre al evaluar. Prolog no declara tipos; el «tipo» de =padre/2= es la forma del término (functor y aridad). =functor/3= y ==../2= inspeccionan esa forma, lo que ELIZA aprovecha al reescribir plantillas.
 
- Los lenguajes de programación funcional, especialmente los puramente
- funcionales, han sido enfatizados en el ambiente académico y no tanto
- en el desarrollo comercial o industrial. Sin embargo, lenguajes de
- programación funcional como Lisp (Scheme, Common Lisp, etc.), Erlang,
- Rust, Objective Caml, Scala, F# y Haskell, han sido utilizados en
- aplicaciones comerciales e industriales por muchas
- organizaciones. También es utilizada en la industria a través de
- lenguajes de dominio específico como R (estadística), Mathematica
- (cómputo simbólico), J y K (análisis financiero). Los lenguajes de uso
- específico usados comúnmente como SQL y Lex/Yacc, utilizan algunos
- elementos de programación funcional, especialmente al procesar valores
- mutables. Las hojas de cálculo también pueden ser consideradas
- lenguajes de programación funcional.
-
-**** Programación lógica:
-   basado en la definición de relaciones lógicas,
-	está representado por Prolog.
-
-
-**** Programación con restricciones:
-   similar a la lógica usando
-	ecuaciones. Casi todos los lenguajes son variantes del Prolog.
-
-**** Programación multiparadigma:
-  es el uso de dos o más paradigmas dentro
-	de un programa. El lenguaje Lisp se considera multiparadigma. Al
-	igual que Python, que es orientado a objetos, reflexivo, imperativo y
-	funcional.1
-  
-**** Lenguaje específico del dominio o DSL:
-  se denomina así a los
-	lenguajes desarrollados para resolver un problema específico,
-	pudiendo entrar dentro de cualquier grupo anterior. El más
-	representativo sería SQL para el manejo de las bases de datos, de
-	tipo declarativo, pero los hay imperativos, como el Logo.
-
-** Evaluación de expresiones
-
-** Tipos de datos 
-
-**  Disciplina de tipos
+En Lisp hay que distinguir lista y átomo durante la prueba. En Prolog hay que distinguir patrones (=[H|T]= frente a =[]=). El compilador de Haskell no forma parte del entorno de esta materia.
 
 ** Funciones
 
-* Programación Funcional
+En el modelo funcional la función es un valor: se nombra, se pasa como argumento y se devuelve. =(lambda (x) (* x x))= no requiere =defun= para existir. =mapcar= recibe esa lambda y una lista: es *aplicación de orden superior*.
+
+En C la función no es un valor de primer orden en el uso cotidiano: es una etiqueta de código. Puede pasarse un puntero; no se compone con la economía de =absN' = abs= en Haskell.
+
+En el modelo lógico el correlato de la función es el *predicado*. =factorial(4, F)= no devuelve 24: relaciona 4 con 24. Un predicado admite cero, una o varias soluciones. =hijo(Y, juan)= puede ligar varios =Y=. Traducir =return= a Prolog es un error de categoría: lo que se traduce es una relación y una consulta.
+
+En síntesis: el modelo imperativo prescribe *cómo* transformar el estado; el funcional, *qué valor* denota la expresión; el lógico, *qué es verdadero* y deja que el motor busque las pruebas.
+
+* 2. Modelo de Programación Funcional
 
 La programación funcional, o mejor dicho, los lenguajes de
 programación funcionales, son aquellos lenguajes donde las variables
@@ -392,12 +403,7 @@ funcionales — o en su mayoría — dando lugar lenguajes que cuentan con
 una gran expresividad y consistencia.
 
 
-Les pondré el clásico ejemplo del chiste geek del castigo “Debo poner
-atención en clases”. La respuesta geek expresada en PHP esta escrita a
-continuación.  Donde PHP es un lenguaje dinámico, no necesita declarar
-variables y es un lenguaje orientado a objetos con raíces imperativas.
-Sus instrucciones son paso a paso, y no constituyen una única
-expresión reducible.
+El contraste entre un bucle imperativo y una expresión funcional puede ilustrarse con la repetición de una cadena. En PHP, lenguaje de tipado dinámico y raíces imperativas, la repetición es una instrucción iterativa; no constituye una única expresión reducible.
 
 #+BEGIN_SRC C
 <?php
@@ -519,7 +525,231 @@ una composición de funciones del tipo $f(g(x))$, todo a través de un
 tipo de dato que permite componer funciones sin abandonar ese tipo de
 dato y darle un aspecto procedural.
 
-* Lisp 
+** Tipos de datos en el modelo funcional
+
+En un lenguaje funcional el dato no se pisa: se construye otro. Suena
+a detalle filosófico y en el laboratorio se nota enseguida: =cons=
+nunca «le mete» un elemento a la lista vieja, te entrega una lista
+nueva. Los ladrillos en Lisp son poquitos a propósito. Átomos
+(=juan=, =nil=, los números, =t=), el par =cons= —una lista =(1 2
+3)= no es más que =(cons 1 (cons 2 (cons 3 nil)))= escrito bonito— y
+las listas anidadas, que ya son árboles. ='(juan (luis jaime))= tiene
+a juan arriba y un hijo que a su vez es lista.
+
+=nil= hace dos trabajos: es el falso y es la lista vacía. Por eso
+=(if lista ...)= trata =()= como falso. No es que Lisp se haya
+confundido de tipos, como se confundiría Haskell: es que el chequeo
+llega tarde, en el REPL. Si le pasas un símbolo a =factorial=, no se
+queja al definirla; se queja cuando intenta =(- x 1)=. Haskell, en el
+RUT de más arriba, sí nombra el tipo (=String -> Bool=). Lisp no lo
+nombra. El verificador eres tú y el intérprete.
+
+** Funciones
+
+La función, en este modelo, se lee como una ecuación. =suma.lisp= es
+la más chica del repo: ni variables locales ni estado, solo =+=.
+
+#+BEGIN_SRC lisp
+(defun suma2 (a b c)
+  (+ a b c))
+#+END_SRC
+
+=factorial.lsp= ya enseña el patrón que se va a repetir en listas y
+en árboles: un caso de parada y un caso que se llama a sí mismo más
+chico.
+
+#+BEGIN_SRC lisp
+(defun factorial (x)
+  (if (= x 0)
+      1
+      (* x (factorial (- x 1)))))
+#+END_SRC
+
+=(factorial 4)= se va desdoblando así. Lisp es estricto: primero
+calcula los argumentos, luego multiplica.
+
+#+BEGIN_SRC text
+(factorial 4)
+(* 4 (factorial 3))
+(* 4 (* 3 (factorial 2)))
+(* 4 (* 3 (* 2 (factorial 1))))
+(* 4 (* 3 (* 2 (* 1 (factorial 0)))))
+(* 4 (* 3 (* 2 (* 1 1))))
+24
+#+END_SRC
+
+No hay =for=. El ciclo es la pila de llamadas, que a la quinta ya se
+ve larga. Más adelante =mapcar= y las lambdas hacen lo mismo sin
+ponerle nombre a la función auxiliar, que es cuando esto se vuelve
+cómodo.
+
+** Intervalos
+
+Un intervalo es, simplemente, «los números de aquí hasta allá», a
+veces de dos en dos. Haskell lo escribe de un plumazo y, como es
+perezoso, ni siquiera fabrica la lista entera si nadie la pide:
+
+#+BEGIN_SRC haskell
+[1..5]        -- 1 2 3 4 5
+[1,3..9]      -- 1 3 5 7 9
+take 5 [1..]  -- 1 2 3 4 5  (la lista es infinita; solo se piden 5)
+#+END_SRC
+
+Lisp no trae =[1..n]=. Se arma. Con =loop=, que ya salió en el
+castigo de las quinientas líneas:
+
+#+BEGIN_SRC lisp
+(loop for i from 1 to 5 collect i)
+;; => (1 2 3 4 5)
+
+(loop for i from 1 to 9 by 2 collect i)
+;; => (1 3 5 7 9)
+#+END_SRC
+
+O con la misma receta del factorial, sin =loop=:
+
+#+BEGIN_SRC lisp
+(defun intervalo (a b)
+  (if (> a b)
+      nil
+      (cons a (intervalo (+ a 1) b))))
+
+(intervalo 1 5)
+;; => (1 2 3 4 5)
+#+END_SRC
+
+La gracia del intervalo no es ahorrarse tecleo. Es dejar de pensar en
+el contador del =for= y pensar en los datos. Cuando uno escribe
+=(mapcar #'factorial (intervalo 0 6))= ya no está «de 0 a 6
+incrementa»: está «el factorial de cada uno de estos».
+
+** Operadores
+
+En la notación de toda la vida, =1 + 2 * 3= depende de quién gane,
+si el más o el por. Lisp se ahorra esa pelea: el operador va
+adelante y los paréntesis *son* el árbol.
+
+#+BEGIN_SRC lisp
+(+ 1 (* 2 3))    ; 7
+(* (+ 1 2) 3)    ; 9
+#+END_SRC
+
+La mayoría de esos operadores son funciones de verdad (=+=, =*=,
+=cons=, =car=) y se les aplica la regla de siempre: primero los
+argumentos. Unos cuantos no: =quote=, =if=, =defun=, =lambda=. Si
+=if= evaluara los dos ramos, el que no toca igual explotaría.
+Por eso es operador especial y no función. Lo vamos a ver otra vez
+cuando toque =quote=.
+
+En Prolog la cuenta vuelve a ser infija, pero nada más *dentro* de
+=is= o de las comparaciones: =F is N * F1=. Afuera, =+= es un
+functor como cualquier otro, un palito en el término, no una suma.
+
+** Aplicaciones de las listas
+
+En este modelo la lista hace de arreglo, de pila y de árbol. Más
+abajo hay secciones enteras de =car=, =cdr=, =cons=, =mapcar= y las
+listas de asociación. La idea, en corto, es siempre la misma: recorrer
+con =car=/=cdr= (el =H|T= de Prolog), armar con =cons=, transformar
+con =mapcar=, juntar con =reduce=. Una aplicación concreta con lo que
+ya tenemos, sumar del 1 al 10:
+
+#+BEGIN_SRC lisp
+(defun sumar-lista (lst)
+  (if (null lst)
+      0
+      (+ (car lst) (sumar-lista (cdr lst)))))
+
+(sumar-lista (intervalo 1 10))
+;; => 55
+#+END_SRC
+
+Eso es el =for= que iba acumulando en C, dicho como ecuación. Si se
+entiende este, se entiende casi todo Lisp de listas.
+
+** Árboles
+
+Un árbol no necesita un tipo nuevo: *es una lista cuyo =cdr= (o cuyos elementos) son árboles*. Árbol binario con =cons=:
+
+#+BEGIN_SRC lisp
+;;       2
+;;      / \
+;;     1   3
+(setq arbol (cons (cons 1 nil) (cons 2 (cons 3 nil))))
+;; mejor, con una convención clara: (valor izq der)
+(setq arbol '(2 (1 nil nil) (3 nil nil)))
+#+END_SRC
+
+Recorrido inorden: misma forma que el factorial (base =nil=, paso recursivo en los dos hijos):
+
+#+BEGIN_SRC lisp
+(defun inorden (arbol)
+  (if (or (null arbol) (eq arbol 'nil))
+      nil
+      (append (inorden (second arbol))
+              (list (first arbol))
+              (inorden (third arbol)))))
+
+(inorden '(2 (1 nil nil) (3 nil nil)))
+;; => (1 2 3)
+#+END_SRC
+
+En Prolog el mismo árbol termina siendo un término
+=arbol(arbol(nil,1,nil), 2, arbol(nil,3,nil))= y el recorrido, un
+predicado con =append=. La forma se parece; el motor no: allá se
+reduce, acá se unifica.
+
+** Evaluación perezosa
+
+Lisp, Scheme y el =factorial= de arriba son estrictos: para
+calcular =(* x (factorial (- x 1)))= primero calculan el argumento,
+aunque de momento no hagan falta los dos. Haskell, por defecto, es
+perezoso: no reduce un valor hasta que alguien lo exige. Por eso
+=take 5 [1..]= termina. La lista es infinita, sí, pero nadie pidió el
+resto, y Haskell no se pone a fabricarlo.
+
+Eso permite listas que no se acaban (=cycle [2..7]= ya salió en el
+RUT) y definiciones como =unos = 1 : unos=, de las que uno toma un
+pedazo y se va. Lisp ya es perezoso en un caso, el =if=: no evalúa el
+ramo que no toca. El resto, no.
+
+En Common Lisp se puede imitar con un truquito: en vez de calcular
+ahora, se deja un =lambda= para después. Ojo, el =delay= de abajo es
+didáctico; en serio haría falta un *macro*, porque si =delay= es
+función, Lisp evalúa =expr= *antes* de entrar, y se acaba el chiste.
+
+#+BEGIN_SRC lisp
+(defun delay (expr)
+  (lambda () expr))
+
+(defun force (p)
+  (funcall p))
+#+END_SRC
+
+Un flujo de enteros, cada cola cerrada en un =lambda=, ya se puede
+escribir sin macro:
+
+#+BEGIN_SRC lisp
+(defun enteros-desde (n)
+  (cons n (lambda () (enteros-desde (+ n 1)))))
+
+(defun toma (k stream)
+  (if (= k 0)
+      nil
+      (cons (car stream)
+            (toma (- k 1) (funcall (cdr stream))))))
+
+(toma 5 (enteros-desde 1))
+;; => (1 2 3 4 5)
+#+END_SRC
+
+Si se quita el =lambda= del =cdr=, =(enteros-desde 1)= no termina:
+se pone a construir enteros hasta que se acabe la pila. Esa es la
+diferencia que hay que ver en este modelo: no solo *qué* se calcula,
+sino *cuándo*. Lo que sigue de la unidad ya es Lisp de a de veras:
+expresiones S, evaluación, listas, condicionales, =mapcar=, lambdas.
+
+** Lisp (lenguaje de la unidad 2) 
 
 Lisp (históricamente LISP) es una familia de lenguajes de programación
 de computadora de tipo multiparadigma con larga historia y una
@@ -561,7 +791,7 @@ función o el nombre del operador en primer lugar, y los argumentos a
 continuación; por ejemplo, una función f que toma tres argumentos
 puede ser llamada usando (f x y z).
 
-** Historia 
+*** Historia 
 
 El proyecto se inició en 1987, cuando los autores originales, Bruno
 Haible y Michael Stoll, aún eran estudiantes en Alemania. La versión
@@ -601,8 +831,8 @@ desarrollo.
 clisp
 
 
-** Programación en Lisp
-** Expresiones
+*** Programación en Lisp
+*** Expresiones
 
  Es particularmente cierto que la mejor forma de aprender Lisp es
  usándolo, porque se trata de un lenguaje interactivo. Cualquier
@@ -799,7 +1029,7 @@ eval
 eval
  #+END_SRC
 
-** Datos
+*** Datos
 
  Lisp ofrece los tipos de datos que podemos encontrar en otros
  lenguajes de programación, y otros que no. Ya hemos usado enteros en
@@ -853,7 +1083,7 @@ uno
 ((+ 2 3) 5)
  #+END_SRC
 
-** Evaluación
+*** Evaluación
 
 	 Veamos más en detalle como las expresiones son evaluadas para
 	 desplegar su valor en el top-level. En Lisp, + es una función y (+
@@ -897,7 +1127,7 @@ uno
 	 expresión sea evaluada. En la siguiente sección veremos porque esta
 	 protección puede ser útil.
 
-** Funciones en Lisp
+*** Funciones en Lisp
  Es posible definir nuevas funciones con defun que toma normalmente tres
  argumentos: un nombre, una lista de parámetros y una o más expresiones
  que conforman el cuerpo de la función. Ej. Así definiríamos tercero:
@@ -954,7 +1184,7 @@ C
  pieza, conforme los vamos escribiendo, lo que se conoce como programación
  incremental (bottom-up).
 
-** Listas
+*** Listas
 
 En Lisp, las listas son una estructura de datos fundamental y
 versátil. Se utilizan para almacenar una secuencia de elementos, que
@@ -1020,7 +1250,7 @@ programación y se utilizan para representar datos y programas. Su
 flexibilidad y capacidad para anidarse las hacen muy poderosas en la
 programación en Lisp.
 
-** Cons
+*** Cons
 
 
 La función `cons` se utiliza para crear nuevas listas al agregar un
@@ -1057,11 +1287,9 @@ La función **cons** es útil para construir y modificar listas en Lisp y
 se utiliza con frecuencia en la programación en este lenguaje para
 crear estructuras de datos y manipular listas de manera eficiente.
 
+Un árbol binario es *el mismo* =cons=, leído de otra forma. En lugar de «cabeza y cola», «hijo izquierdo e hijo derecho», o una lista =(valor izq der)= como en la sección de árboles de esta unidad. =(cons 1 (cons 2 (cons 3 nil)))= es una lista; ='(2 (1 nil nil) (3 nil nil))= es un árbol. =car= / =cdr= recorren los dos.
 
-
-
-
-** Funciones CAR y CDR
+*** Funciones CAR y CDR
 
 
   CAR admite un único argumento que debe ser una lista o una expresión
@@ -1137,38 +1365,38 @@ crear estructuras de datos y manipular listas de manera eficiente.
   : (1 2 3 4 4) 
   : NIL 
 
-*** Ejercicios car cdr
-**** Problema 1: Acceder al cuarto elemento de una lista
+**** Ejercicios car cdr
+***** Problema 1: Acceder al cuarto elemento de una lista
   Dada la lista `(a b c d e f g)`, escribe una expresión para devolver el cuarto elemento utilizando solo `car` y `cdr`.
 
-**** Problema 2: Obtener los tres últimos elementos de una lista
+***** Problema 2: Obtener los tres últimos elementos de una lista
   Dada la lista `(1 2 3 4 5 6)`, utiliza combinaciones de `car` y `cdr` para devolver los tres últimos elementos.
 
-**** Problema 3: Construir una lista a partir de los tres primeros elementos
+***** Problema 3: Construir una lista a partir de los tres primeros elementos
   Dada la lista `(a b c d e)`, construye una nueva lista que contenga solo los tres primeros elementos.
 
-**** Problema 4: Eliminar el primer y último elemento de una lista
+***** Problema 4: Eliminar el primer y último elemento de una lista
   Dada la lista `(x y z w)`, escribe una expresión que elimine el primer y último elemento.
 
-**** Problema 5: Verificar si una lista tiene al menos tres elementos
+***** Problema 5: Verificar si una lista tiene al menos tres elementos
   Escribe una función que reciba una lista y verifique si tiene al menos tres elementos usando `car` y `cdr`.
 
-**** Problema 6: Sumar los primeros tres números de una lista
+***** Problema 6: Sumar los primeros tres números de una lista
   Dada la lista `(10 20 30 40)`, utiliza `car` y `cdr` para obtener la suma de los tres primeros números.
-**** Problema 7: Acceder al penúltimo elemento de una lista
+***** Problema 7: Acceder al penúltimo elemento de una lista
   Dada la lista `(p q r s t)`, escribe una expresión que devuelva el penúltimo elemento.
-**** Problema 8: Crear una lista anidada
+***** Problema 8: Crear una lista anidada
   Dada la lista `(1 2 3)`, usa `cons`, `car`, y `cdr` para crear la lista anidada `((1) (2) (3))`.
 
-**** Problema 9: Fusionar dos listas
+***** Problema 9: Fusionar dos listas
   Dadas las listas `(a b c)` y `(x y z)`, escribe una expresión que las combine en una sola lista `(a b c x y z)` utilizando `cons`, `car`, y `cdr`.
-**** Problema 10: Invertir los dos primeros pares de elementos de una lista
+***** Problema 10: Invertir los dos primeros pares de elementos de una lista
   Dada la lista `(1 2 3 4 5 6)`, invierte los primeros dos pares de elementos de la lista, de modo que obtengas `(2 1 4 3 5 6)`.
 
 
 
 
-** Entradas y salidas 
+*** Entradas y salidas 
 
  Lisp proporciona un amplio conjunto de facilidades para realizar
  entrada/salida. Todas las operaciones de entrada/salida se realizan en
@@ -1197,7 +1425,7 @@ crear estructuras de datos y manipular listas de manera eficiente.
  representación impresa de un objeto Lisp, crea ese objeto y lo
  devuelve.
 
-*** Funciones de Entrada: 
+**** Funciones de Entrada: 
 
  Los caracteres de la representación impresa de un objeto Lisp se
  transmiten a un flujo mediante funciones como "print". El (Lisp)
@@ -1336,7 +1564,7 @@ crear estructuras de datos y manipular listas de manera eficiente.
 
 
 
-** Condicionales en Lisp
+*** Condicionales en Lisp
 En este documento se describen las condicionales más comunes utilizadas en Lisp, con más ejemplos prácticos para =when= y =unless=.
 
 
@@ -1346,8 +1574,8 @@ En este documento se describen las condicionales más comunes utilizadas en Lisp
 - =cond= permite evaluar múltiples condiciones de manera secuencial.
 - =case= compara una expresión con varios valores posibles y ejecuta el bloque correspondiente.
 
-*** Condicionales Básicas
-**** if
+**** Condicionales Básicas
+***** if
 La expresión =if= es una de las condicionales más simples en Lisp. Evalúa una condición y ejecuta una de las dos ramas, dependiendo del resultado de esa condición.
 
 #+BEGIN_SRC lisp
@@ -1364,7 +1592,7 @@ Ejemplo:
     (print "Esto no se imprimirá"))
 #+END_SRC
 
-**** when
+***** when
 La expresión =when= se utiliza cuando solo hay una acción que se desea ejecutar si la condición es verdadera. Si la condición es falsa, no se ejecuta nada.
 
 #+BEGIN_SRC lisp
@@ -1381,7 +1609,7 @@ Ejemplo básico:
 
 Esto imprimirá =5 es mayor que 3= porque la condición es verdadera. Si no lo fuera, no haría nada.
 
-***** Ejemplo 2: Ejecutando varias expresiones con =when=
+****** Ejemplo 2: Ejecutando varias expresiones con =when=
 Si quieres ejecutar múltiples expresiones cuando la condición sea verdadera, puedes hacerlo incluyendo más de una expresión dentro de =when=.
 
 #+BEGIN_SRC lisp
@@ -1397,7 +1625,7 @@ Diez es igual a diez
 Este es otro mensaje dentro del when
 #+END_EXAMPLE
 
-***** Ejemplo 3: Usando funciones dentro de =when=
+****** Ejemplo 3: Usando funciones dentro de =when=
 Puedes utilizar cualquier función dentro de =when=. Aquí hay un ejemplo en el que se verifica si una lista no está vacía antes de aplicar una función.
 
 #+BEGIN_SRC lisp
@@ -1414,7 +1642,7 @@ La salida será:
 4
 #+END_EXAMPLE
 
-***** Ejemplo 4: =when= con listas vacías
+****** Ejemplo 4: =when= con listas vacías
 Lisp trata las listas vacías como =nil=. En este caso, =when= no ejecutará el bloque de código si la lista está vacía.
 
 #+BEGIN_SRC lisp
@@ -1425,7 +1653,7 @@ Lisp trata las listas vacías como =nil=. En este caso, =when= no ejecutará el 
 
 Como la lista está vacía, no se imprimirá nada.
 
-**** unless
+***** unless
 La expresión =unless= es lo contrario de =when=. Ejecuta el bloque de código solo si la condición es falsa.
 
 #+BEGIN_SRC lisp
@@ -1442,7 +1670,7 @@ Ejemplo básico:
 
 Esto imprimirá =5 no es menor que 3= porque la condición es falsa.
 
-***** Ejemplo 2: Ejecutando varias expresiones con =unless=
+****** Ejemplo 2: Ejecutando varias expresiones con =unless=
 Al igual que con =when=, también puedes ejecutar múltiples expresiones dentro de =unless=.
 
 #+BEGIN_SRC lisp
@@ -1458,7 +1686,7 @@ Esto se imprimirá
 Este es otro mensaje dentro del unless
 #+END_EXAMPLE
 
-***** Ejemplo 3: =unless= con funciones
+****** Ejemplo 3: =unless= con funciones
 Puedes utilizar funciones dentro de =unless= de la misma forma que en =when=.
 
 #+BEGIN_SRC lisp
@@ -1475,7 +1703,7 @@ La lista está vacía
 No hay elementos en la lista
 #+END_EXAMPLE
 
-***** Ejemplo 4: =unless= con comparaciones
+****** Ejemplo 4: =unless= con comparaciones
 En este ejemplo, se compara si dos valores no son iguales, y si es cierto, ejecuta el bloque de código.
 
 #+BEGIN_SRC lisp
@@ -1492,7 +1720,7 @@ x no es igual a 5
 El valor de x es 10
 #+END_EXAMPLE
 
-*** Condicionales Anidadas
+**** Condicionales Anidadas
 Las condicionales =when= y =unless= también pueden anidarse dentro de otras condicionales.
 
 Ejemplo:
@@ -1507,8 +1735,8 @@ Ejemplo:
 
 Aquí se imprime =Ambas condiciones son verdaderas=, ya que ambas condiciones dentro de la condicional son ciertas.
 
-*** Condicionales Complejas
-**** cond
+**** Condicionales Complejas
+***** cond
 La expresión =cond= se utiliza para evaluar múltiples condiciones. Se puede pensar en =cond= como una cadena de =if=, cada uno con su propia condición y acción.
 
 #+BEGIN_SRC lisp
@@ -1529,7 +1757,7 @@ Ejemplo:
 
 Se imprimirá =Ninguna de las anteriores= porque ambas condiciones anteriores son falsas.
 
-**** case
+***** case
 La expresión =case= es similar a un "switch" en otros lenguajes de programación. Se utiliza para evaluar una expresión y compararla con una lista de posibles valores.
 
 #+BEGIN_SRC lisp
@@ -1550,14 +1778,14 @@ Ejemplo:
 
 Aquí se imprimirá =Cinco= porque la expresión evaluada es igual a 5.
 
-*** Referencias
+**** Referencias
 Para más información sobre las condicionales en Lisp, se recomienda revisar la documentación oficial o los siguientes recursos:
 - [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Conditionals.html][GNU Emacs Lisp Reference Manual - Condicionales]]
 
 
 
 
-**  Listas de Asociación en Lisp
+***  Listas de Asociación en Lisp
 Las **listas de asociación** en **Lisp** permiten asociar claves con
 valores. Cada clave está emparejada con un valor en una lista. A
 continuación, te muestro cómo crear, modificar, y acceder a estas
@@ -1580,7 +1808,7 @@ Esta lista tiene:
 
 **Operaciones básicas**
 
-*** 1. Acceder a un valor ***
+**** 1. Acceder a un valor ***
 Para obtener el valor asociado a una clave, se utiliza la función `assoc`:
 
 #+BEGIN_SRC lisp
@@ -1595,7 +1823,7 @@ Esto devolverá el par `(nombre . "Juan")`. Para obtener solo el valor, usa `cdr
 
 Resultado: `"Juan"`
 
-*** 2. Agregar un nuevo par clave-valor ***
+**** 2. Agregar un nuevo par clave-valor ***
 Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
 
 #+BEGIN_SRC lisp
@@ -1604,7 +1832,7 @@ Puedes agregar un nuevo par clave-valor al principio de la lista con `cons`:
 
 Ahora `mi-alist` incluirá `(pais . "España")`.
 
-*** 3. Modificar un valor existente ***
+**** 3. Modificar un valor existente ***
 Para modificar el valor de una clave existente, primero eliminas el par antiguo y luego agregas el nuevo:
 
 #+BEGIN_SRC lisp
@@ -1613,7 +1841,7 @@ Para modificar el valor de una clave existente, primero eliminas el par antiguo 
 
 Esto actualiza el valor de `edad` a `31`.
 
-*** 4. Eliminar un par clave-valor ***
+**** 4. Eliminar un par clave-valor ***
 Para eliminar un par clave-valor por su clave, usa `assq-delete-all`:
 
 #+BEGIN_SRC lisp
@@ -1648,16 +1876,16 @@ Esto elimina el par `(ciudad . "Madrid")` de la lista.
 #+END_SRC
 
 
-** Casi-Quoting en Lisp
+*** Casi-Quoting en Lisp
 
-*** Introducción
+**** Introducción
 El **casi-quoting** (*backquote*) es una herramienta poderosa en Lisp
 para crear listas que contienen tanto valores literales como valores
 evaluados. A diferencia de `quote`, que previene la evaluación
 completa de una lista, el **backquote** te permite evaluar partes
 específicas de la lista usando comas (`,`).
 
-*** 1. Operador `quote`
+**** 1. Operador `quote`
 El operador `quote` (`'`) en Lisp previene la evaluación de una expresión. Si citas una lista, ésta se trata como literal:
 
 #+BEGIN_SRC lisp
@@ -1670,7 +1898,7 @@ Resultado:
 (a b c)
 #+END_EXAMPLE
 
-*** 2. Operador `backquote`
+**** 2. Operador `backquote`
 El **backquote** (o *casi-quoting*) es similar a `quote`, pero permite que algunas partes de la lista sean evaluadas. El operador es el símbolo de acento grave (**`**):
 
 #+BEGIN_SRC lisp
@@ -1685,7 +1913,7 @@ Este código produce el mismo resultado que `quote`, es decir:
 
 La ventaja del `backquote` es que puedes usar comas (`,`) para evaluar partes específicas de la lista.
 
-*** 3. Evaluación con la coma (`,`)
+**** 3. Evaluación con la coma (`,`)
 Dentro de una lista creada con *backquote*, cualquier parte de la lista precedida por una coma (`,`) se evalúa, mientras que el resto permanece literal.
 
 #+BEGIN_SRC lisp
@@ -1701,7 +1929,7 @@ Resultado:
 
 Aquí, la variable `x` se evaluó y su valor, `10`, se insertó en la lista.
 
-*** 4. Expansión de listas con `,@`
+**** 4. Expansión de listas con `,@`
 Cuando necesitas insertar los elementos de una lista en lugar de la lista completa como un elemento único, puedes usar `,@` (coma seguido de arroba). Esto "expande" la lista y la inserta en la lista resultante.
 
 #+BEGIN_SRC lisp
@@ -1717,7 +1945,7 @@ Resultado:
 
 En este caso, los elementos de `lst` se expanden e insertan en la lista final.
 
-*** 5. Combinación de `backquote`, `,` y `,@`
+**** 5. Combinación de `backquote`, `,` y `,@`
 Puedes combinar `backquote`, `,` y `,@` para crear listas más complejas que mezclan datos literales y resultados evaluados.
 
 #+BEGIN_SRC lisp
@@ -1736,9 +1964,9 @@ En este ejemplo:
 - `,x` inserta el valor de `x`.
 - `,@lst` expande los elementos de `lst`.
 
-*** 6. Ejemplos adicionales
+**** 6. Ejemplos adicionales
 
-**** Ejemplo 1: Combinando literales y evaluaciones
+***** Ejemplo 1: Combinando literales y evaluaciones
 #+BEGIN_SRC lisp
 (setq a 5)
 (setq b 10)
@@ -1751,7 +1979,7 @@ Resultado:
 (suma 15 lista (1 2 7))
 #+END_EXAMPLE
 
-**** Ejemplo 2: Insertando múltiples listas
+***** Ejemplo 2: Insertando múltiples listas
 #+BEGIN_SRC lisp
 (setq l1 '(a b c))
 (setq l2 '(x y z))
@@ -1765,7 +1993,7 @@ Resultado:
 #+END_EXAMPLE
 
 
-*** 8. Ejemplo completo
+**** 8. Ejemplo completo
 
 #+BEGIN_SRC lisp
 (setq x 20)
@@ -1787,16 +2015,16 @@ Resultado:
 - **`,`**: Evalúa una expresión dentro de una lista con *backquote*.
 - **`,@`**: Expande el contenido de una lista dentro de otra lista.
 
-** mapcar en Lisp
+*** mapcar en Lisp
 
-*** Introducción
+**** Introducción
 La función `mapcar` en Lisp se utiliza para aplicar una función a cada
 elemento de una o más listas, devolviendo una nueva lista con los
 resultados de esas aplicaciones. Es una de las funciones más útiles
 para procesar listas en Lisp, ya que permite transformar listas de
 manera sencilla.
 
-*** Sintaxis básica de mapcar
+**** Sintaxis básica de mapcar
 La sintaxis básica de mapcar es la siguiente:
 
 #+BEGIN_SRC lisp
@@ -1806,9 +2034,9 @@ La sintaxis básica de mapcar es la siguiente:
 - **función**: Es una función que se aplicará a cada elemento de la lista.
 - **lista**: Es la lista a la que se aplicará la función.
 
-*** Ejemplos básicos
+**** Ejemplos básicos
 
-**** Ejemplo 1: Aplicando una función a una lista
+***** Ejemplo 1: Aplicando una función a una lista
 Vamos a aplicar la función 1+ (que suma 1) a cada elemento de una lista de números:
 
 #+BEGIN_SRC lisp
@@ -1823,7 +2051,7 @@ Resultado:
 
 Aquí, `mapcar` ha aplicado la función 1+ a cada número en la lista, incrementando cada uno en 1.
 
-**** Ejemplo 2: Usando una función lambda
+***** Ejemplo 2: Usando una función lambda
 También puedes usar funciones anónimas (lambda) con `mapcar`. En este ejemplo, multiplicamos cada número de una lista por 2:
 
 #+BEGIN_SRC lisp
@@ -1836,7 +2064,7 @@ Resultado:
 (2 4 6 8 10)
 #+END_EXAMPLE
 
-**** Ejemplo 3: Aplicando una función a varias listas
+***** Ejemplo 3: Aplicando una función a varias listas
 `mapcar` también puede operar sobre varias listas. La función debe tomar tantos argumentos como listas haya:
 
 #+BEGIN_SRC lisp
@@ -1851,9 +2079,9 @@ Resultado:
 
 Aquí, `mapcar` ha sumado los elementos correspondientes de las dos listas.
 
-*** Ejemplos 
+**** Ejemplos 
 
-**** Ejemplo 4: Filtrando listas con `mapcar`
+***** Ejemplo 4: Filtrando listas con `mapcar`
 Aunque `mapcar` no está diseñado específicamente para filtrar listas,
 podemos usarlo junto con una función condicional para obtener un
 efecto de filtrado. Por ejemplo, si queremos obtener solo los números
@@ -1871,7 +2099,7 @@ Resultado:
 
 Esto devolverá `nil` para los números impares y los números pares sin cambios.
 
-**** Ejemplo 5: Transformando listas de listas
+***** Ejemplo 5: Transformando listas de listas
 `mapcar` también es útil para trabajar con listas de listas. Por ejemplo, si queremos sumar los elementos de sublistas:
 
 #+BEGIN_SRC lisp
@@ -1886,7 +2114,7 @@ Resultado:
 
 Aquí, hemos sumado los elementos de cada sublista.
 
-**** Ejemplo 6: Trabajando con cadenas de texto
+***** Ejemplo 6: Trabajando con cadenas de texto
 `mapcar` no está limitado solo a números. También puede aplicarse a listas de caracteres o cadenas de texto:
 
 #+BEGIN_SRC lisp
@@ -1921,14 +2149,14 @@ Este ejemplo convierte cada letra en mayúscula.
 #+END_SRC
 
 
-** Comparaciones en Lisp
+*** Comparaciones en Lisp
 
 En **Lisp**, las funciones de comparación se utilizan para comparar
 diferentes tipos de objetos: números, cadenas, símbolos, listas,
 etc. Dependiendo del tipo de dato que estés comparando, es importante
 usar la función adecuada.
 
-*** 1. *eq*
+**** 1. *eq*
 La función *eq* es la forma más básica de comparación en Lisp. Compara si dos objetos son **idénticos** (el mismo objeto en memoria). Generalmente se usa para comparar símbolos.
 
 #+BEGIN_SRC lisp
@@ -1941,7 +2169,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 - **Mejor uso**: Comparación de símbolos.
 - **Advertencia**: No usar para comparar números o cadenas de texto, ya que puede devolver resultados inesperados.
 
-*** 2. *eql*
+**** 2. *eql*
 *eql* es más general que *eq*. Se comporta igual que *eq* para símbolos, pero también maneja correctamente la comparación de números y caracteres.
 
 #+BEGIN_SRC lisp
@@ -1954,7 +2182,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparación de símbolos, números, y caracteres.
 
-*** 3. *equal*
+**** 3. *equal*
 *equal* compara el contenido de dos objetos de forma más flexible. Es capaz de comparar listas, números, símbolos, y cadenas de texto, pero no distingue entre mayúsculas y minúsculas en cadenas.
 
 #+BEGIN_SRC lisp
@@ -1967,7 +2195,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparación de listas, cadenas, símbolos, y números.
 
-*** 4. *equalp*
+**** 4. *equalp*
 *equalp* es similar a *equal*, pero es más "tolerante". Ignora las diferencias entre mayúsculas y minúsculas en cadenas, y compara enteros y flotantes de manera flexible.
 
 #+BEGIN_SRC lisp
@@ -1979,7 +2207,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparación de listas, números, caracteres y cadenas ignorando las diferencias menores.
 
-*** 5. *=*
+**** 5. *=*
 *=* se usa exclusivamente para comparar **números**. Compara números enteros y flotantes, asegurándose de que sus valores sean los mismos.
 
 #+BEGIN_SRC lisp
@@ -1991,7 +2219,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparación de números.
 
-*** 6. */=*
+**** 6. */=*
 */=* compara si dos números **no** son iguales.
 
 #+BEGIN_SRC lisp
@@ -2001,7 +2229,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Verificar que dos números no sean iguales.
 
-*** 7. *string=*
+**** 7. *string=*
 *string=* se utiliza para comparar cadenas de texto de manera exacta, respetando las diferencias entre mayúsculas y minúsculas.
 
 #+BEGIN_SRC lisp
@@ -2011,7 +2239,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparar cadenas de texto exactamente, respetando mayúsculas y minúsculas.
 
-*** 8. *string-equal*
+**** 8. *string-equal*
 *string-equal* es similar a *string=*, pero ignora las diferencias entre mayúsculas y minúsculas.
 
 #+BEGIN_SRC lisp
@@ -2020,7 +2248,7 @@ La función *eq* es la forma más básica de comparación en Lisp. Compara si do
 
 - **Mejor uso**: Comparar cadenas de texto sin importar las mayúsculas y minúsculas.
 
-*** 9. *char=* y *char-equal*
+**** 9. *char=* y *char-equal*
 Estas funciones comparan caracteres individuales. *char=* compara caracteres de manera exacta, mientras que *char-equal* ignora las diferencias entre mayúsculas y minúsculas.
 
 #+BEGIN_SRC lisp
@@ -2031,7 +2259,7 @@ Estas funciones comparan caracteres individuales. *char=* compara caracteres de 
 
 - **Mejor uso**: Comparar caracteres individuales.
 
-*** Resumen
+**** Resumen
 | Función        | Propósito                               | Caso de uso                                          |
 | -------------- | --------------------------------------- | --------------------------------------------------- |
 | *eq*           | Comparar si dos símbolos son idénticos  | Comparación de símbolos                             |
@@ -2045,7 +2273,7 @@ Estas funciones comparan caracteres individuales. *char=* compara caracteres de 
 | *char=*        | Comparar caracteres exactamente         | Comparar caracteres individuales                    |
 | *char-equal*   | Comparar caracteres, ignorando mayúsculas | Comparación flexible de caracteres                  |
 
-*** Ejemplo completo
+**** Ejemplo completo
 
 #+BEGIN_SRC lisp
 ;; Comparación de símbolos
@@ -2076,9 +2304,9 @@ Estas funciones comparan caracteres individuales. *char=* compara caracteres de 
 #+END_SRC
 
 
-** Funciones lambda en Lisp
+*** Funciones lambda en Lisp
 
-*** Introducción
+**** Introducción
 En **Lisp**, las **funciones lambda** son funciones anónimas que
 puedes definir sin necesidad de darles un nombre. Son útiles cuando
 necesitas una función pequeña y no quieres definirla por
@@ -2086,7 +2314,7 @@ separado. Estas funciones pueden ser pasadas como argumentos a otras
 funciones, utilizadas en listas de procesamiento, o empleadas en
 lugares donde una función completa sería innecesaria.
 
-*** Definición básica de una función lambda
+**** Definición básica de una función lambda
 La sintaxis básica de una función lambda es la siguiente:
 
 #+BEGIN_SRC lisp
@@ -2104,9 +2332,9 @@ Ejemplo básico:
 
 Esta es una función lambda que toma un número `x` y devuelve `x` multiplicado por 2.
 
-*** Ejemplos de uso de lambdas
+**** Ejemplos de uso de lambdas
 
-**** Ejemplo 1: Usando lambdas con `mapcar`
+***** Ejemplo 1: Usando lambdas con `mapcar`
 Puedes usar una función lambda directamente en llamadas a funciones como `mapcar`, donde necesitas aplicar una operación a cada elemento de una lista. 
 
 #+BEGIN_SRC lisp
@@ -2121,7 +2349,7 @@ Resultado:
 
 En este caso, la función lambda toma cada elemento de la lista `(1 2 3 4 5)` y lo multiplica por 2.
 
-**** Ejemplo 2: Usando lambdas con `reduce`
+***** Ejemplo 2: Usando lambdas con `reduce`
 También puedes usar lambdas en combinación con otras funciones de orden superior como `reduce`. Por ejemplo, para sumar todos los elementos de una lista:
 
 #+BEGIN_SRC lisp
@@ -2136,7 +2364,7 @@ Resultado:
 
 Aquí, la lambda toma dos elementos, los suma, y luego pasa el resultado para la siguiente suma.
 
-**** Ejemplo 3: Lambdas dentro de una función
+***** Ejemplo 3: Lambdas dentro de una función
 Las funciones lambda también pueden ser utilizadas dentro de otras funciones para definir comportamientos específicos:
 
 #+BEGIN_SRC lisp
@@ -2154,10 +2382,10 @@ Resultado:
 
 Aquí, la función `aplicar-operacion` toma una lambda que eleva cada número al cuadrado y la aplica a la lista.
 
-*** Ámbito de las lambdas
+**** Ámbito de las lambdas
 Las lambdas pueden acceder a variables que están en su entorno de definición. Esto es conocido como **alcance léxico**.
 
-**** Ejemplo 4: Usando una variable externa en una lambda
+***** Ejemplo 4: Usando una variable externa en una lambda
 #+BEGIN_SRC lisp
 (let ((factor 3))
   (mapcar (lambda (x) (* x factor)) '(1 2 3 4 5)))
@@ -2171,10 +2399,10 @@ Resultado:
 
 En este caso, la variable `factor` está definida en el entorno léxico donde se declara la lambda, y la lambda puede acceder a ella.
 
-*** Lambdas como valores de retorno
+**** Lambdas como valores de retorno
 Las funciones lambda también pueden ser retornadas desde otras funciones, lo que permite construir funciones dinámicamente.
 
-**** Ejemplo 5: Retornar una lambda desde una función
+***** Ejemplo 5: Retornar una lambda desde una función
 #+BEGIN_SRC lisp
 (defun multiplicador (n)
   (lambda (x) (* x n)))
@@ -2191,14 +2419,14 @@ Resultado:
 
 Aquí, la función `multiplicador` devuelve una lambda que multiplica por `n`. En el ejemplo, `duplicar` es una función que multiplica por 2, y al llamar `funcall` con `duplicar` y `10`, obtenemos `20`.
 
-*** Usos comunes de lambdas
+**** Usos comunes de lambdas
 Las funciones lambda son extremadamente útiles en situaciones donde necesitas funciones temporales o pequeñas que no ameritan una definición completa. Algunas aplicaciones comunes son:
 
 - En procesamiento de listas (`mapcar`, `reduce`, etc.).
 - Para definir funciones rápidas que solo se usan en una parte del código.
 - Para generar funciones dinámicamente, como vimos en el ejemplo de `multiplicador`.
 
-*** Ejemplos
+**** Ejemplos
 
 #+BEGIN_SRC lisp
 ;; Usando lambda con mapcar para elevar números al cubo
@@ -2221,7 +2449,11 @@ Las funciones lambda son extremadamente útiles en situaciones donde necesitas f
 (funcall triplicar 10)
 #+END_SRC
 
-* Prolog
+* 3. Programación lógica
+
+El paso de Lisp a Prolog cambia la pregunta que se formula al programa. En Lisp se pregunta qué valor denota una expresión. En Prolog se pregunta bajo qué sustitución una meta es consecuencia de una teoría.
+
+La regla es el puente con la lógica de predicados. «Si X es padre de Y, entonces Y es hijo de X» no es una instrucción condicional de C: es una implicación que el intérprete utiliza, de la cabeza hacia el cuerpo, para demostrar metas.
 
 Una regla sirve para representar conocimiento que en lenguaje natural
  se expresa mediante una sentencia condicional. Por ejemplo, si en
@@ -2305,8 +2537,30 @@ corresponde la sentencia ( A x)((pol(x) ==>men(x)) /\ pol(x)
 interpretación de los predicados y cualquier asignación de x).
 
 
-** Lógica de primer orden 
+** Lógica de primer orden
 
+La lógica de primer orden (LPO) es el idioma en el que se escriben las cláusulas *antes* de Prolog. Un programa lógico *es* un conjunto de fórmulas (restringidas a Horn). Conviene poder leerlas en el pizarrón y después ver la misma idea en =hijo(Y,X) :- padre(X,Y).=
+
+*** Alfabeto
+- *Constantes*: objetos del dominio. =Tierra=, =juan=, =0=.
+- *Variables*: =x=, =Y=. En Prolog las variables empiezan en mayúscula.
+- *Funciones*: construyen objetos (=madre_de(juan)=). En Prolog un functor con argumentos *no evaluados* es un término, no una llamada.
+- *Predicados*: propiedades y relaciones. =Planeta/1=, =padre/2=, =GiraAlrededor/2=. El número de argumentos es la *aridad*.
+
+*** Conectivas y cuantificadores
+| En español | LPO | En Prolog (Horn) |
+| y | ∧ | coma =,= en el cuerpo |
+| o | ∨ | otra cláusula (otra fila) |
+| no | ¬ | =not/1= o =\+/1= (negación por fallo: no es la ¬ clásica) |
+| si… entonces… | → | =cabeza :- cuerpo=  (el =:-= se lee «si») |
+| para todo | ∀x | variables libres en la cláusula (implícitas) |
+| existe | ∃x | una variable que el motor *liga* al demostrar |
+
+*Interpretación*: elegir un dominio y decir qué denota cada símbolo. =Planeta(Tierra)= es verdadera en el sistema solar real y falsa si el dominio son números. Una *sentencia válida* es verdadera en *toda* interpretación (el modus ponens que aparece un poco más abajo).
+
+*Átomo* (en LPO): predicado aplicado a términos, =padre(juan, luis)=. *Literal*: átomo o su negación. Las cláusulas de Horn limitan cuántos literales positivos puede haber (eso viene en 3.3).
+
+Los quince enunciados siguientes son práctica de formalización: constantes, predicados, ¬, →, ∀, ∃ y el truco de «hay un único…» (=∃x (P(x) ∧ ∀y (P(y) → x=y))=). Después se usa la misma mano para escribir Horn y para unificar.
 
 *** 1. La Tierra es un planeta.
    - **Enunciado**: "La Tierra es un planeta."
@@ -2446,11 +2700,224 @@ interpretación de los predicados y cualquier asignación de x).
      condición. La **conjunción** asegura que existe un solo perro ~x~ que
      se muerde a sí mismo y que ningún otro perro lo hace.
 
+** Unificación y resolución
 
+Dos términos *unifican* si existe una *sustitución* (ligaduras variable ↦ término) que los deja idénticos. Esa sustitución más general se llama *mgu* (most general unifier). No es «asignar» como en C: =X= no se pisa; se *liga* una vez.
 
+Ejemplos a mano, los mismos que después se corren en Prolog:
 
+| t1 | t2 | ¿Unifican? | mgu |
+| juan | juan | sí | vacía |
+| X | luis | sí | {X/luis} |
+| padre(juan, X) | padre(juan, luis) | sí | {X/luis} |
+| padre(juan, luis) | padre(maria, Y) | no | — |
+| [H\|T] | [1,2,3] | sí | {H/1, T/[2,3]} |
+| f(X,X) | f(1,2) | no | — (X no puede ser 1 y 2) |
 
-** Hechos, Átomos y Reglas
+*Ocurre-check*: =X= y =f(X)= no deberían unificar (X ocurriría dentro de su propio valor). Prolog estándar a menudo *omite* esa comprobación por velocidad; entonces =X = f(X)= puede construir un término infinito.
+
+La *resolución* es la regla de inferencia del cálculo de cláusulas. De dos cláusulas que contienen literales complementarios se obtiene una tercera:
+
+- De =P ∨ A= y =¬P ∨ B= se deduce =A ∨ B= (se «corta» P).
+- El modus ponens es el caso =P= y =P → Q= ⇒ =Q=, que en Horn es exactamente: hecho =pol(socrates)= más regla =men(X) :- pol(X)= ⇒ =men(socrates)=.
+
+En el texto de más arriba, =men(x) :- pol(x)= es (∀x)(pol(x) → men(x)). Resolver esa regla con =pol(socrates)= es *unificar* =pol(X)= con =pol(socrates)= (mgu {X/socrates}) y continuar con la cabeza =men(socrates)=.
+
+La resolución *genérica* explota en combinaciones. Prolog no prueba cláusulas arbitrarias: solo *Horn definidas*, y siempre resuelve contra la meta actual. Eso es SLD.
+
+** Cláusulas de Horn y resolución SLD
+
+Una cláusula de Horn tiene *a lo sumo un literal positivo*:
+
+1. *Hecho* (Horn unitaria): =padre(juan, luis).=  ≡  padre(juan, luis)
+2. *Regla* (Horn definida): =hijo(Y,X) :- padre(X,Y).=  ≡  hijo(Y,X) ∨ ¬padre(X,Y)
+3. *Meta* (Horn negativa): =?- hijo(jaime, Q).=  ≡  ¬hijo(jaime, Q)  (se busca un contraejemplo: una ligadura que la haga falsa, o sea que pruebe la meta)
+
+No hay =A ∨ B= como cabeza. El «o» se escribe con *otra cláusula*:
+
+#+BEGIN_SRC prolog
+abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+abuelo(X,Y) :- padre(X,Z), madre(Z,Y).
+#+END_SRC
+
+*SLD* (Selected Linear Definite):
+
+- *Linear*: siempre se resuelve la *meta actual* con una cláusula del programa.
+- *Definite*: solo cláusulas definidas (un literal positivo).
+- *Selected*: se elige *qué* literal de la meta se resuelve. Prolog elige el *más a la izquierda*. Las cláusulas se prueban *de arriba abajo*.
+
+Árbol SLD para el parentesco de estos apuntes:
+
+#+BEGIN_SRC prolog
+padre(juan, luis).
+padre(luis, jaime).
+hijo(Y,X) :- padre(X,Y).
+abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+#+END_SRC
+
+Consulta =?- abuelo(juan, W).=
+
+#+BEGIN_SRC text
+                    ?- abuelo(juan, W).
+                           |
+              unifica con abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+              {X/juan, Y/W}
+                           |
+                    ?- padre(juan, Z), padre(Z, W).
+                           |
+              primer literal: padre(juan, Z)
+              única cláusula: padre(juan, luis)  →  {Z/luis}
+                           |
+                    ?- padre(luis, W).
+                           |
+              padre(luis, jaime)  →  {W/jaime}
+                           |
+                         □ éxito
+                    W = jaime
+#+END_SRC
+
+Si =padre(juan, Z)= tuviera *dos* hechos, el árbol se *bifurcaría*. El fracaso de una rama no borra las otras: eso es *backtracking* (unidad 4). El corte =!= poda ramas a propósito.
+
+Orden que *no* termina: poner la recursión *antes* del hecho, o un predicado que se llama a sí mismo a la izquierda sin achicar el término (=p(X) :- p(X).=). SLD es completo para Horn *en teoría* (si se exploran todas las ramas); el Prolog real es *profundidad primero*, así que un bucle a la izquierda puede ocultar una solución que sí existía a la derecha.
+
+** Programación lógica con cláusulas de Horn
+
+Programar es *escribir la teoría* y *preguntar*, no orquestar el =if=. Receta:
+
+1. Hechos por extensión (lo que se sabe de cajón).
+2. Reglas por intensión (lo que se *define* a partir de lo anterior).
+3. Consultas: ¿existe? ¿quién? ¿cuántos?
+
+#+BEGIN_SRC prolog
+hombre(juan).
+hombre(luis).
+hombre(jaime).
+padre(juan, luis).
+padre(luis, jaime).
+
+hijo(Y, X) :- padre(X, Y).
+nieto(N, A) :- padre(A, P), padre(P, N).
+mortal(X) :- hombre(X).
+#+END_SRC
+
+#+BEGIN_SRC prolog
+?- hijo(luis, juan).     % yes
+?- nieto(jaime, Abuelo). % Abuelo = juan
+?- mortal(X).            % X = juan ; X = luis ; X = jaime
+#+END_SRC
+
+Cada =;= pide la *siguiente rama* del árbol SLD. Eso ya es el modelo de la unidad 4: la misma lógica, con listas, corte y términos como datos.
+
+Un error clásico al «traducir» de C: meter =is= demasiado pronto o usar =not= como si fuera ¬ matemática. =not(miembro(X, L))= con =X= libre no significa «existe un X que no está»: significa «no pude demostrar miembro», y a menudo liga mal. En Horn puro se prefiere definir el complemento con cláusulas, no con =not=.
+
+* 4. Modelo de programación lógica
+
+Lisp evalúa expresiones; Prolog demuestra metas. El modelo de esta unidad es el de un intérprete que, dada una base de cláusulas y una consulta, construye y recorre un árbol SLD. Las listas, el corte, la inspección de términos y los predicados de control son mecanismos sobre ese mismo motor, no un lenguaje distinto.
+
+** Introducción al modelo
+
+Un programa lógico es un conjunto de cláusulas. No hay =main=. El usuario *consulta*. El intérprete:
+
+1. Toma la meta (el query).
+2. Busca una cláusula cuya cabeza unifique.
+3. Sustituye la meta por el cuerpo (nuevas metas).
+4. Si la lista de metas queda vacía: éxito y *sustitución*.
+5. Si no hay cláusula: fracaso; si hay otro punto de elección: backtracking.
+
+Eso es exactamente SLD, ahora visto como *máquina*. Mercury o Datalog cambian la estrategia (tipos, evaluación bottom-up); Prolog es profundidad-primero, izquierda a derecha, con corte.
+
+Comparar de nuevo el factorial. En Lisp la pila de =(* x (factorial n-1))= *es* el control. En Prolog la pila de metas =N1 is N-1, factorial(N1,F1), F is N*F1= *es* el mismo control, pero cada =factorial(N1,F1)= puede *en teoría* tener más de una solución (aquí no las tiene). El modelo lógico se nota cuando el predicado *sí* es no determinista: =hijo/2=, =append/3=, =permutacion/2=.
+
+** Semántica de los programas lógicos
+
+Las mismas cláusulas se leen de tres maneras.
+
+*Declarativa* (qué es verdad). El *universo de Herbrand* son todos los términos que se pueden escribir con los símbolos del programa. Con =juan, luis, padre/2= aparecen =juan=, =luis=, =padre(juan,juan)=, =padre(juan,luis)=, … El *modelo mínimo* es el conjunto más chico de átomos que hace verdaderas todas las cláusulas. =padre(juan, luis)= está; =padre(luis, juan)= no, porque nadie lo afirmó ni se sigue de una regla.
+
+*Procedimental* (cómo busca Prolog). Arriba hacia abajo, izquierda a derecha, profundidad primero. El orden de las cláusulas *cambia las respuestas y la terminación* aunque el modelo mínimo sea el mismo:
+
+#+BEGIN_SRC prolog
+%% Esto tiene modelo {p}, pero la consulta ?- p. no termina:
+p :- p.
+p.
+
+%% Esto responde yes y, si se pide más, se cuelga:
+p.
+p :- p.
+#+END_SRC
+
+*Operacional*: unificación + pila de metas + puntos de elección + corte. El corte *no* tiene lectura declarativa limpia: cambia el árbol, no la teoría.
+
+Cuando un predicado se puede leer igual al derecho (qué significa) y al revés (cómo se calcula), está bien escrito. =append/3= es el ejemplo de oro: concatena *o* parte una lista, según qué argumentos vengan libres. Eso aparece otra vez en predicados mitológicos.
+
+** Consulta de una base de cláusulas
+
+La consulta es una meta Horn. Formas útiles:
+
+#+BEGIN_SRC prolog
+?- padre(juan, luis).     % cerrado: sí / no
+?- padre(juan, Hijo).     % una variable: ligaduras, ; para la siguiente
+?- padre(P, H), hijo(H, P). % conjunción: varias metas
+?- factorial(4, F).       % F = 24
+#+END_SRC
+
+=fail= fuerza el fracaso (útil con corte: «haz esto y luego falla para probar lo demás»). =true= / =repeat= son el otro extremo.
+
+Para *juntar* todas las respuestas en una lista (paso hacia el estilo funcional):
+
+#+BEGIN_SRC prolog
+?- findall(H, padre(juan, H), Hijos).
+?- bagof(H, padre(P, H), Hijos).   % agrupa por las variables libres (aquí P)
+#+END_SRC
+
+=findall= ignora si no hay soluciones (=[]=). =bagof= falla si no hay. ELIZA y el sistema experto consultan así la base: no recorren un arreglo, *preguntan*.
+
+** Espacios de búsqueda
+
+El espacio no es un =for=: es el árbol SLD. Cada nodo es la lista de metas pendientes. Cada arista es «usé esta cláusula». El backtracking es «esta rama murió; vuelvo al último punto de elección».
+
+=miembro/2= de las listas (más abajo) con =?- miembro(X, [a,b]).=:
+
+#+BEGIN_SRC text
+?- miembro(X, [a,b]).
+        |
+   cláusula 1: miembro(X, [X|_])     cláusula 2: miembro(X,[_|T]) :- miembro(X,T).
+   X = a  éxito                      T = [b]
+                                          |
+                                    miembro(X, [b])
+                                          |
+                                    X = b  éxito
+#+END_SRC
+
+Dos soluciones, dos ramas. Si se pone un =!= después de la primera cláusula de =miembro=, la segunda rama *desaparece*: =X= solo será =a=. Eso es controlar el espacio (sección del corte).
+
+Un espacio *infinito* aparece con recursión a la izquierda o con =repeat=. Un espacio *explosivo* aparece con =permutacion= (mitológicos): n! ramas. Programar bien es *ordenar* cláusulas y literales para que las ramas inútiles mueran pronto (primero los tests =N > 0=, después la recursión).
+
+** Manipulación de términos
+
+Los datos de Prolog *son* términos. Inspeccionarlos y armarlos es el equivalente a =car= / =cdr= / =cons=, pero para cualquier functor, no solo listas.
+
+#+BEGIN_SRC prolog
+?- functor(padre(juan, luis), F, N).
+F = padre, N = 2.
+
+?- arg(2, padre(juan, luis), A).
+A = luis.
+
+?- padre(juan, luis) =.. L.
+L = [padre, juan, luis].
+
+?- T =.. [hijo, jaime, juan].
+T = hijo(jaime, juan).
+
+?- var(X), nonvar(juan), atom(juan), compound(padre(a,b)).
+#+END_SRC
+
+==../2= (=univ=) es el que usa un meta-intérprete o ELIZA: la frase se vuelve lista de átomos, se compara con una plantilla, y se *reconstruye* un término o una respuesta. =call/1= ejecuta un término como meta: por eso =maplist(cuadrado, L, R)= puede recibir el *nombre* del predicado.
+
+=copy_term/2= copia un término con variables frescas. =numbervars/3= las pinta para imprimir. Nada de esto cambia la semántica declarativa de =padre/2=; es *reflexión* sobre la sintaxis, igual que =quote= en Lisp.
+
+** Representación clausada: hechos, átomos y reglas
 
 En Prolog, los programas se construyen mediante **hechos**, **átomos** y
 **reglas**. Estos elementos son la base de la programación lógica en
@@ -2763,9 +3230,8 @@ La unificación en Prolog es el proceso de hacer iguales dos términos,
 enlazando variables con valores específicos cuando es posible. Este
 proceso es fundamental para las consultas y reglas, permitiendo que
 Prolog resuelva problemas y encuentre soluciones.
-	
 
-** Corte 
+** 4.7 Control de búsqueda: el corte
 
 El corte es un predicado predefinido que no recibe argumentos. Se
 representa mediante un signo de admiración (!). Sin duda, es el
@@ -2788,7 +3254,8 @@ fallo del objetivo.
 
 
 Para entender de manera simple el uso del corte vamos a comparar dos
-predicados que solamente se diferencian en un corte:
+predicados que solamente se diferencian en un corte (archivo =ejcorte.pl= de
+estos apuntes):
 
 
 #+BEGIN_SRC prolog
@@ -3050,7 +3517,11 @@ Resultado final: fibonacci(4,3).
 
 
    
-** Listas en Prolog
+** Números, listas y árboles
+
+Los tres se construyen con el mismo motor. Los *números* se calculan con =is/2= y se comparan con =>=, =<=, =:= y =\= (después de estar instanciados). Las *listas* son el término especial =[H|T]= (azúcar de =.(H,T)=). Los *árboles* son términos con el functor que uno elija: no hay tipo =tree=, igual que en Lisp no hay tipo árbol aparte de la lista.
+
+El factorial y Fibonacci (junto al corte, un poco más arriba) son el caso numérico. =concatenar=, =miembro= e =invertir= son el caso lista. Al final de las listas está el árbol binario, con el mismo patrón recursivo.
 
 *** 1. Definición y construcción de listas
    En Prolog, una lista se representa como una secuencia de elementos
@@ -3217,6 +3688,46 @@ Ejemplo de uso:
     ?- sublista([2, 3], [1, 2, 3, 4]).
     true.
     #+end_src
+
+*** Árboles
+
+Una lista es un árbol degenerado (cada nodo un hijo: la cola). Un árbol de verdad usa un functor con varios subtérminos. Convención: =nil= es el vacío; =arbol(Izq, Valor, Der)= es un nodo.
+
+#+begin_src prolog
+%%           2
+%%          / \
+%%         1   3
+ejemplo(arbol(arbol(nil, 1, nil), 2, arbol(nil, 3, nil))).
+
+inorden(nil, []).
+inorden(arbol(I, V, D), L) :-
+    inorden(I, LI),
+    inorden(D, LD),
+    append(LI, [V|LD], L).
+
+%% ?- ejemplo(A), inorden(A, L).
+%% L = [1, 2, 3].
+#+end_src
+
+Pertenencia: misma idea que =miembro=, pero hay que decidir *en qué hijo* seguir. Si el árbol está *ordenado* (BST), se poda una rama —eso es espacio de búsqueda más chico, no un =if= de C:
+
+#+begin_src prolog
+en_arbol(X, arbol(_, X, _)).
+en_arbol(X, arbol(I, V, _)) :- X < V, en_arbol(X, I).
+en_arbol(X, arbol(_, V, D)) :- X > V, en_arbol(X, D).
+#+end_src
+
+Un árbol n-ario (sistema experto, taxonomía) es =nodo(Nombre, Hijos)= con =Hijos= una *lista* de árboles: se mezclan las dos estructuras de esta sección.
+
+#+begin_src prolog
+%% vivo - animal - perro
+%%              - gato
+%%      - planta
+en_nario(X, nodo(X, _)).
+en_nario(X, nodo(_, Hijos)) :- member(H, Hijos), en_nario(X, H).
+#+end_src
+
+Eso es el mismo recorrido que ELIZA hace sobre plantillas: término compuesto + lista de subtérminos. =functor= y ==../2= (arriba) sirven para no hardcodear el nombre =arbol= o =nodo=.
 
 *** 4. Ejemplos adicionales y casos de uso
 
@@ -3432,16 +3943,9 @@ verificará la existencia de la relación.
 
 
 
-** Predicados Mitológicos en Programación Lógica
+** Predicados mitológicos
 
-*** Introducción
-En programación lógica, los predicados mitológicos son aquellos que
-destacan por su utilidad, flexibilidad y elegancia en la solución de
-problemas comunes o complejos. Estos predicados pueden resolver
-múltiples casos con reglas generales, lo que les otorga un carácter
-"mágico". Su uso es común en lenguajes como Prolog.
-
-*** Ejemplos Detallados de Predicados Mitológicos
+No son mitología griega: son predicados *tan generales* que parecen hacer magia porque la misma definición sirve para varios modos (concatenar o partir, insertar o enumerar posiciones). Casi todos se escriben con dos cláusulas Horn —hecho + paso recursivo— y el árbol SLD se encarga del resto. =append/3=, =maplist/3= y =permutacion/2= son el puente con =mapcar= y las listas de Lisp: misma idea, otro motor.
 **** 1. maplist
 El predicado *maplist* aplica un predicado a cada elemento de una lista
 y genera una lista transformada.
@@ -3787,7 +4291,10 @@ Prolog para resolver problemas complejos de manera declarativa.
 
 
 
-* Proyecto
+* Prácticas, evaluaciones y anexos
+Esta parte reúne ELIZA, el sistema experto médico, acertijos y exámenes. ELIZA exige manipulación de términos y de listas; el sistema experto, la construcción de una base de conocimiento en Prolog.
+
+** Proyecto
 
 ELIZA es uno de los primeros programas de inteligencia artificial,
 desarrollado por Joseph Weizenbaum en el Instituto Tecnológico de
@@ -3813,7 +4320,7 @@ contextual. Por lo tanto, sus respuestas pueden parecer desconectadas
 en conversaciones más largas o complejas.
 
 
-** Actividad
+*** Actividad
 
 Dado el texto anterior, utilizar los archivos de Dropbox eliza.pl y
 eliza2.pl y extender la funcionalidad de *Eliza*, agregando lo visto en
@@ -3853,8 +4360,8 @@ Generar los hechos necesarios para resolver el problema.
 
 
 
-* Examen final
-** Problema 1: Los guardianes de los templos
+** Examen final
+*** Problema 1: Los guardianes de los templos
 Cuatro guardianes (Apolo, Hécate, Ares y Hermes) custodian templos
 mitológicos asociados con diferentes elementos (fuego, agua, tierra y
 aire). Sabemos que:
@@ -3863,7 +4370,7 @@ aire). Sabemos que:
 - Ares no cuida el templo de agua ni de aire.
 - Hermes cuida el templo de fuego o de agua.
 Pregunta: ¿Qué templo cuida cada guardián?
-** Problemas 2: Las armas de los héroes Cuatro héroes mitológicos    
+*** Problemas 2: Las armas de los héroes Cuatro héroes mitológicos    
  Las armas de los héroes Cuatro héroes mitológicos (Aquiles, Perseo,
  Hércules y Teseo) poseen armas únicas (espada, lanza, arco y
  escudo). Sabemos que:
@@ -3871,7 +4378,7 @@ Aquiles no usa el escudo ni el arco.
 Perseo no usa la espada.
 Hércules no usa la lanza ni el escudo.
 Teseo usa el arco o el escudo. Pregunta: ¿Qué arma pertenece a cada héroe?
-** Problema 3: Las gemas de los titanes Cuatro titanes
+*** Problema 3: Las gemas de los titanes Cuatro titanes
 (Cronos, Océano, Hiperión y Japeto) tienen cada uno una gema (zafiro,
 rubí, esmeralda y diamante). Sabemos que:
 Cronos no tiene el zafiro ni el diamante.
@@ -3881,9 +4388,9 @@ Japeto tiene el diamante o la esmeralda. Pregunta: ¿Qué gema tiene cada titán
 
 
 
-* Respuestas Ejercicios
+** Respuestas Ejercicios
 
-** Problema 1: Los guardianes de los templos
+*** Problema 1: Los guardianes de los templos
 #+BEGIN_SRC prolog
 % Guardianes y sus templos
 templo(aire).
@@ -3908,7 +4415,7 @@ no_cuida(ares, agua, aire)
     cuida(X,_):-
 #+END_SRC
 
-*** Prueba de escritorio (Unificación paso a paso)
+**** Prueba de escritorio (Unificación paso a paso)
 1. Prolog busca en la base de hechos:
    - templo(apolo, aire). → *Guardián = apolo*, *Templo = aire* 
    - templo(hecate, tierra). → *Guardián = hecate*, *Templo = tierra* 
@@ -3925,7 +4432,7 @@ no_cuida(ares, agua, aire)
 
 ---
 
-** Problema 2: Las armas de los héroes
+*** Problema 2: Las armas de los héroes
 #+BEGIN_SRC prolog
 % Héroes y sus armas
 arma(aquiles, lanza).
@@ -3937,7 +4444,7 @@ arma(teseo, arco).
 % ?- arma(Héroe, Arma).
 #+END_SRC
 
-*** Prueba de escritorio (Unificación paso a paso)
+**** Prueba de escritorio (Unificación paso a paso)
 1. Prolog busca en la base de hechos:
    - arma(aquiles, lanza). → *Héroe = aquiles*, *Arma = lanza* 
    - arma(perseo, escudo). → *Héroe = perseo*, *Arma = escudo* 
@@ -3954,7 +4461,7 @@ arma(teseo, arco).
 
 ---
 
-** Problema 3: Las gemas de los titanes
+*** Problema 3: Las gemas de los titanes
 #+BEGIN_SRC prolog
 % Titanes y sus gemas
 gema(cronos, rubi).
@@ -3966,7 +4473,7 @@ gema(japeto, diamante).
 % ?- gema(X Titan, Y  Gema).
 #+END_SRC
 
-*** Prueba de escritorio (Unificación paso a paso)
+**** Prueba de escritorio (Unificación paso a paso)
 1. Prolog busca en la base de hechos:
    - gema(cronos, rubi). → *Titán = cronos*, *Gema = rubi* 
    - gema(oceano, zafiro). → *Titán = oceano*, *Gema = zafiro* 
@@ -3983,7 +4490,7 @@ gema(japeto, diamante).
 
 
 
-*** Tabla resumen de la solución
+**** Tabla resumen de la solución
 | Guardianes | Templo | Héroes   | Arma   | Titanes  | Gema      |
 |------------+--------+----------+--------+----------+-----------|
 | Apolo      | Aire   | Aquiles  | Lanza  | Cronos   | Rubí      |
@@ -3995,61 +4502,61 @@ gema(japeto, diamante).
 
 
 
-* Ejercicios
+** Ejercicios
 
-* Ejercicios de Lisp: car, cdr y condicionales
+** Ejercicios de Lisp: car, cdr y condicionales
 Estos ejercicios están diseñados para practicar el uso de `car`, `cdr`
 y condicionales en Common Lisp.
 
-** Ejercicio 1: Primer elemento de una lista
+*** Ejercicio 1: Primer elemento de una lista
    Implementa una función que devuelva el primer elemento de una lista dada.
 
 
-** Ejercicio 2: Segundo elemento de una lista
+*** Ejercicio 2: Segundo elemento de una lista
    Escribe una función que devuelva el segundo elemento de una lista.
    
 #+END_SRC
 
-** Ejercicio 3: Último elemento de una lista
+*** Ejercicio 3: Último elemento de una lista
    Escribe una función que devuelva el último elemento de una lista.
 
 
-** Ejercicio 4: Longitud de una lista
+*** Ejercicio 4: Longitud de una lista
    Implementa una función que calcule la cantidad de elementos en una lista.
 
 
-** Ejercicio 5: Suma de una lista de números
+*** Ejercicio 5: Suma de una lista de números
    Crea una función que sume todos los elementos de una lista de números.
 
 
-** Ejercicio 6: Verificar si un elemento está en una lista
+*** Ejercicio 6: Verificar si un elemento está en una lista
    Escribe una función que determine si un elemento está en una lista.
 
-** Ejercicio 7: Invertir una lista
+*** Ejercicio 7: Invertir una lista
    Escribe una función para invertir el orden de los elementos de una lista.
 
 
-** Ejercicio 8: Eliminar todas las ocurrencias de un elemento
+*** Ejercicio 8: Eliminar todas las ocurrencias de un elemento
    Implementa una función que elimine todas las ocurrencias de un elemento en una lista.
 
 
-** Ejercicio 9: Obtener el enésimo elemento de una lista
+*** Ejercicio 9: Obtener el enésimo elemento de una lista
    Escribe una función que devuelva el elemento enésimo de una lista.
 
 
-** Ejercicio 10: Concatenar dos listas
+*** Ejercicio 10: Concatenar dos listas
    Implementa una función que concatene dos listas.
 
 
-* Eliza
+** Eliza
 
 
-** Introducción
+*** Introducción
 Este apartado explica el funcionamiento del chatbot *Eliza* implementado
 en Prolog. Eliza simula una conversación humana básica mediante
 patrones de entrada y respuestas predefinidas.
 
-** Estructura general del programa
+*** Estructura general del programa
 
 El programa está compuesto por:
 1. Una interfaz de entrada principal.
@@ -4060,7 +4567,7 @@ El programa está compuesto por:
 4. Predicados auxiliares como ~match/2~, ~replace0/5~, y conocimiento del
    mundo (gustos, acciones, familia, etc.).
 
-** Predicado principal
+*** Predicado principal
 
 #+begin_src prolog
 eliza :-
@@ -4074,7 +4581,7 @@ eliza :-
 Este predicado inicia la interacción. Lee una línea de entrada como
 lista y llama recursivamente a sí mismo con esa entrada.
 
-** Casos base para terminar
+*** Casos base para terminar
 
 #+begin_src prolog
 eliza(Input) :- Input == ['Adios'], writeln('Adios. espero poder verte ayudado.'), !.
@@ -4086,7 +4593,7 @@ eliza(Input) :- Input == ['bye', '.'], writeln('Bye bye .'), !.
 Estas reglas manejan la salida del programa cuando el usuario quiere
 terminar.
 
-** Mecanismo de respuesta
+*** Mecanismo de respuesta
 
 #+begin_src prolog
 eliza(Input) :-
@@ -4107,7 +4614,7 @@ Este es el núcleo del chatbot. Para cada entrada:
 
 
 
-** Plantillas de diálogo
+*** Plantillas de diálogo
 
 Cada plantilla tiene la forma:
 
@@ -4132,7 +4639,7 @@ Significa:
 - Si el input tiene la forma “hola X como estas soy Y .”
 - La respuesta será: “hola Y como estas tu yo soy X como esta tu ?”
 
-** Predicado ~replace0/5~
+*** Predicado ~replace0/5~
 
 Este predicado reemplaza los valores numéricos en la respuesta por
 palabras del input:
@@ -4149,7 +4656,7 @@ replace0([], _, _, Resp, Resp).
 #+end_src
 
 
-** Parámetros
+*** Parámetros
 - ~[I|Index]~: Lista de índices que indican las posiciones en la entrada
   de usuario cuyos valores deben insertarse en la respuesta.
 - ~Input~: Lista de palabras ingresadas por el usuario.
@@ -4157,7 +4664,7 @@ replace0([], _, _, Resp, Resp).
 - ~Resp~: Plantilla de respuesta con variables representadas como números (e.g., 0, 1).
 - ~R~: Resultado final de la respuesta, con las variables reemplazadas.
 
-** Detalle de ejecución
+*** Detalle de ejecución
 
 1. ~nth0(I, Input, Atom)~  
    Obtiene el elemento ~Atom~ de la lista ~Input~ en la posición ~I~.
@@ -4213,9 +4720,9 @@ replace0([1, 5], Input, 0, Resp, R).
 
 
 
-** Corrida completa del código replace0/5
+*** Corrida completa del código replace0/5
 
-*** Llamada inicial
+**** Llamada inicial
 
 #+begin_src prolog
 replace0([2],
@@ -4225,7 +4732,7 @@ replace0([2],
          R).
 #+end_src
 
-** Análisis del patrón
+*** Análisis del patrón
 
 - Index = [2]
 - Hay más de un índice → M > 0
@@ -4235,7 +4742,7 @@ replace0([2],
 N1 is N + 1
 #+end_src
 
-** Paso 1 — Sustitución del índice 1
+*** Paso 1 — Sustitución del índice 1
 
 - I = 2
 - nth0(2, Input, Atom) → Atom = juan
@@ -4260,7 +4767,7 @@ Ahora viene el incremento:
 N1 is N + 1   →   N1 = 1
 #+end_src
 
-** Llamada recursiva con el nuevo N1
+*** Llamada recursiva con el nuevo N1
 
 #+begin_src prolog
 replace0([4],
@@ -4271,7 +4778,7 @@ replace0([4],
 #+end_src
 
 
-** Paso 2 — Último índice
+*** Paso 2 — Último índice
 
 Ahora:
 
@@ -4283,7 +4790,7 @@ Ahora:
 N1 is N + 1
 #+end_src
 
-*** Esta llamada usa la cláusula “final” (no recursiva)**.
+**** Esta llamada usa la cláusula “final” (no recursiva)**.
 
 - I = 4
 - nth0(4, Input, Atom) → Atom = estudio
@@ -4302,7 +4809,7 @@ Reemplazando el placeholder **1**:
 R = [hola, juan, yo, soy, eliza]
 #+end_src
 
-*** Resultado final:
+**** Resultado final:
 
 #+begin_src prolog
 R = [hola, juan, yo, soy, eliza].
@@ -4310,7 +4817,7 @@ R = [hola, juan, yo, soy, eliza].
 
 
 
-*** Árbol de derivación completo con momentos exactos de N + 1
+**** Árbol de derivación completo con momentos exactos de N + 1
 
 #+begin_example
                                    replace0([2], Input, 0, Resp, R)
@@ -4331,7 +4838,7 @@ R = [hola, juan, yo, soy, eliza].
 
 
 
-*** Resumen claro
+**** Resumen claro
 
 - Se usa **N1 is N + 1** cuando:
   - hay más índices por procesar (M > 0)
@@ -4342,7 +4849,7 @@ R = [hola, juan, yo, soy, eliza].
 
 
 
-*** Resultado final del proceso
+**** Resultado final del proceso
 
 #+begin_src prolog
 R = [hola, estudio, yo, soy, soy].
@@ -4351,7 +4858,7 @@ R = [hola, estudio, yo, soy, soy].
 
 
 
-** Conocimiento del mundo
+*** Conocimiento del mundo
 
 **Familia:**
 
@@ -4399,7 +4906,7 @@ elizaEres(X, R) :- eres(X), R = ['Yes', i, X, and, i, love, it].
 elizaEres(X, R) :- \+eres(X), R = ['No', i, am, not, X].
 #+end_src
 
-** Plantillas especiales con *flags*
+*** Plantillas especiales con *flags*
 
 Las plantillas con respuestas ~flagLike~, ~flagDo~, ~flagEres~, ~flagfam~,
 etc., delegan la respuesta a otro predicado.
@@ -4413,7 +4920,7 @@ template([te, gustan, las, s(_), _], [flagLike], [3]).
 Esto activa el predicado ~elizaLikes/2~ que genera la respuesta según si
 Eliza "gusta" de esa cosa.
 
-** Respuestas genéricas
+*** Respuestas genéricas
 
 Cuando no hay coincidencia con ninguna plantilla, Eliza responde con
 una frase por defecto:
@@ -4423,7 +4930,7 @@ template(_, ['Please', explain, a, little, more, '.'], []).
 #+end_src
 
 
-**  Plantilla involucrada
+***  Plantilla involucrada
 
 #+begin_src prolog
 template([eliza, s(_), es, abuelo, de, s(_), '?'], [flagfam], [1,5]).
@@ -4442,7 +4949,7 @@ Entonces:
 - Resp = [flagfam]
 - IndStim = [1, 5] ; capturamos las posiciones 1 (juan) y 5 (pedro)
 
-** ¿Qué sucede en el código?
+*** ¿Qué sucede en el código?
 
 Cuando se detecta `Resp = [flagfam]`, y ya se han capturado las variables, se hace esto:
 
@@ -4470,7 +4977,7 @@ Entonces se ejecuta:
 elizafam(juan, pedro, R)
 #+end_src
 
-** Base de conocimiento familiar
+*** Base de conocimiento familiar
 
 #+begin_src prolog
 padre(juan, pedro).
@@ -4480,14 +4987,14 @@ elizafam(X,Y,R):- padre(X,Z), padre(Z,Y), R=[X, 'si es abuelo de', Y].
 elizafam(X,Y,R):- \+padre(Z,X), padre(Z,Y), R=[X, 'no es abuelo de', Y].		 
 #+end_src
 
-** Ejemplo válido
+*** Ejemplo válido
 
 #+begin_src prolog
 elizafam(juan, luis, R)
 → R = [juan, 'si es abuelo de', luis]
 #+end_src
 
-** Ejemplo que no cumple
+*** Ejemplo que no cumple
 
 #+begin_src prolog
 elizafam(juan, pedro, R)
@@ -4496,14 +5003,14 @@ elizafam(juan, pedro, R)
 → R = [juan, 'no es abuelo de', pedro]
 #+end_src
 
-** Ejemplo completo
+*** Ejemplo completo
 
-*** Entrada del usuario:
+**** Entrada del usuario:
 #+begin_example
 eliza juan es abuelo de pedro ?
 #+end_example
 
-*** Flujo del programa:
+**** Flujo del programa:
 
 - Se hace match con Stim
 - Se detecta `flagfam`
@@ -4521,7 +5028,7 @@ eliza juan es abuelo de pedro ?
 
 
    
-* Ejercicios prolog
+** Ejercicios prolog
 
 Acertijo de los Científicos y sus Laboratorios Cinco científicos
 trabajan en un centro de investigación. Cada uno tiene un laboratorio
@@ -4609,7 +5116,7 @@ Pistas
 - ¿Quién usa la pipeta?
 - ¿Cuál es la bebida preferida del científico que investiga en Matemáticas?
 
-* Respuestas
+** Respuestas
 
 % Definimos los colores de los laboratorios
 color(rojo).
@@ -4698,14 +5205,14 @@ solucion(Labs) :-
 
 
 
-* Logica
-* Acertijo de los Laboratorios
+** Logica
+** Acertijo de los Laboratorios
 
 El apartado detalla el razonamiento paso a paso para resolver el
 acertijo de los laboratorios en base a reglas de inferencia y
 eliminación.
 
-** Paso 1: Información Inicial
+*** Paso 1: Información Inicial
 
 Sabemos las siguientes reglas:
 
@@ -4729,7 +5236,7 @@ Organizamos los datos en una tabla inicial:
 |        6 | Negro  | Toma agua                          |
 |        7 | ?      | Último color disponible            |
 
-** Paso 2: Determinar los colores faltantes
+*** Paso 2: Determinar los colores faltantes
 
 Faltan dos colores: =Amarillo= y =Naranja=.
 
@@ -4750,7 +5257,7 @@ Esto nos da la siguiente tabla completa de colores:
 |        6 | Negro    | Agua                   |
 |        7 | Amarillo | Última opción          |
 
-** Paso 3: Confirmación de Reglas
+*** Paso 3: Confirmación de Reglas
 
 Verificamos si las reglas se cumplen:
 
@@ -4781,7 +5288,7 @@ Puedes hacer mediante la unificación la corrida del factorial en prolog  ?
 
 
 
-* Examen
+** Examen
 
 1. ¿Qué es la unificación en Prolog y cómo se diferencia de la
    asignación en otros lenguajes de programación?
@@ -4815,7 +5322,7 @@ Puedes hacer mediante la unificación la corrida del factorial en prolog  ?
     hermano) en Prolog usando hechos y reglas?
 
 
-* Examen Prolog — Respuestas 
+** Examen Prolog — Respuestas 
 
 ---
 
@@ -5059,9 +5566,9 @@ R = [1,2,3,4].
 #+END_SRC
 
 
-*  Acertijo Lógico Examen
+**  Acertijo Lógico Examen
 
-** Descripción General
+*** Descripción General
 Cinco investigadores trabajan en un laboratorio de biología molecular.  
 Cada uno tiene:
 - una especialidad distinta,
@@ -5072,7 +5579,7 @@ Cada uno tiene:
 
 Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 
-** Entidades
+*** Entidades
 
 **Investigadores**
 1. Ana
@@ -5116,7 +5623,7 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 - Argentina
 - Perú
 
-** Reglas del Acertijo
+*** Reglas del Acertijo
 
 1. El investigador de Genética llega a las 6am.  
 2. Ana no trabaja ni en Genética ni en Neurociencia.  
@@ -5139,7 +5646,7 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 19. El especialista en Neurociencia llega después de la persona que bebe Jugo.  
 20. El de Perú NO bebe Agua.  
 
-** Preguntas para resolver con Prolog
+*** Preguntas para resolver con Prolog
 
 1. ¿A qué hora llega cada investigador?  
 2. ¿Qué especialidad tiene cada uno?  
@@ -5147,7 +5654,7 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 4. ¿Qué equipo usa cada quien?  
 5. ¿De qué país es cada uno?
 
-* Eliza Lisp
+** Eliza Lisp
 
 
 #+BEGIN_SRC emacs-lisp
@@ -5320,16 +5827,16 @@ Tu tarea es usar Prolog para deducir quién tiene qué atributos.
 #+END_SRC
 
 
-*  Implementando ELIZA en Common Lisp
+**  Implementando ELIZA en Common Lisp
 
-* Introducción
+** Introducción
 
 - El sistema de *templates* (plantillas de entrada–respuesta)
 - La función =match/2= que compara *input* con *stim*
 - La función =replace0/5= para sustituir los índices en la respuesta
 - El ciclo principal de interacción del chatbot
 
-* Diferencias conceptuales entre Prolog y Lisp
+** Diferencias conceptuales entre Prolog y Lisp
 Prolog es:
 - declarativo
 - basado en hechos y reglas
@@ -5357,7 +5864,7 @@ En Lisp debemos programar la función que recorra ambas listas y detecte:
 - símbolos que deben coincidir exactamente
 - =s(_)= representado como un comodín que coincide con cualquier token
 
-* Representación de Templates en Lisp
+** Representación de Templates en Lisp
 En Prolog:
 
 #+BEGIN_SRC prolog
@@ -5383,7 +5890,7 @@ Ejemplo en Lisp:
 
 El `(list 's)` representa el comodín =s(_)= de Prolog.
 
-* Tokenización del input
+** Tokenización del input
 Prolog ya trabaja tokenizado porque =readln/1= produce una lista de átomos.
 
 En Lisp debemos tokenizar manualmente:
@@ -5397,7 +5904,7 @@ En Lisp debemos tokenizar manualmente:
 
 El tokenizer elimina signos de puntuación y baja todo a minúsculas.
 
-* Implementación del MATCH (equivalente a match/2 en Prolog)
+** Implementación del MATCH (equivalente a match/2 en Prolog)
 La regla de Prolog:
 
 #+BEGIN_SRC prolog
@@ -5419,7 +5926,7 @@ La función =element-match-p= maneja:
 - coincidencia exacta
 - comodín (s)
 
-* Implementación del replace0 (equivalente a replace0/5)
+** Implementación del replace0 (equivalente a replace0/5)
 En Prolog:
 
 #+BEGIN_SRC prolog
@@ -5455,7 +5962,7 @@ Porque:
 - índice 1 → input[5]
 - índice 0 → input[3]
 
-* Manejo de FLAGS
+** Manejo de FLAGS
 Aunque en tu Prolog hay flags como:
 
 - flagLike
@@ -5477,7 +5984,7 @@ Así que implementamos un handler genérico:
 Esto permite que el programa funcione
 sin tener hechos tipo =likes/1= o =padre/2=.
 
-* Búsqueda de la plantilla correcta
+** Búsqueda de la plantilla correcta
 En Prolog:
 
 #+BEGIN_SRC prolog
@@ -5495,7 +6002,7 @@ En Lisp usamos =find-if=:
     *templates*))
 #+END_SRC
 
-* Ciclo principal (loop) equivalente al =eliza/1= de Prolog
+** Ciclo principal (loop) equivalente al =eliza/1= de Prolog
 En Prolog:
 
 #+BEGIN_SRC prolog
@@ -5520,7 +6027,7 @@ En Lisp usamos un bucle =loop=:
           (t (respond-to tokens)))))))
 #+END_SRC
 
-* Código completo (NÚCLEO de ELIZA)
+** Código completo (NÚCLEO de ELIZA)
 
 #+BEGIN_SRC lisp
 
@@ -5652,7 +6159,7 @@ En Lisp usamos un bucle =loop=:
            (t (respond-to tokens)))))))
 #+END_SRC
 
-* Cómo ejecutar ELIZA
+** Cómo ejecutar ELIZA
 1. Guarda el archivo en =eliza.lisp=
 2. Abre SBCL o CLISP
 3. Carga el archivo:
@@ -5669,15 +6176,15 @@ En Lisp usamos un bucle =loop=:
 
 
 
-* Sistema Experto Médico en Prolog – Actividades y Base de Conocimiento
+** Sistema Experto Médico en Prolog – Actividades y Base de Conocimiento
 
-** Introducción
+*** Introducción
 Este apartado contiene la *base de conocimiento completa* y una serie de
 actividades  diseñadas para trabajar sobre un sistema
 experto médico en Prolog.
 
 
-** Base de Conocimiento (medico_extendido.pl)
+*** Base de Conocimiento (medico_extendido.pl)
 
 
 #+begin_src prolog
@@ -5789,14 +6296,14 @@ severidad(P, E, 'Leve') :-
     contar_sintomas_confirmados(P, E, C), C = 1, !.
 #+end_src
 
-** Actividades para Desarrollar (Con Base de Conocimiento Incluida)
+*** Actividades para Desarrollar (Con Base de Conocimiento Incluida)
 
 Cada actividad debe realizarse extendiendo la base de conocimiento anterior.
 
 ---
 
 
-** Actividad 1: Agregar Nuevas Enfermedades y Síntomas
+*** Actividad 1: Agregar Nuevas Enfermedades y Síntomas
 Agregar al menos 2 nuevas enfermedades con 3 síntomas cada una.  
 También agregar su tratamiento.
 
@@ -5814,7 +6321,7 @@ Ejemplos opcionales:
 ---
 
 
-** Actividad 2: Diagnóstico por Síntoma Exclusivo
+*** Actividad 2: Diagnóstico por Síntoma Exclusivo
 Crear una regla:
 
 #+begin_src prolog
@@ -5825,7 +6332,7 @@ Debe cumplirse cuando:
 - El paciente confirma un síntoma único que no se presenta en ninguna otra enfermedad.
 
 
-** Actividad 3: Diagnóstico por Probabilidad
+*** Actividad 3: Diagnóstico por Probabilidad
 Crear:
 
 #+begin_src prolog
@@ -5842,7 +6349,7 @@ Usar:
 - length/2  
 
 
-** Actividad 4: Diagnóstico Preventivo
+*** Actividad 4: Diagnóstico Preventivo
 Crear:
 
 #+begin_src prolog
@@ -5853,7 +6360,7 @@ Regla:
 - Debe activar si el paciente tiene al menos 1 síntoma pero no todos.
 
 
-** Actividad 5: Enfermedades Similares
+*** Actividad 5: Enfermedades Similares
 Crear:
 
 #+begin_src prolog
@@ -5863,7 +6370,7 @@ enfermedades_similares(E1, E2).
 Deben considerarse similares si comparten al menos *dos síntomas*.
 
 
-** Actividad 6: Detectar Síntomas Contradictorios
+*** Actividad 6: Detectar Síntomas Contradictorios
 Añadir hechos como:
 
 #+begin_src prolog
@@ -5880,7 +6387,7 @@ sintomas_contradictorios(Paciente).
 Debe indicar si el paciente confirmó síntomas incompatibles.
 
 
-** Actividad 7: Árbol de Decisión Médico
+*** Actividad 7: Árbol de Decisión Médico
 Diseñar:
 
 #+begin_src prolog
@@ -5890,7 +6397,7 @@ arbol_diagnostico(Paciente, Enfermedad).
 Basado en preguntas clave (fiebre, estornudos, dolor fuerte de cabeza, etc.).
 
 
-** Actividad 8: Enfermedades Graves con Riesgo
+*** Actividad 8: Enfermedades Graves con Riesgo
 Agregar al menos una enfermedad grave, y definir:
 
 #+begin_src prolog
@@ -5903,7 +6410,7 @@ Niveles:
 - bajo  
 
 
-** Actividad 9: Tratamiento Combinado
+*** Actividad 9: Tratamiento Combinado
 Crear:
 
 #+begin_src prolog
@@ -5913,7 +6420,7 @@ tratamiento_combinado(Paciente, Lista).
 Debe listar todos los tratamientos para las enfermedades que cumple con diagnóstico básico.
 
 
-** Actividad 10: Recomendaciones según Severidad
+*** Actividad 10: Recomendaciones según Severidad
 Crear:
 
 #+begin_src prolog
@@ -5923,7 +6430,7 @@ recomendacion(Paciente, Enfermedad, Texto).
 Basarse en el predicado existente =severidad/3=.
 
 
-** Actividad 11: Diagnosticar y Tratar en un Sol Paso
+*** Actividad 11: Diagnosticar y Tratar en un Sol Paso
 Crear:
 
 #+begin_src prolog
@@ -5936,7 +6443,7 @@ Debe:
 3. Devolver ambos resultados  
 
 
-** Actividad 12: Reporte Completo
+*** Actividad 12: Reporte Completo
 Implementar:
 
 #+begin_src prolog
@@ -5953,7 +6460,7 @@ Debe imprimir:
 - Recomendación  
 
 
-* Proyecto Final Agosto Diciembre 2025
+** Proyecto Final Agosto Diciembre 2025
 
 ELIZA es el primer programa informático de procesamiento del lenguaje
 natural creado entre 1964 y 1966 ​en el MIT por Joseph
