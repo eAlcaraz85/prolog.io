@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{assq\PYGZhy{}delete\PYGZhy{}all}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}ciudad}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{))}
+\end{Verbatim}

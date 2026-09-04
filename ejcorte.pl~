@@ -1,0 +1,6 @@
+p(X,Y) :- X > 15, Y > 50. 
+ p(X,Y) :- X > Y. 
+
+ % Con corte.
+ q(X,Y) :- X > 15, !, Y > 50. 
+ q(X,Y) :- X > Y. 

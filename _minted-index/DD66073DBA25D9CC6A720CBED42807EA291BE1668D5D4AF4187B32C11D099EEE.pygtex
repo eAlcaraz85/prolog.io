@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{sublista}\PYG{p}{([],} \PYG{k}{\PYGZus{}}\PYG{p}{).}
+    \PYG{n+nf}{sublista}\PYG{p}{([}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T2}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{sublista}\PYG{p}{(}\PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{T2}\PYG{p}{).}
+    \PYG{n+nf}{sublista}\PYG{p}{(}\PYG{n+nv}{Sub}\PYG{p}{,} \PYG{p}{[}\PYG{k}{\PYGZus{}} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{sublista}\PYG{p}{(}\PYG{n+nv}{Sub}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{).}
+\end{Verbatim}

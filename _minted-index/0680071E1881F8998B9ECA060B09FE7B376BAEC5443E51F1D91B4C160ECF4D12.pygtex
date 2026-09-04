@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}5 es mayor que 3\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Esto no se imprimirá\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

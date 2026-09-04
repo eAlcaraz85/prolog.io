@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defparameter}\PYG{+w}{ }\PYG{n+nv+vg}{*pi*}\PYG{+w}{ }\PYG{l+m+mf}{3.1415}\PYG{p}{)}
+
+\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{areaCirculo}\PYG{p}{(}\PYG{n+nv}{r}\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nb}{*}\PYG{+w}{ }\PYG{n+nv+vg}{*pi*}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{*}\PYG{+w}{ }\PYG{n+nv}{r}\PYG{+w}{ }\PYG{n+nv}{r}\PYG{p}{)}\PYG{+w}{  }\PYG{p}{)}
+\PYG{p}{)}
+
+\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nb}{+}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{6}\PYG{+w}{ }\PYG{p}{)}
+\PYG{n+nb}{eval}
+\end{Verbatim}

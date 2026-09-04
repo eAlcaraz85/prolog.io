@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{n+nf}{punto}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{Y}\PYG{p}{)} \PYG{o}{=} \PYG{n+nf}{punto}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{).}
+   \PYG{n+nv}{X} \PYG{o}{=} \PYG{l+m+mi}{3}\PYG{p}{,}
+   \PYG{n+nv}{Y} \PYG{o}{=} \PYG{l+m+mf}{4.}
+\end{Verbatim}

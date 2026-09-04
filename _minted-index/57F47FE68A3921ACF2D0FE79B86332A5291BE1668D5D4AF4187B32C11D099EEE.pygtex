@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{c+c1}{\PYGZpc{} Caso base: el factorial de 0 es 1}
+   \PYG{n+nf}{factorial}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{).}
+
+   \PYG{c+c1}{\PYGZpc{} Caso recursivo: factorial de N es N * factorial de (N\PYGZhy{}1)}
+   \PYG{n+nf}{factorial}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{F}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+       \PYG{n+nv}{N} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{,}                           \PYG{c+c1}{\PYGZpc{} Comprobación para asegurar que N es positivo}
+       \PYG{n+nv}{N1} \PYG{o}{is} \PYG{n+nv}{N} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,}                     \PYG{c+c1}{\PYGZpc{} Calcular N \PYGZhy{} 1}
+       \PYG{n+nf}{factorial}\PYG{p}{(}\PYG{n+nv}{N1}\PYG{p}{,} \PYG{n+nv}{F1}\PYG{p}{),}               \PYG{c+c1}{\PYGZpc{} Llamada recursiva para obtener factorial de N \PYGZhy{} 1}
+       \PYG{n+nv}{F} \PYG{o}{is} \PYG{n+nv}{N} \PYG{o}{*} \PYG{n+nv}{F1}\PYG{p}{.}                     \PYG{c+c1}{\PYGZpc{} Calcular el factorial de N}
+\end{Verbatim}

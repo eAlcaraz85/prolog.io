@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{n+nf}{perro}\PYG{p}{(}\PYG{l+s+sAtom}{orejas}\PYG{p}{,} \PYG{l+s+sAtom}{cola}\PYG{p}{)} \PYG{o}{=} \PYG{n+nf}{gato}\PYG{p}{(}\PYG{l+s+sAtom}{orejas}\PYG{p}{,} \PYG{l+s+sAtom}{cola}\PYG{p}{).}
+   \PYG{l+s+sAtom}{false}\PYG{p}{.}
+
+   \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{].}
+   \PYG{l+s+sAtom}{false}\PYG{p}{.}
+\end{Verbatim}

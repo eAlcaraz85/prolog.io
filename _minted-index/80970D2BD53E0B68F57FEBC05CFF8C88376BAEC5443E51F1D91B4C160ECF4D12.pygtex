@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{l1}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{a}\PYG{+w}{ }\PYG{n+nv}{b}\PYG{+w}{ }\PYG{n+nv}{c}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{l2}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{x}\PYG{+w}{ }\PYG{n+nv}{y}\PYG{+w}{ }\PYG{n+nv}{z}\PYG{p}{))}
+\PYG{o}{`}\PYG{p}{(}\PYG{n+nv}{primera}\PYG{+w}{ }\PYG{n+nv}{lista:}\PYG{+w}{ }\PYG{o}{,@}\PYG{n+nv}{l1}\PYG{+w}{ }\PYG{n+nv}{segunda}\PYG{+w}{ }\PYG{n+nv}{lista:}\PYG{+w}{ }\PYG{o}{,@}\PYG{n+nv}{l2}\PYG{p}{)}
+\end{Verbatim}

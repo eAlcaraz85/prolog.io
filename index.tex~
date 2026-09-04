@@ -1,0 +1,43 @@
+% Created 2025-11-24 lun 09:05
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[spanish]{inputenc}
+\author{Eduardo Alcaraz}
+\date{\today}
+\title{Descripción General}
+\hypersetup{
+ pdfauthor={Eduardo Alcaraz},
+ pdftitle={Descripción General},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+Cinco investigadores trabajan en un laboratorio de biología molecular.  
+Cada uno tiene:
+\begin{itemize}
+\item una especialidad distinta,
+\item un horario distinto,
+\item una bebida que prefiere,
+\item un equipo de laboratorio distinto,
+\item y un país de origen diferente.
+\end{itemize}
+
+Tu tarea es usar Prolog para deducir quién tiene qué atributos.
+\end{document}

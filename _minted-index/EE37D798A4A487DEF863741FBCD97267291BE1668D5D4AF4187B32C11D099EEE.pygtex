@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{c+c1}{\PYGZpc{} Representa que \PYGZdq{}Juan es un hombre\PYGZdq{}}
+   \PYG{n+nf}{hombre}\PYG{p}{(}\PYG{l+s+sAtom}{juan}\PYG{p}{).}
+
+   \PYG{c+c1}{\PYGZpc{} Representa que \PYGZdq{}María es mujer\PYGZdq{}}
+   \PYG{n+nf}{mujer}\PYG{p}{(}\PYG{l+s+sAtom}{maria}\PYG{p}{).}
+
+   \PYG{c+c1}{\PYGZpc{} Representa una relación de parentesco \PYGZdq{}Juan es padre de María\PYGZdq{}}
+   \PYG{n+nf}{padre}\PYG{p}{(}\PYG{l+s+sAtom}{juan}\PYG{p}{,} \PYG{l+s+sAtom}{maria}\PYG{p}{).}
+\end{Verbatim}

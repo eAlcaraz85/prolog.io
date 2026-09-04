@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, ambos números son iguales}
+\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, porque compara números enteros y flotantes}
+\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, los números son diferentes}
+\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}10\PYGZdq{}}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Error, no se puede usar para comparar cadenas}
+\end{Verbatim}

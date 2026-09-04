@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{mapcar}\PYG{+w}{ }\PYG{n+nf}{\PYGZsh{}\PYGZsq{}}\PYG{n+nb}{char\PYGZhy{}upcase}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}a\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}b\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}c\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}d\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

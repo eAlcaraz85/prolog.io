@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;; Definir una lista de asociación}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{nombre}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Juan\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                 }\PYG{p}{(}\PYG{n+nv}{edad}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+m+mi}{30}\PYG{p}{)}\PYG{n+nv}{y}
+\PYG{+w}{                 }\PYG{p}{(}\PYG{n+nv}{ciudad}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Madrid\PYGZdq{}}\PYG{p}{)))}
+
+\PYG{c+c1}{;; Acceder a un valor}
+\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{n+no}{t}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Nombre: \PYGZti{}a\PYGZti{}\PYGZpc{}\PYGZdq{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cdr}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{assoc}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}nombre}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{)))}
+
+\PYG{c+c1}{;; Agregar un nuevo par}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cons}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{pais}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}España\PYGZdq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{))}
+
+\PYG{c+c1}{;; Modificar un valor existente}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{cons}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{n+nv}{edad}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+m+mi}{31}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{assq\PYGZhy{}delete\PYGZhy{}all}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}edad}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{)))}
+
+\PYG{c+c1}{;; Eliminar un par}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{assq\PYGZhy{}delete\PYGZhy{}all}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}ciudad}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{))}
+
+\PYG{c+c1}{;; Imprimir la lista completa}
+\PYG{p}{(}\PYG{n+nb}{format}\PYG{+w}{ }\PYG{n+no}{t}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Lista de asociación: \PYGZti{}a\PYGZti{}\PYGZpc{}\PYGZdq{}}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{p}{)}
+\end{Verbatim}

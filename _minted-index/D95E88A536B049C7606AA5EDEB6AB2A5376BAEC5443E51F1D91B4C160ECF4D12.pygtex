@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Ambas condiciones son verdaderas\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{    }\PYG{p}{(}\PYG{n+nb}{unless}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{+w}{      }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Esto no se imprimirá\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

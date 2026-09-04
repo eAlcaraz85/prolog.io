@@ -1,0 +1,731 @@
+/*
+ * Sidebar oscuro + índice azul; contenido en tono frío suave (no blanco puro).
+ * Bloques de código: tema claro con acento azul (--code-block-*).
+ */
+:root {
+  --sidebar-bg: #11101d;
+  --sidebar-elevated: #1d1b31;
+  --sidebar-active: #ffffff;
+  --sidebar-active-fg: #11101d;
+  --sidebar-text: #ffffff;
+  --sidebar-text-dim: rgba(255, 255, 255, 0.72);
+  --sidebar-text-faint: rgba(255, 255, 255, 0.55);
+  --sidebar-hover: rgba(255, 255, 255, 0.1);
+  --sidebar-pill-radius: 12px;
+
+  --page-bg: #d8e2f0;
+  --content-bg: #e6eaf5;
+  --body-text: #1a1925;
+  --body-muted: #5b5968;
+  --content-border: #c5cee0;
+  --content-link: #1d4ed8;
+  --content-link-hover: #1e3a8a;
+  --content-link-visited: #6b5b95;
+
+  /* Bloques de código: tema claro (reposo visual + resalte azul) */
+  --code-block-bg: #eef2fb;
+  --code-block-bg-top: #f6f8fe;
+  --code-block-border: #aebcd4;
+  --code-block-accent: #2563eb;
+  --code-inline-bg: #dfe6f4;
+  --code-inline-border: #c5cee0;
+
+  /* Alias usados en el resto del archivo */
+  --rtd-bg-page: var(--page-bg);
+  --rtd-bg-content: var(--content-bg);
+  --rtd-bg-sidebar: var(--sidebar-bg);
+  --rtd-bg-sidebar-deep: var(--sidebar-elevated);
+  --rtd-brand: var(--sidebar-elevated);
+  --rtd-brand-soft: rgba(255, 255, 255, 0.4);
+  --rtd-brand-hover: var(--content-link-hover);
+  --rtd-accent: var(--sidebar-active);
+  --rtd-accent-deep: var(--sidebar-active-fg);
+  --rtd-text: var(--body-text);
+  --rtd-text-muted: var(--body-muted);
+  --rtd-sidebar-parent: rgba(255, 255, 255, 0.92);
+  --rtd-sidebar-child: var(--sidebar-text-dim);
+  --rtd-sidebar-grandchild: var(--sidebar-text-faint);
+  --rtd-border: var(--content-border);
+  --rtd-link: var(--content-link);
+  --rtd-link-hover: var(--content-link-hover);
+  --rtd-link-visited: var(--content-link-visited);
+  --rtd-code-bg: var(--code-inline-bg);
+  --rtd-sidebar-width: 300px;
+
+  --nav-panel: rgba(255, 255, 255, 0.07);
+  --nav-panel-border: rgba(255, 255, 255, 0.12);
+  --nav-text-bright: rgba(255, 255, 255, 0.9);
+  --nav-text-icon: var(--sidebar-text-dim);
+
+  /* Índice: padres en azul vivo; rama expandida (sin gris readtheorg) */
+  --toc-parent-blue: #60a5fa;
+  --toc-parent-blue-soft: #93c5fd;
+  --toc-active-parent-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  --toc-active-parent-solid: #1d4ed8;
+  --toc-branch-bg: #0f172a;
+  --toc-branch-border: rgba(37, 99, 235, 0.35);
+  --toc-branch-link: #dbeafe;
+  --toc-branch-link-hover: #ffffff;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  background: var(--rtd-bg-page);
+  color: var(--rtd-text);
+  font-family: "Lato", "proxima-nova", "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+#content {
+  background: var(--rtd-bg-content);
+  margin-left: var(--rtd-sidebar-width);
+  width: calc(100% - var(--rtd-sidebar-width));
+  max-width: none;
+  box-sizing: border-box;
+  padding: 1.75rem 2.25rem 3.5rem;
+  min-height: 100%;
+}
+
+@media screen and (min-width: 1400px) {
+  #content {
+    background: var(--rtd-bg-content) !important;
+  }
+}
+
+/* Títulos: misma familia que RTD / ReadTheOrg (Roboto Slab ya importada en readtheorg.css) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend {
+  font-family: "Roboto Slab", "ff-tisa-web-pro", Georgia, serif;
+  font-weight: 700;
+  color: #2c2c2c;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  text-align: left !important;
+  font-size: 1.85rem;
+  margin-bottom: 0.65em !important;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rtd-border);
+}
+
+.subtitle {
+  color: var(--rtd-text-muted);
+  font-weight: 400;
+  font-size: 0.95rem;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+}
+
+h2 {
+  font-size: 1.45rem;
+  margin-top: 2rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--rtd-border);
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4,
+h5,
+h6 {
+  color: var(--rtd-link);
+  font-weight: 300;
+  font-family: "Roboto Slab", Georgia, serif;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0 0 1.25rem 0;
+}
+
+#content a {
+  color: var(--rtd-link);
+  text-decoration: none;
+}
+
+#content a:hover {
+  color: var(--rtd-link-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#content a:visited {
+  color: var(--rtd-link-visited);
+}
+
+blockquote {
+  background-color: #dde4f0;
+  border-left: 4px solid #94a3b8;
+  color: var(--rtd-text-muted);
+  font-style: normal;
+  line-height: 1.65;
+}
+
+code {
+  background: var(--code-inline-bg);
+  border: 1px solid var(--code-inline-border);
+  border-radius: 6px;
+  color: #1e293b;
+  font-size: 0.8em;
+  padding: 0.14em 0.42em;
+}
+
+/* Bloques src: fondo suave + acento; colores .org-* de htmlize se leen bien sobre claro */
+#content pre.src,
+#content .codeblock,
+#content .literal-block {
+  background: linear-gradient(
+    180deg,
+    var(--code-block-bg-top) 0%,
+    var(--code-block-bg) 100%
+  ) !important;
+  color: #1e293b !important;
+  border: 1px solid var(--code-block-border) !important;
+  border-left: 4px solid var(--code-block-accent) !important;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+#content pre.src {
+  font-size: 12px;
+  line-height: 1.55;
+  padding: 1rem 1.15rem !important;
+}
+
+#content .codeblock,
+#content .literal-block {
+  padding: 1rem 1.15rem !important;
+}
+
+.example {
+  background: #e8edf6;
+  border: 1px solid var(--rtd-border);
+  color: var(--rtd-text);
+}
+
+table td,
+table th {
+  border-color: var(--rtd-border);
+}
+
+table thead th {
+  border-top-width: 2px;
+  border-top-color: #d0d5d9;
+}
+
+table tr:nth-child(2n-1) td {
+  background-color: #eef1f8;
+}
+
+table tr:nth-child(2n) td {
+  background-color: #e4e9f2;
+}
+
+/* —— Barra lateral (como RTD) —— */
+#table-of-contents {
+  width: var(--rtd-sidebar-width);
+  background: var(--rtd-bg-sidebar);
+  border-right: 1px solid #0a0912;
+  scrollbar-color: var(--sidebar-elevated) var(--sidebar-bg);
+}
+
+/* Cabecera índice + buscador: misma familia azul que el acento del menú */
+#table-of-contents .ms-toc-index-head {
+  background-color: var(--toc-active-parent-solid);
+  background-image: var(--toc-active-parent-bg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0 0.75rem 0.75rem;
+}
+
+#table-of-contents .ms-toc-index-head h2 {
+  background-color: transparent;
+  color: #fcfcfc;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 100%;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  text-align: center;
+  padding: 0.75em 0.5em 0.4em;
+  margin: 0 0 0.35rem 0;
+  border-bottom: none;
+}
+
+/* Buscador: mismo apartado visual que el título Índice */
+#table-of-contents .ms-toc-index-head .ms-toc-search-wrap {
+  padding: 0 0 0.15rem;
+  margin: 0;
+  background: transparent;
+  border: none;
+}
+
+#table-of-contents .ms-toc-index-head .ms-toc-search-wrap input[type="search"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.8125rem;
+  font-family: "Lato", Arial, sans-serif;
+  color: var(--sidebar-active-fg);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--sidebar-pill-radius);
+  outline: none;
+}
+
+#table-of-contents .ms-toc-index-head .ms-toc-search-wrap input[type="search"]::placeholder {
+  color: #6b6980;
+}
+
+#table-of-contents .ms-toc-index-head .ms-toc-search-wrap input[type="search"]:focus {
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+}
+
+.ms-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+#table-of-contents header {
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 700;
+  font-size: 80%;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Árbol: padres de 1.er nivel en azul fuerte; anula grises de readtheorg en li.active */
+#table-of-contents #text-table-of-contents ul.nav > li.active {
+  background-color: transparent !important;
+}
+
+#table-of-contents #text-table-of-contents li.active,
+#table-of-contents #text-table-of-contents li.active li.active {
+  background-color: transparent !important;
+}
+
+#table-of-contents #text-table-of-contents ul.nav > li.active > ul {
+  background: var(--toc-branch-bg) !important;
+  border: 1px solid var(--toc-branch-border);
+  border-radius: 10px;
+  margin: 0.2rem 0.45rem 0.55rem;
+  padding: 0.35rem 0.15rem 0.45rem;
+}
+
+#text-table-of-contents > ul > li > a,
+#text-table-of-contents > ul.nav > li > a {
+  color: var(--toc-parent-blue) !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  border-left: none !important;
+  padding: 0.45rem 0.85rem !important;
+  margin: 0.2rem 0.5rem;
+  border-radius: var(--sidebar-pill-radius);
+}
+
+#text-table-of-contents > ul > li > a:hover,
+#text-table-of-contents > ul.nav > li > a:hover {
+  color: var(--toc-parent-blue-soft) !important;
+  background-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+#text-table-of-contents > ul > li + li,
+#text-table-of-contents > ul.nav > li + li {
+  margin-top: 0.15rem;
+}
+
+/* Nivel 2+: dentro del índice general */
+#text-table-of-contents ul ul > li > a {
+  color: var(--rtd-sidebar-child) !important;
+  font-weight: 400;
+  font-size: 88%;
+  border-left: none !important;
+  padding: 0.38rem 0.85rem !important;
+  margin: 0.12rem 0.5rem 0.12rem 0.65rem;
+  border-radius: var(--sidebar-pill-radius);
+}
+
+/* Nivel 3+ */
+#text-table-of-contents ul ul ul > li > a {
+  color: var(--rtd-sidebar-grandchild) !important;
+  font-weight: 400;
+  font-size: 84%;
+  border-left: none !important;
+  padding: 0.35rem 0.85rem !important;
+  margin: 0.1rem 0.5rem 0.1rem 0.85rem;
+  border-radius: var(--sidebar-pill-radius);
+}
+
+/* Enlaces del toc sin regla de nivel (p. ej. estructura atípica) */
+#table-of-contents #text-table-of-contents a {
+  line-height: 1.45;
+}
+
+#table-of-contents a:hover {
+  background-color: var(--sidebar-hover) !important;
+  color: #ffffff !important;
+}
+
+#table-of-contents li.current {
+  background: transparent;
+}
+
+#table-of-contents li.current a {
+  color: var(--sidebar-active-fg) !important;
+  font-weight: 600;
+  background: var(--sidebar-active) !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+  border-left: none !important;
+  margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+#table-of-contents li.current a:hover {
+  background: #f0f0f5 !important;
+  color: var(--sidebar-active-fg) !important;
+}
+
+#table-of-contents li.divide-top,
+#table-of-contents li.divide-bottom {
+  border-color: var(--nav-panel-border);
+}
+
+/* Padre expandido: barra azul sólida; hijos en panel oscuro con texto claro */
+ul.nav > li.active > a {
+  background-color: var(--toc-active-parent-solid) !important;
+  background-image: var(--toc-active-parent-bg) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  margin: 0.2rem 0.5rem !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+}
+
+ul.nav > li.active li.active > a {
+  color: var(--sidebar-active-fg) !important;
+  background-color: var(--sidebar-active) !important;
+  font-weight: 600 !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+  margin: 0.2rem 0.5rem !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/*
+ * Selectores con dos IDs: ganan a readtheorg (li.active #e3e3e3, ul.nav>li.active a).
+ */
+#table-of-contents #text-table-of-contents > ul.nav > li.active > a,
+#table-of-contents #text-table-of-contents > ul > li.active > a {
+  color: #ffffff !important;
+  background-color: var(--toc-active-parent-solid) !important;
+  background-image: var(--toc-active-parent-bg) !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active > ul > li > a {
+  color: var(--toc-branch-link) !important;
+  background-color: transparent !important;
+  font-weight: 500 !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active > ul > li > a:hover {
+  color: var(--toc-branch-link-hover) !important;
+  background-color: rgba(37, 99, 235, 0.25) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active > ul > li.active > a {
+  color: var(--sidebar-active-fg) !important;
+  background-color: var(--sidebar-active) !important;
+  font-weight: 600 !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+#table-of-contents #text-table-of-contents li.active > ul > li.active > a:hover {
+  background-color: #f0f0f5 !important;
+  color: var(--sidebar-active-fg) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active li:not(.active) > a {
+  color: var(--toc-branch-link) !important;
+  background-color: transparent !important;
+  font-weight: 500 !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active li:not(.active) > a:hover {
+  color: var(--toc-branch-link-hover) !important;
+  background-color: rgba(37, 99, 235, 0.25) !important;
+}
+
+#table-of-contents #text-table-of-contents li.active li.active > a {
+  color: var(--sidebar-active-fg) !important;
+  background-color: var(--sidebar-active) !important;
+  font-weight: 600 !important;
+  border-left: none !important;
+  border-radius: var(--sidebar-pill-radius) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+#table-of-contents #text-table-of-contents li.active li.active > a:hover {
+  background-color: #f0f0f5 !important;
+  color: var(--sidebar-active-fg) !important;
+}
+
+/* Pie lateral: misma franja elevada #1D1B31 */
+#copyright,
+#postamble {
+  width: var(--rtd-sidebar-width);
+  background: var(--rtd-bg-sidebar-deep);
+  border-top: 8px solid var(--rtd-bg-sidebar);
+  color: var(--nav-text-bright);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+#postamble .author {
+  color: #f0fafc;
+  font-weight: 600;
+}
+
+#postamble .date {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-family: "Lato", Arial, sans-serif !important;
+  font-size: 0.8rem !important;
+}
+
+#postamble .creator,
+#postamble .validation {
+  color: var(--nav-text-icon);
+  font-size: 0.75rem;
+}
+
+#copyright a {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#copyright a:hover {
+  color: #fff;
+}
+
+#copyright .rst-current-version {
+  background-color: #13111f;
+  color: var(--nav-text-bright);
+}
+
+/* Admoniciones (tonos alineados con morado / gris del tema) */
+#content .note,
+#content .seealso {
+  background: #eef0fb;
+  border: 1px solid var(--rtd-border);
+}
+
+#content .admonition-title.note,
+#content .admonition-title.seealso {
+  background: #4a4670;
+}
+
+#content .important,
+#content .tip,
+#content .hint {
+  background: #e8f5f2;
+}
+
+#content .admonition-title.tip,
+#content .admonition-title.important,
+#content .admonition-title.hint {
+  background: #2d6a5f;
+}
+
+#content .warning,
+#content .caution,
+#content .attention {
+  background: #ffedcc;
+}
+
+#content .admonition-title.warning,
+#content .admonition-title.caution,
+#content .admonition-title.attention {
+  background: #f0b37e;
+}
+
+#content .danger,
+#content .error {
+  background: #fdf3f2;
+}
+
+#content .admonition-title.error,
+#content .admonition-title.danger {
+  background: #f29f97;
+}
+
+.wy-alert-title,
+#content .admonition-title {
+  font-family: "Lato", Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.verse {
+  border-left-color: #4a4670;
+  background-color: #eef0fb;
+}
+
+#content .highlighted {
+  background: #fff3cd;
+}
+
+.inlinetask {
+  background: #faf8f0;
+  border: 1px solid #e8e4d4;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+.todo {
+  background: #f29f97;
+  color: #fff;
+}
+
+.done {
+  background: #35314d;
+  color: #fff;
+}
+
+.WAIT,
+.nilWAIT {
+  background: #7a8fa3;
+  color: #fff;
+}
+
+.tag span {
+  background: #f0f0f0;
+  border-color: #e0e0e0;
+  color: #707070;
+}
+
+.timestamp {
+  color: #5a6d7e;
+  font-family: inherit;
+}
+
+.footnum,
+.footref {
+  color: var(--rtd-link);
+}
+
+/* Móvil / zoom: el índice pasa a barra superior (readtheorg ≤768px).
+ * Hay que anular margin-left:300px de este archivo (se carga *después*
+ * de readtheorg.css y si no, el contenido queda corrido y recortado). */
+@media screen and (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  #toggle-sidebar {
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  #toggle-sidebar h2 {
+    background-color: var(--toc-active-parent-solid) !important;
+    background-image: var(--toc-active-parent-bg) !important;
+    color: #fff !important;
+    opacity: 1;
+    font-weight: 700;
+    font-size: 0.85rem !important;
+    letter-spacing: 0.03em;
+    text-transform: none;
+  }
+
+  #content {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 4.25rem 1rem 2rem !important;
+  }
+
+  #content.shift {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #table-of-contents {
+    width: min(20rem, 88vw) !important;
+    max-width: 100%;
+  }
+
+  #copyright,
+  #postamble {
+    width: 100%;
+  }
+
+  #content pre.src,
+  #content .codeblock,
+  #content .literal-block,
+  #content .example,
+  #content table {
+    max-width: 100%;
+  }
+
+  #content table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  #content img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Zoom intermedio: hay sidebar, pero el ancho fijo 800/1800px rebasa el viewport */
+@media screen and (min-width: 769px) {
+  #content pre.src,
+  #content .codeblock,
+  #content .literal-block,
+  #content .example {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  #content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  #content table {
+    max-width: 100%;
+  }
+}

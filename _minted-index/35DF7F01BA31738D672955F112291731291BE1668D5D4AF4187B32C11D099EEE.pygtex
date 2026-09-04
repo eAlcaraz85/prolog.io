@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{eliminar}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{X} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{n+nv}{T}\PYG{p}{).}
+    \PYG{n+nf}{eliminar}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{R}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{eliminar}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{).}
+\end{Verbatim}

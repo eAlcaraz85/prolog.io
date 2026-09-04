@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{c+c1}{\PYGZpc{} Nombres simples}
+   \PYG{n+nf}{hombre}\PYG{p}{(}\PYG{l+s+sAtom}{juan}\PYG{p}{).}
+   \PYG{n+nf}{color}\PYG{p}{(}\PYG{l+s+sAtom}{rojo}\PYG{p}{).}
+
+   \PYG{c+c1}{\PYGZpc{} Nombres con caracteres especiales}
+   \PYG{n+nf}{gato}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}@michi\PYGZsq{}}\PYG{p}{).}
+   \PYG{n+nf}{palabra}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}\PYGZsh{}clave\PYGZsq{}}\PYG{p}{).}
+
+   \PYG{c+c1}{\PYGZpc{} Nombres con comillas}
+   \PYG{n+nf}{nombre}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}Juan Pérez\PYGZsq{}}\PYG{p}{).}
+\end{Verbatim}

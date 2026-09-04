@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{padre}\PYG{p}{(}\PYG{l+s+sAtom}{juan}\PYG{p}{,} \PYG{l+s+sAtom}{maria}\PYG{p}{).}
+\PYG{n+nf}{padre}\PYG{p}{(}\PYG{l+s+sAtom}{carlos}\PYG{p}{,} \PYG{l+s+sAtom}{pedro}\PYG{p}{).}
+\PYG{n+nf}{padre}\PYG{p}{(}\PYG{l+s+sAtom}{juan}\PYG{p}{,} \PYG{l+s+sAtom}{jose}\PYG{p}{).}
+\end{Verbatim}

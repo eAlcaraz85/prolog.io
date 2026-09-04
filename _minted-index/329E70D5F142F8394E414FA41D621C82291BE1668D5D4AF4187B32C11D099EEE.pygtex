@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{tamano}\PYG{p}{([],} \PYG{l+m+mi}{0}\PYG{p}{).}
+    \PYG{n+nf}{tamano}\PYG{p}{([}\PYG{k}{\PYGZus{}} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{n+nv}{N}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{tamano}\PYG{p}{(}\PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{N1}\PYG{p}{),}
+        \PYG{n+nv}{N} \PYG{o}{is} \PYG{n+nv}{N1} \PYG{o}{+} \PYG{l+m+mf}{1.}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, porque los símbolos son el mismo objeto}
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}b}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, los símbolos son diferentes}
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; En algunas implementaciones puede devolver NIL}
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, las cadenas no son el mismo objeto en memoria}
+\end{Verbatim}

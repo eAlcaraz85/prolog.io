@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}alist}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{((}\PYG{n+nv}{nombre}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Juan\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{                 }\PYG{p}{(}\PYG{n+nv}{edad}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+m+mi}{30}\PYG{p}{)}
+\PYG{+w}{                 }\PYG{p}{(}\PYG{n+nv}{ciudad}\PYG{+w}{ }\PYG{o}{.}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Madrid\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

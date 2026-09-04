@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{if}\PYG{+w}{ }\PYG{n+nv}{condición}
+\PYG{+w}{    }\PYG{n+nv}{entonces}
+\PYG{+w}{    }\PYG{n+nv}{else}\PYG{p}{)}
+\end{Verbatim}

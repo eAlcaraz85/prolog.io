@@ -1,0 +1,60 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{c+c1}{\PYGZpc{} Definimos los hermanos y las mascotas posibles}
+\PYG{n+nf}{hermano}\PYG{p}{(}\PYG{l+s+sAtom}{ana}\PYG{p}{).}
+\PYG{n+nf}{hermano}\PYG{p}{(}\PYG{l+s+sAtom}{bruno}\PYG{p}{).}
+\PYG{n+nf}{hermano}\PYG{p}{(}\PYG{l+s+sAtom}{carla}\PYG{p}{).}
+\PYG{n+nf}{hermano}\PYG{p}{(}\PYG{l+s+sAtom}{daniel}\PYG{p}{).}
+
+\PYG{n+nf}{mascota}\PYG{p}{(}\PYG{l+s+sAtom}{perro}\PYG{p}{).}
+\PYG{n+nf}{mascota}\PYG{p}{(}\PYG{l+s+sAtom}{gato}\PYG{p}{).}
+\PYG{n+nf}{mascota}\PYG{p}{(}\PYG{l+s+sAtom}{loro}\PYG{p}{).}
+\PYG{n+nf}{mascota}\PYG{p}{(}\PYG{l+s+sAtom}{pez}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Regla que establece que cada hermano tiene una mascota única}
+\PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{n+nv}{Hermano}\PYG{p}{,} \PYG{n+nv}{Mascota}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{n+nf}{hermano}\PYG{p}{(}\PYG{n+nv}{Hermano}\PYG{p}{),}
+    \PYG{n+nf}{mascota}\PYG{p}{(}\PYG{n+nv}{Mascota}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Restricciones específicas según las pistas}
+\PYG{n+nf}{restricciones} \PYG{o}{:\PYGZhy{}}
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{ana}\PYG{p}{,} \PYG{n+nv}{MascotaAna}\PYG{p}{),}
+    \PYG{n+nv}{MascotaAna} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{l+s+sAtom}{perro}\PYG{p}{,}
+    \PYG{n+nv}{MascotaAna} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{l+s+sAtom}{pez}\PYG{p}{,}
+
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{bruno}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{),}
+    \PYG{n+nv}{MascotaBruno} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{l+s+sAtom}{gato}\PYG{p}{,}
+
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{carla}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{),}
+    \PYG{n+nv}{MascotaCarla} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{l+s+sAtom}{pez}\PYG{p}{,}
+
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{daniel}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{),}
+    \PYG{p}{(}\PYG{n+nv}{MascotaDaniel} \PYG{o}{=} \PYG{l+s+sAtom}{loro} \PYG{p}{;} \PYG{n+nv}{MascotaDaniel} \PYG{o}{=} \PYG{l+s+sAtom}{pez}\PYG{p}{).}
+
+\PYG{c+c1}{\PYGZpc{} Regla para asegurar que todos tienen mascotas distintas}
+\PYG{n+nf}{todos\PYGZus{}diferentes}\PYG{p}{(}\PYG{n+nv}{MascotaAna}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{n+nv}{MascotaAna} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaBruno}\PYG{p}{,}
+    \PYG{n+nv}{MascotaAna} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaCarla}\PYG{p}{,}
+    \PYG{n+nv}{MascotaAna} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaDaniel}\PYG{p}{,}
+    \PYG{n+nv}{MascotaBruno} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaCarla}\PYG{p}{,}
+    \PYG{n+nv}{MascotaBruno} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaDaniel}\PYG{p}{,}
+    \PYG{n+nv}{MascotaCarla} \PYG{l+s+sAtom}{\PYGZbs{}=} \PYG{n+nv}{MascotaDaniel}\PYG{p}{.}
+
+\PYG{c+c1}{\PYGZpc{} Mostrar resultados}
+\PYG{n+nf}{mostrar\PYGZus{}resultados}\PYG{p}{(}\PYG{n+nv}{MascotaAna}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+    \PYG{n+nf}{format}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}Ana tiene un \PYGZti{}w\PYGZti{}n\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{MascotaAna}\PYG{p}{]),}
+    \PYG{n+nf}{format}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}Bruno tiene un \PYGZti{}w\PYGZti{}n\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{MascotaBruno}\PYG{p}{]),}
+    \PYG{n+nf}{format}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}Carla tiene un \PYGZti{}w\PYGZti{}n\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{MascotaCarla}\PYG{p}{]),}
+    \PYG{n+nf}{format}\PYG{p}{(}\PYG{l+s+sAtom}{\PYGZsq{}Daniel tiene un \PYGZti{}w\PYGZti{}n\PYGZsq{}}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{MascotaDaniel}\PYG{p}{]).}
+
+\PYG{c+c1}{\PYGZpc{} Regla principal que resuelve el problema}
+\PYG{n+nf}{resolver} \PYG{o}{:\PYGZhy{}}
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{ana}\PYG{p}{,} \PYG{n+nv}{MascotaAna}\PYG{p}{),}
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{bruno}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{),}
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{carla}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{),}
+    \PYG{n+nf}{tiene\PYGZus{}mascota}\PYG{p}{(}\PYG{l+s+sAtom}{daniel}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{),}
+    \PYG{l+s+sAtom}{restricciones}\PYG{p}{,}
+    \PYG{n+nf}{todos\PYGZus{}diferentes}\PYG{p}{(}\PYG{n+nv}{MascotaAna}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{),}
+    \PYG{n+nf}{mostrar\PYGZus{}resultados}\PYG{p}{(}\PYG{n+nv}{MascotaAna}\PYG{p}{,} \PYG{n+nv}{MascotaBruno}\PYG{p}{,} \PYG{n+nv}{MascotaCarla}\PYG{p}{,} \PYG{n+nv}{MascotaDaniel}\PYG{p}{).}
+
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{equalp}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}HOLA\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, ignora mayúsculas y minúsculas}
+\PYG{p}{(}\PYG{n+nb}{equalp}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, iguala enteros y flotantes}
+\PYG{p}{(}\PYG{n+nb}{equalp}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{))}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, compara listas por contenido}
+\PYG{p}{(}\PYG{n+nb}{equalp}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, ignora las diferencias entre mayúsculas y minúsculas en caracteres}
+\end{Verbatim}

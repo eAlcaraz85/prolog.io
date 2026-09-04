@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{filtrar\PYGZus{}mayores}\PYG{p}{(}\PYG{k}{\PYGZus{}}\PYG{p}{,} \PYG{p}{[],} \PYG{p}{[]).}
+    \PYG{n+nf}{filtrar\PYGZus{}mayores}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{R}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nv}{H} \PYG{o}{\PYGZgt{}} \PYG{n+nv}{N}\PYG{p}{,}
+        \PYG{n+nf}{filtrar\PYGZus{}mayores}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{).}
+    \PYG{n+nf}{filtrar\PYGZus{}mayores}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{p}{[}\PYG{k}{\PYGZus{}} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{n+nv}{R}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{filtrar\PYGZus{}mayores}\PYG{p}{(}\PYG{n+nv}{N}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{).}
+\end{Verbatim}

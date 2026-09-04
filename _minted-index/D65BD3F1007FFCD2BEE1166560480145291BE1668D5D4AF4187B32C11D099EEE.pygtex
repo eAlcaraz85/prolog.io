@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{invertir}\PYG{p}{(}\PYG{n+nv}{L}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{invertir\PYGZus{}acum}\PYG{p}{(}\PYG{n+nv}{L}\PYG{p}{,} \PYG{p}{[],} \PYG{n+nv}{R}\PYG{p}{).}
+
+    \PYG{n+nf}{invertir\PYGZus{}acum}\PYG{p}{([],} \PYG{n+nv}{Acc}\PYG{p}{,} \PYG{n+nv}{Acc}\PYG{p}{).}
+    \PYG{n+nf}{invertir\PYGZus{}acum}\PYG{p}{([}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{],} \PYG{n+nv}{Acc}\PYG{p}{,} \PYG{n+nv}{R}\PYG{p}{)} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{invertir\PYGZus{}acum}\PYG{p}{(}\PYG{n+nv}{T}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{Acc}\PYG{p}{],} \PYG{n+nv}{R}\PYG{p}{).}
+\end{Verbatim}

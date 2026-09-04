@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{unless}\PYG{+w}{ }\PYG{n+no}{nil}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Esto se imprimirá\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Este es otro mensaje dentro del unless\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

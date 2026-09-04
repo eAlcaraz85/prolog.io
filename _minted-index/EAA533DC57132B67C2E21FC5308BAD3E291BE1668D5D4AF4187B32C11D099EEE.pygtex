@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+     \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{l+m+mi}{3} \PYG{o}{=} \PYG{l+m+mf}{3.}
+     \PYG{l+s+sAtom}{true}\PYG{p}{.}
+
+     \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{l+m+mi}{3} \PYG{o}{=} \PYG{l+m+mf}{4.}
+     \PYG{l+s+sAtom}{false}\PYG{p}{.}
+\end{Verbatim}

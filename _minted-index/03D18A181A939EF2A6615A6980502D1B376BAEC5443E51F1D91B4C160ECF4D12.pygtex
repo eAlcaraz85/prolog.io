@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{defun}\PYG{+w}{ }\PYG{n+nv}{suma\PYGZhy{}mayor\PYGZhy{}que}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nv}{x}\PYG{+w}{  }\PYG{n+nv}{y}\PYG{+w}{ }\PYG{n+nv}{z}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{\PYGZgt{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{+}\PYG{+w}{ }\PYG{n+nv}{x}\PYG{+w}{ }\PYG{n+nv}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{n+nv}{z}\PYG{p}{)}
+\PYG{p}{)}
+\PYG{p}{(}\PYG{n+nv}{suma\PYGZhy{}mayor\PYGZhy{}que}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}
+\end{Verbatim}

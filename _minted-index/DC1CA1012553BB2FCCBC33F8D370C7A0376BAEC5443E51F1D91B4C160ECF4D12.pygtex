@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{x}\PYG{+w}{ }\PYG{l+m+mi}{20}\PYG{p}{)}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{nums}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{))}
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{palabra}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{p}{)}
+
+\PYG{o}{`}\PYG{p}{(}\PYG{n+nv}{el}\PYG{+w}{ }\PYG{n+nv}{valor}\PYG{+w}{ }\PYG{n+nv}{de}\PYG{+w}{ }\PYG{n+nv}{x}\PYG{+w}{ }\PYG{n+nv}{es}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{x}\PYG{+w}{ }\PYG{n+nv}{y}\PYG{+w}{ }\PYG{n+nv}{la}\PYG{+w}{ }\PYG{n+nv}{lista}\PYG{+w}{ }\PYG{n+nv}{es}\PYG{+w}{ }\PYG{o}{,@}\PYG{n+nv}{nums,}\PYG{+w}{ }\PYG{n+nv}{con}\PYG{+w}{ }\PYG{n+nv}{una}\PYG{+w}{ }\PYG{n+nv}{palabra}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{palabra}\PYG{p}{)}
+\end{Verbatim}

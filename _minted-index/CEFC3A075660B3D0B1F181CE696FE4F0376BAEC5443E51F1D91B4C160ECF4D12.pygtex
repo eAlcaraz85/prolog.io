@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{char=}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, los caracteres son iguales}
+\PYG{p}{(}\PYG{n+nb}{char=}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, mayúsculas y minúsculas no coinciden}
+\PYG{p}{(}\PYG{n+nb}{char\PYGZhy{}equal}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, ignora las diferencias de mayúsculas}
+\end{Verbatim}

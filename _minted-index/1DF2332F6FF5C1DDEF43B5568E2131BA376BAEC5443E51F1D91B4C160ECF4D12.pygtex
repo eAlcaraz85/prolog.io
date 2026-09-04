@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}lista}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{())}
+\PYG{p}{(}\PYG{n+nb}{when}\PYG{+w}{ }\PYG{n+nv}{mi\PYGZhy{}lista}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Esto no se imprimirá porque la lista está vacía\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

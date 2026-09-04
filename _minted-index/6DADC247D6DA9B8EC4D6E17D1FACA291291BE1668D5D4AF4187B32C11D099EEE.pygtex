@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{n+nf}{miembro}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]).}
+    \PYG{l+s+sAtom}{true}\PYG{p}{.}
+    \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{n+nf}{miembro}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]).}
+    \PYG{l+s+sAtom}{false}\PYG{p}{.}
+\end{Verbatim}

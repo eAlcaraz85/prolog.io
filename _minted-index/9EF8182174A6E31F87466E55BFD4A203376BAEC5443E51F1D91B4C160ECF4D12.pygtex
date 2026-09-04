@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{cond}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{condición1}\PYG{+w}{ }\PYG{n+nv}{acción1}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+nv}{condición2}\PYG{+w}{ }\PYG{n+nv}{acción2}\PYG{p}{)}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+no}{t}\PYG{+w}{ }\PYG{n+nv}{acción\PYGZhy{}por\PYGZhy{}defecto}\PYG{p}{))}
+\end{Verbatim}

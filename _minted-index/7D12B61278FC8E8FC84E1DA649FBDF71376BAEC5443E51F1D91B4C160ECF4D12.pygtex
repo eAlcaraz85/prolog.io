@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{cond}
+\PYG{+w}{  }\PYG{p}{((}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{6}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}5 es igual a 6\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{  }\PYG{p}{((}\PYG{n+nb}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{+w}{ }\PYG{l+m+mi}{6}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}5 es mayor que 6\PYGZdq{}}\PYG{p}{))}
+\PYG{+w}{  }\PYG{p}{(}\PYG{n+no}{t}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{print}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Ninguna de las anteriores\PYGZdq{}}\PYG{p}{)))}
+\end{Verbatim}

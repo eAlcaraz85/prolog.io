@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{/=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, los números son diferentes}
+\PYG{p}{(}\PYG{n+nb}{/=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, los números son iguales}
+\end{Verbatim}

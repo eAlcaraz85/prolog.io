@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{k}{setq}\PYG{+w}{ }\PYG{n+nv}{x}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}
+\PYG{o}{`}\PYG{p}{(}\PYG{n+nv}{a}\PYG{+w}{ }\PYG{n+nv}{b}\PYG{+w}{ }\PYG{o}{,}\PYG{n+nv}{x}\PYG{p}{)}
+\end{Verbatim}

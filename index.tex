@@ -1,0 +1,139 @@
+% Created 2025-11-24 lun 09:08
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[spanish]{inputenc}
+\author{Eduardo Alcaraz}
+\date{\today}
+\title{Acertijo Lógico Examen}
+\hypersetup{
+ pdfauthor={Eduardo Alcaraz},
+ pdftitle={Acertijo Lógico Examen},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.5.5)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section*{Descripción General}
+\label{sec:org0c95b23}
+Cinco investigadores trabajan en un laboratorio de biología molecular.  
+Cada uno tiene:
+\begin{itemize}
+\item una especialidad distinta,
+\item un horario distinto,
+\item una bebida que prefiere,
+\item un equipo de laboratorio distinto,
+\item y un país de origen diferente.
+\end{itemize}
+
+Tu tarea es usar Prolog para deducir quién tiene qué atributos.
+
+\section*{Entidades}
+\label{sec:orga1f7620}
+
+\textbf{\textbf{Investigadores}}
+\begin{enumerate}
+\item Ana
+\item Bruno
+\item Carlos
+\item Diana
+\item Elisa
+\end{enumerate}
+
+\textbf{\textbf{Especialidades}}
+\begin{itemize}
+\item Genética
+\item Microbiología
+\item Bioquímica
+\item Inmunología
+\item Neurociencia
+\end{itemize}
+
+\textbf{\textbf{Horarios}}
+\begin{itemize}
+\item 6am
+\item 8am
+\item 10am
+\item 12pm
+\item 14pm
+\end{itemize}
+
+\textbf{\textbf{Bebidas}}
+\begin{itemize}
+\item Café
+\item Té
+\item Jugo
+\item Mate
+\item Agua
+\end{itemize}
+
+\textbf{\textbf{Equipos}}
+\begin{itemize}
+\item Microscopio
+\item Centrífuga
+\item PCR
+\item Espectrómetro
+\item Incubadora
+\end{itemize}
+
+\textbf{\textbf{Países}}
+\begin{itemize}
+\item México
+\item Chile
+\item España
+\item Argentina
+\item Perú
+\end{itemize}
+
+\section*{Reglas del Acertijo}
+\label{sec:orgf9519e1}
+
+\begin{enumerate}
+\item El investigador de Genética llega a las 6am.
+\item Ana no trabaja ni en Genética ni en Neurociencia.
+\item La persona que usa la Centrífuga bebe Té.
+\item La investigadora de Perú llega a las 10am.
+\item Carlos usa el Espectrómetro.
+\item Quien bebe Café llega dos horas antes que quien bebe Jugo.
+\item La persona que trabaja en Inmunología usa PCR.
+\item La especialista en Bioquímica es de Chile.
+\item La Incubadora es utilizada por alguien que llega a las 14pm.
+\item El investigador de Argentina bebe Mate.
+\item Elisa no bebe Té ni Café.
+\item Diana trabaja en Microbiología.
+\item El que llega a las 8am usa el Microscopio.
+\item Bruno no es de México.
+\item La persona de España trabaja en Neurociencia.
+\item El usuario del equipo PCR llega después que el especialista en Microbiología.
+\item El de México usa el equipo que NO es Microscopio ni Incubadora.
+\item La persona que bebe Agua no usa ni PCR ni Espectrómetro.
+\item El especialista en Neurociencia llega después de la persona que bebe Jugo.
+\item El de Perú NO bebe Agua.
+\end{enumerate}
+
+\section*{Preguntas para resolver con Prolog}
+\label{sec:org672f70b}
+
+\begin{enumerate}
+\item ¿A qué hora llega cada investigador?
+\item ¿Qué especialidad tiene cada uno?
+\item ¿Qué bebida prefiere cada investigador?
+\item ¿Qué equipo usa cada quien?
+\item ¿De qué país es cada uno?
+\end{enumerate}
+\end{document}

@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{;; Comparación de símbolos}
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\PYG{p}{(}\PYG{n+nb}{eq}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}b}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; NIL}
+
+\PYG{c+c1}{;; Comparación de números y caracteres}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; NIL}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+
+\PYG{c+c1}{;; Comparación de listas y cadenas}
+\PYG{p}{(}\PYG{n+nb}{equal}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZsq{}}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{))}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\PYG{p}{(}\PYG{n+nb}{equal}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; NIL}
+\PYG{p}{(}\PYG{n+nb}{equalp}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}Hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+
+\PYG{c+c1}{;; Comparación numérica}
+\PYG{p}{(}\PYG{n+nb}{=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\PYG{p}{(}\PYG{n+nb}{/=}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+
+\PYG{c+c1}{;; Comparación de cadenas}
+\PYG{p}{(}\PYG{n+nb}{string=}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}HOLA\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; NIL}
+\PYG{p}{(}\PYG{n+nb}{string\PYGZhy{}equal}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}HOLA\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+
+\PYG{c+c1}{;; Comparación de caracteres}
+\PYG{p}{(}\PYG{n+nb}{char=}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\PYG{p}{(}\PYG{n+nb}{char\PYGZhy{}equal}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; T}
+\end{Verbatim}

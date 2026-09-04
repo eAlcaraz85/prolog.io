@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+   \PYG{p}{[]}             \PYG{c+c1}{\PYGZpc{} Lista vacía}
+   \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{]}      \PYG{c+c1}{\PYGZpc{} Lista de números}
+   \PYG{p}{[}\PYG{l+s+sAtom}{a}\PYG{p}{,} \PYG{l+s+sAtom}{b}\PYG{p}{,} \PYG{l+s+sAtom}{c}\PYG{p}{]}      \PYG{c+c1}{\PYGZpc{} Lista de átomos}
+   \PYG{p}{[}\PYG{n+nv}{H} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{]}        \PYG{c+c1}{\PYGZpc{} Lista con cabeza `H` y cola `T`}
+\end{Verbatim}

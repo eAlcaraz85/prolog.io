@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nf}{miembro}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{p}{[}\PYG{n+nv}{X} \PYG{p}{|} \PYG{k}{\PYGZus{}}\PYG{p}{]).}
+    \PYG{n+nf}{miembro}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{p}{[}\PYG{k}{\PYGZus{}} \PYG{p}{|} \PYG{n+nv}{T}\PYG{p}{])} \PYG{p}{:\PYGZhy{}}
+        \PYG{n+nf}{miembro}\PYG{p}{(}\PYG{n+nv}{X}\PYG{p}{,} \PYG{n+nv}{T}\PYG{p}{).}
+\end{Verbatim}

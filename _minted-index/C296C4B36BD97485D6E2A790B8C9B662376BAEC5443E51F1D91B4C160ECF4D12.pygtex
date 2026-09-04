@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{+w}{ }\PYG{l+s+ss}{\PYGZsq{}a}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, porque compara números por su valor}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+m+mf}{10.0}\PYG{+w}{ }\PYG{l+m+mi}{10}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, porque compara tipos también (entero vs flotante)}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{+w}{ }\PYG{l+s+sc}{\PYGZsh{}\PYGZbs{}A}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve T, compara caracteres}
+\PYG{p}{(}\PYG{n+nb}{eql}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{+w}{ }\PYG{l+s}{\PYGZdq{}hola\PYGZdq{}}\PYG{p}{)}\PYG{+w}{  }\PYG{c+c1}{;; Devuelve NIL, porque compara referencias de cadenas}
+\end{Verbatim}

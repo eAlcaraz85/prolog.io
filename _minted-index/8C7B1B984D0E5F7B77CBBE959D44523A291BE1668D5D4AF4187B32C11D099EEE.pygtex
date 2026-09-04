@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{l+s+sAtom}{?\PYGZhy{}} \PYG{n+nf}{tamano}\PYG{p}{([}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{],} \PYG{n+nv}{N}\PYG{p}{).}
+    \PYG{n+nv}{N} \PYG{o}{=} \PYG{l+m+mf}{3.}
+\end{Verbatim}
