@@ -1396,175 +1396,396 @@ Un árbol binario es *el mismo* =cons=, leído de otra forma. En lugar de «cabe
 
 
 
-*** Entradas y salidas 
+*** Entradas y salidas
 
- Lisp proporciona un amplio conjunto de facilidades para realizar
- entrada/salida. Todas las operaciones de entrada/salida se realizan en
- flujos de varios tipos. Aunque es posible leer y escribir datos
- binarios, la mayoría de los métodos de entrada/salida de Common Lisp
- leen o escriben caracteres. Para leer y escribir caracteres
- individuales o líneas de datos, existen primitivas directas. Sin
- embargo, la operación de entrada/salida más útil es leer y escribir
- representaciones escritas de objetos Lisp arbitrarios.
+Lisp proporciona un amplio conjunto de facilidades para realizar
+entrada/salida. Todas las operaciones de I/O se realizan sobre
+/flujos/ (~streams~): el teclado, la pantalla o un archivo. Aunque es
+posible leer y escribir datos binarios, la mayoría de las primitivas
+de Common Lisp trabajan con caracteres.
 
- **Objetos Lisp:**
+La operación más útil no es leer texto crudo, sino leer y escribir la
+/representación impresa/ de objetos Lisp. El /lector/ (~read~)
+interpreta caracteres como un objeto; el /impresor/ (~print~,
+~prin1~, ~princ~, ~format~) hace lo inverso.
 
- Los objetos Lisp suelen ser estructuras de datos complejas en lugar de
- cadenas de texto. Difieren de las cadenas de texto en términos de
- atributos debido a cómo se representan internamente. Sin embargo, Lisp
- ofrece una representación de la mayoría de los objetos en forma de
- texto escrito, conocida como la representación impresa, que se utiliza
- en las facilidades de entrada/salida. Esto hace posible acceder y
- discutir objetos Lisp.
+Los argumentos opcionales más comunes en las funciones de entrada son:
 
- Los caracteres de la representación impresa de un objeto Lisp se
- transmiten a un flujo mediante funciones como "print". El (Lisp)
- impresor es un conjunto de funciones que realiza esto. El (Lisp)
- lector es un conjunto de rutinas que realiza la función de lectura,
- que acepta caracteres de un flujo, los interpreta como una
- representación impresa de un objeto Lisp, crea ese objeto y lo
- devuelve.
+- ~input-stream~: flujo de origen. Si se omite o es ~nil~, se usa
+  ~*standard-input*~.
+- ~eof-error-p~: si es verdadero (valor por defecto), llegar al final
+  del archivo señaliza un error. Si es ~nil~, se devuelve ~eof-value~.
+- ~eof-value~: valor que se retorna al alcanzar EOF cuando no se
+  desea un error.
 
-**** Funciones de Entrada: 
+**** El lector y el impresor
 
- Los caracteres de la representación impresa de un objeto Lisp se
- transmiten a un flujo mediante funciones como "print". El (Lisp)
- impresor es un conjunto de funciones que realiza esta tarea. El (Lisp)
- lector es un conjunto de rutinas que ejecutan la función de lectura,
- la cual acepta caracteres de un flujo, los interpreta como la
- representación impresa de un objeto Lisp, crea ese objeto y lo
- devuelve.
+~print~ escribe un objeto con su representación Lisp (con comillas en
+cadenas y un salto de línea alrededor). ~read~ reconstruye el objeto
+a partir de esa representación.
 
- **Funciones de Entrada**: Las funciones de entrada se dividen en dos
- categorías: aquellas que trabajan con flujos de caracteres y aquellas
- que trabajan con flujos binarios.
+#+BEGIN_SRC lisp
+(print '(hola 1 2 3))
+#+END_SRC
 
- **Entrada desde Flujos de Caracteres**: Existen muchos argumentos
- opcionales en las funciones de entrada de caracteres llamados
- "input-stream", "eof-error-p" y "eof-value". El argumento
- "input-stream" es el flujo desde el cual recoger la entrada; si no se
- especifica o es "nil", se toma por defecto el valor de la variable
- especial 'standard-input'. El parámetro "eof-error-p" controla lo que
- sucede si la entrada proviene de un archivo y se alcanza el final del
- archivo. Si "eof-error-p" es verdadero, que es el valor
- predeterminado, se señalará un error al final del archivo. Si es
- falso, entonces no se encuentra ningún error, y en su lugar, la
- función devuelve "eof-value".
+Salida:
 
- Las funciones read, read-line y read-char son funciones de entrada en
- Lisp que se utilizan para leer datos desde un flujo. Aquí se describen
- sus parámetros:
+#+BEGIN_EXAMPLE
+(HOLA 1 2 3)
+#+END_EXAMPLE
 
-  - **read &optional input-stream eof-error-p eof-value recursive-p**:
-	Esta función lee datos desde el flujo de entrada especificado en
-	input-stream. Si no se especifica input-stream, se utiliza el valor
-	predeterminado que es el flujo de entrada estándar. eof-error-p
-	controla si se produce un error cuando se alcanza el final del
-	archivo (true por defecto), y eof-value especifica el valor que se
-	devuelve en lugar de un error cuando se llega al final del
-	archivo. recursive-p es un parámetro opcional que controla si la
-	función debe leer de manera recursiva objetos anidados.
+Si el usuario escribe ~(suma 3 4)~ ante ~read~, Lisp no recibe una
+cadena: recibe la lista ~(suma 3 4)~.
 
-  - **read-line &optional input-stream eof-error-p eof-value
-	recursive-p**: Esta función lee una línea de texto desde el flujo
-	de entrada especificado en input-stream. Devuelve la línea como una
-	cadena de caracteres (sin el carácter de nueva línea). El segundo
-	valor que se devuelve es un indicador booleano que es true si el
-	final del archivo terminó la línea (no está vacía) o false si la
-	línea se terminó correctamente.
+#+BEGIN_SRC lisp
+(setq dato (read))   ; el usuario teclea: (suma 3 4)
+dato                 ; => (SUMA 3 4)
+(car dato)           ; => SUMA
+(cadr dato)          ; => 3
+#+END_SRC
 
-  - **read-char &optional input-stream eof-error-p eof-value
-	recursive-p**: Esta función lee un carácter desde el flujo de
-	entrada especificado en input-stream. Al igual que las otras
-	funciones, eof-error-p controla si se produce un error cuando se
-	alcanza el final del archivo (true por defecto), y eof-value
-	especifica el valor que se devuelve en lugar de un error cuando se
-	llega al final del archivo. recursive-p es un parámetro opcional
-	que controla si la función debe leer de manera recursiva objetos
-	anidados.
+**** Funciones de entrada
 
- Estas funciones son útiles para leer datos de diferentes maneras desde
- flujos de entrada en Lisp.
+Las funciones de entrada se dividen en dos familias: las que trabajan
+con flujos de caracteres y las que trabajan con flujos binarios. Aquí
+se cubren las de caracteres, que son las más usadas en el curso.
 
+***** read
 
- Aquí se describen las funciones unread-char y
- read-preserving-whitespace en Lisp:
+~read~ lee *un objeto Lisp* (número, símbolo, lista, cadena…) desde un
+flujo. No lee “la línea”: espera un token completo. Un espacio, un
+paréntesis de cierre o un salto de línea terminan el objeto.
 
-  - **unread-char**: Esta función mueve un carácter al principio del
-	flujo de entrada. Es importante destacar que el carácter que se
-	pasa como argumento debe coincidir con el último carácter leído del
-	flujo de entrada. Después de usar unread-char, cuando se lea el
-	siguiente carácter del flujo de entrada, será el carácter
-	especificado seguido de los contenidos previos del flujo de
-	entrada, ya que el flujo de entrada "retrocede" sobre este
-	carácter. unread-char devuelve nil como resultado.
+#+BEGIN_SRC lisp
+(setq n (read))          ; el usuario teclea: 42
+(setq nombre (read))     ; el usuario teclea: ana
+(setq lista (read))      ; el usuario teclea: (1 2 3)
+#+END_SRC
 
-  - **read-preserving-whitespace**: Esta función se utiliza cuando es
-	necesario saber con precisión qué carácter finalizó un token
-	extendido. Permite leer tokens mientras conserva información sobre
-	los caracteres de espacio en blanco. A diferencia de read, que
-	normalmente ignora los espacios en blanco,
-	read-preserving-whitespace conserva los caracteres de espacio en
-	blanco y proporciona información adicional sobre cómo se formó el
-	token.
+#+BEGIN_EXAMPLE
+n      => 42          ; número
+nombre => ANA         ; símbolo (no cadena)
+lista  => (1 2 3)     ; lista
+#+END_EXAMPLE
 
-  Estas funciones son útiles en situaciones específicas donde se
-  necesita un mayor control sobre la lectura y manipulación de
-  caracteres en el flujo de entrada en Lisp.
+Para leer una *cadena*, el usuario debe escribir las comillas:
 
- Aquí se describen varias funciones relacionadas con la manipulación de
- entrada de caracteres en Lisp:
+#+BEGIN_SRC lisp
+(setq frase (read))      ; el usuario teclea: "hola mundo"
+frase                    ; => "hola mundo"
+#+END_SRC
 
-  - **peek-char &optional peek-type input-stream eof-error-p eof-value
-	recursive-p**: La función peek-char se utiliza para examinar el
-	siguiente carácter en el flujo de entrada sin eliminarlo del
-	flujo. El parámetro opcional peek-type determina el comportamiento
-	de peek-char. Si peek-type es nil (valor predeterminado), la
-	función devuelve el próximo carácter que se leerá en el flujo de
-	entrada sin eliminarlo. Esto es útil para ver qué carácter vendrá a
-	continuación sin avanzar en la secuencia de entrada.
+Ejemplo: sumar dos números leídos.
 
-  - **listen &optional input-stream**: La función listen se utiliza
-	para verificar si un carácter está inmediatamente disponible en el
-	flujo de entrada. Si hay un carácter disponible para ser leído, la
-	función devuelve true; de lo contrario, devuelve false. Esto es
-	especialmente útil cuando se trabaja con flujos de entrada
-	interactivos como el teclado.
+#+BEGIN_SRC lisp
+(defun suma-leida ()
+  (format t "Primer número: ")
+  (setq a (read))
+  (format t "Segundo número: ")
+  (setq b (read))
+  (format t "La suma es ~A~%" (+ a b)))
+#+END_SRC
 
-  - **read-char-no-hang &optional input-stream eof-error-p eof-value
-	recursive-p**: Similar a read-char, esta función lee un carácter
-	del flujo de entrada. Sin embargo, si no hay un carácter disponible
-	de inmediato, en lugar de esperar, devuelve nil de inmediato. Esto
-	permite una lectura no bloqueante.
+***** read-line
 
-  - **clear-input &optional input-stream**: La función clear-input se
-	utiliza para borrar la entrada bufferizada del flujo de entrada
-	relacionada con la entrada. Es útil, por ejemplo, para eliminar
-	entradas previas no leídas, especialmente en situaciones de errores
-	asincrónicos. Si el flujo de entrada no es aplicable para esta
-	operación, clear-input no tendrá ningún efecto.
+~read-line~ lee *toda la línea* y la devuelve como cadena, sin el
+carácter de nueva línea. Es la función adecuada cuando el usuario
+escribe texto libre (nombres, frases), no objetos Lisp.
 
-  - **read-from-string string &optional eof-error-p eof-value &key
-	:start :end :preserve-whitespace:** Esta función crea un objeto
-	Lisp a partir de los caracteres de una cadena, uno a la vez, y
-	devuelve el objeto resultante. Además, devuelve la longitud de la
-	cadena (o longitud + 1) o el índice del primer carácter en la
-	cadena que no se leyó.
+#+BEGIN_SRC lisp
+(format t "¿Cómo te llamas? ")
+(setq nombre (read-line))
+(format t "Hola, ~A~%" nombre)
+#+END_SRC
 
-  - **parse-integer string &key :start :end :radix :junk-allowed:** La
-	función parse-integer se utiliza para analizar una cadena en busca
-	de un número entero. Puede especificar el rango de caracteres a
-	considerar mediante los parámetros :start y :end, y puede definir
-	la base numérica con :radix. Si se encuentra un carácter no válido
-	y :junk-allowed está configurado en nil, se generará un error.
+Si el usuario escribe ~Ana López~, ~nombre~ vale ~"Ana López"~ (una
+cadena), no un símbolo.
 
- Estas funciones son útiles en la manipulación de flujos de entrada de
- caracteres y en la conversión de cadenas en objetos Lisp o números
- enteros.
+~read-line~ devuelve dos valores: la cadena y un indicador que es
+verdadero si la línea terminó por EOF.
 
+#+BEGIN_SRC lisp
+(multiple-value-bind (linea fin-archivo)
+    (read-line)
+  (format t "Leído: ~S  EOF: ~A~%" linea fin-archivo))
+#+END_SRC
 
+***** read-char
+
+~read-char~ lee *un solo carácter* y lo consume del flujo.
+
+#+BEGIN_SRC lisp
+(format t "Pulsa una tecla: ")
+(setq c (read-char))
+(format t "Leíste el carácter ~S~%" c)
+#+END_SRC
+
+Ejemplo: contar cuántas vocales hay en una línea.
+
+#+BEGIN_SRC lisp
+(defun contar-vocales (cadena)
+  (let ((n 0))
+    (dotimes (i (length cadena) n)
+      (when (find (char cadena i) "aeiouAEIOU")
+        (incf n)))))
+
+(format t "Escribe una frase: ")
+(format t "Vocales: ~A~%" (contar-vocales (read-line)))
+#+END_SRC
+
+***** unread-char y peek-char
+
+~unread-char~ “devuelve” al flujo el último carácter leído, de modo
+que la siguiente lectura lo vuelva a ver. ~peek-char~ mira el
+siguiente carácter *sin* extraerlo.
+
+#+BEGIN_SRC lisp
+;; Tras leer #\a, unread-char lo reinserta
+(setq c (read-char))     ; usuario teclea: ab
+(unread-char c)
+(read-char)              ; => #\a  (otra vez)
+(read-char)              ; => #\b
+#+END_SRC
+
+#+BEGIN_SRC lisp
+;; peek-char no consume el carácter
+(setq c (peek-char))     ; usuario teclea: xyz
+c                        ; => #\x
+(read-char)              ; => #\x  (sigue disponible)
+(read-char)              ; => #\y
+#+END_SRC
+
+Con ~peek-type~ distinto de ~nil~, ~peek-char~ puede saltar espacios
+hasta el siguiente carácter significativo:
+
+#+BEGIN_SRC lisp
+(peek-char t)            ; ignora espacios y saltos; mira el siguiente carácter útil
+#+END_SRC
+
+***** listen, read-char-no-hang y clear-input
+
+~listen~ pregunta si ya hay un carácter disponible (sin bloquear).
+~read-char-no-hang~ lee un carácter si está listo; si no, devuelve
+~nil~ en lugar de esperar. ~clear-input~ vacía el búfer de entrada
+(útil tras un error o una respuesta inesperada).
+
+#+BEGIN_SRC lisp
+(when (listen)
+  (format t "Hay algo pendiente: ~S~%" (read-char)))
+
+(setq c (read-char-no-hang))   ; nil si el usuario aún no pulsó nada
+
+(clear-input)                  ; descarta lo que quedó en el teclado
+#+END_SRC
+
+***** read-from-string y parse-integer
+
+~read-from-string~ aplica el lector a una cadena ya existente (no al
+teclado). ~parse-integer~ extrae un entero, con base opcional.
+
+#+BEGIN_SRC lisp
+(read-from-string "(1 2 3)")          ; => (1 2 3)    y el índice 7
+(read-from-string "42 resto")         ; => 42        y el índice 2
+
+(parse-integer "123")                 ; => 123
+(parse-integer "ff" :radix 16)        ; => 255
+(parse-integer "12abc" :junk-allowed t) ; => 12
+#+END_SRC
+
+Ejemplo: convertir una línea del usuario en una lista de objetos Lisp.
+
+#+BEGIN_SRC lisp
+(defun leer-lista ()
+  (format t "Escribe una lista Lisp, por ejemplo (1 2 3): ")
+  (read-from-string (read-line)))
+#+END_SRC
+
+**** Funciones de salida
+
+Las tres primitivas clásicas se distinguen por *qué* imprimen y *cómo*
+terminan la línea:
+
+| Función | Comillas en cadenas | Escape de caracteres especiales | Salto de línea |
+|---------+---------------------+---------------------------------+----------------|
+| ~print~ | sí                  | sí                              | antes y después |
+| ~prin1~ | sí                  | sí                              | no             |
+| ~princ~ | no                  | no                              | no             |
+
+~print~ y ~prin1~ producen texto que ~read~ puede volver a leer
+(/readable/). ~princ~ produce texto para humanos.
+
+***** print, prin1 y princ
+
+#+BEGIN_SRC lisp
+(print "hola")
+(prin1 "hola")
+(princ "hola")
+#+END_SRC
+
+Salida aproximada:
+
+#+BEGIN_EXAMPLE
+"hola"
+"hola"hola
+#+END_EXAMPLE
+
+Con listas y símbolos la diferencia se ve igual de clara:
+
+#+BEGIN_SRC lisp
+(setq datos '("ana" 21 (lisp prolog)))
+
+(print datos)
+(prin1 datos)
+(terpri)                 ; salto de línea explícito
+(princ datos)
+(terpri)
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+("ana" 21 (LISP PROLOG))
+("ana" 21 (LISP PROLOG))
+(ana 21 (LISP PROLOG))
+#+END_EXAMPLE
+
+~terpri~ imprime un salto de línea. ~fresh-line~ solo lo hace si el
+cursor no está ya al inicio de la línea.
+
+***** write-char y write-string
+
+#+BEGIN_SRC lisp
+(write-char #\A)                 ; A
+(write-string "hola")            ; hola
+(write-line "mundo")             ; mundo  (y un salto de línea)
+#+END_SRC
+
+***** format
+
+~format~ es la forma más versátil de producir salida. El primer
+argumento ~t~ significa “escribe en ~*standard-output*~”. ~nil~
+significa “no imprimas: devuelve una cadena”.
+
+Directivas frecuentes:
+
+- ~~A~  imprime de forma ~princ~ (legible para humanos).
+- ~~S~  imprime de forma ~prin1~ (legible para ~read~).
+- ~~%~  salto de línea.
+- ~~D~  entero decimal.
+- ~~F~  número en coma flotante.
+
+#+BEGIN_SRC lisp
+(setq nombre "Ana")
+(setq edad 21)
+
+(format t "Hola, ~A. Tienes ~D años.~%" nombre edad)
+(format t "El objeto es ~S~%" '(1 2 3))
+
+(setq mensaje (format nil "~A tiene ~D" nombre edad))
+mensaje                              ; => "Ana tiene 21"
+#+END_SRC
+
+Salida:
+
+#+BEGIN_EXAMPLE
+Hola, Ana. Tienes 21 años.
+El objeto es (1 2 3)
+#+END_EXAMPLE
+
+Ejemplo: tabla sencilla.
+
+#+BEGIN_SRC lisp
+(defun tabla (n)
+  (dotimes (i n)
+    (format t "~D x ~D = ~D~%" n (1+ i) (* n (1+ i)))))
+
+(tabla 3)
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+3 x 1 = 3
+3 x 2 = 6
+3 x 3 = 9
+#+END_EXAMPLE
+
+**** Archivos
+
+~with-open-file~ abre un flujo, ejecuta el cuerpo y cierra el archivo
+aunque ocurra un error. Es la forma recomendada de trabajar con
+ficheros.
+
+***** Escribir un archivo
+
+#+BEGIN_SRC lisp
+(with-open-file (out "datos.txt"
+                     :direction :output
+                     :if-exists :supersede)
+  (format out "Hola desde Lisp~%")
+  (print '(1 2 3) out)
+  (format out "~A~%" "fin"))
+#+END_SRC
+
+***** Leer un archivo
+
+Línea a línea:
+
+#+BEGIN_SRC lisp
+(with-open-file (in "datos.txt")
+  (loop for linea = (read-line in nil :eof)
+        until (eq linea :eof)
+        do (format t ">> ~A~%" linea)))
+#+END_SRC
+
+Objeto a objeto (el archivo contiene representaciones Lisp):
+
+#+BEGIN_SRC lisp
+(with-open-file (in "objetos.lisp")
+  (loop for obj = (read in nil :eof)
+        until (eq obj :eof)
+        do (print obj)))
+#+END_SRC
+
+El ~nil~ de ~(read in nil :eof)~ desactiva el error por EOF y hace
+que, al terminar el archivo, se devuelva el centinela ~:eof~.
+
+**** Ejemplo completo: diálogo
+
+Este predicado (función) combina lectura, escritura y una decisión
+simple. Puede copiarse al REPL y ejecutarse con ~(saludar)~.
+
+#+BEGIN_SRC lisp
+(defun saludar ()
+  (format t "Nombre: ")
+  (setq nombre (read-line))
+  (format t "Edad: ")
+  (setq edad (parse-integer (read-line)))
+  (format t "Hola ~A.~%" nombre)
+  (if (>= edad 18)
+      (format t "Eres mayor de edad.~%")
+      (format t "Eres menor de edad.~%")))
+#+END_SRC
+
+Sesión de ejemplo:
+
+#+BEGIN_EXAMPLE
+Nombre: Ana
+Edad: 21
+Hola Ana.
+Eres mayor de edad.
+#+END_EXAMPLE
+
+Para guardar el mismo diálogo en un archivo:
+
+#+BEGIN_SRC lisp
+(defun guardar-saludo (archivo)
+  (format t "Nombre: ")
+  (setq nombre (read-line))
+  (with-open-file (out archivo
+                       :direction :output
+                       :if-exists :supersede)
+    (format out "Usuario: ~A~%" nombre)))
+#+END_SRC
 
 *** Condicionales en Lisp
+
 En este documento se describen las condicionales más comunes utilizadas en Lisp, con más ejemplos prácticos para =when= y =unless=.
 
 
