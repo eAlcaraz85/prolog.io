@@ -4512,6 +4512,8 @@ Prolog para resolver problemas complejos de manera declarativa.
 
 
 
+
+   
 * Prácticas, evaluaciones y anexos
 Esta parte reúne ELIZA, el sistema experto médico, acertijos y exámenes. ELIZA exige manipulación de términos y de listas; el sistema experto, la construcción de una base de conocimiento en Prolog.
 
@@ -6716,3 +6718,534 @@ conocimiento que incluya los siguientes temas:
 - Utilizar los códigos proporcionados en estos apuntes.
 
 Fecha límite de entrega: 19 de diciembre de 2025.
+
+
+*  10 ejercicios de validación en CLIPS (if, when, unless, case)
+
+** Cómo usar este documento
+
+Estos ejercicios practican *validación de datos* en *CLIPS* (C Language Integrated Production System) con constructos condicionales: =if=, =when=, =unless=, =switch/case=, más =and=, =or= y =not=.
+
+Entregable:* un archivo =validaciones.clp= con las diez funciones/reglas, más un pantallazo o bitácora de las pruebas de cada ejercicio.
+
+*Cómo ejecutar (terminal):*
+
+#+begin_example
+clips
+CLIPS> (load "validaciones.clp")
+CLIPS> (reset)
+CLIPS> (run)
+#+end_example
+
+En Emacs: abre este =.org=, trabaja los bloques =src clips= y, si quieres archivos sueltos, usa =org-babel-tangle= (C-c C-v t) cambiando =:tangle no= a un nombre =.clp=.
+
+*Recordatorio de honestidad académica:* resuelve primero sin copiar la sección de soluciones. Esa sección es para el docente o para autocorrección *después* de intentarlo.
+
+** Mapa de constructos 
+
+CLIPS *no trae* =when= ni =unless= de fábrica (sí existen en Common Lisp / Emacs Lisp). En este curso los *emulamos* con =if=, que es exactamente lo que pide un validador: ramificar según una condición.
+
+| Constructo didáctico | Equivalente real en CLIPS                         | Cuándo usarlo                                      |
+|----------------------+---------------------------------------------------+----------------------------------------------------|
+| =if / then / else=   | =(if cond then ... else ...)=                     | Dos caminos (válido / inválido, sí / no).          |
+| =when=               | =(if cond then ...)=  *sin* =else=                | Solo actuar *si* la condición se cumple.           |
+| =unless=             | =(if (not cond) then ...)=                        | Solo actuar *si no* se cumple (guarda / rechazo).  |
+| =case=               | =(switch expr (case v then ...) (default ...))=   | Distinguir *valores discretos* (roles, códigos).   |
+| =and / or / not=     | funciones booleanas de CLIPS                      | Combinar varias validaciones.                      |
+
+*** Sintaxis de =if=
+
+#+begin_src clips
+(if (<condicion>)
+    then
+      <acciones-si-verdadero>
+    else
+      <acciones-si-falso>)
+#+end_src
+
+El =else= es opcional. Si lo omites, estás escribiendo un =when=.
+
+*** Sintaxis de =when= (emulación)
+
+#+begin_src clips
+;; when: ejecuta el cuerpo SOLO si la condición es verdadera
+(if (>= ?edad 18)
+    then
+      (printout t "Puede votar." crlf))
+#+end_src
+
+*** Sintaxis de =unless= (emulación)
+
+#+begin_src clips
+;; unless: ejecuta el cuerpo SOLO si la condición es FALSA
+(if (not (eq ?estatus "activo"))
+    then
+      (printout t "Cuenta bloqueada: no se procesa." crlf))
+#+end_src
+
+*** Sintaxis de =switch / case=
+
+#+begin_src clips
+(switch ?rol
+   (case admin then (printout t "Acceso total" crlf))
+   (case editor then (printout t "Puede publicar" crlf))
+   (case lector then (printout t "Solo lectura" crlf))
+   (default (printout t "Rol desconocido" crlf)))
+#+end_src
+
+Truco para *rangos numéricos* (el =switch= compara con =eq=). Se evalúa cada =case= contra =TRUE=:
+
+#+begin_src clips
+(switch TRUE
+   (case (< ?n 0)  then "negativo")
+   (case (= ?n 0)  then "cero")
+   (default         "positivo"))
+#+end_src
+
+*** Convención de este taller
+
+Todas las funciones de validación deben devolver:
+
+- =TRUE=  → dato aceptado
+- =FALSE= → dato rechazado
+
+y *además* imprimir un mensaje claro (qué falló o qué se aceptó). Así puedes encadenarlas.
+
+** Plantilla común 
+
+#+begin_src clips
+(clear)
+(defglobal ?*errores* = 0)
+
+(deffunction reportar-error (?msg)
+   (bind ?*errores* (+ ?*errores* 1))
+   (printout t "[ERROR] " ?msg crlf)
+   FALSE)
+
+(deffunction reportar-ok (?msg)
+   (printout t "[OK] " ?msg crlf)
+   TRUE)
+#+end_src
+
+** Ejercicio 1 — =if / else=: edad para cine
+
+*** Objetivo
+Usar un =if= con =else= (y un =if= anidado) para validar un entero.
+
+*** Enunciado
+Escribe =(deffunction validar-edad-cine (?edad))=
+
+Reglas:
+
+1. Si =?edad= no es un entero → error ="La edad debe ser un entero"=.
+2. Si =?edad < 0= → error ="Edad negativa"=.
+3. Si =?edad > 120= → error ="Edad no realista"=.
+4. Si =?edad < 13= → ok, clasificación ="AA (infantil)"=.
+5. Si =?edad < 18= → ok, clasificación ="B (adolescentes)"=.
+6. En cualquier otro caso → ok, clasificación ="B15/C (adultos)"=.
+
+Pistas: =integerp=, =<, >, >==.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(validar-edad-cine 10)     ; AA
+(validar-edad-cine 16)     ; B
+(validar-edad-cine 21)     ; adultos
+(validar-edad-cine -3)     ; error
+(validar-edad-cine 200)    ; error
+(validar-edad-cine 17.5)   ; error (no entero)
+#+end_src
+
+*** Criterio
+Sin =switch= en este ejercicio: solo =if / then / else=. Debe devolver =TRUE= o =FALSE=.
+
+** Ejercicio 2 — =when=: avisos, no bloqueos
+
+*** Objetivo
+Un =when= *no rechaza*: solo avisa si hay un riesgo.
+
+*** Enunciado
+Escribe =(deffunction avisar-password (?clave))=
+
+La función *siempre* devuelve =TRUE= (es un aviso, no un validador estricto), pero:
+
+- *When* =(< (str-length ?clave) 8)= → imprime ="Aviso: clave corta (< 8)"=.
+- *When* la clave es igual a ="12345678"= o ="password"= → imprime ="Aviso: clave demasiado común"=.
+- *When* =(eq ?clave (lowcase ?clave))= *y* tiene al menos 1 carácter → imprime ="Aviso: no hay mayúsculas"=.
+
+No uses =else=. Tres =if= sin =else= (tres =when=).
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(avisar-password "abc")
+(avisar-password "password")
+(avisar-password "Secreta99")
+#+end_src
+
+*** Criterio
+Si pusiste un =else= que rechaza, estás haciendo un =if= completo: reescríbelo como avisos independientes.
+
+** Ejercicio 3 — =unless=: 
+
+*** Objetivo
+El =unless= es un *guardián*: «a menos que los datos estén completos, ni siquiera sigas».
+
+*** Enunciado
+Plantilla de solicitud:
+
+#+begin_src clips
+(deftemplate solicitud
+   (slot nombre)
+   (slot correo)
+   (slot edad)
+   (slot acepta-terminos))
+#+end_src
+
+Escribe =(deffunction procesar-solicitud (?s))= que recibe un *hecho* =solicitud= (usa =(fact-slot-value ?s nombre)= etc., o recibe los cuatro valores; documenta tu elección).
+
+Comportamiento:
+
+1. *Unless* el nombre no está vacío → error ="Falta nombre"= y =FALSE=.
+2. *Unless* el correo contiene ="@"= → error ="Correo inválido"= y =FALSE=.
+   Pista: =(str-index "@" ?correo)= devuelve =FALSE= si no hay arroba.
+3. *Unless* =acepta-terminos= es =TRUE= → error ="Debe aceptar términos"= y =FALSE=.
+4. Si pasó los tres guardianes → ="[OK] Solicitud de <nombre> procesada"= y =TRUE=.
+
+Cada guarda debe escribirse como =(if (not ...) then ...)=, no como =if / else= anidado profundo.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(assert (solicitud (nombre "") (correo "a@b.com") (edad 20) (acepta-terminos TRUE)))
+(assert (solicitud (nombre "Ana") (correo "ana.b.com") (edad 20) (acepta-terminos TRUE)))
+(assert (solicitud (nombre "Ana") (correo "ana@b.com") (edad 20) (acepta-terminos FALSE)))
+(assert (solicitud (nombre "Ana") (correo "ana@b.com") (edad 20) (acepta-terminos TRUE)))
+#+end_src
+
+*** Criterio
+El camino feliz no debe estar escondido en un =else= de 4 niveles.
+
+** Ejercicio 4 — =case / switch=: roles de un sistema escolar
+
+*** Objetivo
+Validar un *valor discreto* con =switch=, no con una torre de =if (eq ...)=.
+
+*** Enunciado
+Escribe =(deffunction permiso-por-rol (?rol))=
+
+| ?rol      | Mensaje                              | Retorno |
+|-----------+--------------------------------------+---------|
+| =admin=   | "Puede crear usuarios y materias"    | TRUE    |
+| =docente= | "Puede calificar y pasar lista"      | TRUE    |
+| =alumno=  | "Puede consultar calificaciones"     | TRUE    |
+| =padre=   | "Puede ver boleta de sus hijos"      | TRUE    |
+| otro      | "Rol no reconocido"                  | FALSE   |
+
+El =default= es obligatorio.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(permiso-por-rol admin)
+(permiso-por-rol docente)
+(permiso-por-rol invitado)
+#+end_src
+
+*** Criterio
+Cero =if= en esta función. Solo =switch / case / default=.
+
+** Ejercicio 5 — =case= con rangos: semáforo de promedio
+
+*** Objetivo
+Usar el truco =(switch TRUE (case (<predicado>) then ...))=.
+
+*** Enunciado
+Escribe =(deffunction semaforo-promedio (?p))=
+
+Validaciones previas con =if= (aquí sí se permite, *antes* del =switch=):
+
+- Si =?p= no es número (=numberp=) → error.
+- Si =?p < 0= o =?p > 100= → error ="Promedio fuera de [0, 100]"=.
+
+Luego el =switch TRUE=:
+
+| Condición           | Color    | Significado        |
+|---------------------+----------+--------------------|
+| =?p < 60=           | ROJO     | Reprobado          |
+| =?p < 80=           | AMARILLO | Regular            |
+| =?p < 90=           | VERDE    | Bien               |
+| resto               | ORO      | Excelencia         |
+
+Devuelve =TRUE= si el número era válido (aunque el alumno esté reprobado: el *dato* es válido). El color es el mensaje.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(semaforo-promedio 45)
+(semaforo-promedio 75)
+(semaforo-promedio 88)
+(semaforo-promedio 97)
+(semaforo-promedio 110)
+(semaforo-promedio "nueve")
+#+end_src
+
+*** Criterio
+El color *no* puede decidirse con =if= anidados. El =switch= debe respetar el orden (el primer =case= verdadero gana).
+
+** Ejercicio 6 — =and / or / not= + =if=: alta de usuario
+
+*** Objetivo
+Combinar varias condiciones en *una* expresión booleana, no en cinco =if= sueltos.
+
+*** Enunciado
+Escribe =(deffunction alta-usuario (?user ?pass ?edad ?pais ?bloqueado))=
+
+Aceptar (=TRUE=) *solo si se cumplen todas*:
+
+1. =(str-length ?user) >= 4=
+2. =(str-length ?pass) >= 8=
+3. =?edad >= 13=
+4. =?pais= es ="MX"= *o* ="CO"= *o* ="AR"= (usa =or=)
+5. =?bloqueado= *no* es =TRUE= (usa =not=)
+
+Un solo =if= principal:
+
+#+begin_src clips
+(if (and <c1> <c2> <c3> <c4> <c5>)
+    then (reportar-ok "Usuario dado de alta")
+    else (reportar-error "Alta rechazada"))
+#+end_src
+
+*Extra (opcional, +1):* si falla, indica *cuál* fue la primera condición falsa. Eso ya puede usar =when= encadenados *después* del rechazo.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(alta-usuario "ana" "secreto1" 20 "MX" FALSE)     ; ok
+(alta-usuario "ana" "secreto1" 20 "US" FALSE)     ; país
+(alta-usuario "ana" "secreto1" 20 "MX" TRUE)      ; bloqueado
+(alta-usuario "an"  "secreto1" 20 "MX" FALSE)     ; user corto
+#+end_src
+
+*** Criterio
+La decisión final debe vivir en un =(and ...)=, no en =if= anidados de 5 niveles.
+
+** Ejercicio 7 — reglas + =if=: triage de consultorio
+
+*** Objetivo
+Mezclar el motor de reglas (=defrule=) con un =if= *dentro* de la acción. La validación no siempre es una función suelta.
+
+*** Enunciado
+#+begin_src clips
+(deftemplate paciente
+   (slot nombre)
+   (slot edad)
+   (slot temperatura)      ; °C
+   (slot dolor-pecho)      ; TRUE/FALSE
+   (slot saturacion))      ; % SpO2
+#+end_src
+
+Regla =clasificar-triage=:
+
+1. *Unless* temperatura, edad y saturación son números → imprimir error y =retract= del hecho. No clasificar.
+2. Dentro de la regla, un =if / else= (o =switch TRUE=) asigna color:
+   - ROJO si =(or ?dolor-pecho (< ?saturacion 90) (>= ?temperatura 40) (< ?edad 1))=
+   - NARANJA si =(or (>= ?temperatura 38.5) (< ?saturacion 94))=
+   - VERDE en otro caso
+3. Imprime ="<nombre> → TRIAGE <color>"=.
+
+*** Hechos de prueba
+
+#+begin_src clips
+(deffacts consultorio
+   (paciente (nombre "Luis") (edad 40) (temperatura 36.8) (dolor-pecho FALSE) (saturacion 98))
+   (paciente (nombre "Mia")  (edad 7)  (temperatura 39.2) (dolor-pecho FALSE) (saturacion 96))
+   (paciente (nombre "Sol")  (edad 55) (temperatura 37.0) (dolor-pecho TRUE)  (saturacion 97))
+   (paciente (nombre "Bebe") (edad 0)  (temperatura 37.2) (dolor-pecho FALSE) (saturacion 99)))
+#+end_src
+
+*** Criterio
+Debe haber *al menos un* =unless= (guardián de tipos) y *un* =if= o =switch= de clasificación. Con =(reset)= y =(run)= se ven los cuatro resultados.
+
+** Ejercicio 8 — =case= de códigos: paquetería
+
+*** Objetivo
+Un validador de *código de servicio* + un =when= de recargo.
+
+*** Enunciado
+Escribe =(deffunction cotizar-envio (?codigo ?peso ?zona-riesgo))=
+
+=switch= sobre =?codigo=:
+
+| Código | Servicio    | Costo base | Peso máximo (kg) |
+|--------+-------------+------------+------------------|
+| EST    | Estándar    | 80         | 20               |
+| EXP    | Express     | 160        | 10               |
+| NOC    | Nocturno    | 220        | 5                |
+| INT    | Internacional | 450      | 15               |
+| otro   | —           | error      | —                |
+
+Después del =switch= (si el código fue válido):
+
+1. *Unless* =(?peso <= peso-max)= → error ="Excede peso del servicio"=, =FALSE=.
+2. *When* =?zona-riesgo= es =TRUE= → suma 40 al costo e imprime ="Recargo zona de riesgo +40"=.
+3. Imprime costo final y =TRUE=.
+
+*** Pruebas mínimas
+
+#+begin_src clips
+(cotizar-envio EST 3.0 FALSE)
+(cotizar-envio EXP 12.0 FALSE)   ; excede peso
+(cotizar-envio NOC 2.0 TRUE)     ; recargo
+(cotizar-envio XXX 1.0 FALSE)    ; código inválido
+#+end_src
+
+*** Criterio
+El código se decide con =case=. El recargo *no* puede ser un =else=: es un =when= (se aplica o no, pero el envío sigue siendo válido).
+
+** Ejercicio 9 — formulario completo
+
+*** Objetivo
+Un solo flujo real de registro que *obligue* a usar los cuatro estilos.
+
+*** Enunciado
+#+begin_src clips
+(deftemplate registro
+   (slot usuario)
+   (slot correo)
+   (slot edad)
+   (slot rol)            ; alumno | docente | admin
+   (slot plan)           ; libre | pro | campus
+   (slot password)
+   (slot acepta-terminos))
+#+end_src
+
+Función =(deffunction validar-registro (?r))= — o una regla =aplicar-validacion=. Debe, en este orden:
+
+1. *Unless* términos aceptados → rechazo inmediato.
+2. *if / else* para la edad: menor de 13 rechazado; entre 13 y 17 solo si =plan= es ="campus"= (cuenta tutelada); 18+ cualquier plan.
+3. *case* sobre =rol= para decidir el *prefijo* de cuenta: =a/=, =d/=, =s/= (admin). Rol inválido → =FALSE=.
+4. *case* sobre =plan= para cuota mensual: libre=0, pro=99, campus=0. Plan inválido → =FALSE=.
+5. *when* =(eq ?rol admin)= → aviso ="Admin creado: revisa bitácora de auditoría"=.
+6. *when* password corta o común (reutiliza ejercicio 2) → avisos, pero *no* rechaces si ya pasó lo demás.
+7. Si todo lo bloqueante pasó → imprime usuario final (prefijo+usuario), cuota y =TRUE=.
+
+*** Hechos de prueba (mínimo 5)
+
+| usuario | edad | rol     | plan   | términos | Esperado   |
+|---------+------+---------+--------+----------+------------|
+| lu      | 20   | alumno  | pro    | TRUE     | OK         |
+| pepe    | 15   | alumno  | pro    | TRUE     | rechazado (menor + plan no campus) |
+| nina    | 16   | alumno  | campus | TRUE     | OK tutelada |
+| root    | 30   | admin   | libre  | TRUE     | OK + aviso auditoría |
+| x       | 22   | alumno  | pro    | FALSE    | unless términos |
+
+*** Criterio de autoevaluación
+Marca con un comentario en el código *dónde* está cada constructo:
+
+#+begin_src clips
+;; [UNLESS] terminos
+;; [IF] edad / plan
+;; [CASE] rol
+;; [CASE] plan
+;; [WHEN] admin
+;; [WHEN] password
+#+end_src
+
+Si no puedes poner esas seis etiquetas, el ejercicio está incompleto.
+
+** Ejercicio 10 — mini sistema experto: crédito escolar
+
+*** Objetivo
+Integrar *hechos + reglas + funciones de validación*. Ya no es un =if= suelto: es un sistema que decide.
+
+*** Enunciado
+Un alumno pide un *crédito de material* (tableta, libros). El sistema acepta, rechaza o manda a *revisión humana*.
+
+#+begin_src clips
+(deftemplate solicitante
+   (slot nombre)
+   (slot promedio)          ; 0-100
+   (slot materias-reprobadas)
+   (slot beca)              ; TRUE/FALSE
+   (slot monto)             ; pesos
+   (slot historial)         ; limpio | atrasos | desconocido
+   (slot semestre))         ; 1-10
+#+end_src
+
+Implementa:
+
+1. Función =validar-solicitante= con *unless* de tipos y rangos (promedio en [0,100], monto > 0, semestre en 1..10). Si algo falla, ni siquiera entra al motor.
+2. Función =categoria-monto= con *case/switch TRUE*:
+   - monto < 2000 → bajo
+   - monto < 8000 → medio
+   - resto → alto
+3. Función =veredicto-historial= con *case* sobre el símbolo =historial=:
+   - =limpio= → 0 (penalización)
+   - =atrasos= → 2
+   - =desconocido= → 1
+   - otro → 99 (invalida)
+4. Regla =decidir-credito= que usa =if= para el veredicto final:
+   - *Rechazo automático* si =(or (>= materias-reprobadas 3) (< promedio 70) (>= penalizacion 99))=
+   - *Aprobado* si promedio ≥ 85 *y* historial limpio *y* (monto bajo *o* tiene beca)
+   - *Revisión humana* en cualquier otro caso válido
+5. *When* beca es =TRUE= y el veredicto no es rechazo → imprime ="Prioridad: solicitante becado"=.
+
+*** Banco de hechos (cárgalos todos)
+
+#+begin_src clips
+(deffacts ronda-credito
+   (solicitante (nombre "Ana")  (promedio 92) (materias-reprobadas 0)
+                (beca TRUE)  (monto 1500) (historial limpio)      (semestre 4))
+   (solicitante (nombre "Beto") (promedio 68) (materias-reprobadas 1)
+                (beca FALSE) (monto 3000) (historial limpio)      (semestre 3))
+   (solicitante (nombre "Cris") (promedio 80) (materias-reprobadas 0)
+                (beca FALSE) (monto 9000) (historial atrasos)     (semestre 6))
+   (solicitante (nombre "Dani") (promedio 88) (materias-reprobadas 0)
+                (beca FALSE) (monto 4000) (historial limpio)      (semestre 2))
+   (solicitante (nombre "Eva")  (promedio 90) (materias-reprobadas 0)
+                (beca TRUE)  (monto 5000) (historial desconocido) (semestre 8)))
+#+end_src
+
+Salida esperada (el texto puede variar; *la decisión* no):
+
+| Nombre | Decisión         | Por qué (idea)                          |
+|--------+------------------+-----------------------------------------|
+| Ana    | APROBADO         | Alto promedio, limpio, monto bajo, beca |
+| Beto   | RECHAZADO        | Promedio < 70                           |
+| Cris   | REVISION         | Monto alto + atrasos                    |
+| Dani   | REVISION         | Bien pero monto medio sin beca          |
+| Eva    | REVISION         | Historial desconocido (o APROBADO si argumentas beca+promedio; documenta tu regla) |
+
+Para Eva: elige *una* política, escríbela en un comentario de 2 líneas y cúmplela. No hay trampa: hay que *declarar* el criterio.
+
+*** Criterio final del taller
+El archivo debe cargar sin errores, =(reset) (run)= produce una línea por solicitante, y en el código se identifican =if=, =when=, =unless= y =case=.
+
+** Lista de cotejo antes de entregar
+
+- [ ] Ej. 1: solo =if/else=, tipos con =integerp=
+- [ ] Ej. 2: tres =when= (sin =else=), siempre =TRUE=
+- [ ] Ej. 3: guardianes =unless=, sin anidación profunda
+- [ ] Ej. 4: =switch= de roles con =default=
+- [ ] Ej. 5: =switch TRUE= para rangos
+- [ ] Ej. 6: un =(and ... or ... not ...)=
+- [ ] Ej. 7: =defrule= + validación de tipos
+- [ ] Ej. 8: =case= de códigos + =when= de recargo
+- [ ] Ej. 9: los cuatro constructos etiquetados
+- [ ] Ej. 10: sistema experto con 5 hechos y veredicto
+
+** Errores frecuentes en CLIPS
+
+| Error típico                                      | Qué hacer                                              |
+|---------------------------------------------------+--------------------------------------------------------|
+| Olvidar =then= después del =if= o del =case=      | La palabra =then= *no* es opcional.                    |
+| Comparar strings con =eq= al revés                | =(eq ?correo "@")= busca igualdad total, no substring. |
+| Usar === en vez de =eq= para símbolos             | =eq= para símbolos y strings; == para números.         |
+| =(if (and) ...)= mal parentizado                  | Cuenta paréntesis; Emacs lo hace con =show-paren-mode=. |
+| Esperar que =when= exista como primitiva          | En CLIPS se escribe =(if cond then ...)=.              |
+| =switch= sobre rangos sin =TRUE=                  | =(switch TRUE (case (< ?x 10) then ...))=              |
+| No hacer =(reset)= después de =deffacts=          | Sin =reset= los hechos iniciales no existen.           |
+
