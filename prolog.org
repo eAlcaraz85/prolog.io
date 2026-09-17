@@ -4513,7 +4513,6 @@ Prolog para resolver problemas complejos de manera declarativa.
 
 
 
-   
 * Prácticas, evaluaciones y anexos
 Esta parte reúne ELIZA, el sistema experto médico, acertijos y exámenes. ELIZA exige manipulación de términos y de listas; el sistema experto, la construcción de una base de conocimiento en Prolog.
 
@@ -6719,136 +6718,118 @@ conocimiento que incluya los siguientes temas:
 
 Fecha límite de entrega: 19 de diciembre de 2025.
 
-
-*  10 ejercicios de validación en CLIPS (if, when, unless, case)
-
+* 10 ejercicios de validación en CLIPS (if, when, unless, case)
 ** Cómo usar este documento
 
-Estos ejercicios practican *validación de datos* en *CLIPS* (C Language Integrated Production System) con constructos condicionales: =if=, =when=, =unless=, =switch/case=, más =and=, =or= y =not=.
+Estos ejercicios practican *validación de datos* en *GNU CLISP* (Common
+Lisp) con los condicionales nativos: =if=, =when=, =unless=, =case=, y como
+extra =cond= y =typecase=.
 
-Entregable:* un archivo =validaciones.clp= con las diez funciones/reglas, más un pantallazo o bitácora de las pruebas de cada ejercicio.
 
-*Cómo ejecutar (terminal):*
+
+*Entregable:* un archivo =validaciones.lisp= con las diez funciones, más la bitácora de las pruebas de cada ejercicio.
+
+*Cómo ejecutar:*
 
 #+begin_example
-clips
-CLIPS> (load "validaciones.clp")
-CLIPS> (reset)
-CLIPS> (run)
+clisp
+[1]> (load "validaciones.lisp")
+[2]> (validar-edad-cine 16)
 #+end_example
 
-En Emacs: abre este =.org=, trabaja los bloques =src clips= y, si quieres archivos sueltos, usa =org-babel-tangle= (C-c C-v t) cambiando =:tangle no= a un nombre =.clp=.
+O todo de una vez:
 
-*Recordatorio de honestidad académica:* resuelve primero sin copiar la sección de soluciones. Esa sección es para el docente o para autocorrección *después* de intentarlo.
+#+begin_example
+clisp -i validaciones.lisp
+#+end_example
 
-** Mapa de constructos 
 
-CLIPS *no trae* =when= ni =unless= de fábrica (sí existen en Common Lisp / Emacs Lisp). En este curso los *emulamos* con =if=, que es exactamente lo que pide un validador: ramificar según una condición.
+*Recordatorio:* resuelve primero sin mirar la sección de soluciones.
 
-| Constructo didáctico | Equivalente real en CLIPS                         | Cuándo usarlo                                      |
-|----------------------+---------------------------------------------------+----------------------------------------------------|
-| =if / then / else=   | =(if cond then ... else ...)=                     | Dos caminos (válido / inválido, sí / no).          |
-| =when=               | =(if cond then ...)=  *sin* =else=                | Solo actuar *si* la condición se cumple.           |
-| =unless=             | =(if (not cond) then ...)=                        | Solo actuar *si no* se cumple (guarda / rechazo).  |
-| =case=               | =(switch expr (case v then ...) (default ...))=   | Distinguir *valores discretos* (roles, códigos).   |
-| =and / or / not=     | funciones booleanas de CLIPS                      | Combinar varias validaciones.                      |
+** Mapa de constructos
 
-*** Sintaxis de =if=
+| Constructo     | Idea en una frase                                      | Cuándo usarlo                                         |
+|----------------+--------------------------------------------------------+-------------------------------------------------------|
+| =if=           | Elige entre *dos* caminos (entonces / si no).          | Válido vs inválido; sí vs no.                         |
+| =when=         | Ejecuta el cuerpo *solo si* la condición es verdadera. | Avisos, efectos de lado, no hay «plan B».             |
+| =unless=       | Ejecuta el cuerpo *solo si* la condición es *falsa*.   | Guardianes: «a menos que esté bien, rechaza».         |
+| =case=         | Compara un valor con *etiquetas discretas* (=eql=).    | Roles, códigos, símbolos, enteros sueltos.            |
+| =cond=         | Primera condición verdadera gana (rangos, compuestos). | Intervalos numéricos, varias preguntas distintas.     |
+| =typecase=     | Elige rama según el *tipo* del dato.                   | Validar que llegó un número, un string, una lista…    |
+| =and / or / not= | Combinan predicados.                                 | Varias reglas de validez a la vez.                    |
 
-#+begin_src clips
-(if (<condicion>)
-    then
-      <acciones-si-verdadero>
-    else
-      <acciones-si-falso>)
-#+end_src
+*** Sintaxis real 
 
-El =else= es opcional. Si lo omites, estás escribiendo un =when=.
+#+begin_src lisp
+;; if: la forma es (if test entonces [si-no])
+(if (>= edad 18)
+    (print "adulto")
+    (print "menor"))
 
-*** Sintaxis de =when= (emulación)
+;; when: cero o más expresiones en el cuerpo; si el test falla, no hace nada
+(when (< (length clave) 8)
+  (format t "Aviso: clave corta~%")
+  (incf *avisos*))
 
-#+begin_src clips
-;; when: ejecuta el cuerpo SOLO si la condición es verdadera
-(if (>= ?edad 18)
-    then
-      (printout t "Puede votar." crlf))
-#+end_src
+;; unless: el cuerpo corre cuando el test es NIL
+(unless (search "@" correo)
+  (return-from validar (reportar-error "Correo sin @")))
 
-*** Sintaxis de =unless= (emulación)
-
-#+begin_src clips
-;; unless: ejecuta el cuerpo SOLO si la condición es FALSA
-(if (not (eq ?estatus "activo"))
-    then
-      (printout t "Cuenta bloqueada: no se procesa." crlf))
-#+end_src
-
-*** Sintaxis de =switch / case=
-
-#+begin_src clips
-(switch ?rol
-   (case admin then (printout t "Acceso total" crlf))
-   (case editor then (printout t "Puede publicar" crlf))
-   (case lector then (printout t "Solo lectura" crlf))
-   (default (printout t "Rol desconocido" crlf)))
-#+end_src
-
-Truco para *rangos numéricos* (el =switch= compara con =eq=). Se evalúa cada =case= contra =TRUE=:
-
-#+begin_src clips
-(switch TRUE
-   (case (< ?n 0)  then "negativo")
-   (case (= ?n 0)  then "cero")
-   (default         "positivo"))
+;; case: compara con EQL (símbolos, enteros, caracteres). NO uses case con strings.
+(case rol
+  (admin   "acceso total")
+  (docente "puede calificar")
+  (alumno  "solo consulta")
+  (otherwise "rol desconocido"))
 #+end_src
 
 *** Convención de este taller
 
-Todas las funciones de validación deben devolver:
+Las funciones de validación *estricta* devuelven:
 
-- =TRUE=  → dato aceptado
-- =FALSE= → dato rechazado
+- =T=   → dato aceptado
+- =NIL= → dato rechazado
 
-y *además* imprimir un mensaje claro (qué falló o qué se aceptó). Así puedes encadenarlas.
+y además imprimen un mensaje. Las de *aviso* (=when=) pueden devolver siempre =T=.
 
 ** Plantilla común 
 
-#+begin_src clips
-(clear)
-(defglobal ?*errores* = 0)
+#+begin_src lisp
+(defparameter *errores* 0)
+(defparameter *avisos* 0)
 
-(deffunction reportar-error (?msg)
-   (bind ?*errores* (+ ?*errores* 1))
-   (printout t "[ERROR] " ?msg crlf)
-   FALSE)
+(defun reportar-error (msg)
+  (incf *errores*)
+  (format t "[ERROR] ~A~%" msg)
+  nil)
 
-(deffunction reportar-ok (?msg)
-   (printout t "[OK] " ?msg crlf)
-   TRUE)
+(defun reportar-ok (msg)
+  (format t "[OK] ~A~%" msg)
+  t)
 #+end_src
 
-** Ejercicio 1 — =if / else=: edad para cine
+** Ejercicio 1 — =if=: edad para cine
 
 *** Objetivo
-Usar un =if= con =else= (y un =if= anidado) para validar un entero.
+Usar =if= (anidado si hace falta) para validar un entero y clasificar.
 
 *** Enunciado
-Escribe =(deffunction validar-edad-cine (?edad))=
+Escribe =(defun validar-edad-cine (edad) ...)=
 
 Reglas:
 
-1. Si =?edad= no es un entero → error ="La edad debe ser un entero"=.
-2. Si =?edad < 0= → error ="Edad negativa"=.
-3. Si =?edad > 120= → error ="Edad no realista"=.
-4. Si =?edad < 13= → ok, clasificación ="AA (infantil)"=.
-5. Si =?edad < 18= → ok, clasificación ="B (adolescentes)"=.
-6. En cualquier otro caso → ok, clasificación ="B15/C (adultos)"=.
+1. Si =edad= no es entero → error ="La edad debe ser un entero"=.
+2. Si =edad < 0= → error ="Edad negativa"=.
+3. Si =edad > 120= → error ="Edad no realista"=.
+4. Si =edad < 13= → ok ="AA (infantil)"=.
+5. Si =edad < 18= → ok ="B (adolescentes)"=.
+6. En otro caso → ok ="B15/C (adultos)"=.
 
-Pistas: =integerp=, =<, >, >==.
+Pistas: =integerp=, =if=, predicados =< / > / >=.
 
 *** Pruebas mínimas
 
-#+begin_src clips
+#+begin_src lisp
 (validar-edad-cine 10)     ; AA
 (validar-edad-cine 16)     ; B
 (validar-edad-cine 21)     ; adultos
@@ -6858,131 +6839,132 @@ Pistas: =integerp=, =<, >, >==.
 #+end_src
 
 *** Criterio
-Sin =switch= en este ejercicio: solo =if / then / else=. Debe devolver =TRUE= o =FALSE=.
+En este ejercicio *solo* =if=. Nada de =cond= ni =case=. Debe devolver =T= o =NIL=.
 
 ** Ejercicio 2 — =when=: avisos, no bloqueos
 
 *** Objetivo
-Un =when= *no rechaza*: solo avisa si hay un riesgo.
+=when= *no rechaza*: solo avisa si hay un riesgo. El cuerpo puede tener varias líneas.
 
 *** Enunciado
-Escribe =(deffunction avisar-password (?clave))=
+Escribe =(defun avisar-password (clave) ...)=
 
-La función *siempre* devuelve =TRUE= (es un aviso, no un validador estricto), pero:
+La función *siempre* devuelve =T= (es un aviso, no un validador estricto), pero:
 
-- *When* =(< (str-length ?clave) 8)= → imprime ="Aviso: clave corta (< 8)"=.
-- *When* la clave es igual a ="12345678"= o ="password"= → imprime ="Aviso: clave demasiado común"=.
-- *When* =(eq ?clave (lowcase ?clave))= *y* tiene al menos 1 carácter → imprime ="Aviso: no hay mayúsculas"=.
+- *when* =( < (length clave) 8 )= → ="Aviso: clave corta (< 8)"=
+- *when* la clave es ="12345678"= o ="password"= (usa =or= y =string==) → ="Aviso: clave demasiado común"=
+- *when* la clave es igual a su versión en minúsculas *y* no está vacía → ="Aviso: no hay mayúsculas"=
+  Pista: =(string= clave (string-downcase clave))=
 
-No uses =else=. Tres =if= sin =else= (tres =when=).
+Tres =when= independientes. *Prohibido* un =if= con rama =else= que rechace.
 
 *** Pruebas mínimas
 
-#+begin_src clips
+#+begin_src lisp
 (avisar-password "abc")
 (avisar-password "password")
 (avisar-password "Secreta99")
 #+end_src
 
 *** Criterio
-Si pusiste un =else= que rechaza, estás haciendo un =if= completo: reescríbelo como avisos independientes.
+Si pusiste un =else= que devuelve =NIL=, estás haciendo un =if= de validador: reescríbelo como avisos.
 
-** Ejercicio 3 — =unless=: 
+** Ejercicio 3 — =unless=: no procesar si faltan datos
 
 *** Objetivo
-El =unless= es un *guardián*: «a menos que los datos estén completos, ni siquiera sigas».
+=unless= es un *guardián*: «a menos que el dato esté bien, ni sigas». Combina bien con =return-from=.
 
 *** Enunciado
-Plantilla de solicitud:
+Escribe =(defun procesar-solicitud (nombre correo edad acepta-terminos) ...)=
 
-#+begin_src clips
-(deftemplate solicitud
-   (slot nombre)
-   (slot correo)
-   (slot edad)
-   (slot acepta-terminos))
+Comportamiento, *en este orden*:
+
+1. *unless* el nombre es un string no vacío → error ="Falta nombre"= y =NIL=.
+2. *unless* el correo es string *y* contiene ="@"= → error ="Correo inválido"= y =NIL=.
+   Pista: =(search "@" correo)= devuelve =NIL= si no hay arroba.
+3. *unless* =acepta-terminos= es verdadero → error ="Debe aceptar términos"= y =NIL=.
+4. Si pasó los tres guardianes → ok ="Solicitud de <nombre> procesada"= y =T=.
+
+Cada guarda se escribe con =unless=, no con una torre de =if/else=.
+
+#+begin_src lisp
+(defun procesar-solicitud (nombre correo edad acepta-terminos)
+  (declare (ignore edad))
+  (unless ...
+    (return-from procesar-solicitud (reportar-error "...")))
+  ;; ...
+  )
 #+end_src
-
-Escribe =(deffunction procesar-solicitud (?s))= que recibe un *hecho* =solicitud= (usa =(fact-slot-value ?s nombre)= etc., o recibe los cuatro valores; documenta tu elección).
-
-Comportamiento:
-
-1. *Unless* el nombre no está vacío → error ="Falta nombre"= y =FALSE=.
-2. *Unless* el correo contiene ="@"= → error ="Correo inválido"= y =FALSE=.
-   Pista: =(str-index "@" ?correo)= devuelve =FALSE= si no hay arroba.
-3. *Unless* =acepta-terminos= es =TRUE= → error ="Debe aceptar términos"= y =FALSE=.
-4. Si pasó los tres guardianes → ="[OK] Solicitud de <nombre> procesada"= y =TRUE=.
-
-Cada guarda debe escribirse como =(if (not ...) then ...)=, no como =if / else= anidado profundo.
 
 *** Pruebas mínimas
 
-#+begin_src clips
-(assert (solicitud (nombre "") (correo "a@b.com") (edad 20) (acepta-terminos TRUE)))
-(assert (solicitud (nombre "Ana") (correo "ana.b.com") (edad 20) (acepta-terminos TRUE)))
-(assert (solicitud (nombre "Ana") (correo "ana@b.com") (edad 20) (acepta-terminos FALSE)))
-(assert (solicitud (nombre "Ana") (correo "ana@b.com") (edad 20) (acepta-terminos TRUE)))
+#+begin_src lisp
+(procesar-solicitud "" "a@b.com" 20 t)
+(procesar-solicitud "Ana" "ana.b.com" 20 t)
+(procesar-solicitud "Ana" "ana@b.com" 20 nil)
+(procesar-solicitud "Ana" "ana@b.com" 20 t)
 #+end_src
 
 *** Criterio
-El camino feliz no debe estar escondido en un =else= de 4 niveles.
+El camino feliz queda *al final*, al ras, no escondido en el =else= de 4 niveles.
 
-** Ejercicio 4 — =case / switch=: roles de un sistema escolar
+** Ejercicio 4 — =case=: roles de un sistema escolar
 
 *** Objetivo
-Validar un *valor discreto* con =switch=, no con una torre de =if (eq ...)=.
+Validar un *símbolo discreto* con =case=. =case= compara con =eql=, por eso el rol debe ser un *símbolo*, no un string.
 
 *** Enunciado
-Escribe =(deffunction permiso-por-rol (?rol))=
+Escribe =(defun permiso-por-rol (rol) ...)=
 
-| ?rol      | Mensaje                              | Retorno |
+| rol       | Mensaje                              | Retorno |
 |-----------+--------------------------------------+---------|
-| =admin=   | "Puede crear usuarios y materias"    | TRUE    |
-| =docente= | "Puede calificar y pasar lista"      | TRUE    |
-| =alumno=  | "Puede consultar calificaciones"     | TRUE    |
-| =padre=   | "Puede ver boleta de sus hijos"      | TRUE    |
-| otro      | "Rol no reconocido"                  | FALSE   |
+| =admin=   | "Puede crear usuarios y materias"    | T       |
+| =docente= | "Puede calificar y pasar lista"      | T       |
+| =alumno=  | "Puede consultar calificaciones"     | T       |
+| =padre=   | "Puede ver boleta de sus hijos"      | T       |
+| otro      | "Rol no reconocido"                  | NIL     |
 
-El =default= es obligatorio.
+Usa =otherwise= (o =t=) para el caso por defecto.
 
 *** Pruebas mínimas
 
-#+begin_src clips
-(permiso-por-rol admin)
-(permiso-por-rol docente)
-(permiso-por-rol invitado)
+#+begin_src lisp
+(permiso-por-rol 'admin)
+(permiso-por-rol 'docente)
+(permiso-por-rol 'invitado)
+(permiso-por-rol "admin")   ; debe fallar: string no es eql al símbolo admin
 #+end_src
 
 *** Criterio
-Cero =if= en esta función. Solo =switch / case / default=.
+Cero =if= en esta función. Solo =case=. Si alguien pasa el string ="admin"=, el =otherwise= lo rechaza: eso es correcto y hay que *documentarlo* en un comentario de una línea.
 
-** Ejercicio 5 — =case= con rangos: semáforo de promedio
+** Ejercicio 5 — =cond=: semáforo de promedio
 
 *** Objetivo
-Usar el truco =(switch TRUE (case (<predicado>) then ...))=.
+=case= *no* sirve para rangos (=< 60=, =< 80=…). Ahí entra =cond=: la primera cláusula verdadera gana.
 
 *** Enunciado
-Escribe =(deffunction semaforo-promedio (?p))=
+Escribe =(defun semaforo-promedio (p) ...)=
 
-Validaciones previas con =if= (aquí sí se permite, *antes* del =switch=):
+Validación previa con =unless= (sí se permite, *antes* del =cond=):
 
-- Si =?p= no es número (=numberp=) → error.
-- Si =?p < 0= o =?p > 100= → error ="Promedio fuera de [0, 100]"=.
+- *unless* =(numberp p)= → error
+- *unless* =p= está en =[0, 100]= → error ="Promedio fuera de [0, 100]"=
 
-Luego el =switch TRUE=:
+Luego el =cond=:
 
-| Condición           | Color    | Significado        |
-|---------------------+----------+--------------------|
-| =?p < 60=           | ROJO     | Reprobado          |
-| =?p < 80=           | AMARILLO | Regular            |
-| =?p < 90=           | VERDE    | Bien               |
-| resto               | ORO      | Excelencia         |
+| Condición        | Color    | Significado |
+|------------------+----------+-------------|
+| =(< p 60)=       | ROJO     | Reprobado   |
+| =(< p 80)=       | AMARILLO | Regular     |
+| =(< p 90)=       | VERDE    | Bien        |
+| =t= (resto)      | ORO      | Excelencia  |
 
-Devuelve =TRUE= si el número era válido (aunque el alumno esté reprobado: el *dato* es válido). El color es el mensaje.
+Devuelve =T= si el *dato* era válido (aunque el alumno esté reprobado). El color va en el mensaje.
 
 *** Pruebas mínimas
 
-#+begin_src clips
+#+begin_src lisp
 (semaforo-promedio 45)
 (semaforo-promedio 75)
 (semaforo-promedio 88)
@@ -6992,160 +6974,164 @@ Devuelve =TRUE= si el número era válido (aunque el alumno esté reprobado: el 
 #+end_src
 
 *** Criterio
-El color *no* puede decidirse con =if= anidados. El =switch= debe respetar el orden (el primer =case= verdadero gana).
+El color *no* puede decidirse con =if= anidados ni con =case=. El orden de las cláusulas de =cond= importa.
 
 ** Ejercicio 6 — =and / or / not= + =if=: alta de usuario
 
 *** Objetivo
-Combinar varias condiciones en *una* expresión booleana, no en cinco =if= sueltos.
+Combinar varias condiciones en *una* expresión, no en cinco =if= sueltos.
 
 *** Enunciado
-Escribe =(deffunction alta-usuario (?user ?pass ?edad ?pais ?bloqueado))=
+Escribe =(defun alta-usuario (user pass edad pais bloqueado) ...)=
 
-Aceptar (=TRUE=) *solo si se cumplen todas*:
+Aceptar (=T=) *solo si se cumplen todas*:
 
-1. =(str-length ?user) >= 4=
-2. =(str-length ?pass) >= 8=
-3. =?edad >= 13=
-4. =?pais= es ="MX"= *o* ="CO"= *o* ="AR"= (usa =or=)
-5. =?bloqueado= *no* es =TRUE= (usa =not=)
+1. =(>= (length user) 4)= y =user= es string
+2. =(>= (length pass) 8)= y =pass= es string
+3. =(>= edad 13)=
+4. =pais= es ="MX"= *o* ="CO"= *o* ="AR"= (usa =or= y =string==)
+5. =bloqueado= *no* es verdadero (usa =not=)
 
 Un solo =if= principal:
 
-#+begin_src clips
-(if (and <c1> <c2> <c3> <c4> <c5>)
-    then (reportar-ok "Usuario dado de alta")
-    else (reportar-error "Alta rechazada"))
+#+begin_src lisp
+(if (and ...)
+    (reportar-ok "Usuario dado de alta")
+    (reportar-error "Alta rechazada"))
 #+end_src
 
-*Extra (opcional, +1):* si falla, indica *cuál* fue la primera condición falsa. Eso ya puede usar =when= encadenados *después* del rechazo.
+*Extra (opcional):* si falla, con =when= encadenados indica *cuál* condición falló.
 
 *** Pruebas mínimas
 
-#+begin_src clips
-(alta-usuario "ana" "secreto1" 20 "MX" FALSE)     ; ok
-(alta-usuario "ana" "secreto1" 20 "US" FALSE)     ; país
-(alta-usuario "ana" "secreto1" 20 "MX" TRUE)      ; bloqueado
-(alta-usuario "an"  "secreto1" 20 "MX" FALSE)     ; user corto
+#+begin_src lisp
+(alta-usuario "ana" "secreto1" 20 "MX" nil)   ; ok
+(alta-usuario "ana" "secreto1" 20 "US" nil)   ; país
+(alta-usuario "ana" "secreto1" 20 "MX" t)     ; bloqueado
+(alta-usuario "an"  "secreto1" 20 "MX" nil)   ; user corto
 #+end_src
 
 *** Criterio
-La decisión final debe vivir en un =(and ...)=, no en =if= anidados de 5 niveles.
+La decisión final vive en un =(and ...)=. Prohibido un =if= anidado de 5 niveles para decidir el =T=/ =NIL=.
 
-** Ejercicio 7 — reglas + =if=: triage de consultorio
-
-*** Objetivo
-Mezclar el motor de reglas (=defrule=) con un =if= *dentro* de la acción. La validación no siempre es una función suelta.
-
-*** Enunciado
-#+begin_src clips
-(deftemplate paciente
-   (slot nombre)
-   (slot edad)
-   (slot temperatura)      ; °C
-   (slot dolor-pecho)      ; TRUE/FALSE
-   (slot saturacion))      ; % SpO2
-#+end_src
-
-Regla =clasificar-triage=:
-
-1. *Unless* temperatura, edad y saturación son números → imprimir error y =retract= del hecho. No clasificar.
-2. Dentro de la regla, un =if / else= (o =switch TRUE=) asigna color:
-   - ROJO si =(or ?dolor-pecho (< ?saturacion 90) (>= ?temperatura 40) (< ?edad 1))=
-   - NARANJA si =(or (>= ?temperatura 38.5) (< ?saturacion 94))=
-   - VERDE en otro caso
-3. Imprime ="<nombre> → TRIAGE <color>"=.
-
-*** Hechos de prueba
-
-#+begin_src clips
-(deffacts consultorio
-   (paciente (nombre "Luis") (edad 40) (temperatura 36.8) (dolor-pecho FALSE) (saturacion 98))
-   (paciente (nombre "Mia")  (edad 7)  (temperatura 39.2) (dolor-pecho FALSE) (saturacion 96))
-   (paciente (nombre "Sol")  (edad 55) (temperatura 37.0) (dolor-pecho TRUE)  (saturacion 97))
-   (paciente (nombre "Bebe") (edad 0)  (temperatura 37.2) (dolor-pecho FALSE) (saturacion 99)))
-#+end_src
-
-*** Criterio
-Debe haber *al menos un* =unless= (guardián de tipos) y *un* =if= o =switch= de clasificación. Con =(reset)= y =(run)= se ven los cuatro resultados.
-
-** Ejercicio 8 — =case= de códigos: paquetería
+** Ejercicio 7 — =typecase=: triage según el tipo del dato
 
 *** Objetivo
-Un validador de *código de servicio* + un =when= de recargo.
+A veces lo que llega *ni siquiera es del tipo esperado*. =typecase= ramifica por tipo.
 
 *** Enunciado
-Escribe =(deffunction cotizar-envio (?codigo ?peso ?zona-riesgo))=
+Escribe =(defun clasificar-triage (dato) ...)=
 
-=switch= sobre =?codigo=:
+=dato= puede ser:
 
-| Código | Servicio    | Costo base | Peso máximo (kg) |
-|--------+-------------+------------+------------------|
-| EST    | Estándar    | 80         | 20               |
-| EXP    | Express     | 160        | 10               |
-| NOC    | Nocturno    | 220        | 5                |
-| INT    | Internacional | 450      | 15               |
-| otro   | —           | error      | —                |
+- un *número* (temperatura en °C):
+  - =(< dato 35)= → HIPOTERMIA
+  - =(<= 35 dato 37.5)= → NORMAL
+  - =(<= 37.5 dato 39)= → FIEBRE
+  - =t= → FIEBRE ALTA
+- un *string* con uno de: ="rojo"= ="naranja"= ="verde"= (usa =cond= + =string-equal= dentro de la rama =string=)
+- una *lista* =(nombre temperatura)= → clasifica la temperatura y antepone el nombre
+- cualquier otra cosa → error ="Tipo no soportado"=
 
-Después del =switch= (si el código fue válido):
+Esqueleto:
 
-1. *Unless* =(?peso <= peso-max)= → error ="Excede peso del servicio"=, =FALSE=.
-2. *When* =?zona-riesgo= es =TRUE= → suma 40 al costo e imprime ="Recargo zona de riesgo +40"=.
-3. Imprime costo final y =TRUE=.
+#+begin_src lisp
+(defun clasificar-triage (dato)
+  (typecase dato
+    (number ...)
+    (string ...)
+    (list   ...)
+    (t (reportar-error "Tipo no soportado"))))
+#+end_src
 
 *** Pruebas mínimas
 
-#+begin_src clips
-(cotizar-envio EST 3.0 FALSE)
-(cotizar-envio EXP 12.0 FALSE)   ; excede peso
-(cotizar-envio NOC 2.0 TRUE)     ; recargo
-(cotizar-envio XXX 1.0 FALSE)    ; código inválido
+#+begin_src lisp
+(clasificar-triage 36.8)
+(clasificar-triage 39.5)
+(clasificar-triage "rojo")
+(clasificar-triage '("Mia" 38.2))
+(clasificar-triage 'paciente)
 #+end_src
 
 *** Criterio
-El código se decide con =case=. El recargo *no* puede ser un =else=: es un =when= (se aplica o no, pero el envío sigue siendo válido).
+Tiene que haber un =typecase= de primer nivel. La rama =number= puede usar =cond= por rangos.
 
-** Ejercicio 9 — formulario completo
+** Ejercicio 8 — =case= de códigos + =when= de recargo (paquetería)
 
 *** Objetivo
-Un solo flujo real de registro que *obligue* a usar los cuatro estilos.
+Un validador de *código de servicio* (símbolo) y un =when= que *suma recargo* sin rechazar.
 
 *** Enunciado
-#+begin_src clips
-(deftemplate registro
-   (slot usuario)
-   (slot correo)
-   (slot edad)
-   (slot rol)            ; alumno | docente | admin
-   (slot plan)           ; libre | pro | campus
-   (slot password)
-   (slot acepta-terminos))
+Escribe =(defun cotizar-envio (codigo peso zona-riesgo) ...)=
+
+=case= sobre =codigo=:
+
+| Código | Servicio        | Costo base | Peso máximo (kg) |
+|--------+-----------------+------------+------------------|
+| =est=  | Estándar        | 80         | 20               |
+| =exp=  | Express         | 160        | 10               |
+| =noc=  | Nocturno        | 220        | 5                |
+| =int=  | Internacional   | 450        | 15               |
+| otro   | —               | error      | —                |
+
+Después del =case= (si el código fue válido):
+
+1. *unless* =(<= peso peso-max)= → error ="Excede peso del servicio"=, =NIL=.
+2. *when* =zona-riesgo= es verdadero → suma 40 al costo e imprime ="Recargo zona de riesgo +40"=.
+3. Imprime costo final y =T=.
+
+Pista: =case= puede devolver *varios valores* con =(values base max nombre)=, o puedes usar una lista =(base max nombre)=.
+
+*** Pruebas mínimas
+
+#+begin_src lisp
+(cotizar-envio 'est 3.0 nil)
+(cotizar-envio 'exp 12.0 nil)   ; excede peso
+(cotizar-envio 'noc 2.0 t)      ; recargo
+(cotizar-envio 'xxx 1.0 nil)    ; código inválido
 #+end_src
 
-Función =(deffunction validar-registro (?r))= — o una regla =aplicar-validacion=. Debe, en este orden:
+*** Criterio
+El código se decide con =case=. El recargo *no* es un =else=: es un =when= (el envío sigue siendo válido).
 
-1. *Unless* términos aceptados → rechazo inmediato.
-2. *if / else* para la edad: menor de 13 rechazado; entre 13 y 17 solo si =plan= es ="campus"= (cuenta tutelada); 18+ cualquier plan.
-3. *case* sobre =rol= para decidir el *prefijo* de cuenta: =a/=, =d/=, =s/= (admin). Rol inválido → =FALSE=.
-4. *case* sobre =plan= para cuota mensual: libre=0, pro=99, campus=0. Plan inválido → =FALSE=.
-5. *when* =(eq ?rol admin)= → aviso ="Admin creado: revisa bitácora de auditoría"=.
-6. *when* password corta o común (reutiliza ejercicio 2) → avisos, pero *no* rechaces si ya pasó lo demás.
-7. Si todo lo bloqueante pasó → imprime usuario final (prefijo+usuario), cuota y =TRUE=.
+*Extra:* si quieres que un código desconocido *señale error de Lisp* (no solo =NIL=), usa =ecase= en una variante y documenta la diferencia.
 
-*** Hechos de prueba (mínimo 5)
+** Ejercicio 9 — formulario completo: mezclar =if=, =when=, =unless= y =case=
 
-| usuario | edad | rol     | plan   | términos | Esperado   |
-|---------+------+---------+--------+----------+------------|
-| lu      | 20   | alumno  | pro    | TRUE     | OK         |
-| pepe    | 15   | alumno  | pro    | TRUE     | rechazado (menor + plan no campus) |
-| nina    | 16   | alumno  | campus | TRUE     | OK tutelada |
-| root    | 30   | admin   | libre  | TRUE     | OK + aviso auditoría |
-| x       | 22   | alumno  | pro    | FALSE    | unless términos |
+*** Objetivo
+Un solo flujo de registro que *obligue* a usar los cuatro.
+
+*** Enunciado
+Escribe =(defun validar-registro (usuario correo edad rol plan password acepta-terminos) ...)=
+
+En este orden:
+
+1. *unless* términos aceptados → rechazo inmediato.
+2. *if* para la edad:
+   - menor de 13 → rechazado
+   - entre 13 y 17 → solo si =plan= es el símbolo =campus= (cuenta tutelada)
+   - 18+ → cualquier plan
+3. *case* sobre =rol= (=alumno= =docente= =admin=) para el *prefijo* de cuenta: ="a/"=, ="d/"=, ="s/"=. Rol inválido → =NIL=.
+4. *case* sobre =plan= (=libre= =pro= =campus=) para cuota mensual: 0, 99, 0. Plan inválido → =NIL=.
+5. *when* =(eq rol 'admin)= → aviso ="Admin creado: revisa bitácora de auditoría"=.
+6. *when* password corta o común (reutiliza =avisar-password=) → avisos, *sin* rechazar.
+7. Si lo bloqueante pasó → imprime cuenta (prefijo+usuario), cuota y =T=.
+
+*** Pruebas mínimas (cinco casos)
+
+| usuario | edad | rol      | plan     | términos | Esperado                          |
+|---------+------+----------+----------+----------+-----------------------------------|
+| lu      |   20 | alumno   | pro      | T        | OK                                |
+| pepe    |   15 | alumno   | pro      | T        | rechazado (menor + plan no campus)|
+| nina    |   16 | alumno   | campus   | T        | OK tutelada                       |
+| root    |   30 | admin    | libre    | T        | OK + aviso auditoría              |
+| x       |   22 | alumno   | pro      | NIL      | unless términos                   |
 
 *** Criterio de autoevaluación
-Marca con un comentario en el código *dónde* está cada constructo:
+Marca en el código *dónde* está cada constructo:
 
-#+begin_src clips
+#+begin_src lisp
 ;; [UNLESS] terminos
 ;; [IF] edad / plan
 ;; [CASE] rol
@@ -7156,96 +7142,85 @@ Marca con un comentario en el código *dónde* está cada constructo:
 
 Si no puedes poner esas seis etiquetas, el ejercicio está incompleto.
 
-** Ejercicio 10 — mini sistema experto: crédito escolar
+** Ejercicio 10 — mini sistema: crédito escolar
 
 *** Objetivo
-Integrar *hechos + reglas + funciones de validación*. Ya no es un =if= suelto: es un sistema que decide.
+Integrar estructuras (=defstruct=) + varias funciones de validación. Ya no es un =if= suelto: es un módulo.
 
 *** Enunciado
 Un alumno pide un *crédito de material* (tableta, libros). El sistema acepta, rechaza o manda a *revisión humana*.
 
-#+begin_src clips
-(deftemplate solicitante
-   (slot nombre)
-   (slot promedio)          ; 0-100
-   (slot materias-reprobadas)
-   (slot beca)              ; TRUE/FALSE
-   (slot monto)             ; pesos
-   (slot historial)         ; limpio | atrasos | desconocido
-   (slot semestre))         ; 1-10
+#+begin_src lisp
+(defstruct solicitante
+  nombre
+  promedio              ; 0-100
+  materias-reprobadas
+  beca                  ; T / NIL
+  monto                 ; pesos
+  historial             ; limpio | atrasos | desconocido
+  semestre)             ; 1-10
 #+end_src
 
 Implementa:
 
-1. Función =validar-solicitante= con *unless* de tipos y rangos (promedio en [0,100], monto > 0, semestre en 1..10). Si algo falla, ni siquiera entra al motor.
-2. Función =categoria-monto= con *case/switch TRUE*:
-   - monto < 2000 → bajo
-   - monto < 8000 → medio
-   - resto → alto
-3. Función =veredicto-historial= con *case* sobre el símbolo =historial=:
-   - =limpio= → 0 (penalización)
+1. =validar-solicitante= con *unless* de tipos y rangos (promedio en [0,100], monto > 0, semestre en 1..10). Si algo falla, ni entra a decidir.
+2. =categoria-monto= con *cond*:
+   - monto < 2000 → =bajo=
+   - monto < 8000 → =medio=
+   - resto → =alto=
+3. =penalizacion-historial= con *case* sobre el símbolo:
+   - =limpio= → 0
    - =atrasos= → 2
    - =desconocido= → 1
-   - otro → 99 (invalida)
-4. Regla =decidir-credito= que usa =if= para el veredicto final:
-   - *Rechazo automático* si =(or (>= materias-reprobadas 3) (< promedio 70) (>= penalizacion 99))=
-   - *Aprobado* si promedio ≥ 85 *y* historial limpio *y* (monto bajo *o* tiene beca)
-   - *Revisión humana* en cualquier otro caso válido
-5. *When* beca es =TRUE= y el veredicto no es rechazo → imprime ="Prioridad: solicitante becado"=.
+   - =otherwise= → 99 (invalida)
+4. =decidir-credito= que usa =if= / =cond= para el veredicto:
+   - *Rechazo* si =(or (>= reprobadas 3) (< promedio 70) (>= penalizacion 99))=
+   - *Aprobado* si promedio ≥ 85 *y* historial =limpio= *y* (monto bajo *o* tiene beca)
+   - *Revisión* en cualquier otro caso ya validado
+5. *when* beca es verdadera *y* el veredicto no es rechazo → imprime ="Prioridad: solicitante becado"=.
+6. =ronda-credito= recorre una *lista* de =solicitante= y llama a =decidir-credito= en cada uno.
 
 *** Banco de hechos (cárgalos todos)
 
-#+begin_src clips
-(deffacts ronda-credito
-   (solicitante (nombre "Ana")  (promedio 92) (materias-reprobadas 0)
-                (beca TRUE)  (monto 1500) (historial limpio)      (semestre 4))
-   (solicitante (nombre "Beto") (promedio 68) (materias-reprobadas 1)
-                (beca FALSE) (monto 3000) (historial limpio)      (semestre 3))
-   (solicitante (nombre "Cris") (promedio 80) (materias-reprobadas 0)
-                (beca FALSE) (monto 9000) (historial atrasos)     (semestre 6))
-   (solicitante (nombre "Dani") (promedio 88) (materias-reprobadas 0)
-                (beca FALSE) (monto 4000) (historial limpio)      (semestre 2))
-   (solicitante (nombre "Eva")  (promedio 90) (materias-reprobadas 0)
-                (beca TRUE)  (monto 5000) (historial desconocido) (semestre 8)))
+#+begin_src lisp
+(defparameter *ronda*
+  (list
+   (make-solicitante :nombre "Ana"  :promedio 92 :materias-reprobadas 0
+                     :beca t   :monto 1500 :historial 'limpio      :semestre 4)
+   (make-solicitante :nombre "Beto" :promedio 68 :materias-reprobadas 1
+                     :beca nil :monto 3000 :historial 'limpio      :semestre 3)
+   (make-solicitante :nombre "Cris" :promedio 80 :materias-reprobadas 0
+                     :beca nil :monto 9000 :historial 'atrasos     :semestre 6)
+   (make-solicitante :nombre "Dani" :promedio 88 :materias-reprobadas 0
+                     :beca nil :monto 4000 :historial 'limpio      :semestre 2)
+   (make-solicitante :nombre "Eva"  :promedio 90 :materias-reprobadas 0
+                     :beca t   :monto 5000 :historial 'desconocido :semestre 8)))
 #+end_src
 
 Salida esperada (el texto puede variar; *la decisión* no):
 
-| Nombre | Decisión         | Por qué (idea)                          |
-|--------+------------------+-----------------------------------------|
-| Ana    | APROBADO         | Alto promedio, limpio, monto bajo, beca |
-| Beto   | RECHAZADO        | Promedio < 70                           |
-| Cris   | REVISION         | Monto alto + atrasos                    |
-| Dani   | REVISION         | Bien pero monto medio sin beca          |
-| Eva    | REVISION         | Historial desconocido (o APROBADO si argumentas beca+promedio; documenta tu regla) |
+| Nombre | Decisión   | Por qué                                          |
+|--------+------------+--------------------------------------------------|
+| Ana    | APROBADO   | Alto promedio, limpio, monto bajo, beca          |
+| Beto   | RECHAZADO  | Promedio < 70                                    |
+| Cris   | REVISION   | Monto alto + atrasos                             |
+| Dani   | REVISION   | Bien pero monto medio sin beca                   |
+| Eva    | REVISION   | Historial desconocido no cuenta como limpio      |
 
-Para Eva: elige *una* política, escríbela en un comentario de 2 líneas y cúmplela. No hay trampa: hay que *declarar* el criterio.
+Para Eva: historial =desconocido= *nunca* es =limpio=, así que no entra en APROBADO aunque tenga beca. Documenta esa política en un comentario de 2 líneas.
 
 *** Criterio final del taller
-El archivo debe cargar sin errores, =(reset) (run)= produce una línea por solicitante, y en el código se identifican =if=, =when=, =unless= y =case=.
+El archivo debe cargar en CLISP sin errores, =(ronda-credito *ronda*)= imprime una línea por persona, y en el código se identifican =if=, =when=, =unless= y =case=.
 
 ** Lista de cotejo antes de entregar
 
-- [ ] Ej. 1: solo =if/else=, tipos con =integerp=
-- [ ] Ej. 2: tres =when= (sin =else=), siempre =TRUE=
-- [ ] Ej. 3: guardianes =unless=, sin anidación profunda
-- [ ] Ej. 4: =switch= de roles con =default=
-- [ ] Ej. 5: =switch TRUE= para rangos
+- [ ] Ej. 1: solo =if=, tipos con =integerp=
+- [ ] Ej. 2: tres =when=, siempre =T=
+- [ ] Ej. 3: guardianes =unless= + =return-from=
+- [ ] Ej. 4: =case= de símbolos con =otherwise=
+- [ ] Ej. 5: =cond= para rangos (no =case=)
 - [ ] Ej. 6: un =(and ... or ... not ...)=
-- [ ] Ej. 7: =defrule= + validación de tipos
+- [ ] Ej. 7: =typecase= de primer nivel
 - [ ] Ej. 8: =case= de códigos + =when= de recargo
 - [ ] Ej. 9: los cuatro constructos etiquetados
-- [ ] Ej. 10: sistema experto con 5 hechos y veredicto
-
-** Errores frecuentes en CLIPS
-
-| Error típico                                      | Qué hacer                                              |
-|---------------------------------------------------+--------------------------------------------------------|
-| Olvidar =then= después del =if= o del =case=      | La palabra =then= *no* es opcional.                    |
-| Comparar strings con =eq= al revés                | =(eq ?correo "@")= busca igualdad total, no substring. |
-| Usar === en vez de =eq= para símbolos             | =eq= para símbolos y strings; == para números.         |
-| =(if (and) ...)= mal parentizado                  | Cuenta paréntesis; Emacs lo hace con =show-paren-mode=. |
-| Esperar que =when= exista como primitiva          | En CLIPS se escribe =(if cond then ...)=.              |
-| =switch= sobre rangos sin =TRUE=                  | =(switch TRUE (case (< ?x 10) then ...))=              |
-| No hacer =(reset)= después de =deffacts=          | Sin =reset= los hechos iniciales no existen.           |
-
+- [ ] Ej. 10: =defstruct= + 5 solicitantes y veredicto
